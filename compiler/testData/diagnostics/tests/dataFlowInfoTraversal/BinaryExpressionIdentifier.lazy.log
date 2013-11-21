@@ -1,0 +1,37 @@
+LazyJavaPackageFragmentProvider@18 {
+    _packageFragments('<root>': FqName@19) = LazyJavaPackageFragment@0['<root>']
+    _packageFragments('Int': FqName@28) = null
+    _packageFragments('Number': FqName@25) = null
+    _packageFragments('java': FqName@20) = LazyJavaPackageFragment@12['java']
+    _packageFragments('java.lang': FqName@21) = LazyJavaPackageFragment@8['lang']
+    _packageFragments('java.lang.Int': FqName@30) = null
+    _packageFragments('java.lang.Number': FqName@27) = null
+    _packageFragments('kotlin': FqName@22) = null
+    _packageFragments('kotlin.Int': FqName@29) = null
+    _packageFragments('kotlin.Number': FqName@26) = null
+    _packageFragments('kotlin.io': FqName@24) = null
+    _packageFragments('kotlin.jvm': FqName@23) = null
+}
+
+LazyJavaPackageFragment@0['<root>'] {
+    _functions('compareTo': Name@6) = LinkedHashSet@7[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('Int': Name@3) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('Number': Name@1) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('compareTo': Name@6) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@4 // through LazyPackageFragmentScopeForJavaPackage@2
+    memberIndex = computeMemberIndex$1@5 // through LazyPackageFragmentScopeForJavaPackage@2
+}
+
+LazyJavaPackageFragment@12['java'] {
+    _functions('lang': Name@16) = LinkedHashSet@17[empty] // through LazyPackageFragmentScopeForJavaPackage@14
+    classes('lang': Name@13) = null // through LazyPackageFragmentScopeForJavaPackage@14
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@4 // through LazyPackageFragmentScopeForJavaPackage@14
+    memberIndex = computeMemberIndex$1@15 // through LazyPackageFragmentScopeForJavaPackage@14
+}
+
+LazyJavaPackageFragment@8['lang'] {
+    _functions('compareTo': Name@6) = LinkedHashSet@11[empty] // through LazyPackageFragmentScopeForJavaPackage@9
+    classes('compareTo': Name@6) = null // through LazyPackageFragmentScopeForJavaPackage@9
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@4 // through LazyPackageFragmentScopeForJavaPackage@9
+    memberIndex = computeMemberIndex$1@10 // through LazyPackageFragmentScopeForJavaPackage@9
+}

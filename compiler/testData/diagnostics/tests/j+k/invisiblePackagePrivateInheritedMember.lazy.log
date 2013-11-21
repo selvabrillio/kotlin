@@ -1,0 +1,77 @@
+LazyJavaClassDescriptor@9['F'] {
+    _constructors = ArrayList@12[1] { JavaConstructorDescriptor@13['<init>'] } // through LazyJavaClassMemberScope@14
+    _functionTypeForSamInterface = null
+    _properties('m': Name@5) = ArrayList@16[1] { PropertyDescriptorImpl@17['m'] } // through LazyJavaClassMemberScope@14
+    _typeConstructor = LazyJavaClassTypeConstructor@10['F']
+    defaultType = JetTypeImpl@11
+    enumEntryIndex = LinkedHashMap@19 // through LazyJavaClassMemberScope@14
+    memberIndex = computeMemberIndex$1@15 // through LazyJavaClassMemberScope@14
+    nestedClassIndex = LinkedHashMap@18 // through LazyJavaClassMemberScope@14
+    nestedClasses('m': Name@5) = null // through LazyJavaClassMemberScope@14
+}
+
+LazyJavaClassDescriptor@0['M'] {
+    _properties('m': Name@5) = ArrayList@6[1] { JavaPropertyDescriptor@7['m'] } // through LazyJavaClassMemberScope@3
+    _typeConstructor = LazyJavaClassTypeConstructor@1['M']
+    defaultType = JetTypeImpl@8
+    memberIndex = computeMemberIndex$1@2 // through LazyJavaClassMemberScope@3
+    thisAsReceiverParameter = LazyClassReceiverParameterDescriptor@4['<this>']
+}
+
+LazyJavaClassTypeConstructor@10['F'] {
+    _parameters = ArrayList@29[empty]
+    _supertypes = ArrayList@30[1] { LazyJavaClassifierType@31['M'] }
+}
+
+LazyJavaClassTypeConstructor@1['M'] {
+    _parameters = ArrayList@62[empty]
+    _supertypes = ArrayList@60[1] { JetTypeImpl@61 }
+}
+
+LazyJavaClassifierType@31['M'] {
+    _arguments = ArrayList@49[empty]
+    _memberScope = LazyJavaClassMemberScope@3
+    _typeConstructor = LazyJavaClassTypeConstructor@1['M']
+    classifier = JavaClassImpl@48['M']
+}
+
+LazyJavaClassifierType@20['Object'] {
+    _typeConstructor = DeserializedClassTypeConstructor@22
+    classifier = JavaClassImpl@21['Object']
+}
+
+LazyJavaPackageFragmentProvider@32 {
+    _packageFragments('<root>': FqName@33) = LazyJavaPackageFragment@34['<root>']
+    _packageFragments('a': FqName@46) = LazyJavaPackageFragment@47['a']
+    _packageFragments('b': FqName@42) = LazyJavaPackageFragment@43['b']
+    _packageFragments('b.F': FqName@44) = null
+    _packageFragments('c': FqName@35) = null
+    _packageFragments('java': FqName@36) = LazyJavaPackageFragment@37['java']
+    _packageFragments('java.lang': FqName@38) = LazyJavaPackageFragment@23['lang']
+    _packageFragments('kotlin': FqName@39) = null
+    _packageFragments('kotlin.io': FqName@41) = null
+    _packageFragments('kotlin.jvm': FqName@40) = null
+    topLevelClasses(JavaClassImpl@45['F']) = LazyJavaClassDescriptor@9['F']
+    topLevelClasses(JavaClassImpl@48['M']) = LazyJavaClassDescriptor@0['M']
+}
+
+LazyJavaPackageFragment@43['b'] {
+    _functions('F': Name@58) = LinkedHashSet@59[empty] // through LazyPackageFragmentScopeForJavaPackage@56
+    classes('F': Name@55) = LazyJavaClassDescriptor@9['F'] // through LazyPackageFragmentScopeForJavaPackage@56
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@24 // through LazyPackageFragmentScopeForJavaPackage@56
+    memberIndex = computeMemberIndex$1@57 // through LazyPackageFragmentScopeForJavaPackage@56
+}
+
+LazyJavaPackageFragment@37['java'] {
+    _functions('lang': Name@53) = LinkedHashSet@54[empty] // through LazyPackageFragmentScopeForJavaPackage@51
+    classes('lang': Name@50) = null // through LazyPackageFragmentScopeForJavaPackage@51
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@24 // through LazyPackageFragmentScopeForJavaPackage@51
+    memberIndex = computeMemberIndex$1@52 // through LazyPackageFragmentScopeForJavaPackage@51
+}
+
+LazyJavaPackageFragment@23['lang'] {
+    _functions('F': Name@27) = LinkedHashSet@28[empty] // through LazyPackageFragmentScopeForJavaPackage@25
+    classes('F': Name@27) = null // through LazyPackageFragmentScopeForJavaPackage@25
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@24 // through LazyPackageFragmentScopeForJavaPackage@25
+    memberIndex = computeMemberIndex$1@26 // through LazyPackageFragmentScopeForJavaPackage@25
+}

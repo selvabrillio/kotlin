@@ -1,0 +1,36 @@
+DescriptorResolver@0 {
+    <name not found> = JetTypeImpl@1
+}
+
+LazyJavaPackageFragmentProvider@2 {
+    _packageFragments('<root>': FqName@3) = LazyJavaPackageFragment@4['<root>']
+    _packageFragments('A': FqName@12) = null
+    _packageFragments('B': FqName@18) = null
+    _packageFragments('MutableCollection': FqName@15) = null
+    _packageFragments('MutableList': FqName@21) = null
+    _packageFragments('java': FqName@5) = LazyJavaPackageFragment@6['java']
+    _packageFragments('java.lang': FqName@7) = LazyJavaPackageFragment@8['lang']
+    _packageFragments('java.lang.A': FqName@14) = null
+    _packageFragments('java.lang.B': FqName@20) = null
+    _packageFragments('java.lang.MutableCollection': FqName@17) = null
+    _packageFragments('java.lang.MutableList': FqName@23) = null
+    _packageFragments('kotlin': FqName@9) = null
+    _packageFragments('kotlin.A': FqName@13) = null
+    _packageFragments('kotlin.B': FqName@19) = null
+    _packageFragments('kotlin.MutableCollection': FqName@16) = null
+    _packageFragments('kotlin.MutableList': FqName@22) = null
+    _packageFragments('kotlin.io': FqName@11) = null
+    _packageFragments('kotlin.jvm': FqName@10) = null
+}
+
+LazyJavaPackageFragment@4['<root>'] {
+    classes('MutableCollection': Name@24) = null // through LazyPackageFragmentScopeForJavaPackage@25
+    classes('MutableList': Name@26) = null // through LazyPackageFragmentScopeForJavaPackage@25
+}
+
+LazyJavaPackageFragment@6['java'] {
+    _functions('lang': Name@31) = LinkedHashSet@32[empty] // through LazyPackageFragmentScopeForJavaPackage@28
+    classes('lang': Name@27) = null // through LazyPackageFragmentScopeForJavaPackage@28
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@29 // through LazyPackageFragmentScopeForJavaPackage@28
+    memberIndex = computeMemberIndex$1@30 // through LazyPackageFragmentScopeForJavaPackage@28
+}

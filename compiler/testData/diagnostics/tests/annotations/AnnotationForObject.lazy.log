@@ -1,0 +1,32 @@
+LazyAnnotationDescriptor@23 {
+    _resolutionResults = OverloadResolutionResultsImpl@25
+    _type = ErrorTypeImpl@24
+}
+
+LazyJavaPackageFragmentProvider@5 {
+    _packageFragments('<root>': FqName@6) = LazyJavaPackageFragment@0['<root>']
+    _packageFragments('Test': FqName@13) = null
+    _packageFragments('java': FqName@7) = LazyJavaPackageFragment@8['java']
+    _packageFragments('java.lang': FqName@9) = LazyJavaPackageFragment@3['lang']
+    _packageFragments('java.lang.someErrorAnnotation': FqName@16) = null
+    _packageFragments('kotlin': FqName@10) = null
+    _packageFragments('kotlin.io': FqName@12) = null
+    _packageFragments('kotlin.jvm': FqName@11) = null
+    _packageFragments('kotlin.someErrorAnnotation': FqName@15) = null
+    _packageFragments('someErrorAnnotation': FqName@14) = null
+}
+
+LazyJavaPackageFragment@0['<root>'] {
+    classes('someErrorAnnotation': Name@1) = null // through LazyPackageFragmentScopeForJavaPackage@2
+}
+
+LazyJavaPackageFragment@8['java'] {
+    _functions('lang': Name@21) = LinkedHashSet@22[empty] // through LazyPackageFragmentScopeForJavaPackage@18
+    classes('lang': Name@17) = null // through LazyPackageFragmentScopeForJavaPackage@18
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@19 // through LazyPackageFragmentScopeForJavaPackage@18
+    memberIndex = computeMemberIndex$1@20 // through LazyPackageFragmentScopeForJavaPackage@18
+}
+
+LazyJavaPackageFragment@3['lang'] {
+    classes('someErrorAnnotation': Name@1) = null // through LazyPackageFragmentScopeForJavaPackage@4
+}

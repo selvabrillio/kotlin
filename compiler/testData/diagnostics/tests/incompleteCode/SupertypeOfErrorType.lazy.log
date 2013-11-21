@@ -1,0 +1,301 @@
+LazyAnnotationDescriptor@140 {
+    _resolutionResults = OverloadResolutionResultsImpl@142
+    _type = JetTypeImpl@141
+    _valueArguments(ValueParameterDescriptorImpl@143['strategy']) = null
+}
+
+LazyJavaClassDescriptor@40['Comparator'] {
+    _allDescriptors = LinkedHashSet@105[4] { JavaMethodDescriptor@85['compare'], DeserializedSimpleFunctionDescriptor@90['hashCode'], DeserializedSimpleFunctionDescriptor@99['toString'], DeserializedSimpleFunctionDescriptor@104['equals'] } // through LazyJavaClassMemberScope@78
+    _annotations = LazyJavaAnnotations@106
+    _functionTypeForSamInterface = JetTypeImpl@75
+    _functions('clone': Name@100) = LinkedHashSet@101[empty] // through LazyJavaClassMemberScope@78
+    _functions('compare': Name@83) = LinkedHashSet@84[1] { JavaMethodDescriptor@85['compare'] } // through LazyJavaClassMemberScope@78
+    _functions('equals': Name@102) = LinkedHashSet@103[1] { DeserializedSimpleFunctionDescriptor@104['equals'] } // through LazyJavaClassMemberScope@78
+    _functions('finalize': Name@93) = LinkedHashSet@94[empty] // through LazyJavaClassMemberScope@78
+    _functions('getClass': Name@91) = LinkedHashSet@92[empty] // through LazyJavaClassMemberScope@78
+    _functions('hashCode': Name@88) = LinkedHashSet@89[1] { DeserializedSimpleFunctionDescriptor@90['hashCode'] } // through LazyJavaClassMemberScope@78
+    _functions('notify': Name@86) = LinkedHashSet@87[empty] // through LazyJavaClassMemberScope@78
+    _functions('notifyAll': Name@81) = LinkedHashSet@82[empty] // through LazyJavaClassMemberScope@78
+    _functions('toString': Name@97) = LinkedHashSet@98[1] { DeserializedSimpleFunctionDescriptor@99['toString'] } // through LazyJavaClassMemberScope@78
+    _functions('wait': Name@95) = LinkedHashSet@96[empty] // through LazyJavaClassMemberScope@78
+    _typeConstructor = LazyJavaClassTypeConstructor@73['Comparator']
+    defaultType = JetTypeImpl@76
+    enumEntryIndex = LinkedHashMap@79 // through LazyJavaClassMemberScope@78
+    memberIndex = computeMemberIndex$1@80 // through LazyJavaClassMemberScope@78
+    nestedClassIndex = LinkedHashMap@77 // through LazyJavaClassMemberScope@78
+    thisAsReceiverParameter = LazyClassReceiverParameterDescriptor@74['<this>']
+}
+
+LazyJavaClassDescriptor@37['Date'] {
+    _functionTypeForSamInterface = null
+    _functions('compareTo': Name@162) = LinkedHashSet@195[1] { JavaMethodDescriptor@196['compareTo'] } // through LazyJavaClassMemberScope@12
+    _functions('equals': Name@160) = LinkedHashSet@190[1] { JavaMethodDescriptor@191['equals'] } // through LazyJavaClassMemberScope@12
+    _properties('compareTo': Name@162) = ArrayList@197[empty] // through LazyJavaClassMemberScope@12
+    _properties('equals': Name@160) = ArrayList@194[empty] // through LazyJavaClassMemberScope@12
+    _typeConstructor = LazyJavaClassTypeConstructor@10['Date']
+    defaultType = JetTypeImpl@189
+    enumEntryIndex = LinkedHashMap@193 // through LazyJavaClassMemberScope@12
+    memberIndex = computeMemberIndex$1@187 // through LazyJavaClassMemberScope@12
+    nestedClassIndex = LinkedHashMap@192 // through LazyJavaClassMemberScope@12
+    nestedClasses('compareTo': Name@162) = null // through LazyJavaClassMemberScope@12
+    nestedClasses('equals': Name@160) = null // through LazyJavaClassMemberScope@12
+    thisAsReceiverParameter = LazyClassReceiverParameterDescriptor@188['<this>']
+}
+
+LazyJavaClassDescriptor@68['Serializable'] {
+    _functions('compareTo': Name@177) = LinkedHashSet@178[empty] // through LazyJavaClassMemberScope@139
+    _functions('equals': Name@172) = LinkedHashSet@173[1] { DeserializedSimpleFunctionDescriptor@174['equals'] } // through LazyJavaClassMemberScope@139
+    _properties('compareTo': Name@162) = ArrayList@179[empty] // through LazyJavaClassMemberScope@139
+    _properties('equals': Name@160) = ArrayList@176[empty] // through LazyJavaClassMemberScope@139
+    _typeConstructor = LazyJavaClassTypeConstructor@137['Serializable']
+    defaultType = JetTypeImpl@175
+    memberIndex = computeMemberIndex$1@171 // through LazyJavaClassMemberScope@139
+}
+
+LazyJavaClassTypeConstructor@73['Comparator'] {
+    _parameters = ArrayList@182[1] { LazyJavaTypeParameterDescriptor@2['T'] }
+    _supertypes = ArrayList@183[1] { JetTypeImpl@184 }
+}
+
+LazyJavaClassTypeConstructor@10['Date'] {
+    _parameters = ArrayList@168[empty]
+    _supertypes = ArrayList@169[3] { LazyJavaClassifierType@136['Serializable'], LazyJavaClassifierType@150['Cloneable'], LazyJavaClassifierType@170['Comparable<Date>'] }
+}
+
+LazyJavaClassTypeConstructor@137['Serializable'] {
+    _parameters = ArrayList@208[empty]
+    _supertypes = ArrayList@207[1] { JetTypeImpl@184 }
+}
+
+LazyJavaClassifierType@150['Cloneable'] {
+    _arguments = ArrayList@153[empty]
+    _memberScope = DeserializedClassMemberScope@154
+    _typeConstructor = DeserializedClassTypeConstructor@152
+    classifier = JavaClassImpl@151['Cloneable']
+}
+
+LazyJavaClassifierType@170['Comparable<Date>'] {
+    _arguments = ArrayList@200[1] { TypeProjectionImpl@201 }
+    _memberScope = SubstitutingScope@202
+    _typeConstructor = DeserializedClassTypeConstructor@199
+    classifier = JavaClassImpl@198['Comparable']
+}
+
+LazyJavaClassifierType@8['Date'] {
+    _arguments = ArrayList@11[empty]
+    _memberScope = LazyJavaClassMemberScope@12
+    _nullable = Boolean@4
+    _typeConstructor = LazyJavaClassTypeConstructor@10['Date']
+    classifier = JavaClassImpl@9['Date']
+}
+
+LazyJavaClassifierType@20['Date'] {
+    _arguments = ArrayList@21[empty]
+    _memberScope = LazyJavaClassMemberScope@12
+    _nullable = Boolean@17
+    _typeConstructor = LazyJavaClassTypeConstructor@10['Date']
+    classifier = JavaClassImpl@9['Date']
+}
+
+LazyJavaClassifierType@112['Date'] {
+    _arguments = ArrayList@114[empty]
+    _nullable = Boolean@4
+    _typeConstructor = LazyJavaClassTypeConstructor@10['Date']
+    classifier = JavaClassImpl@113['Date']
+}
+
+LazyJavaClassifierType@203['Date'] {
+    _arguments = ArrayList@204[empty]
+    _nullable = Boolean@17
+    _typeConstructor = LazyJavaClassTypeConstructor@10['Date']
+    classifier = JavaClassImpl@113['Date']
+}
+
+LazyJavaClassifierType@115['Object'] {
+    _arguments = ArrayList@118[empty]
+    _nullable = Boolean@17
+    _typeConstructor = DeserializedClassTypeConstructor@117
+    classifier = JavaClassImpl@116['Object']
+}
+
+LazyJavaClassifierType@180['Object'] {
+    _arguments = ArrayList@181[empty]
+    _nullable = Boolean@4
+    _typeConstructor = DeserializedClassTypeConstructor@117
+    classifier = JavaClassImpl@116['Object']
+}
+
+LazyJavaClassifierType@146['Object'] {
+    _typeConstructor = DeserializedClassTypeConstructor@117
+    classifier = JavaClassImpl@147['Object']
+}
+
+LazyJavaClassifierType@185['Object'] {
+    _typeConstructor = DeserializedClassTypeConstructor@117
+    classifier = JavaClassImpl@186['Object']
+}
+
+LazyJavaClassifierType@205['Object'] {
+    _typeConstructor = DeserializedClassTypeConstructor@117
+    classifier = JavaClassImpl@206['Object']
+}
+
+LazyJavaClassifierType@136['Serializable'] {
+    _arguments = ArrayList@138[empty]
+    _memberScope = LazyJavaClassMemberScope@139
+    _typeConstructor = LazyJavaClassTypeConstructor@137['Serializable']
+    classifier = JavaClassImpl@67['Serializable']
+}
+
+LazyJavaClassifierType@3['T'] {
+    _arguments = ArrayList@7[empty]
+    _nullable = Boolean@4
+    _typeConstructor = org.jetbrains.jet.lang.descriptors.impl.AbstractLazyTypeParameterDescriptor$1@6
+    classifier = JavaTypeParameterImpl@5['T']
+}
+
+LazyJavaClassifierType@16['T'] {
+    _arguments = ArrayList@19[empty]
+    _nullable = Boolean@17
+    _typeConstructor = org.jetbrains.jet.lang.descriptors.impl.AbstractLazyTypeParameterDescriptor$1@6
+    classifier = JavaTypeParameterImpl@18['T']
+}
+
+LazyJavaClassifierType@107['T'] {
+    _arguments = ArrayList@109[empty]
+    _nullable = Boolean@17
+    _typeConstructor = org.jetbrains.jet.lang.descriptors.impl.AbstractLazyTypeParameterDescriptor$1@6
+    classifier = JavaTypeParameterImpl@108['T']
+}
+
+LazyJavaClassifierType@110['T'] {
+    _arguments = ArrayList@111[empty]
+    _nullable = Boolean@17
+    _typeConstructor = org.jetbrains.jet.lang.descriptors.impl.AbstractLazyTypeParameterDescriptor$1@6
+    classifier = JavaTypeParameterImpl@5['T']
+}
+
+LazyJavaClassifierType@129['T'] {
+    _arguments = ArrayList@130[empty]
+    _nullable = Boolean@4
+    _typeConstructor = org.jetbrains.jet.lang.descriptors.impl.AbstractLazyTypeParameterDescriptor$1@6
+    classifier = JavaTypeParameterImpl@108['T']
+}
+
+LazyJavaClassifierType@131['T'] {
+    _arguments = ArrayList@133[empty]
+    _nullable = Boolean@17
+    _typeConstructor = org.jetbrains.jet.lang.descriptors.impl.AbstractLazyTypeParameterDescriptor$1@6
+    classifier = JavaTypeParameterImpl@132['T']
+}
+
+LazyJavaClassifierType@134['T'] {
+    _arguments = ArrayList@135[empty]
+    _nullable = Boolean@4
+    _typeConstructor = org.jetbrains.jet.lang.descriptors.impl.AbstractLazyTypeParameterDescriptor$1@6
+    classifier = JavaTypeParameterImpl@132['T']
+}
+
+LazyJavaClassifierType@144['T'] {
+    _arguments = ArrayList@145[empty]
+    _nullable = Boolean@4
+    _typeConstructor = org.jetbrains.jet.lang.descriptors.impl.AbstractLazyTypeParameterDescriptor$1@6
+    classifier = JavaTypeParameterImpl@18['T']
+}
+
+LazyJavaPackageFragmentProvider@22 {
+    _packageFragments('<root>': FqName@23) = LazyJavaPackageFragment@24['<root>']
+    _packageFragments('Any': FqName@70) = null
+    _packageFragments('Comparator': FqName@54) = null
+    _packageFragments('Date': FqName@62) = null
+    _packageFragments('Int': FqName@42) = null
+    _packageFragments('T': FqName@50) = null
+    _packageFragments('U': FqName@46) = null
+    _packageFragments('a': FqName@25) = null
+    _packageFragments('a.Any': FqName@69) = null
+    _packageFragments('a.Comparator': FqName@53) = null
+    _packageFragments('a.Date': FqName@61) = null
+    _packageFragments('a.Int': FqName@41) = null
+    _packageFragments('a.T': FqName@49) = null
+    _packageFragments('a.U': FqName@45) = null
+    _packageFragments('a.inline': FqName@57) = null
+    _packageFragments('inline': FqName@58) = null
+    _packageFragments('java': FqName@26) = LazyJavaPackageFragment@27['java']
+    _packageFragments('java.io': FqName@65) = LazyJavaPackageFragment@66['io']
+    _packageFragments('java.lang': FqName@28) = LazyJavaPackageFragment@29['lang']
+    _packageFragments('java.lang.Any': FqName@72) = null
+    _packageFragments('java.lang.Comparator': FqName@56) = null
+    _packageFragments('java.lang.Date': FqName@64) = null
+    _packageFragments('java.lang.Int': FqName@44) = null
+    _packageFragments('java.lang.T': FqName@52) = null
+    _packageFragments('java.lang.U': FqName@48) = null
+    _packageFragments('java.lang.inline': FqName@60) = null
+    _packageFragments('java.util': FqName@33) = LazyJavaPackageFragment@34['util']
+    _packageFragments('java.util.Comparator': FqName@38) = null
+    _packageFragments('java.util.Date': FqName@35) = null
+    _packageFragments('kotlin': FqName@30) = null
+    _packageFragments('kotlin.Any': FqName@71) = null
+    _packageFragments('kotlin.Comparator': FqName@55) = null
+    _packageFragments('kotlin.Date': FqName@63) = null
+    _packageFragments('kotlin.Int': FqName@43) = null
+    _packageFragments('kotlin.T': FqName@51) = null
+    _packageFragments('kotlin.U': FqName@47) = null
+    _packageFragments('kotlin.inline': FqName@59) = null
+    _packageFragments('kotlin.io': FqName@32) = null
+    _packageFragments('kotlin.jvm': FqName@31) = null
+    topLevelClasses(JavaClassImpl@39['Comparator']) = LazyJavaClassDescriptor@40['Comparator']
+    topLevelClasses(JavaClassImpl@36['Date']) = LazyJavaClassDescriptor@37['Date']
+    topLevelClasses(JavaClassImpl@67['Serializable']) = LazyJavaClassDescriptor@68['Serializable']
+}
+
+LazyJavaPackageFragment@27['java'] {
+    _functions('lang': Name@213) = LinkedHashSet@214[empty] // through LazyPackageFragmentScopeForJavaPackage@210
+    _functions('util': Name@215) = LinkedHashSet@216[empty] // through LazyPackageFragmentScopeForJavaPackage@210
+    classes('lang': Name@209) = null // through LazyPackageFragmentScopeForJavaPackage@210
+    classes('util': Name@211) = null // through LazyPackageFragmentScopeForJavaPackage@210
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@122 // through LazyPackageFragmentScopeForJavaPackage@210
+    memberIndex = computeMemberIndex$1@212 // through LazyPackageFragmentScopeForJavaPackage@210
+}
+
+LazyJavaPackageFragment@29['lang'] {
+    _functions('comparator': Name@158) = LinkedHashSet@159[empty] // through LazyPackageFragmentScopeForJavaPackage@156
+    _functions('compareTo': Name@162) = LinkedHashSet@163[empty] // through LazyPackageFragmentScopeForJavaPackage@156
+    _functions('equals': Name@160) = LinkedHashSet@161[empty] // through LazyPackageFragmentScopeForJavaPackage@156
+    _functions('minus': Name@166) = LinkedHashSet@167[empty] // through LazyPackageFragmentScopeForJavaPackage@156
+    _functions('times': Name@164) = LinkedHashSet@165[empty] // through LazyPackageFragmentScopeForJavaPackage@156
+    classes('U': Name@155) = null // through LazyPackageFragmentScopeForJavaPackage@156
+    classes('comparator': Name@158) = null // through LazyPackageFragmentScopeForJavaPackage@156
+    classes('compareTo': Name@162) = null // through LazyPackageFragmentScopeForJavaPackage@156
+    classes('equals': Name@160) = null // through LazyPackageFragmentScopeForJavaPackage@156
+    classes('minus': Name@166) = null // through LazyPackageFragmentScopeForJavaPackage@156
+    classes('times': Name@164) = null // through LazyPackageFragmentScopeForJavaPackage@156
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@122 // through LazyPackageFragmentScopeForJavaPackage@156
+    memberIndex = computeMemberIndex$1@157 // through LazyPackageFragmentScopeForJavaPackage@156
+}
+
+LazyJavaPackageFragment@34['util'] {
+    _functions('Comparator': Name@126) = LinkedHashSet@127[1] { SamConstructorDescriptor@128['Comparator'] } // through LazyPackageFragmentScopeForJavaPackage@120
+    _functions('Date': Name@124) = LinkedHashSet@125[empty] // through LazyPackageFragmentScopeForJavaPackage@120
+    classes('Comparator': Name@121) = LazyJavaClassDescriptor@40['Comparator'] // through LazyPackageFragmentScopeForJavaPackage@120
+    classes('Date': Name@119) = LazyJavaClassDescriptor@37['Date'] // through LazyPackageFragmentScopeForJavaPackage@120
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@122 // through LazyPackageFragmentScopeForJavaPackage@120
+    memberIndex = computeMemberIndex$1@123 // through LazyPackageFragmentScopeForJavaPackage@120
+}
+
+LazyJavaTypeParameterDescriptor@2['T'] {
+    defaultType = JetTypeImpl@15
+    typeConstructor = org.jetbrains.jet.lang.descriptors.impl.AbstractLazyTypeParameterDescriptor$1@6
+    upperBounds = LinkedHashSet@13[1] { NullableType@14 }
+}
+
+LazyJavaTypeParameterResolver@0 {
+    resolve(JavaTypeParameterImpl@1['T']) = LazyJavaTypeParameterDescriptor@2['T']
+}
+
+LazyJavaTypeParameterResolver@148 {
+    resolve(JavaTypeParameterImpl@108['T']) = null
+}
+
+LazyJavaTypeParameterResolver@149 {
+    resolve(JavaTypeParameterImpl@18['T']) = null
+}

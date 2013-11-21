@@ -1,0 +1,58 @@
+DescriptorResolver@10 {
+    <name not found> = IntValue@13
+    <name not found> = JetTypeImpl@11
+    <name not found> = JetTypeImpl@12
+    <name not found> = JetTypeImpl@11
+    <name not found> = null
+    <name not found> = null
+    <name not found> = null
+}
+
+LazyJavaPackageFragmentProvider@20 {
+    _packageFragments('<root>': FqName@21) = LazyJavaPackageFragment@22['<root>']
+    _packageFragments('A': FqName@34) = null
+    _packageFragments('Foo': FqName@30) = null
+    _packageFragments('Int': FqName@38) = null
+    _packageFragments('java': FqName@24) = LazyJavaPackageFragment@14['java']
+    _packageFragments('java.lang': FqName@25) = LazyJavaPackageFragment@0['lang']
+    _packageFragments('java.lang.A': FqName@36) = null
+    _packageFragments('java.lang.Foo': FqName@32) = null
+    _packageFragments('java.lang.Int': FqName@40) = null
+    _packageFragments('kotlin': FqName@26) = null
+    _packageFragments('kotlin.A': FqName@35) = null
+    _packageFragments('kotlin.Foo': FqName@31) = null
+    _packageFragments('kotlin.Int': FqName@39) = null
+    _packageFragments('kotlin.io': FqName@28) = null
+    _packageFragments('kotlin.jvm': FqName@27) = null
+    _packageFragments('toplevelObjectDeclarations': FqName@23) = null
+    _packageFragments('toplevelObjectDeclarations.A': FqName@33) = null
+    _packageFragments('toplevelObjectDeclarations.B': FqName@45) = null
+    _packageFragments('toplevelObjectDeclarations.Foo': FqName@29) = null
+    _packageFragments('toplevelObjectDeclarations.Int': FqName@37) = null
+    _packageFragments('toplevelObjectDeclarations.T': FqName@43) = null
+    _packageFragments('toplevelObjectDeclarations.x': FqName@44) = null
+    _packageFragments('toplevelObjectDeclarations.y': FqName@41) = null
+    _packageFragments('toplevelObjectDeclarations.z': FqName@42) = null
+}
+
+LazyJavaPackageFragment@14['java'] {
+    _functions('lang': Name@18) = LinkedHashSet@19[empty] // through LazyPackageFragmentScopeForJavaPackage@16
+    classes('lang': Name@15) = null // through LazyPackageFragmentScopeForJavaPackage@16
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@1 // through LazyPackageFragmentScopeForJavaPackage@16
+    memberIndex = computeMemberIndex$1@17 // through LazyPackageFragmentScopeForJavaPackage@16
+}
+
+LazyJavaPackageFragment@0['lang'] {
+    _functions('foo': Name@4) = LinkedHashSet@5[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    _functions('plus': Name@7) = LinkedHashSet@8[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('foo': Name@4) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('plus': Name@7) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('x': Name@6) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('y': Name@9) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@1 // through LazyPackageFragmentScopeForJavaPackage@2
+    memberIndex = computeMemberIndex$1@3 // through LazyPackageFragmentScopeForJavaPackage@2
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@46 {
+    <name not found> = JetTypeImpl@47
+}

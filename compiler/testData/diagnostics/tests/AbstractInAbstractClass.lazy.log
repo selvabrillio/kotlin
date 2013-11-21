@@ -1,0 +1,38 @@
+DescriptorResolver@29 {
+    <name not found> = IntValue@30
+    <name not found> = IntValue@31
+    <name not found> = IntValue@32
+    <name not found> = IntValue@33
+}
+
+LazyJavaPackageFragmentProvider@15 {
+    _packageFragments('<root>': FqName@16) = LazyJavaPackageFragment@17['<root>']
+    _packageFragments('Int': FqName@25) = null
+    _packageFragments('abstract': FqName@18) = null
+    _packageFragments('abstract.Int': FqName@24) = null
+    _packageFragments('abstract.MyAbstractClass': FqName@28) = null
+    _packageFragments('java': FqName@19) = LazyJavaPackageFragment@0['java']
+    _packageFragments('java.lang': FqName@20) = LazyJavaPackageFragment@7['lang']
+    _packageFragments('java.lang.Int': FqName@27) = null
+    _packageFragments('kotlin': FqName@21) = null
+    _packageFragments('kotlin.Int': FqName@26) = null
+    _packageFragments('kotlin.io': FqName@23) = null
+    _packageFragments('kotlin.jvm': FqName@22) = null
+}
+
+LazyJavaPackageFragment@0['java'] {
+    _functions('lang': Name@5) = LinkedHashSet@6[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('lang': Name@1) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@3 // through LazyPackageFragmentScopeForJavaPackage@2
+    memberIndex = computeMemberIndex$1@4 // through LazyPackageFragmentScopeForJavaPackage@2
+}
+
+LazyJavaPackageFragment@7['lang'] {
+    classes('a': Name@13) = null // through LazyPackageFragmentScopeForJavaPackage@8
+    classes('c': Name@9) = null // through LazyPackageFragmentScopeForJavaPackage@8
+    classes('c1': Name@10) = null // through LazyPackageFragmentScopeForJavaPackage@8
+    classes('c2': Name@11) = null // through LazyPackageFragmentScopeForJavaPackage@8
+    classes('c3': Name@12) = null // through LazyPackageFragmentScopeForJavaPackage@8
+    classes('i': Name@14) = null // through LazyPackageFragmentScopeForJavaPackage@8
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@3 // through LazyPackageFragmentScopeForJavaPackage@8
+}

@@ -1,0 +1,45 @@
+LazyJavaPackageFragmentProvider@18 {
+    _packageFragments('<root>': FqName@19) = LazyJavaPackageFragment@7['<root>']
+    _packageFragments('Derived': FqName@29) = null
+    _packageFragments('Outer': FqName@26) = null
+    _packageFragments('java': FqName@20) = LazyJavaPackageFragment@0['java']
+    _packageFragments('java.lang': FqName@21) = LazyJavaPackageFragment@22['lang']
+    _packageFragments('java.lang.Outer': FqName@28) = null
+    _packageFragments('kotlin': FqName@23) = null
+    _packageFragments('kotlin.Outer': FqName@27) = null
+    _packageFragments('kotlin.io': FqName@25) = null
+    _packageFragments('kotlin.jvm': FqName@24) = null
+}
+
+LazyJavaPackageFragment@7['<root>'] {
+    _functions('Outer': Name@10) = LinkedHashSet@11[empty] // through LazyPackageFragmentScopeForJavaPackage@8
+    _functions('PrivateInner': Name@12) = LinkedHashSet@13[empty] // through LazyPackageFragmentScopeForJavaPackage@8
+    _functions('ProtectedInner': Name@14) = LinkedHashSet@15[empty] // through LazyPackageFragmentScopeForJavaPackage@8
+    _functions('PublicInner': Name@16) = LinkedHashSet@17[empty] // through LazyPackageFragmentScopeForJavaPackage@8
+    classes('Outer': Name@10) = null // through LazyPackageFragmentScopeForJavaPackage@8
+    classes('PrivateInner': Name@12) = null // through LazyPackageFragmentScopeForJavaPackage@8
+    classes('ProtectedInner': Name@14) = null // through LazyPackageFragmentScopeForJavaPackage@8
+    classes('PublicInner': Name@16) = null // through LazyPackageFragmentScopeForJavaPackage@8
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@3 // through LazyPackageFragmentScopeForJavaPackage@8
+    memberIndex = computeMemberIndex$1@9 // through LazyPackageFragmentScopeForJavaPackage@8
+}
+
+LazyJavaPackageFragment@0['java'] {
+    _functions('lang': Name@5) = LinkedHashSet@6[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('lang': Name@1) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@3 // through LazyPackageFragmentScopeForJavaPackage@2
+    memberIndex = computeMemberIndex$1@4 // through LazyPackageFragmentScopeForJavaPackage@2
+}
+
+LazyJavaPackageFragment@22['lang'] {
+    _functions('Outer': Name@10) = LinkedHashSet@32[empty] // through LazyPackageFragmentScopeForJavaPackage@30
+    _functions('PrivateInner': Name@12) = LinkedHashSet@33[empty] // through LazyPackageFragmentScopeForJavaPackage@30
+    _functions('ProtectedInner': Name@14) = LinkedHashSet@34[empty] // through LazyPackageFragmentScopeForJavaPackage@30
+    _functions('PublicInner': Name@16) = LinkedHashSet@35[empty] // through LazyPackageFragmentScopeForJavaPackage@30
+    classes('Outer': Name@10) = null // through LazyPackageFragmentScopeForJavaPackage@30
+    classes('PrivateInner': Name@12) = null // through LazyPackageFragmentScopeForJavaPackage@30
+    classes('ProtectedInner': Name@14) = null // through LazyPackageFragmentScopeForJavaPackage@30
+    classes('PublicInner': Name@16) = null // through LazyPackageFragmentScopeForJavaPackage@30
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@3 // through LazyPackageFragmentScopeForJavaPackage@30
+    memberIndex = computeMemberIndex$1@31 // through LazyPackageFragmentScopeForJavaPackage@30
+}

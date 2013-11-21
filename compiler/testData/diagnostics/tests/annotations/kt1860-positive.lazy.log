@@ -1,0 +1,52 @@
+LazyAnnotationDescriptor@25 {
+    _resolutionResults = OverloadResolutionResultsImpl@27
+    _type = JetTypeImpl@26
+}
+
+LazyAnnotationDescriptor@28 {
+    _resolutionResults = OverloadResolutionResultsImpl@30
+    _type = JetTypeImpl@29
+}
+
+LazyAnnotationDescriptor@31 {
+    _resolutionResults = OverloadResolutionResultsImpl@33
+    _type = JetTypeImpl@32
+}
+
+LazyAnnotationDescriptor@34 {
+    _resolutionResults = OverloadResolutionResultsImpl@36
+    _type = JetTypeImpl@35
+}
+
+LazyJavaPackageFragmentProvider@0 {
+    _packageFragments('<root>': FqName@1) = LazyJavaPackageFragment@2['<root>']
+    _packageFragments('Any': FqName@10) = null
+    _packageFragments('Hello': FqName@17) = null
+    _packageFragments('Int': FqName@13) = null
+    _packageFragments('bar': FqName@18) = null
+    _packageFragments('java': FqName@3) = LazyJavaPackageFragment@4['java']
+    _packageFragments('java.lang': FqName@5) = LazyJavaPackageFragment@6['lang']
+    _packageFragments('java.lang.Any': FqName@12) = null
+    _packageFragments('java.lang.Int': FqName@15) = null
+    _packageFragments('java.lang.test': FqName@21) = null
+    _packageFragments('kotlin': FqName@7) = null
+    _packageFragments('kotlin.Any': FqName@11) = null
+    _packageFragments('kotlin.Int': FqName@14) = null
+    _packageFragments('kotlin.io': FqName@9) = null
+    _packageFragments('kotlin.jvm': FqName@8) = null
+    _packageFragments('kotlin.test': FqName@20) = null
+    _packageFragments('test': FqName@16) = null
+    _packageFragments('x': FqName@19) = null
+}
+
+LazyJavaPackageFragment@2['<root>'] {
+    classes('Any': Name@22) = null // through LazyPackageFragmentScopeForJavaPackage@23
+    classes('Int': Name@24) = null // through LazyPackageFragmentScopeForJavaPackage@23
+}
+
+LazyJavaPackageFragment@4['java'] {
+    _functions('lang': Name@41) = LinkedHashSet@42[empty] // through LazyPackageFragmentScopeForJavaPackage@38
+    classes('lang': Name@37) = null // through LazyPackageFragmentScopeForJavaPackage@38
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@39 // through LazyPackageFragmentScopeForJavaPackage@38
+    memberIndex = computeMemberIndex$1@40 // through LazyPackageFragmentScopeForJavaPackage@38
+}

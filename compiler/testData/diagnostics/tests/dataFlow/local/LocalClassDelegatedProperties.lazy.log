@@ -1,0 +1,60 @@
+DescriptorResolver@18 {
+    <name not found> = JetTypeImpl@19
+}
+
+LazyJavaPackageFragmentProvider@20 {
+    _packageFragments('<root>': FqName@21) = LazyJavaPackageFragment@22['<root>']
+    _packageFragments('Any': FqName@31) = null
+    _packageFragments('Del': FqName@28) = null
+    _packageFragments('Int': FqName@37) = null
+    _packageFragments('PropertyMetadata': FqName@34) = null
+    _packageFragments('java': FqName@23) = LazyJavaPackageFragment@0['java']
+    _packageFragments('java.lang': FqName@24) = LazyJavaPackageFragment@7['lang']
+    _packageFragments('java.lang.Any': FqName@33) = null
+    _packageFragments('java.lang.Del': FqName@30) = null
+    _packageFragments('java.lang.Int': FqName@39) = null
+    _packageFragments('java.lang.PropertyMetadata': FqName@36) = null
+    _packageFragments('kotlin': FqName@25) = null
+    _packageFragments('kotlin.Any': FqName@32) = null
+    _packageFragments('kotlin.Del': FqName@29) = null
+    _packageFragments('kotlin.Int': FqName@38) = null
+    _packageFragments('kotlin.PropertyMetadata': FqName@35) = null
+    _packageFragments('kotlin.io': FqName@27) = null
+    _packageFragments('kotlin.jvm': FqName@26) = null
+}
+
+LazyJavaPackageFragment@22['<root>'] {
+    _functions('PropertyMetadataImpl': Name@14) = LinkedHashSet@47[empty] // through LazyPackageFragmentScopeForJavaPackage@41
+    _functions('df': Name@10) = LinkedHashSet@45[empty] // through LazyPackageFragmentScopeForJavaPackage@41
+    _functions('get': Name@12) = LinkedHashSet@46[empty] // through LazyPackageFragmentScopeForJavaPackage@41
+    _functions('propertyDelegated': Name@16) = LinkedHashSet@48[empty] // through LazyPackageFragmentScopeForJavaPackage@41
+    classes('Any': Name@40) = null // through LazyPackageFragmentScopeForJavaPackage@41
+    classes('Int': Name@43) = null // through LazyPackageFragmentScopeForJavaPackage@41
+    classes('PropertyMetadata': Name@42) = null // through LazyPackageFragmentScopeForJavaPackage@41
+    classes('PropertyMetadataImpl': Name@14) = null // through LazyPackageFragmentScopeForJavaPackage@41
+    classes('df': Name@10) = null // through LazyPackageFragmentScopeForJavaPackage@41
+    classes('get': Name@12) = null // through LazyPackageFragmentScopeForJavaPackage@41
+    classes('propertyDelegated': Name@16) = null // through LazyPackageFragmentScopeForJavaPackage@41
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@3 // through LazyPackageFragmentScopeForJavaPackage@41
+    memberIndex = computeMemberIndex$1@44 // through LazyPackageFragmentScopeForJavaPackage@41
+}
+
+LazyJavaPackageFragment@0['java'] {
+    _functions('lang': Name@5) = LinkedHashSet@6[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('lang': Name@1) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@3 // through LazyPackageFragmentScopeForJavaPackage@2
+    memberIndex = computeMemberIndex$1@4 // through LazyPackageFragmentScopeForJavaPackage@2
+}
+
+LazyJavaPackageFragment@7['lang'] {
+    _functions('PropertyMetadataImpl': Name@14) = LinkedHashSet@15[empty] // through LazyPackageFragmentScopeForJavaPackage@8
+    _functions('df': Name@10) = LinkedHashSet@11[empty] // through LazyPackageFragmentScopeForJavaPackage@8
+    _functions('get': Name@12) = LinkedHashSet@13[empty] // through LazyPackageFragmentScopeForJavaPackage@8
+    _functions('propertyDelegated': Name@16) = LinkedHashSet@17[empty] // through LazyPackageFragmentScopeForJavaPackage@8
+    classes('PropertyMetadataImpl': Name@14) = null // through LazyPackageFragmentScopeForJavaPackage@8
+    classes('df': Name@10) = null // through LazyPackageFragmentScopeForJavaPackage@8
+    classes('get': Name@12) = null // through LazyPackageFragmentScopeForJavaPackage@8
+    classes('propertyDelegated': Name@16) = null // through LazyPackageFragmentScopeForJavaPackage@8
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@3 // through LazyPackageFragmentScopeForJavaPackage@8
+    memberIndex = computeMemberIndex$1@9 // through LazyPackageFragmentScopeForJavaPackage@8
+}

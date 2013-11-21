@@ -1,0 +1,42 @@
+DescriptorResolver@0 {
+    <name not found> = DeserializedType@1['kotlin.Int']
+}
+
+LazyJavaPackageFragmentProvider@17 {
+    _packageFragments('<root>': FqName@18) = LazyJavaPackageFragment@2['<root>']
+    _packageFragments('Any': FqName@27) = null
+    _packageFragments('Base': FqName@30) = null
+    _packageFragments('String': FqName@24) = null
+    _packageFragments('java': FqName@19) = LazyJavaPackageFragment@9['java']
+    _packageFragments('java.lang': FqName@20) = LazyJavaPackageFragment@7['lang']
+    _packageFragments('java.lang.Any': FqName@29) = null
+    _packageFragments('java.lang.Base': FqName@32) = null
+    _packageFragments('java.lang.String': FqName@26) = null
+    _packageFragments('kotlin': FqName@21) = null
+    _packageFragments('kotlin.Any': FqName@28) = null
+    _packageFragments('kotlin.Base': FqName@31) = null
+    _packageFragments('kotlin.String': FqName@25) = null
+    _packageFragments('kotlin.io': FqName@23) = null
+    _packageFragments('kotlin.jvm': FqName@22) = null
+}
+
+LazyJavaPackageFragment@2['<root>'] {
+    classes('Any': Name@5) = null // through LazyPackageFragmentScopeForJavaPackage@4
+    classes('String': Name@3) = null // through LazyPackageFragmentScopeForJavaPackage@4
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@6 // through LazyPackageFragmentScopeForJavaPackage@4
+}
+
+LazyJavaPackageFragment@9['java'] {
+    _functions('lang': Name@13) = LinkedHashSet@14[empty] // through LazyPackageFragmentScopeForJavaPackage@11
+    classes('lang': Name@10) = null // through LazyPackageFragmentScopeForJavaPackage@11
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@6 // through LazyPackageFragmentScopeForJavaPackage@11
+    memberIndex = computeMemberIndex$1@12 // through LazyPackageFragmentScopeForJavaPackage@11
+}
+
+LazyJavaPackageFragment@7['lang'] {
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@6 // through LazyPackageFragmentScopeForJavaPackage@8
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@15 {
+    <name not found> = JetTypeImpl@16
+}

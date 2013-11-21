@@ -1,0 +1,288 @@
+LazyJavaClassDescriptor@78['Arrays'] {
+    _functions('asList': Name@96) = LinkedHashSet@97[1] { JavaMethodDescriptor@98['asList'] } // through LazyJavaStaticClassScope@92
+    _functions('asList': Name@96) = LinkedHashSet@100[empty] // through LazyJavaClassMemberScope@94
+    _properties('asList': Name@96) = ArrayList@102[empty] // through LazyJavaClassMemberScope@94
+    _properties('asList': Name@96) = ArrayList@101[empty] // through LazyJavaStaticClassScope@92
+    _typeConstructor = LazyJavaClassTypeConstructor@42['Arrays']
+    enumEntryIndex = LinkedHashMap@95 // through LazyJavaClassMemberScope@94
+    memberIndex = computeMemberIndex$1@99 // through LazyJavaClassMemberScope@94
+    memberIndex = computeMemberIndex$1@91 // through LazyJavaStaticClassScope@92
+    nestedClassIndex = LinkedHashMap@93 // through LazyJavaClassMemberScope@94
+    nestedClasses('asList': Name@96) = null // through LazyJavaClassMemberScope@94
+}
+
+LazyJavaClassTypeConstructor@42['Arrays'] {
+    _supertypes = ArrayList@43[1] { JetTypeImpl@44 }
+}
+
+LazyJavaClassifierType@103['List<T>'] {
+    _arguments = ArrayList@106[1] { TypeProjectionImpl@107 }
+    _memberScope = SubstitutingScope@108
+    _nullable = Boolean@46
+    _typeConstructor = DeserializedClassTypeConstructor@105
+    classifier = JavaClassImpl@104['List']
+}
+
+LazyJavaClassifierType@204['List<T>'] {
+    _arguments = ArrayList@206[1] { TypeProjectionImpl@207 }
+    _memberScope = SubstitutingScope@208
+    _nullable = Boolean@71
+    _typeConstructor = DeserializedClassTypeConstructor@205
+    classifier = JavaClassImpl@104['List']
+}
+
+LazyJavaClassifierType@197['Object'] {
+    _typeConstructor = DeserializedClassTypeConstructor@199
+    classifier = JavaClassImpl@198['Object']
+}
+
+LazyJavaClassifierType@45['T'] {
+    _arguments = ArrayList@49[empty]
+    _nullable = Boolean@46
+    _typeConstructor = org.jetbrains.jet.lang.descriptors.impl.AbstractLazyTypeParameterDescriptor$1@48
+    classifier = JavaTypeParameterImpl@47['T']
+}
+
+LazyJavaClassifierType@70['T'] {
+    _arguments = ArrayList@73[empty]
+    _nullable = Boolean@71
+    _typeConstructor = org.jetbrains.jet.lang.descriptors.impl.AbstractLazyTypeParameterDescriptor$1@48
+    classifier = JavaTypeParameterImpl@72['T']
+}
+
+LazyJavaClassifierType@74['T'] {
+    _arguments = ArrayList@75[empty]
+    _nullable = Boolean@46
+    _typeConstructor = org.jetbrains.jet.lang.descriptors.impl.AbstractLazyTypeParameterDescriptor$1@48
+    classifier = JavaTypeParameterImpl@72['T']
+}
+
+LazyJavaClassifierType@88['T'] {
+    _arguments = ArrayList@90[empty]
+    _nullable = Boolean@71
+    _typeConstructor = org.jetbrains.jet.lang.descriptors.impl.AbstractLazyTypeParameterDescriptor$1@48
+    classifier = JavaTypeParameterImpl@89['T']
+}
+
+LazyJavaClassifierType@200['T'] {
+    _arguments = ArrayList@201[empty]
+    _nullable = Boolean@71
+    _typeConstructor = org.jetbrains.jet.lang.descriptors.impl.AbstractLazyTypeParameterDescriptor$1@48
+    classifier = JavaTypeParameterImpl@47['T']
+}
+
+LazyJavaClassifierType@202['T'] {
+    _arguments = ArrayList@203[empty]
+    _nullable = Boolean@46
+    _typeConstructor = org.jetbrains.jet.lang.descriptors.impl.AbstractLazyTypeParameterDescriptor$1@48
+    classifier = JavaTypeParameterImpl@89['T']
+}
+
+LazyJavaPackageFragmentProvider@109 {
+    _packageFragments('<root>': FqName@110) = LazyJavaPackageFragment@0['<root>']
+    _packageFragments('Array': FqName@185) = null
+    _packageFragments('Arrays': FqName@190) = null
+    _packageFragments('Boolean': FqName@173) = null
+    _packageFragments('BooleanArray': FqName@177) = null
+    _packageFragments('Byte': FqName@117) = null
+    _packageFragments('ByteArray': FqName@121) = null
+    _packageFragments('Char': FqName@125) = null
+    _packageFragments('CharArray': FqName@129) = null
+    _packageFragments('Double': FqName@157) = null
+    _packageFragments('DoubleArray': FqName@161) = null
+    _packageFragments('Float': FqName@165) = null
+    _packageFragments('FloatArray': FqName@169) = null
+    _packageFragments('Int': FqName@141) = null
+    _packageFragments('IntArray': FqName@145) = null
+    _packageFragments('Long': FqName@149) = null
+    _packageFragments('LongArray': FqName@153) = null
+    _packageFragments('Short': FqName@133) = null
+    _packageFragments('ShortArray': FqName@137) = null
+    _packageFragments('String': FqName@181) = null
+    _packageFragments('java': FqName@111) = LazyJavaPackageFragment@50['java']
+    _packageFragments('java.lang': FqName@112) = LazyJavaPackageFragment@59['lang']
+    _packageFragments('java.lang.Array': FqName@188) = null
+    _packageFragments('java.lang.Arrays': FqName@193) = null
+    _packageFragments('java.lang.Boolean': FqName@176) = null
+    _packageFragments('java.lang.BooleanArray': FqName@180) = null
+    _packageFragments('java.lang.Byte': FqName@120) = null
+    _packageFragments('java.lang.ByteArray': FqName@124) = null
+    _packageFragments('java.lang.Char': FqName@128) = null
+    _packageFragments('java.lang.CharArray': FqName@132) = null
+    _packageFragments('java.lang.Double': FqName@160) = null
+    _packageFragments('java.lang.DoubleArray': FqName@164) = null
+    _packageFragments('java.lang.Float': FqName@168) = null
+    _packageFragments('java.lang.FloatArray': FqName@172) = null
+    _packageFragments('java.lang.Int': FqName@144) = null
+    _packageFragments('java.lang.IntArray': FqName@148) = null
+    _packageFragments('java.lang.Long': FqName@152) = null
+    _packageFragments('java.lang.LongArray': FqName@156) = null
+    _packageFragments('java.lang.Short': FqName@136) = null
+    _packageFragments('java.lang.ShortArray': FqName@140) = null
+    _packageFragments('java.lang.String': FqName@184) = null
+    _packageFragments('java.util': FqName@116) = LazyJavaPackageFragment@76['util']
+    _packageFragments('java.util.Array': FqName@186) = null
+    _packageFragments('java.util.Arrays': FqName@191) = null
+    _packageFragments('java.util.Boolean': FqName@174) = null
+    _packageFragments('java.util.BooleanArray': FqName@178) = null
+    _packageFragments('java.util.Byte': FqName@118) = null
+    _packageFragments('java.util.ByteArray': FqName@122) = null
+    _packageFragments('java.util.Char': FqName@126) = null
+    _packageFragments('java.util.CharArray': FqName@130) = null
+    _packageFragments('java.util.Double': FqName@158) = null
+    _packageFragments('java.util.DoubleArray': FqName@162) = null
+    _packageFragments('java.util.Float': FqName@166) = null
+    _packageFragments('java.util.FloatArray': FqName@170) = null
+    _packageFragments('java.util.Int': FqName@142) = null
+    _packageFragments('java.util.IntArray': FqName@146) = null
+    _packageFragments('java.util.Long': FqName@150) = null
+    _packageFragments('java.util.LongArray': FqName@154) = null
+    _packageFragments('java.util.Short': FqName@134) = null
+    _packageFragments('java.util.ShortArray': FqName@138) = null
+    _packageFragments('java.util.String': FqName@182) = null
+    _packageFragments('kotlin': FqName@113) = null
+    _packageFragments('kotlin.Array': FqName@187) = null
+    _packageFragments('kotlin.Arrays': FqName@192) = null
+    _packageFragments('kotlin.Boolean': FqName@175) = null
+    _packageFragments('kotlin.BooleanArray': FqName@179) = null
+    _packageFragments('kotlin.Byte': FqName@119) = null
+    _packageFragments('kotlin.ByteArray': FqName@123) = null
+    _packageFragments('kotlin.Char': FqName@127) = null
+    _packageFragments('kotlin.CharArray': FqName@131) = null
+    _packageFragments('kotlin.Double': FqName@159) = null
+    _packageFragments('kotlin.DoubleArray': FqName@163) = null
+    _packageFragments('kotlin.Float': FqName@167) = null
+    _packageFragments('kotlin.FloatArray': FqName@171) = null
+    _packageFragments('kotlin.Int': FqName@143) = null
+    _packageFragments('kotlin.IntArray': FqName@147) = null
+    _packageFragments('kotlin.Long': FqName@151) = null
+    _packageFragments('kotlin.LongArray': FqName@155) = null
+    _packageFragments('kotlin.Short': FqName@135) = null
+    _packageFragments('kotlin.ShortArray': FqName@139) = null
+    _packageFragments('kotlin.String': FqName@183) = null
+    _packageFragments('kotlin.io': FqName@115) = null
+    _packageFragments('kotlin.jvm': FqName@114) = null
+    topLevelClasses(JavaClassImpl@189['Arrays']) = LazyJavaClassDescriptor@78['Arrays']
+}
+
+LazyJavaPackageFragment@0['<root>'] {
+    _functions('foob': Name@26) = LinkedHashSet@27[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    _functions('fooc': Name@30) = LinkedHashSet@31[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    _functions('food': Name@36) = LinkedHashSet@37[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    _functions('foof': Name@38) = LinkedHashSet@39[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    _functions('fooi': Name@32) = LinkedHashSet@33[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    _functions('fool': Name@34) = LinkedHashSet@35[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    _functions('foos': Name@28) = LinkedHashSet@29[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    _functions('java': Name@23) = LinkedHashSet@24[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    _functions('toFloat': Name@40) = LinkedHashSet@41[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('Array': Name@20) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('Arrays': Name@25) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('Boolean': Name@17) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('BooleanArray': Name@18) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('Byte': Name@3) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('ByteArray': Name@4) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('Char': Name@5) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('CharArray': Name@6) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('Double': Name@13) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('DoubleArray': Name@14) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('Float': Name@15) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('FloatArray': Name@16) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('Int': Name@9) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('IntArray': Name@10) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('Long': Name@11) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('LongArray': Name@12) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('Short': Name@7) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('ShortArray': Name@8) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('String': Name@19) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('foob': Name@26) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('fooc': Name@30) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('food': Name@36) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('foof': Name@38) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('fooi': Name@32) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('fool': Name@34) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('foos': Name@28) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('java': Name@1) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('toFloat': Name@40) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@21 // through LazyPackageFragmentScopeForJavaPackage@2
+    memberIndex = computeMemberIndex$1@22 // through LazyPackageFragmentScopeForJavaPackage@2
+}
+
+LazyJavaPackageFragment@50['java'] {
+    _functions('lang': Name@55) = LinkedHashSet@56[empty] // through LazyPackageFragmentScopeForJavaPackage@52
+    _functions('util': Name@57) = LinkedHashSet@58[empty] // through LazyPackageFragmentScopeForJavaPackage@52
+    classes('lang': Name@51) = null // through LazyPackageFragmentScopeForJavaPackage@52
+    classes('util': Name@53) = null // through LazyPackageFragmentScopeForJavaPackage@52
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@21 // through LazyPackageFragmentScopeForJavaPackage@52
+    memberIndex = computeMemberIndex$1@54 // through LazyPackageFragmentScopeForJavaPackage@52
+}
+
+LazyJavaPackageFragment@59['lang'] {
+    _functions('foob': Name@26) = LinkedHashSet@62[empty] // through LazyPackageFragmentScopeForJavaPackage@60
+    _functions('fooc': Name@30) = LinkedHashSet@64[empty] // through LazyPackageFragmentScopeForJavaPackage@60
+    _functions('food': Name@36) = LinkedHashSet@67[empty] // through LazyPackageFragmentScopeForJavaPackage@60
+    _functions('foof': Name@38) = LinkedHashSet@68[empty] // through LazyPackageFragmentScopeForJavaPackage@60
+    _functions('fooi': Name@32) = LinkedHashSet@65[empty] // through LazyPackageFragmentScopeForJavaPackage@60
+    _functions('fool': Name@34) = LinkedHashSet@66[empty] // through LazyPackageFragmentScopeForJavaPackage@60
+    _functions('foos': Name@28) = LinkedHashSet@63[empty] // through LazyPackageFragmentScopeForJavaPackage@60
+    _functions('toFloat': Name@40) = LinkedHashSet@69[empty] // through LazyPackageFragmentScopeForJavaPackage@60
+    classes('foob': Name@26) = null // through LazyPackageFragmentScopeForJavaPackage@60
+    classes('fooc': Name@30) = null // through LazyPackageFragmentScopeForJavaPackage@60
+    classes('food': Name@36) = null // through LazyPackageFragmentScopeForJavaPackage@60
+    classes('foof': Name@38) = null // through LazyPackageFragmentScopeForJavaPackage@60
+    classes('fooi': Name@32) = null // through LazyPackageFragmentScopeForJavaPackage@60
+    classes('fool': Name@34) = null // through LazyPackageFragmentScopeForJavaPackage@60
+    classes('foos': Name@28) = null // through LazyPackageFragmentScopeForJavaPackage@60
+    classes('toFloat': Name@40) = null // through LazyPackageFragmentScopeForJavaPackage@60
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@21 // through LazyPackageFragmentScopeForJavaPackage@60
+    memberIndex = computeMemberIndex$1@61 // through LazyPackageFragmentScopeForJavaPackage@60
+}
+
+LazyJavaPackageFragment@76['util'] {
+    _functions('foob': Name@26) = LinkedHashSet@80[empty] // through LazyPackageFragmentScopeForJavaPackage@77
+    _functions('fooc': Name@30) = LinkedHashSet@82[empty] // through LazyPackageFragmentScopeForJavaPackage@77
+    _functions('food': Name@36) = LinkedHashSet@85[empty] // through LazyPackageFragmentScopeForJavaPackage@77
+    _functions('foof': Name@38) = LinkedHashSet@86[empty] // through LazyPackageFragmentScopeForJavaPackage@77
+    _functions('fooi': Name@32) = LinkedHashSet@83[empty] // through LazyPackageFragmentScopeForJavaPackage@77
+    _functions('fool': Name@34) = LinkedHashSet@84[empty] // through LazyPackageFragmentScopeForJavaPackage@77
+    _functions('foos': Name@28) = LinkedHashSet@81[empty] // through LazyPackageFragmentScopeForJavaPackage@77
+    _functions('toFloat': Name@40) = LinkedHashSet@87[empty] // through LazyPackageFragmentScopeForJavaPackage@77
+    classes('Array': Name@20) = null // through LazyPackageFragmentScopeForJavaPackage@77
+    classes('Arrays': Name@25) = LazyJavaClassDescriptor@78['Arrays'] // through LazyPackageFragmentScopeForJavaPackage@77
+    classes('Boolean': Name@17) = null // through LazyPackageFragmentScopeForJavaPackage@77
+    classes('BooleanArray': Name@18) = null // through LazyPackageFragmentScopeForJavaPackage@77
+    classes('Byte': Name@3) = null // through LazyPackageFragmentScopeForJavaPackage@77
+    classes('ByteArray': Name@4) = null // through LazyPackageFragmentScopeForJavaPackage@77
+    classes('Char': Name@5) = null // through LazyPackageFragmentScopeForJavaPackage@77
+    classes('CharArray': Name@6) = null // through LazyPackageFragmentScopeForJavaPackage@77
+    classes('Double': Name@13) = null // through LazyPackageFragmentScopeForJavaPackage@77
+    classes('DoubleArray': Name@14) = null // through LazyPackageFragmentScopeForJavaPackage@77
+    classes('Float': Name@15) = null // through LazyPackageFragmentScopeForJavaPackage@77
+    classes('FloatArray': Name@16) = null // through LazyPackageFragmentScopeForJavaPackage@77
+    classes('Int': Name@9) = null // through LazyPackageFragmentScopeForJavaPackage@77
+    classes('IntArray': Name@10) = null // through LazyPackageFragmentScopeForJavaPackage@77
+    classes('Long': Name@11) = null // through LazyPackageFragmentScopeForJavaPackage@77
+    classes('LongArray': Name@12) = null // through LazyPackageFragmentScopeForJavaPackage@77
+    classes('Short': Name@7) = null // through LazyPackageFragmentScopeForJavaPackage@77
+    classes('ShortArray': Name@8) = null // through LazyPackageFragmentScopeForJavaPackage@77
+    classes('String': Name@19) = null // through LazyPackageFragmentScopeForJavaPackage@77
+    classes('foob': Name@26) = null // through LazyPackageFragmentScopeForJavaPackage@77
+    classes('fooc': Name@30) = null // through LazyPackageFragmentScopeForJavaPackage@77
+    classes('food': Name@36) = null // through LazyPackageFragmentScopeForJavaPackage@77
+    classes('foof': Name@38) = null // through LazyPackageFragmentScopeForJavaPackage@77
+    classes('fooi': Name@32) = null // through LazyPackageFragmentScopeForJavaPackage@77
+    classes('fool': Name@34) = null // through LazyPackageFragmentScopeForJavaPackage@77
+    classes('foos': Name@28) = null // through LazyPackageFragmentScopeForJavaPackage@77
+    classes('toFloat': Name@40) = null // through LazyPackageFragmentScopeForJavaPackage@77
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@21 // through LazyPackageFragmentScopeForJavaPackage@77
+    memberIndex = computeMemberIndex$1@79 // through LazyPackageFragmentScopeForJavaPackage@77
+}
+
+LazyJavaTypeParameterDescriptor@196['T'] {
+    typeConstructor = org.jetbrains.jet.lang.descriptors.impl.AbstractLazyTypeParameterDescriptor$1@48
+    upperBounds = LinkedHashSet@209[1] { NullableType@210 }
+    upperBoundsAsType = NullableType@210
+}
+
+LazyJavaTypeParameterResolver@194 {
+    resolve(JavaTypeParameterImpl@195['T']) = LazyJavaTypeParameterDescriptor@196['T']
+}

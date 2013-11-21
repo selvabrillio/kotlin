@@ -1,0 +1,57 @@
+LazyJavaPackageFragmentProvider@20 {
+    _packageFragments('<root>': FqName@21) = LazyJavaPackageFragment@0['<root>']
+    _packageFragments('G': FqName@31) = null
+    _packageFragments('Out': FqName@37) = null
+    _packageFragments('Point': FqName@34) = null
+    _packageFragments('T': FqName@28) = null
+    _packageFragments('java': FqName@22) = LazyJavaPackageFragment@14['java']
+    _packageFragments('java.lang': FqName@23) = LazyJavaPackageFragment@24['lang']
+    _packageFragments('java.lang.G': FqName@33) = null
+    _packageFragments('java.lang.Out': FqName@39) = null
+    _packageFragments('java.lang.Point': FqName@36) = null
+    _packageFragments('java.lang.T': FqName@30) = null
+    _packageFragments('kotlin': FqName@25) = null
+    _packageFragments('kotlin.G': FqName@32) = null
+    _packageFragments('kotlin.Out': FqName@38) = null
+    _packageFragments('kotlin.Point': FqName@35) = null
+    _packageFragments('kotlin.T': FqName@29) = null
+    _packageFragments('kotlin.io': FqName@27) = null
+    _packageFragments('kotlin.jvm': FqName@26) = null
+}
+
+LazyJavaPackageFragment@0['<root>'] {
+    _functions('G': Name@4) = LinkedHashSet@5[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    _functions('Out': Name@10) = LinkedHashSet@11[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    _functions('Point': Name@6) = LinkedHashSet@7[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    _functions('f': Name@8) = LinkedHashSet@9[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    _functions('fout': Name@12) = LinkedHashSet@13[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('G': Name@4) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('Out': Name@10) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('Point': Name@6) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('f': Name@8) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('fout': Name@12) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@1 // through LazyPackageFragmentScopeForJavaPackage@2
+    memberIndex = computeMemberIndex$1@3 // through LazyPackageFragmentScopeForJavaPackage@2
+}
+
+LazyJavaPackageFragment@14['java'] {
+    _functions('lang': Name@18) = LinkedHashSet@19[empty] // through LazyPackageFragmentScopeForJavaPackage@16
+    classes('lang': Name@15) = null // through LazyPackageFragmentScopeForJavaPackage@16
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@1 // through LazyPackageFragmentScopeForJavaPackage@16
+    memberIndex = computeMemberIndex$1@17 // through LazyPackageFragmentScopeForJavaPackage@16
+}
+
+LazyJavaPackageFragment@24['lang'] {
+    _functions('G': Name@4) = LinkedHashSet@42[empty] // through LazyPackageFragmentScopeForJavaPackage@40
+    _functions('Out': Name@10) = LinkedHashSet@45[empty] // through LazyPackageFragmentScopeForJavaPackage@40
+    _functions('Point': Name@6) = LinkedHashSet@43[empty] // through LazyPackageFragmentScopeForJavaPackage@40
+    _functions('f': Name@8) = LinkedHashSet@44[empty] // through LazyPackageFragmentScopeForJavaPackage@40
+    _functions('fout': Name@12) = LinkedHashSet@46[empty] // through LazyPackageFragmentScopeForJavaPackage@40
+    classes('G': Name@4) = null // through LazyPackageFragmentScopeForJavaPackage@40
+    classes('Out': Name@10) = null // through LazyPackageFragmentScopeForJavaPackage@40
+    classes('Point': Name@6) = null // through LazyPackageFragmentScopeForJavaPackage@40
+    classes('f': Name@8) = null // through LazyPackageFragmentScopeForJavaPackage@40
+    classes('fout': Name@12) = null // through LazyPackageFragmentScopeForJavaPackage@40
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@1 // through LazyPackageFragmentScopeForJavaPackage@40
+    memberIndex = computeMemberIndex$1@41 // through LazyPackageFragmentScopeForJavaPackage@40
+}

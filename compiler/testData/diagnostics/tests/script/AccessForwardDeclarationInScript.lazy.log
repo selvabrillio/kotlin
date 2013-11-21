@@ -1,0 +1,33 @@
+LazyJavaPackageFragmentProvider@0 {
+    _packageFragments('<root>': FqName@1) = LazyJavaPackageFragment@2['<root>']
+    _packageFragments('AccessForwardDeclarationInScript': FqName@10) = null
+    _packageFragments('java': FqName@3) = LazyJavaPackageFragment@4['java']
+    _packageFragments('java.lang': FqName@5) = LazyJavaPackageFragment@6['lang']
+    _packageFragments('java.lang.y': FqName@13) = null
+    _packageFragments('kotlin': FqName@7) = null
+    _packageFragments('kotlin.io': FqName@9) = null
+    _packageFragments('kotlin.jvm': FqName@8) = null
+    _packageFragments('kotlin.y': FqName@12) = null
+    _packageFragments('y': FqName@11) = null
+}
+
+LazyJavaPackageFragment@2['<root>'] {
+    _functions('y': Name@23) = LinkedHashSet@27[empty] // through LazyPackageFragmentScopeForJavaPackage@25
+    classes('y': Name@21) = null // through LazyPackageFragmentScopeForJavaPackage@25
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@16 // through LazyPackageFragmentScopeForJavaPackage@25
+    memberIndex = computeMemberIndex$1@26 // through LazyPackageFragmentScopeForJavaPackage@25
+}
+
+LazyJavaPackageFragment@4['java'] {
+    _functions('lang': Name@18) = LinkedHashSet@19[empty] // through LazyPackageFragmentScopeForJavaPackage@15
+    classes('lang': Name@14) = null // through LazyPackageFragmentScopeForJavaPackage@15
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@16 // through LazyPackageFragmentScopeForJavaPackage@15
+    memberIndex = computeMemberIndex$1@17 // through LazyPackageFragmentScopeForJavaPackage@15
+}
+
+LazyJavaPackageFragment@6['lang'] {
+    _functions('y': Name@23) = LinkedHashSet@24[empty] // through LazyPackageFragmentScopeForJavaPackage@20
+    classes('y': Name@21) = null // through LazyPackageFragmentScopeForJavaPackage@20
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@16 // through LazyPackageFragmentScopeForJavaPackage@20
+    memberIndex = computeMemberIndex$1@22 // through LazyPackageFragmentScopeForJavaPackage@20
+}

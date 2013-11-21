@@ -1,0 +1,92 @@
+LazyJavaClassDescriptor@13['CharSequence'] {
+    _allDescriptors = LinkedHashSet@65[6] { JavaMethodDescriptor@37['length'], DeserializedSimpleFunctionDescriptor@44['hashCode'], JavaMethodDescriptor@49['subSequence'], DeserializedSimpleFunctionDescriptor@56['toString'], ... } // through LazyJavaClassMemberScope@31
+    _constructors = ArrayList@66[empty] // through LazyJavaClassMemberScope@31
+    _functionTypeForSamInterface = null
+    _functions('charAt': Name@59) = LinkedHashSet@60[1] { JavaMethodDescriptor@61['charAt'] } // through LazyJavaClassMemberScope@31
+    _functions('clone': Name@57) = LinkedHashSet@58[empty] // through LazyJavaClassMemberScope@31
+    _functions('equals': Name@62) = LinkedHashSet@63[1] { DeserializedSimpleFunctionDescriptor@64['equals'] } // through LazyJavaClassMemberScope@31
+    _functions('finalize': Name@50) = LinkedHashSet@51[empty] // through LazyJavaClassMemberScope@31
+    _functions('getClass': Name@45) = LinkedHashSet@46[empty] // through LazyJavaClassMemberScope@31
+    _functions('hashCode': Name@42) = LinkedHashSet@43[1] { DeserializedSimpleFunctionDescriptor@44['hashCode'] } // through LazyJavaClassMemberScope@31
+    _functions('length': Name@35) = LinkedHashSet@36[1] { JavaMethodDescriptor@37['length'] } // through LazyJavaClassMemberScope@31
+    _functions('notify': Name@40) = LinkedHashSet@41[empty] // through LazyJavaClassMemberScope@31
+    _functions('notifyAll': Name@38) = LinkedHashSet@39[empty] // through LazyJavaClassMemberScope@31
+    _functions('subSequence': Name@47) = LinkedHashSet@48[1] { JavaMethodDescriptor@49['subSequence'] } // through LazyJavaClassMemberScope@31
+    _functions('toString': Name@54) = LinkedHashSet@55[1] { DeserializedSimpleFunctionDescriptor@56['toString'] } // through LazyJavaClassMemberScope@31
+    _functions('wait': Name@52) = LinkedHashSet@53[empty] // through LazyJavaClassMemberScope@31
+    _typeConstructor = LazyJavaClassTypeConstructor@25['CharSequence']
+    defaultType = JetTypeImpl@29
+    enumEntryIndex = LinkedHashMap@32 // through LazyJavaClassMemberScope@31
+    memberIndex = computeMemberIndex$1@33 // through LazyJavaClassMemberScope@31
+    nestedClassIndex = LinkedHashMap@30 // through LazyJavaClassMemberScope@31
+    thisAsReceiverParameter = LazyClassReceiverParameterDescriptor@34['<this>']
+}
+
+LazyJavaClassTypeConstructor@25['CharSequence'] {
+    _parameters = ArrayList@26[empty]
+    _supertypes = ArrayList@27[1] { JetTypeImpl@28 }
+}
+
+LazyJavaClassifierType@0['CharSequence'] {
+    _arguments = ArrayList@4[empty]
+    _nullable = Boolean@1
+    _typeConstructor = DeserializedClassTypeConstructor@3
+    classifier = JavaClassImpl@2['CharSequence']
+}
+
+LazyJavaClassifierType@8['CharSequence'] {
+    _arguments = ArrayList@10[empty]
+    _nullable = Boolean@9
+    _typeConstructor = DeserializedClassTypeConstructor@3
+    classifier = JavaClassImpl@2['CharSequence']
+}
+
+LazyJavaClassifierType@5['Object'] {
+    _typeConstructor = DeserializedClassTypeConstructor@7
+    classifier = JavaClassImpl@6['Object']
+}
+
+LazyJavaPackageFragmentProvider@75 {
+    _packageFragments('<root>': FqName@76) = LazyJavaPackageFragment@67['<root>']
+    _packageFragments('CharSequence': FqName@87) = null
+    _packageFragments('JCS': FqName@84) = null
+    _packageFragments('JSub': FqName@92) = null
+    _packageFragments('Sub': FqName@89) = null
+    _packageFragments('java': FqName@77) = LazyJavaPackageFragment@19['java']
+    _packageFragments('java.lang': FqName@78) = LazyJavaPackageFragment@11['lang']
+    _packageFragments('java.lang.CharSequence': FqName@82) = null
+    _packageFragments('java.lang.JCS': FqName@86) = null
+    _packageFragments('java.lang.JSub': FqName@94) = null
+    _packageFragments('java.lang.Sub': FqName@91) = null
+    _packageFragments('kotlin': FqName@79) = null
+    _packageFragments('kotlin.CharSequence': FqName@88) = null
+    _packageFragments('kotlin.JCS': FqName@85) = null
+    _packageFragments('kotlin.JSub': FqName@93) = null
+    _packageFragments('kotlin.Sub': FqName@90) = null
+    _packageFragments('kotlin.io': FqName@81) = null
+    _packageFragments('kotlin.jvm': FqName@80) = null
+    topLevelClasses(JavaClassImpl@83['CharSequence']) = LazyJavaClassDescriptor@13['CharSequence']
+}
+
+LazyJavaPackageFragment@67['<root>'] {
+    _functions('java': Name@73) = LinkedHashSet@74[empty] // through LazyPackageFragmentScopeForJavaPackage@69
+    classes('CharSequence': Name@71) = null // through LazyPackageFragmentScopeForJavaPackage@69
+    classes('JCS': Name@70) = null // through LazyPackageFragmentScopeForJavaPackage@69
+    classes('java': Name@68) = null // through LazyPackageFragmentScopeForJavaPackage@69
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@15 // through LazyPackageFragmentScopeForJavaPackage@69
+    memberIndex = computeMemberIndex$1@72 // through LazyPackageFragmentScopeForJavaPackage@69
+}
+
+LazyJavaPackageFragment@19['java'] {
+    _functions('lang': Name@23) = LinkedHashSet@24[empty] // through LazyPackageFragmentScopeForJavaPackage@21
+    classes('lang': Name@20) = null // through LazyPackageFragmentScopeForJavaPackage@21
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@15 // through LazyPackageFragmentScopeForJavaPackage@21
+    memberIndex = computeMemberIndex$1@22 // through LazyPackageFragmentScopeForJavaPackage@21
+}
+
+LazyJavaPackageFragment@11['lang'] {
+    _functions('CharSequence': Name@17) = LinkedHashSet@18[empty] // through LazyPackageFragmentScopeForJavaPackage@14
+    classes('CharSequence': Name@12) = LazyJavaClassDescriptor@13['CharSequence'] // through LazyPackageFragmentScopeForJavaPackage@14
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@15 // through LazyPackageFragmentScopeForJavaPackage@14
+    memberIndex = computeMemberIndex$1@16 // through LazyPackageFragmentScopeForJavaPackage@14
+}

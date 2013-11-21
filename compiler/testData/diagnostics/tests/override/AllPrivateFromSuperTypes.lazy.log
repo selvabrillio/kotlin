@@ -1,0 +1,40 @@
+DescriptorResolver@32 {
+    <name not found> = JetTypeImpl@34
+    <name not found> = StringValue@33
+    <name not found> = null
+}
+
+LazyJavaPackageFragmentProvider@0 {
+    _packageFragments('<root>': FqName@1) = LazyJavaPackageFragment@2['<root>']
+    _packageFragments('A': FqName@16) = null
+    _packageFragments('C': FqName@12) = null
+    _packageFragments('String': FqName@20) = null
+    _packageFragments('java': FqName@4) = LazyJavaPackageFragment@5['java']
+    _packageFragments('java.lang': FqName@6) = LazyJavaPackageFragment@7['lang']
+    _packageFragments('java.lang.A': FqName@18) = null
+    _packageFragments('java.lang.C': FqName@14) = null
+    _packageFragments('java.lang.String': FqName@22) = null
+    _packageFragments('kotlin': FqName@8) = null
+    _packageFragments('kotlin.A': FqName@17) = null
+    _packageFragments('kotlin.C': FqName@13) = null
+    _packageFragments('kotlin.String': FqName@21) = null
+    _packageFragments('kotlin.io': FqName@10) = null
+    _packageFragments('kotlin.jvm': FqName@9) = null
+    _packageFragments('test': FqName@3) = null
+    _packageFragments('test.A': FqName@15) = null
+    _packageFragments('test.C': FqName@11) = null
+    _packageFragments('test.String': FqName@19) = null
+    _packageFragments('test.Subject': FqName@23) = null
+}
+
+LazyJavaPackageFragment@5['java'] {
+    _functions('lang': Name@30) = LinkedHashSet@31[empty] // through LazyPackageFragmentScopeForJavaPackage@28
+    classes('lang': Name@27) = null // through LazyPackageFragmentScopeForJavaPackage@28
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@24 // through LazyPackageFragmentScopeForJavaPackage@28
+    memberIndex = computeMemberIndex$1@29 // through LazyPackageFragmentScopeForJavaPackage@28
+}
+
+LazyJavaPackageFragment@7['lang'] {
+    classes('a': Name@26) = null // through LazyPackageFragmentScopeForJavaPackage@25
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@24 // through LazyPackageFragmentScopeForJavaPackage@25
+}

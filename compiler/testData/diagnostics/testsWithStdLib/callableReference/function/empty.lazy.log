@@ -1,0 +1,34 @@
+LazyJavaPackageFragmentProvider@22 {
+    _packageFragments('<root>': FqName@23) = LazyJavaPackageFragment@24['<root>']
+    _packageFragments('A': FqName@33) = null
+    _packageFragments('java': FqName@25) = LazyJavaPackageFragment@0['java']
+    _packageFragments('java.lang': FqName@26) = LazyJavaPackageFragment@27['lang']
+    _packageFragments('java.lang.A': FqName@37) = null
+    _packageFragments('kotlin': FqName@28) = LazyJavaPackageFragment@7['kotlin']
+    _packageFragments('kotlin.A': FqName@36) = null
+    _packageFragments('kotlin.io': FqName@31) = LazyJavaPackageFragment@32['io']
+    _packageFragments('kotlin.io.A': FqName@34) = null
+    _packageFragments('kotlin.jvm': FqName@29) = LazyJavaPackageFragment@30['jvm']
+    _packageFragments('kotlin.jvm.A': FqName@35) = null
+}
+
+LazyJavaPackageFragment@0['java'] {
+    _functions('lang': Name@5) = LinkedHashSet@6[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('lang': Name@1) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@3 // through LazyPackageFragmentScopeForJavaPackage@2
+    memberIndex = computeMemberIndex$1@4 // through LazyPackageFragmentScopeForJavaPackage@2
+}
+
+LazyJavaPackageFragment@7['kotlin'] {
+    _functions('io': Name@18) = LinkedHashSet@20[empty] // through LazyPackageFragmentScopeForJavaPackage@9
+    _functions('jvm': Name@13) = LinkedHashSet@16[empty] // through LazyPackageFragmentScopeForJavaPackage@9
+    classes('io': Name@10) = null // through LazyPackageFragmentScopeForJavaPackage@9
+    classes('jvm': Name@8) = null // through LazyPackageFragmentScopeForJavaPackage@9
+    deserializedPackageScope = DeserializedPackageMemberScope@11 // through LazyPackageFragmentScopeForJavaPackage@9
+    functions('io': Name@18) = LinkedHashSet@19[empty] // through DeserializedPackageMemberScope@11
+    functions('jvm': Name@13) = LinkedHashSet@14[empty] // through DeserializedPackageMemberScope@11
+    memberIndex = computeMemberIndex$1@15 // through LazyPackageFragmentScopeForJavaPackage@9
+    membersProtos = HashMap@12 // through DeserializedPackageMemberScope@11
+    properties('io': Name@18) = LinkedHashSet@21[empty] // through DeserializedPackageMemberScope@11
+    properties('jvm': Name@13) = LinkedHashSet@17[empty] // through DeserializedPackageMemberScope@11
+}

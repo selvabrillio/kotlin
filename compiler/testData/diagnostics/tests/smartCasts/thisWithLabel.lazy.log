@@ -1,0 +1,45 @@
+DescriptorResolver@33 {
+    <name not found> = JetTypeImpl@34
+    <name not found> = JetTypeImpl@35
+}
+
+LazyJavaPackageFragmentProvider@0 {
+    _packageFragments('<root>': FqName@1) = LazyJavaPackageFragment@2['<root>']
+    _packageFragments('A': FqName@16) = null
+    _packageFragments('Int': FqName@12) = null
+    _packageFragments('Unit': FqName@20) = null
+    _packageFragments('foo': FqName@3) = null
+    _packageFragments('foo.A': FqName@15) = null
+    _packageFragments('foo.Int': FqName@11) = null
+    _packageFragments('foo.Unit': FqName@19) = null
+    _packageFragments('java': FqName@4) = LazyJavaPackageFragment@5['java']
+    _packageFragments('java.lang': FqName@6) = LazyJavaPackageFragment@7['lang']
+    _packageFragments('java.lang.A': FqName@18) = null
+    _packageFragments('java.lang.Int': FqName@14) = null
+    _packageFragments('java.lang.Unit': FqName@22) = null
+    _packageFragments('kotlin': FqName@8) = null
+    _packageFragments('kotlin.A': FqName@17) = null
+    _packageFragments('kotlin.Int': FqName@13) = null
+    _packageFragments('kotlin.Unit': FqName@21) = null
+    _packageFragments('kotlin.io': FqName@10) = null
+    _packageFragments('kotlin.jvm': FqName@9) = null
+}
+
+LazyJavaPackageFragment@5['java'] {
+    _functions('lang': Name@39) = LinkedHashSet@40[empty] // through LazyPackageFragmentScopeForJavaPackage@37
+    classes('lang': Name@36) = null // through LazyPackageFragmentScopeForJavaPackage@37
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@23 // through LazyPackageFragmentScopeForJavaPackage@37
+    memberIndex = computeMemberIndex$1@38 // through LazyPackageFragmentScopeForJavaPackage@37
+}
+
+LazyJavaPackageFragment@7['lang'] {
+    _functions('equals': Name@26) = LinkedHashSet@27[empty] // through LazyPackageFragmentScopeForJavaPackage@24
+    _functions('useFunction': Name@31) = LinkedHashSet@32[empty] // through LazyPackageFragmentScopeForJavaPackage@24
+    _functions('useInt': Name@28) = LinkedHashSet@29[empty] // through LazyPackageFragmentScopeForJavaPackage@24
+    classes('equals': Name@26) = null // through LazyPackageFragmentScopeForJavaPackage@24
+    classes('i': Name@30) = null // through LazyPackageFragmentScopeForJavaPackage@24
+    classes('useFunction': Name@31) = null // through LazyPackageFragmentScopeForJavaPackage@24
+    classes('useInt': Name@28) = null // through LazyPackageFragmentScopeForJavaPackage@24
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@23 // through LazyPackageFragmentScopeForJavaPackage@24
+    memberIndex = computeMemberIndex$1@25 // through LazyPackageFragmentScopeForJavaPackage@24
+}

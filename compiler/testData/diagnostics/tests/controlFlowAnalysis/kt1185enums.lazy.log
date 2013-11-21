@@ -1,0 +1,40 @@
+DescriptorResolver@31 {
+    <name not found> = JetTypeImpl@32
+    <name not found> = JetTypeImpl@32
+    <name not found> = JetTypeImpl@32
+    <name not found> = JetTypeImpl@32
+}
+
+LazyJavaPackageFragmentProvider@3 {
+    _packageFragments('<root>': FqName@4) = LazyJavaPackageFragment@5['<root>']
+    _packageFragments('Color': FqName@14) = null
+    _packageFragments('Direction': FqName@22) = null
+    _packageFragments('Int': FqName@18) = null
+    _packageFragments('java': FqName@7) = LazyJavaPackageFragment@8['java']
+    _packageFragments('java.lang': FqName@9) = LazyJavaPackageFragment@0['lang']
+    _packageFragments('java.lang.Color': FqName@16) = null
+    _packageFragments('java.lang.Direction': FqName@24) = null
+    _packageFragments('java.lang.Int': FqName@20) = null
+    _packageFragments('kotlin': FqName@10) = null
+    _packageFragments('kotlin.Color': FqName@15) = null
+    _packageFragments('kotlin.Direction': FqName@23) = null
+    _packageFragments('kotlin.Int': FqName@19) = null
+    _packageFragments('kotlin.io': FqName@12) = null
+    _packageFragments('kotlin.jvm': FqName@11) = null
+    _packageFragments('kt1185': FqName@6) = null
+    _packageFragments('kt1185.A': FqName@25) = null
+    _packageFragments('kt1185.Color': FqName@13) = null
+    _packageFragments('kt1185.Direction': FqName@21) = null
+    _packageFragments('kt1185.Int': FqName@17) = null
+}
+
+LazyJavaPackageFragment@8['java'] {
+    _functions('lang': Name@29) = LinkedHashSet@30[empty] // through LazyPackageFragmentScopeForJavaPackage@27
+    classes('lang': Name@26) = null // through LazyPackageFragmentScopeForJavaPackage@27
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@1 // through LazyPackageFragmentScopeForJavaPackage@27
+    memberIndex = computeMemberIndex$1@28 // through LazyPackageFragmentScopeForJavaPackage@27
+}
+
+LazyJavaPackageFragment@0['lang'] {
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@1 // through LazyPackageFragmentScopeForJavaPackage@2
+}

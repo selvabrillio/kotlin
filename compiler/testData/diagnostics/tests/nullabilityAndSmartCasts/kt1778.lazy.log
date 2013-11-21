@@ -1,0 +1,70 @@
+DescriptorResolver@4 {
+    <name not found> = null
+}
+
+LazyJavaClassDescriptor@34['CharSequence'] {
+    _functions('length': Name@44) = LinkedHashSet@54[1] { JavaMethodDescriptor@55['length'] } // through LazyJavaClassMemberScope@52
+    _properties('length': Name@44) = ArrayList@58[empty] // through LazyJavaClassMemberScope@52
+    _typeConstructor = LazyJavaClassTypeConstructor@0['CharSequence']
+    defaultType = JetTypeImpl@59
+    enumEntryIndex = LinkedHashMap@57 // through LazyJavaClassMemberScope@52
+    memberIndex = computeMemberIndex$1@51 // through LazyJavaClassMemberScope@52
+    nestedClassIndex = LinkedHashMap@56 // through LazyJavaClassMemberScope@52
+    nestedClasses('length': Name@44) = null // through LazyJavaClassMemberScope@52
+    thisAsReceiverParameter = LazyClassReceiverParameterDescriptor@53['<this>']
+}
+
+LazyJavaClassTypeConstructor@0['CharSequence'] {
+    _parameters = ArrayList@1[empty]
+    _supertypes = ArrayList@2[1] { JetTypeImpl@3 }
+}
+
+LazyJavaClassifierType@5['Object'] {
+    _typeConstructor = DeserializedClassTypeConstructor@7
+    classifier = JavaClassImpl@6['Object']
+}
+
+LazyJavaPackageFragmentProvider@8 {
+    _packageFragments('<root>': FqName@9) = LazyJavaPackageFragment@10['<root>']
+    _packageFragments('Any': FqName@28) = null
+    _packageFragments('Array': FqName@20) = null
+    _packageFragments('String': FqName@24) = null
+    _packageFragments('java': FqName@12) = LazyJavaPackageFragment@13['java']
+    _packageFragments('java.lang': FqName@14) = LazyJavaPackageFragment@15['lang']
+    _packageFragments('java.lang.Any': FqName@30) = null
+    _packageFragments('java.lang.Array': FqName@22) = null
+    _packageFragments('java.lang.CharSequence': FqName@32) = null
+    _packageFragments('java.lang.String': FqName@26) = null
+    _packageFragments('kotlin': FqName@16) = null
+    _packageFragments('kotlin.Any': FqName@29) = null
+    _packageFragments('kotlin.Array': FqName@21) = null
+    _packageFragments('kotlin.String': FqName@25) = null
+    _packageFragments('kotlin.io': FqName@18) = null
+    _packageFragments('kotlin.jvm': FqName@17) = null
+    _packageFragments('kt1778': FqName@11) = null
+    _packageFragments('kt1778.Any': FqName@27) = null
+    _packageFragments('kt1778.Array': FqName@19) = null
+    _packageFragments('kt1778.String': FqName@23) = null
+    _packageFragments('kt1778.java': FqName@31) = null
+    topLevelClasses(JavaClassImpl@33['CharSequence']) = LazyJavaClassDescriptor@34['CharSequence']
+}
+
+LazyJavaPackageFragment@13['java'] {
+    _functions('lang': Name@49) = LinkedHashSet@50[empty] // through LazyPackageFragmentScopeForJavaPackage@47
+    classes('lang': Name@46) = null // through LazyPackageFragmentScopeForJavaPackage@47
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@35 // through LazyPackageFragmentScopeForJavaPackage@47
+    memberIndex = computeMemberIndex$1@48 // through LazyPackageFragmentScopeForJavaPackage@47
+}
+
+LazyJavaPackageFragment@15['lang'] {
+    _functions('equals': Name@42) = LinkedHashSet@43[empty] // through LazyPackageFragmentScopeForJavaPackage@36
+    _functions('get': Name@38) = LinkedHashSet@39[empty] // through LazyPackageFragmentScopeForJavaPackage@36
+    _functions('length': Name@44) = LinkedHashSet@45[empty] // through LazyPackageFragmentScopeForJavaPackage@36
+    classes('CharSequence': Name@41) = LazyJavaClassDescriptor@34['CharSequence'] // through LazyPackageFragmentScopeForJavaPackage@36
+    classes('equals': Name@42) = null // through LazyPackageFragmentScopeForJavaPackage@36
+    classes('get': Name@38) = null // through LazyPackageFragmentScopeForJavaPackage@36
+    classes('java': Name@40) = null // through LazyPackageFragmentScopeForJavaPackage@36
+    classes('length': Name@44) = null // through LazyPackageFragmentScopeForJavaPackage@36
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@35 // through LazyPackageFragmentScopeForJavaPackage@36
+    memberIndex = computeMemberIndex$1@37 // through LazyPackageFragmentScopeForJavaPackage@36
+}

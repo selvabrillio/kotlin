@@ -1,0 +1,31 @@
+LazyJavaPackageFragmentProvider@0 {
+    _packageFragments('<root>': FqName@1) = LazyJavaPackageFragment@2['<root>']
+    _packageFragments('Int': FqName@12) = null
+    _packageFragments('java': FqName@4) = LazyJavaPackageFragment@5['java']
+    _packageFragments('java.lang': FqName@6) = LazyJavaPackageFragment@7['lang']
+    _packageFragments('java.lang.Int': FqName@14) = null
+    _packageFragments('kotlin': FqName@8) = null
+    _packageFragments('kotlin.Int': FqName@13) = null
+    _packageFragments('kotlin.io': FqName@10) = null
+    _packageFragments('kotlin.jvm': FqName@9) = null
+    _packageFragments('kt776': FqName@3) = null
+    _packageFragments('kt776.Int': FqName@11) = null
+}
+
+LazyJavaPackageFragment@5['java'] {
+    _functions('lang': Name@19) = LinkedHashSet@20[empty] // through LazyPackageFragmentScopeForJavaPackage@16
+    classes('lang': Name@15) = null // through LazyPackageFragmentScopeForJavaPackage@16
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@17 // through LazyPackageFragmentScopeForJavaPackage@16
+    memberIndex = computeMemberIndex$1@18 // through LazyPackageFragmentScopeForJavaPackage@16
+}
+
+LazyJavaPackageFragment@7['lang'] {
+    _functions('compareTo': Name@25) = LinkedHashSet@26[empty] // through LazyPackageFragmentScopeForJavaPackage@21
+    _functions('doSmth': Name@27) = LinkedHashSet@28[empty] // through LazyPackageFragmentScopeForJavaPackage@21
+    _functions('inc': Name@23) = LinkedHashSet@24[empty] // through LazyPackageFragmentScopeForJavaPackage@21
+    classes('compareTo': Name@25) = null // through LazyPackageFragmentScopeForJavaPackage@21
+    classes('doSmth': Name@27) = null // through LazyPackageFragmentScopeForJavaPackage@21
+    classes('inc': Name@23) = null // through LazyPackageFragmentScopeForJavaPackage@21
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@17 // through LazyPackageFragmentScopeForJavaPackage@21
+    memberIndex = computeMemberIndex$1@22 // through LazyPackageFragmentScopeForJavaPackage@21
+}

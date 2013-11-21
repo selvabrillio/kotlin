@@ -1,0 +1,155 @@
+LazyAnnotationDescriptor@85 {
+    _resolutionResults = OverloadResolutionResultsImpl@87
+    _type = ErrorTypeImpl@86
+}
+
+LazyAnnotationDescriptor@21 {
+    _resolutionResults = OverloadResolutionResultsImpl@23
+    _type = JetTypeImpl@22
+}
+
+LazyAnnotationDescriptor@111 {
+    _resolutionResults = OverloadResolutionResultsImpl@113
+    _type = JetTypeImpl@112
+}
+
+LazyJavaClassDescriptor@13['ArrayList'] {
+    _constructors = ArrayList@16[3] { JavaConstructorDescriptor@17['<init>'], JavaConstructorDescriptor@18['<init>'], JavaConstructorDescriptor@19['<init>'] } // through LazyJavaClassMemberScope@20
+    _functionTypeForSamInterface = null
+    _typeConstructor = LazyJavaClassTypeConstructor@14['ArrayList']
+    defaultType = JetTypeImpl@15
+}
+
+LazyJavaClassDescriptor@57['Deprecated'] {
+    _constructors = ArrayList@103[1] { JavaConstructorDescriptor@104['<init>'] } // through LazyJavaClassMemberScope@105
+    _typeConstructor = LazyJavaClassTypeConstructor@61['Deprecated']
+    defaultType = JetTypeImpl@102
+}
+
+LazyJavaClassTypeConstructor@14['ArrayList'] {
+    _parameters = ArrayList@93[1] { LazyJavaTypeParameterDescriptor@2['E'] }
+}
+
+LazyJavaClassTypeConstructor@61['Deprecated'] {
+    _parameters = ArrayList@62[empty]
+}
+
+LazyJavaClassifierType@24['Collection<? extends E>'] {
+    _arguments = ArrayList@28[1] { TypeProjectionImpl@29 }
+    _memberScope = SubstitutingScope@30
+    _nullable = Boolean@25
+    _typeConstructor = DeserializedClassTypeConstructor@27
+    classifier = JavaClassImpl@26['Collection']
+}
+
+LazyJavaClassifierType@79['Collection<? extends E>'] {
+    _arguments = ArrayList@82[1] { TypeProjectionImpl@83 }
+    _memberScope = SubstitutingScope@84
+    _nullable = Boolean@80
+    _typeConstructor = DeserializedClassTypeConstructor@81
+    classifier = JavaClassImpl@26['Collection']
+}
+
+LazyJavaClassifierType@75['E'] {
+    _arguments = ArrayList@78[empty]
+    _nullable = Boolean@25
+    _typeConstructor = org.jetbrains.jet.lang.descriptors.impl.AbstractLazyTypeParameterDescriptor$1@77
+    classifier = JavaTypeParameterImpl@76['E']
+}
+
+LazyJavaClassifierType@88['E'] {
+    _arguments = ArrayList@89[empty]
+    _nullable = Boolean@80
+    _typeConstructor = org.jetbrains.jet.lang.descriptors.impl.AbstractLazyTypeParameterDescriptor$1@77
+    classifier = JavaTypeParameterImpl@76['E']
+}
+
+LazyJavaClassifierType@90['E'] {
+    _arguments = ArrayList@92[empty]
+    _nullable = Boolean@25
+    _typeConstructor = org.jetbrains.jet.lang.descriptors.impl.AbstractLazyTypeParameterDescriptor$1@77
+    classifier = JavaTypeParameterImpl@91['E']
+}
+
+LazyJavaClassifierType@106['E'] {
+    _arguments = ArrayList@107[empty]
+    _nullable = Boolean@80
+    _typeConstructor = org.jetbrains.jet.lang.descriptors.impl.AbstractLazyTypeParameterDescriptor$1@77
+    classifier = JavaTypeParameterImpl@91['E']
+}
+
+LazyJavaPackageFragmentProvider@31 {
+    _packageFragments('<root>': FqName@32) = LazyJavaPackageFragment@33['<root>']
+    _packageFragments('ArrayList': FqName@44) = null
+    _packageFragments('Deprecated': FqName@53) = null
+    _packageFragments('Int': FqName@47) = null
+    _packageFragments('Xoo': FqName@50) = null
+    _packageFragments('java': FqName@34) = LazyJavaPackageFragment@3['java']
+    _packageFragments('java.lang': FqName@35) = LazyJavaPackageFragment@36['lang']
+    _packageFragments('java.lang.ArrayList': FqName@46) = null
+    _packageFragments('java.lang.Deprecated': FqName@55) = null
+    _packageFragments('java.lang.Int': FqName@49) = null
+    _packageFragments('java.lang.Xoo': FqName@52) = null
+    _packageFragments('java.lang.x': FqName@60) = null
+    _packageFragments('java.util': FqName@40) = LazyJavaPackageFragment@41['util']
+    _packageFragments('java.util.ArrayList': FqName@42) = null
+    _packageFragments('kotlin': FqName@37) = null
+    _packageFragments('kotlin.ArrayList': FqName@45) = null
+    _packageFragments('kotlin.Deprecated': FqName@54) = null
+    _packageFragments('kotlin.Int': FqName@48) = null
+    _packageFragments('kotlin.Xoo': FqName@51) = null
+    _packageFragments('kotlin.io': FqName@39) = null
+    _packageFragments('kotlin.jvm': FqName@38) = null
+    _packageFragments('kotlin.x': FqName@59) = null
+    _packageFragments('x': FqName@58) = null
+    topLevelClasses(JavaClassImpl@43['ArrayList']) = LazyJavaClassDescriptor@13['ArrayList']
+    topLevelClasses(JavaClassImpl@56['Deprecated']) = LazyJavaClassDescriptor@57['Deprecated']
+}
+
+LazyJavaPackageFragment@33['<root>'] {
+    _functions('java': Name@70) = LinkedHashSet@71[empty] // through LazyPackageFragmentScopeForJavaPackage@64
+    _functions('x': Name@73) = LinkedHashSet@74[empty] // through LazyPackageFragmentScopeForJavaPackage@64
+    classes('ArrayList': Name@65) = null // through LazyPackageFragmentScopeForJavaPackage@64
+    classes('Deprecated': Name@68) = null // through LazyPackageFragmentScopeForJavaPackage@64
+    classes('Int': Name@66) = null // through LazyPackageFragmentScopeForJavaPackage@64
+    classes('Xoo': Name@67) = null // through LazyPackageFragmentScopeForJavaPackage@64
+    classes('java': Name@63) = null // through LazyPackageFragmentScopeForJavaPackage@64
+    classes('x': Name@72) = null // through LazyPackageFragmentScopeForJavaPackage@64
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@7 // through LazyPackageFragmentScopeForJavaPackage@64
+    memberIndex = computeMemberIndex$1@69 // through LazyPackageFragmentScopeForJavaPackage@64
+}
+
+LazyJavaPackageFragment@3['java'] {
+    _functions('lang': Name@9) = LinkedHashSet@10[empty] // through LazyPackageFragmentScopeForJavaPackage@5
+    _functions('util': Name@11) = LinkedHashSet@12[empty] // through LazyPackageFragmentScopeForJavaPackage@5
+    classes('lang': Name@4) = null // through LazyPackageFragmentScopeForJavaPackage@5
+    classes('util': Name@6) = null // through LazyPackageFragmentScopeForJavaPackage@5
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@7 // through LazyPackageFragmentScopeForJavaPackage@5
+    memberIndex = computeMemberIndex$1@8 // through LazyPackageFragmentScopeForJavaPackage@5
+}
+
+LazyJavaPackageFragment@36['lang'] {
+    _functions('x': Name@73) = LinkedHashSet@110[empty] // through LazyPackageFragmentScopeForJavaPackage@108
+    classes('Deprecated': Name@68) = LazyJavaClassDescriptor@57['Deprecated'] // through LazyPackageFragmentScopeForJavaPackage@108
+    classes('Xoo': Name@67) = null // through LazyPackageFragmentScopeForJavaPackage@108
+    classes('x': Name@72) = null // through LazyPackageFragmentScopeForJavaPackage@108
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@7 // through LazyPackageFragmentScopeForJavaPackage@108
+    memberIndex = computeMemberIndex$1@109 // through LazyPackageFragmentScopeForJavaPackage@108
+}
+
+LazyJavaPackageFragment@41['util'] {
+    _functions('ArrayList': Name@97) = LinkedHashSet@98[empty] // through LazyPackageFragmentScopeForJavaPackage@95
+    classes('ArrayList': Name@94) = LazyJavaClassDescriptor@13['ArrayList'] // through LazyPackageFragmentScopeForJavaPackage@95
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@7 // through LazyPackageFragmentScopeForJavaPackage@95
+    memberIndex = computeMemberIndex$1@96 // through LazyPackageFragmentScopeForJavaPackage@95
+}
+
+LazyJavaTypeParameterDescriptor@2['E'] {
+    defaultType = JetTypeImpl@101
+    typeConstructor = org.jetbrains.jet.lang.descriptors.impl.AbstractLazyTypeParameterDescriptor$1@77
+    upperBounds = LinkedHashSet@99[1] { NullableType@100 }
+}
+
+LazyJavaTypeParameterResolver@0 {
+    resolve(JavaTypeParameterImpl@1['E']) = LazyJavaTypeParameterDescriptor@2['E']
+}

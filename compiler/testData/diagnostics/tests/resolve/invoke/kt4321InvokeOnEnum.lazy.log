@@ -1,0 +1,56 @@
+LazyJavaPackageFragmentProvider@21 {
+    _packageFragments('<root>': FqName@22) = LazyJavaPackageFragment@0['<root>']
+    _packageFragments('Array': FqName@33) = null
+    _packageFragments('DOMElementTestClasses': FqName@29) = null
+    _packageFragments('EnumStyleClass': FqName@30) = null
+    _packageFragments('String': FqName@36) = null
+    _packageFragments('TestClasses': FqName@39) = null
+    _packageFragments('java': FqName@23) = LazyJavaPackageFragment@24['java']
+    _packageFragments('java.lang': FqName@25) = LazyJavaPackageFragment@15['lang']
+    _packageFragments('java.lang.Array': FqName@35) = null
+    _packageFragments('java.lang.DOMElementTestClasses': FqName@41) = null
+    _packageFragments('java.lang.EnumStyleClass': FqName@32) = null
+    _packageFragments('java.lang.String': FqName@38) = null
+    _packageFragments('java.lang.TestClasses': FqName@43) = null
+    _packageFragments('kotlin': FqName@26) = null
+    _packageFragments('kotlin.Array': FqName@34) = null
+    _packageFragments('kotlin.DOMElementTestClasses': FqName@40) = null
+    _packageFragments('kotlin.EnumStyleClass': FqName@31) = null
+    _packageFragments('kotlin.String': FqName@37) = null
+    _packageFragments('kotlin.TestClasses': FqName@42) = null
+    _packageFragments('kotlin.io': FqName@28) = null
+    _packageFragments('kotlin.jvm': FqName@27) = null
+}
+
+LazyJavaPackageFragment@0['<root>'] {
+    _functions('DOMElementTestClasses': Name@6) = LinkedHashSet@7[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    _functions('cls': Name@13) = LinkedHashSet@14[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    _functions('cls2': Name@11) = LinkedHashSet@12[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    _functions('invoke': Name@9) = LinkedHashSet@10[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('Array': Name@1) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('DOMElementTestClasses': Name@6) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('String': Name@3) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('cls': Name@13) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('cls2': Name@8) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('invoke': Name@9) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@4 // through LazyPackageFragmentScopeForJavaPackage@2
+    memberIndex = computeMemberIndex$1@5 // through LazyPackageFragmentScopeForJavaPackage@2
+}
+
+LazyJavaPackageFragment@24['java'] {
+    _functions('lang': Name@47) = LinkedHashSet@48[empty] // through LazyPackageFragmentScopeForJavaPackage@45
+    classes('lang': Name@44) = null // through LazyPackageFragmentScopeForJavaPackage@45
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@4 // through LazyPackageFragmentScopeForJavaPackage@45
+    memberIndex = computeMemberIndex$1@46 // through LazyPackageFragmentScopeForJavaPackage@45
+}
+
+LazyJavaPackageFragment@15['lang'] {
+    _functions('cls': Name@13) = LinkedHashSet@20[empty] // through LazyPackageFragmentScopeForJavaPackage@16
+    _functions('cls2': Name@11) = LinkedHashSet@19[empty] // through LazyPackageFragmentScopeForJavaPackage@16
+    _functions('invoke': Name@9) = LinkedHashSet@18[empty] // through LazyPackageFragmentScopeForJavaPackage@16
+    classes('cls': Name@13) = null // through LazyPackageFragmentScopeForJavaPackage@16
+    classes('cls2': Name@11) = null // through LazyPackageFragmentScopeForJavaPackage@16
+    classes('invoke': Name@9) = null // through LazyPackageFragmentScopeForJavaPackage@16
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@4 // through LazyPackageFragmentScopeForJavaPackage@16
+    memberIndex = computeMemberIndex$1@17 // through LazyPackageFragmentScopeForJavaPackage@16
+}

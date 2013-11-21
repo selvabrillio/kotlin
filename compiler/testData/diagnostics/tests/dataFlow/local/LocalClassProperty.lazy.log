@@ -1,0 +1,41 @@
+DescriptorResolver@6 {
+    <name not found> = DeserializedType@7['kotlin.Int']
+    <name not found> = null
+    <name not found> = null
+}
+
+LazyJavaPackageFragmentProvider@8 {
+    _packageFragments('<root>': FqName@9) = LazyJavaPackageFragment@0['<root>']
+    _packageFragments('Any': FqName@17) = null
+    _packageFragments('Int': FqName@23) = null
+    _packageFragments('String': FqName@20) = null
+    _packageFragments('java': FqName@10) = LazyJavaPackageFragment@11['java']
+    _packageFragments('java.lang': FqName@12) = LazyJavaPackageFragment@13['lang']
+    _packageFragments('java.lang.Any': FqName@19) = null
+    _packageFragments('java.lang.Int': FqName@25) = null
+    _packageFragments('java.lang.String': FqName@22) = null
+    _packageFragments('kotlin': FqName@14) = null
+    _packageFragments('kotlin.Any': FqName@18) = null
+    _packageFragments('kotlin.Int': FqName@24) = null
+    _packageFragments('kotlin.String': FqName@21) = null
+    _packageFragments('kotlin.io': FqName@16) = null
+    _packageFragments('kotlin.jvm': FqName@15) = null
+}
+
+LazyJavaPackageFragment@0['<root>'] {
+    classes('Any': Name@1) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('Int': Name@4) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('String': Name@3) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@5 // through LazyPackageFragmentScopeForJavaPackage@2
+}
+
+LazyJavaPackageFragment@11['java'] {
+    _functions('lang': Name@29) = LinkedHashSet@30[empty] // through LazyPackageFragmentScopeForJavaPackage@27
+    classes('lang': Name@26) = null // through LazyPackageFragmentScopeForJavaPackage@27
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@5 // through LazyPackageFragmentScopeForJavaPackage@27
+    memberIndex = computeMemberIndex$1@28 // through LazyPackageFragmentScopeForJavaPackage@27
+}
+
+LazyJavaPackageFragment@13['lang'] {
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@5 // through LazyPackageFragmentScopeForJavaPackage@31
+}

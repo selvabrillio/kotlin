@@ -1,0 +1,41 @@
+DescriptorResolver@0 {
+    <name not found> = null
+}
+
+LazyAnnotationDescriptor@6 {
+    _resolutionResults = OverloadResolutionResultsImpl@8
+    _type = JetTypeImpl@7
+    _valueArguments(ValueParameterDescriptorImpl@9['names']) = ArrayValue@10
+}
+
+LazyJavaPackageFragmentProvider@18 {
+    _packageFragments('<root>': FqName@19) = LazyJavaPackageFragment@1['<root>']
+    _packageFragments('C': FqName@29) = null
+    _packageFragments('Nothing': FqName@30) = null
+    _packageFragments('String': FqName@26) = null
+    _packageFragments('java': FqName@20) = LazyJavaPackageFragment@11['java']
+    _packageFragments('java.lang': FqName@21) = LazyJavaPackageFragment@22['lang']
+    _packageFragments('java.lang.Nothing': FqName@32) = null
+    _packageFragments('java.lang.String': FqName@28) = null
+    _packageFragments('java.lang.suppress': FqName@35) = null
+    _packageFragments('kotlin': FqName@23) = null
+    _packageFragments('kotlin.Nothing': FqName@31) = null
+    _packageFragments('kotlin.String': FqName@27) = null
+    _packageFragments('kotlin.io': FqName@25) = null
+    _packageFragments('kotlin.jvm': FqName@24) = null
+    _packageFragments('kotlin.suppress': FqName@34) = null
+    _packageFragments('suppress': FqName@33) = null
+}
+
+LazyJavaPackageFragment@1['<root>'] {
+    classes('Nothing': Name@4) = null // through LazyPackageFragmentScopeForJavaPackage@3
+    classes('String': Name@2) = null // through LazyPackageFragmentScopeForJavaPackage@3
+    classes('suppress': Name@5) = null // through LazyPackageFragmentScopeForJavaPackage@3
+}
+
+LazyJavaPackageFragment@11['java'] {
+    _functions('lang': Name@16) = LinkedHashSet@17[empty] // through LazyPackageFragmentScopeForJavaPackage@13
+    classes('lang': Name@12) = null // through LazyPackageFragmentScopeForJavaPackage@13
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@14 // through LazyPackageFragmentScopeForJavaPackage@13
+    memberIndex = computeMemberIndex$1@15 // through LazyPackageFragmentScopeForJavaPackage@13
+}

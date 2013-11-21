@@ -1,0 +1,319 @@
+DescriptorResolver@2 {
+    <name not found> = DeferredType@3
+    <name not found> = DeferredType@4
+    <name not found> = DeferredType@5
+    <name not found> = DeferredType@8
+    <name not found> = DeferredType@9
+    <name not found> = DeferredType@10
+    <name not found> = DeferredType@13
+    <name not found> = DeferredType@14
+    <name not found> = DeferredType@19
+    <name not found> = DeferredType@20
+    <name not found> = DeferredType@23
+    <name not found> = DeferredType@24
+    <name not found> = DeferredType@25
+    <name not found> = DeferredType@26
+    <name not found> = DeferredType@29
+    <name not found> = DeferredType@30
+    <name not found> = DeferredType@31
+    <name not found> = DeferredType@32
+    <name not found> = JetTypeImpl@6
+    <name not found> = JetTypeImpl@7
+    <name not found> = JetTypeImpl@11
+    <name not found> = JetTypeImpl@12
+    <name not found> = JetTypeImpl@15
+    <name not found> = JetTypeImpl@16
+    <name not found> = JetTypeImpl@17
+    <name not found> = JetTypeImpl@18
+    <name not found> = JetTypeImpl@21
+    <name not found> = JetTypeImpl@22
+    <name not found> = JetTypeImpl@27
+    <name not found> = JetTypeImpl@28
+    <name not found> = JetTypeImpl@33
+    <name not found> = JetTypeImpl@34
+    <name not found> = null
+    <name not found> = null
+    <name not found> = null
+    <name not found> = null
+    <name not found> = null
+    <name not found> = null
+    <name not found> = null
+    <name not found> = null
+    <name not found> = null
+    <name not found> = null
+    <name not found> = null
+    <name not found> = null
+    <name not found> = null
+    <name not found> = null
+    <name not found> = null
+}
+
+LazyJavaPackageFragmentProvider@161 {
+    _packageFragments('<root>': FqName@162) = LazyJavaPackageFragment@108['<root>']
+    _packageFragments('Foo': FqName@174) = null
+    _packageFragments('MyClass': FqName@168) = null
+    _packageFragments('java': FqName@163) = LazyJavaPackageFragment@91['java']
+    _packageFragments('java.lang': FqName@164) = LazyJavaPackageFragment@148['lang']
+    _packageFragments('java.lang.MyClass': FqName@170) = null
+    _packageFragments('kotlin': FqName@165) = null
+    _packageFragments('kotlin.MyClass': FqName@169) = null
+    _packageFragments('kotlin.io': FqName@167) = null
+    _packageFragments('kotlin.jvm': FqName@166) = null
+    _packageFragments('packageInternal2Property': FqName@171) = null
+    _packageFragments('packageInternalProperty': FqName@175) = null
+    _packageFragments('packagePrivateProperty': FqName@176) = null
+    _packageFragments('packageProtectedProperty': FqName@177) = null
+    _packageFragments('packagePublic2Property': FqName@173) = null
+    _packageFragments('packagePublicProperty': FqName@172) = null
+}
+
+LazyJavaPackageFragment@108['<root>'] {
+    _functions('f1': Name@112) = LinkedHashSet@113[empty] // through LazyPackageFragmentScopeForJavaPackage@109
+    _functions('foo2': Name@138) = LinkedHashSet@139[empty] // through LazyPackageFragmentScopeForJavaPackage@109
+    _functions('fooPackageLocal': Name@129) = LinkedHashSet@130[empty] // through LazyPackageFragmentScopeForJavaPackage@109
+    _functions('internal2Function': Name@123) = LinkedHashSet@124[empty] // through LazyPackageFragmentScopeForJavaPackage@109
+    _functions('internalFunction': Name@121) = LinkedHashSet@122[empty] // through LazyPackageFragmentScopeForJavaPackage@109
+    _functions('invisible': Name@117) = LinkedHashSet@118[empty] // through LazyPackageFragmentScopeForJavaPackage@109
+    _functions('privateFunction': Name@119) = LinkedHashSet@120[empty] // through LazyPackageFragmentScopeForJavaPackage@109
+    _functions('protected2Function': Name@136) = LinkedHashSet@137[empty] // through LazyPackageFragmentScopeForJavaPackage@109
+    _functions('public2Function': Name@125) = LinkedHashSet@126[empty] // through LazyPackageFragmentScopeForJavaPackage@109
+    _functions('visible': Name@127) = LinkedHashSet@128[empty] // through LazyPackageFragmentScopeForJavaPackage@109
+    classes('f1': Name@112) = null // through LazyPackageFragmentScopeForJavaPackage@109
+    classes('foo2': Name@138) = null // through LazyPackageFragmentScopeForJavaPackage@109
+    classes('fooPackageLocal': Name@129) = null // through LazyPackageFragmentScopeForJavaPackage@109
+    classes('internal2Function': Name@123) = null // through LazyPackageFragmentScopeForJavaPackage@109
+    classes('internal2Property': Name@133) = null // through LazyPackageFragmentScopeForJavaPackage@109
+    classes('internalFunction': Name@121) = null // through LazyPackageFragmentScopeForJavaPackage@109
+    classes('internalProperty': Name@132) = null // through LazyPackageFragmentScopeForJavaPackage@109
+    classes('invisible': Name@117) = null // through LazyPackageFragmentScopeForJavaPackage@109
+    classes('packageInternal2Property': Name@115) = null // through LazyPackageFragmentScopeForJavaPackage@109
+    classes('packageInternalProperty': Name@114) = null // through LazyPackageFragmentScopeForJavaPackage@109
+    classes('packagePrivateProperty': Name@110) = null // through LazyPackageFragmentScopeForJavaPackage@109
+    classes('packagePublic2Property': Name@116) = null // through LazyPackageFragmentScopeForJavaPackage@109
+    classes('privateFunction': Name@119) = null // through LazyPackageFragmentScopeForJavaPackage@109
+    classes('privateProperty': Name@131) = null // through LazyPackageFragmentScopeForJavaPackage@109
+    classes('protected2Function': Name@136) = null // through LazyPackageFragmentScopeForJavaPackage@109
+    classes('protected2Property': Name@134) = null // through LazyPackageFragmentScopeForJavaPackage@109
+    classes('public2Function': Name@125) = null // through LazyPackageFragmentScopeForJavaPackage@109
+    classes('public2Property': Name@135) = null // through LazyPackageFragmentScopeForJavaPackage@109
+    classes('visible': Name@127) = null // through LazyPackageFragmentScopeForJavaPackage@109
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@94 // through LazyPackageFragmentScopeForJavaPackage@109
+    memberIndex = computeMemberIndex$1@111 // through LazyPackageFragmentScopeForJavaPackage@109
+}
+
+LazyJavaPackageFragment@91['java'] {
+    _functions('lang': Name@96) = LinkedHashSet@97[empty] // through LazyPackageFragmentScopeForJavaPackage@93
+    classes('lang': Name@92) = null // through LazyPackageFragmentScopeForJavaPackage@93
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@94 // through LazyPackageFragmentScopeForJavaPackage@93
+    memberIndex = computeMemberIndex$1@95 // through LazyPackageFragmentScopeForJavaPackage@93
+}
+
+LazyJavaPackageFragment@148['lang'] {
+    _functions('f1': Name@112) = LinkedHashSet@151[empty] // through LazyPackageFragmentScopeForJavaPackage@149
+    _functions('foo2': Name@138) = LinkedHashSet@160[empty] // through LazyPackageFragmentScopeForJavaPackage@149
+    _functions('fooPackageLocal': Name@129) = LinkedHashSet@158[empty] // through LazyPackageFragmentScopeForJavaPackage@149
+    _functions('internal2Function': Name@123) = LinkedHashSet@155[empty] // through LazyPackageFragmentScopeForJavaPackage@149
+    _functions('internalFunction': Name@121) = LinkedHashSet@154[empty] // through LazyPackageFragmentScopeForJavaPackage@149
+    _functions('invisible': Name@117) = LinkedHashSet@152[empty] // through LazyPackageFragmentScopeForJavaPackage@149
+    _functions('privateFunction': Name@119) = LinkedHashSet@153[empty] // through LazyPackageFragmentScopeForJavaPackage@149
+    _functions('protected2Function': Name@136) = LinkedHashSet@159[empty] // through LazyPackageFragmentScopeForJavaPackage@149
+    _functions('public2Function': Name@125) = LinkedHashSet@156[empty] // through LazyPackageFragmentScopeForJavaPackage@149
+    _functions('visible': Name@127) = LinkedHashSet@157[empty] // through LazyPackageFragmentScopeForJavaPackage@149
+    classes('f1': Name@112) = null // through LazyPackageFragmentScopeForJavaPackage@149
+    classes('foo2': Name@138) = null // through LazyPackageFragmentScopeForJavaPackage@149
+    classes('fooPackageLocal': Name@129) = null // through LazyPackageFragmentScopeForJavaPackage@149
+    classes('internal2Function': Name@123) = null // through LazyPackageFragmentScopeForJavaPackage@149
+    classes('internal2Property': Name@133) = null // through LazyPackageFragmentScopeForJavaPackage@149
+    classes('internalFunction': Name@121) = null // through LazyPackageFragmentScopeForJavaPackage@149
+    classes('internalProperty': Name@132) = null // through LazyPackageFragmentScopeForJavaPackage@149
+    classes('invisible': Name@117) = null // through LazyPackageFragmentScopeForJavaPackage@149
+    classes('packageInternal2Property': Name@115) = null // through LazyPackageFragmentScopeForJavaPackage@149
+    classes('packageInternalProperty': Name@114) = null // through LazyPackageFragmentScopeForJavaPackage@149
+    classes('packagePrivateProperty': Name@110) = null // through LazyPackageFragmentScopeForJavaPackage@149
+    classes('packagePublic2Property': Name@116) = null // through LazyPackageFragmentScopeForJavaPackage@149
+    classes('privateFunction': Name@119) = null // through LazyPackageFragmentScopeForJavaPackage@149
+    classes('privateProperty': Name@131) = null // through LazyPackageFragmentScopeForJavaPackage@149
+    classes('protected2Function': Name@136) = null // through LazyPackageFragmentScopeForJavaPackage@149
+    classes('protected2Property': Name@134) = null // through LazyPackageFragmentScopeForJavaPackage@149
+    classes('public2Function': Name@125) = null // through LazyPackageFragmentScopeForJavaPackage@149
+    classes('public2Property': Name@135) = null // through LazyPackageFragmentScopeForJavaPackage@149
+    classes('visible': Name@127) = null // through LazyPackageFragmentScopeForJavaPackage@149
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@94 // through LazyPackageFragmentScopeForJavaPackage@149
+    memberIndex = computeMemberIndex$1@150 // through LazyPackageFragmentScopeForJavaPackage@149
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@0 {
+    <name not found> = JetTypeImpl@1
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@35 {
+    <name not found> = JetTypeImpl@36
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@37 {
+    <name not found> = JetTypeImpl@38
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@39 {
+    <name not found> = JetTypeImpl@40
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@41 {
+    <name not found> = JetTypeImpl@42
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@43 {
+    <name not found> = JetTypeImpl@44
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@45 {
+    <name not found> = JetTypeImpl@46
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@47 {
+    <name not found> = JetTypeImpl@48
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@49 {
+    <name not found> = JetTypeImpl@50
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@51 {
+    <name not found> = JetTypeImpl@52
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@53 {
+    <name not found> = JetTypeImpl@54
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@55 {
+    <name not found> = JetTypeImpl@56
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@57 {
+    <name not found> = JetTypeImpl@58
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@59 {
+    <name not found> = JetTypeImpl@60
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@61 {
+    <name not found> = JetTypeImpl@62
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@63 {
+    <name not found> = JetTypeImpl@64
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@65 {
+    <name not found> = JetTypeImpl@66
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@67 {
+    <name not found> = JetTypeImpl@68
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@69 {
+    <name not found> = JetTypeImpl@70
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@71 {
+    <name not found> = JetTypeImpl@72
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@73 {
+    <name not found> = JetTypeImpl@74
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@75 {
+    <name not found> = JetTypeImpl@76
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@77 {
+    <name not found> = JetTypeImpl@78
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@79 {
+    <name not found> = JetTypeImpl@80
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@81 {
+    <name not found> = JetTypeImpl@82
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@83 {
+    <name not found> = JetTypeImpl@84
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@85 {
+    <name not found> = JetTypeImpl@86
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@87 {
+    <name not found> = JetTypeImpl@88
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@89 {
+    <name not found> = JetTypeImpl@90
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@98 {
+    <name not found> = JetTypeImpl@99
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@100 {
+    <name not found> = JetTypeImpl@101
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@102 {
+    <name not found> = JetTypeImpl@103
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@104 {
+    <name not found> = JetTypeImpl@105
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@106 {
+    <name not found> = JetTypeImpl@107
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@140 {
+    <name not found> = JetTypeImpl@141
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@142 {
+    <name not found> = JetTypeImpl@143
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@144 {
+    <name not found> = JetTypeImpl@145
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@146 {
+    <name not found> = JetTypeImpl@147
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@178 {
+    <name not found> = JetTypeImpl@179
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@180 {
+    <name not found> = JetTypeImpl@181
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@182 {
+    <name not found> = JetTypeImpl@183
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@184 {
+    <name not found> = JetTypeImpl@185
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@186 {
+    <name not found> = JetTypeImpl@187
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@188 {
+    <name not found> = JetTypeImpl@189
+}

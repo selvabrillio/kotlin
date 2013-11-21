@@ -1,0 +1,70 @@
+LazyAnnotationDescriptor@0 {
+    _resolutionResults = OverloadResolutionResultsImpl@2
+    _type = JetTypeImpl@1
+    _valueArguments(ValueParameterDescriptorImpl@3['strategy']) = null
+}
+
+LazyAnnotationDescriptor@4 {
+    _resolutionResults = OverloadResolutionResultsImpl@6
+    _type = JetTypeImpl@5
+    _valueArguments(ValueParameterDescriptorImpl@3['strategy']) = null
+}
+
+LazyAnnotationDescriptor@14 {
+    _resolutionResults = OverloadResolutionResultsImpl@16
+    _type = JetTypeImpl@15
+    _valueArguments(ValueParameterDescriptorImpl@3['strategy']) = null
+}
+
+LazyAnnotationDescriptor@17 {
+    _resolutionResults = OverloadResolutionResultsImpl@19
+    _type = JetTypeImpl@18
+    _valueArguments(ValueParameterDescriptorImpl@3['strategy']) = null
+}
+
+LazyAnnotationDescriptor@20 {
+    _resolutionResults = OverloadResolutionResultsImpl@22
+    _type = JetTypeImpl@21
+    _valueArguments(ValueParameterDescriptorImpl@3['strategy']) = null
+}
+
+LazyAnnotationDescriptor@23 {
+    _resolutionResults = OverloadResolutionResultsImpl@25
+    _type = JetTypeImpl@24
+    _valueArguments(ValueParameterDescriptorImpl@3['strategy']) = null
+}
+
+LazyJavaPackageFragmentProvider@26 {
+    _packageFragments('<root>': FqName@27) = LazyJavaPackageFragment@28['<root>']
+    _packageFragments('Function1': FqName@44) = null
+    _packageFragments('Int': FqName@35) = null
+    _packageFragments('Unit': FqName@38) = null
+    _packageFragments('inline': FqName@41) = null
+    _packageFragments('java': FqName@29) = LazyJavaPackageFragment@7['java']
+    _packageFragments('java.lang': FqName@30) = LazyJavaPackageFragment@31['lang']
+    _packageFragments('java.lang.Function1': FqName@46) = null
+    _packageFragments('java.lang.Int': FqName@37) = null
+    _packageFragments('java.lang.Unit': FqName@40) = null
+    _packageFragments('java.lang.inline': FqName@43) = null
+    _packageFragments('kotlin': FqName@32) = null
+    _packageFragments('kotlin.Function1': FqName@45) = null
+    _packageFragments('kotlin.Int': FqName@36) = null
+    _packageFragments('kotlin.Unit': FqName@39) = null
+    _packageFragments('kotlin.inline': FqName@42) = null
+    _packageFragments('kotlin.io': FqName@34) = null
+    _packageFragments('kotlin.jvm': FqName@33) = null
+}
+
+LazyJavaPackageFragment@28['<root>'] {
+    classes('Function1': Name@51) = null // through LazyPackageFragmentScopeForJavaPackage@48
+    classes('Int': Name@47) = null // through LazyPackageFragmentScopeForJavaPackage@48
+    classes('Unit': Name@49) = null // through LazyPackageFragmentScopeForJavaPackage@48
+    classes('inline': Name@50) = null // through LazyPackageFragmentScopeForJavaPackage@48
+}
+
+LazyJavaPackageFragment@7['java'] {
+    _functions('lang': Name@12) = LinkedHashSet@13[empty] // through LazyPackageFragmentScopeForJavaPackage@9
+    classes('lang': Name@8) = null // through LazyPackageFragmentScopeForJavaPackage@9
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@10 // through LazyPackageFragmentScopeForJavaPackage@9
+    memberIndex = computeMemberIndex$1@11 // through LazyPackageFragmentScopeForJavaPackage@9
+}

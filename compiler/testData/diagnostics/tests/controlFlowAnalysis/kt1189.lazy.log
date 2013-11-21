@@ -1,0 +1,431 @@
+DescriptorResolver@295 {
+    <name not found> = null
+}
+
+LazyAnnotationDescriptor@192 {
+    _resolutionResults = OverloadResolutionResultsImpl@194
+    _type = JetTypeImpl@193
+    _valueArguments(ValueParameterDescriptorImpl@195['strategy']) = null
+}
+
+LazyJavaClassDescriptor@3['Lock'] {
+    _functions('lock': Name@14) = LinkedHashSet@15[1] { JavaMethodDescriptor@16['lock'] } // through LazyJavaClassMemberScope@6
+    _functions('unlock': Name@8) = LinkedHashSet@9[1] { JavaMethodDescriptor@10['unlock'] } // through LazyJavaClassMemberScope@6
+    _properties('lock': Name@17) = ArrayList@18[empty] // through LazyJavaClassMemberScope@6
+    _properties('unlock': Name@12) = ArrayList@13[empty] // through LazyJavaClassMemberScope@6
+    _typeConstructor = LazyJavaClassTypeConstructor@4['Lock']
+    defaultType = JetTypeImpl@11
+    memberIndex = computeMemberIndex$1@5 // through LazyJavaClassMemberScope@6
+    thisAsReceiverParameter = LazyClassReceiverParameterDescriptor@7['<this>']
+}
+
+LazyJavaClassDescriptor@30['ReadLock'] {
+    _functions('lock': Name@265) = LinkedHashSet@266[1] { JavaMethodDescriptor@267['lock'] } // through LazyJavaClassMemberScope@214
+    _functions('unlock': Name@12) = LinkedHashSet@260[1] { JavaMethodDescriptor@261['unlock'] } // through LazyJavaClassMemberScope@214
+    _properties('lock': Name@265) = ArrayList@268[empty] // through LazyJavaClassMemberScope@214
+    _properties('unlock': Name@12) = ArrayList@264[empty] // through LazyJavaClassMemberScope@214
+    _typeConstructor = LazyJavaClassTypeConstructor@212['ReadLock']
+    defaultType = JetTypeImpl@259
+    enumEntryIndex = LinkedHashMap@263 // through LazyJavaClassMemberScope@214
+    memberIndex = computeMemberIndex$1@257 // through LazyJavaClassMemberScope@214
+    nestedClassIndex = LinkedHashMap@262 // through LazyJavaClassMemberScope@214
+    nestedClasses('lock': Name@265) = null // through LazyJavaClassMemberScope@214
+    nestedClasses('unlock': Name@12) = null // through LazyJavaClassMemberScope@214
+    thisAsReceiverParameter = LazyClassReceiverParameterDescriptor@258['<this>']
+}
+
+LazyJavaClassDescriptor@254['ReadWriteLock'] {
+    _functions('action': Name@83) = LinkedHashSet@330[empty] // through LazyJavaClassMemberScope@274
+    _functions('compareTo': Name@54) = LinkedHashSet@311[empty] // through LazyJavaClassMemberScope@274
+    _functions('equals': Name@44) = LinkedHashSet@305[1] { DeserializedSimpleFunctionDescriptor@306['equals'] } // through LazyJavaClassMemberScope@274
+    _functions('getReadHoldCount': Name@131) = LinkedHashSet@309[empty] // through LazyJavaClassMemberScope@274
+    _functions('getWriteHoldCount': Name@122) = LinkedHashSet@302[empty] // through LazyJavaClassMemberScope@274
+    _functions('hasNext': Name@63) = LinkedHashSet@317[empty] // through LazyJavaClassMemberScope@274
+    _functions('invoke': Name@86) = LinkedHashSet@332[empty] // through LazyJavaClassMemberScope@274
+    _functions('iterator': Name@60) = LinkedHashSet@315[empty] // through LazyJavaClassMemberScope@274
+    _functions('lock': Name@17) = LinkedHashSet@328[empty] // through LazyJavaClassMemberScope@274
+    _functions('next': Name@66) = LinkedHashSet@319[empty] // through LazyJavaClassMemberScope@274
+    _functions('rangeTo': Name@57) = LinkedHashSet@313[empty] // through LazyJavaClassMemberScope@274
+    _functions('readLock': Name@119) = LinkedHashSet@298[1] { JavaMethodDescriptor@299['readLock'] } // through LazyJavaClassMemberScope@274
+    _functions('unlock': Name@12) = LinkedHashSet@322[empty] // through LazyJavaClassMemberScope@274
+    _functions('writeLock': Name@147) = LinkedHashSet@324[1] { JavaMethodDescriptor@325['writeLock'] } // through LazyJavaClassMemberScope@274
+    _properties('action': Name@83) = ArrayList@331[empty] // through LazyJavaClassMemberScope@274
+    _properties('compareTo': Name@54) = ArrayList@312[empty] // through LazyJavaClassMemberScope@274
+    _properties('equals': Name@44) = ArrayList@307[empty] // through LazyJavaClassMemberScope@274
+    _properties('getReadHoldCount': Name@50) = ArrayList@310[empty] // through LazyJavaClassMemberScope@274
+    _properties('getWriteHoldCount': Name@38) = ArrayList@303[empty] // through LazyJavaClassMemberScope@274
+    _properties('hasNext': Name@63) = ArrayList@318[empty] // through LazyJavaClassMemberScope@274
+    _properties('iterator': Name@60) = ArrayList@316[empty] // through LazyJavaClassMemberScope@274
+    _properties('lock': Name@17) = ArrayList@329[empty] // through LazyJavaClassMemberScope@274
+    _properties('next': Name@66) = ArrayList@320[empty] // through LazyJavaClassMemberScope@274
+    _properties('rangeTo': Name@57) = ArrayList@314[empty] // through LazyJavaClassMemberScope@274
+    _properties('readCount': Name@48) = ArrayList@308[empty] // through LazyJavaClassMemberScope@274
+    _properties('readLock': Name@33) = ArrayList@301[empty] // through LazyJavaClassMemberScope@274
+    _properties('rl': Name@69) = ArrayList@321[empty] // through LazyJavaClassMemberScope@274
+    _properties('unlock': Name@12) = ArrayList@323[empty] // through LazyJavaClassMemberScope@274
+    _properties('wl': Name@79) = ArrayList@327[empty] // through LazyJavaClassMemberScope@274
+    _properties('writeCount': Name@42) = ArrayList@304[empty] // through LazyJavaClassMemberScope@274
+    _properties('writeLock': Name@75) = ArrayList@326[empty] // through LazyJavaClassMemberScope@274
+    _typeConstructor = LazyJavaClassTypeConstructor@272['ReadWriteLock']
+    defaultType = JetTypeImpl@300
+    memberIndex = computeMemberIndex$1@296 // through LazyJavaClassMemberScope@274
+    thisAsReceiverParameter = LazyClassReceiverParameterDescriptor@297['<this>']
+}
+
+LazyJavaClassDescriptor@24['ReentrantReadWriteLock'] {
+    _functionTypeForSamInterface = null
+    _functions('action': Name@83) = LinkedHashSet@84[empty] // through LazyJavaClassMemberScope@27
+    _functions('compareTo': Name@54) = LinkedHashSet@55[empty] // through LazyJavaClassMemberScope@27
+    _functions('equals': Name@44) = LinkedHashSet@45[1] { DeserializedSimpleFunctionDescriptor@46['equals'] } // through LazyJavaClassMemberScope@27
+    _functions('getReadHoldCount': Name@50) = LinkedHashSet@51[1] { JavaMethodDescriptor@52['getReadHoldCount'] } // through LazyJavaClassMemberScope@27
+    _functions('getWriteHoldCount': Name@38) = LinkedHashSet@39[1] { JavaMethodDescriptor@40['getWriteHoldCount'] } // through LazyJavaClassMemberScope@27
+    _functions('hasNext': Name@63) = LinkedHashSet@64[empty] // through LazyJavaClassMemberScope@27
+    _functions('invoke': Name@86) = LinkedHashSet@87[empty] // through LazyJavaClassMemberScope@27
+    _functions('iterator': Name@60) = LinkedHashSet@61[empty] // through LazyJavaClassMemberScope@27
+    _functions('lock': Name@17) = LinkedHashSet@81[empty] // through LazyJavaClassMemberScope@27
+    _functions('next': Name@66) = LinkedHashSet@67[empty] // through LazyJavaClassMemberScope@27
+    _functions('rangeTo': Name@57) = LinkedHashSet@58[empty] // through LazyJavaClassMemberScope@27
+    _functions('readLock': Name@33) = LinkedHashSet@34[1] { JavaMethodDescriptor@35['readLock'] } // through LazyJavaClassMemberScope@27
+    _functions('unlock': Name@12) = LinkedHashSet@71[empty] // through LazyJavaClassMemberScope@27
+    _functions('writeLock': Name@75) = LinkedHashSet@76[1] { JavaMethodDescriptor@77['writeLock'] } // through LazyJavaClassMemberScope@27
+    _properties('action': Name@83) = ArrayList@85[empty] // through LazyJavaClassMemberScope@27
+    _properties('compareTo': Name@54) = ArrayList@56[empty] // through LazyJavaClassMemberScope@27
+    _properties('equals': Name@44) = ArrayList@47[empty] // through LazyJavaClassMemberScope@27
+    _properties('getReadHoldCount': Name@50) = ArrayList@53[empty] // through LazyJavaClassMemberScope@27
+    _properties('getWriteHoldCount': Name@38) = ArrayList@41[empty] // through LazyJavaClassMemberScope@27
+    _properties('hasNext': Name@63) = ArrayList@65[empty] // through LazyJavaClassMemberScope@27
+    _properties('iterator': Name@60) = ArrayList@62[empty] // through LazyJavaClassMemberScope@27
+    _properties('lock': Name@17) = ArrayList@82[empty] // through LazyJavaClassMemberScope@27
+    _properties('next': Name@66) = ArrayList@68[empty] // through LazyJavaClassMemberScope@27
+    _properties('rangeTo': Name@57) = ArrayList@59[empty] // through LazyJavaClassMemberScope@27
+    _properties('readCount': Name@48) = ArrayList@49[empty] // through LazyJavaClassMemberScope@27
+    _properties('readLock': Name@33) = ArrayList@37[empty] // through LazyJavaClassMemberScope@27
+    _properties('rl': Name@69) = ArrayList@70[empty] // through LazyJavaClassMemberScope@27
+    _properties('unlock': Name@12) = ArrayList@72[empty] // through LazyJavaClassMemberScope@27
+    _properties('wl': Name@79) = ArrayList@80[empty] // through LazyJavaClassMemberScope@27
+    _properties('writeCount': Name@42) = ArrayList@43[empty] // through LazyJavaClassMemberScope@27
+    _properties('writeLock': Name@75) = ArrayList@78[empty] // through LazyJavaClassMemberScope@27
+    _typeConstructor = LazyJavaClassTypeConstructor@25['ReentrantReadWriteLock']
+    defaultType = JetTypeImpl@32
+    enumEntryIndex = LinkedHashMap@36 // through LazyJavaClassMemberScope@27
+    memberIndex = computeMemberIndex$1@26 // through LazyJavaClassMemberScope@27
+    nestedClassIndex = LinkedHashMap@28 // through LazyJavaClassMemberScope@27
+    nestedClasses('ReadLock': Name@29) = LazyJavaClassDescriptor@30['ReadLock'] // through LazyJavaClassMemberScope@27
+    nestedClasses('WriteLock': Name@73) = LazyJavaClassDescriptor@74['WriteLock'] // through LazyJavaClassMemberScope@27
+    nestedClasses('action': Name@83) = null // through LazyJavaClassMemberScope@27
+    nestedClasses('getReadHoldCount': Name@50) = null // through LazyJavaClassMemberScope@27
+    nestedClasses('getWriteHoldCount': Name@38) = null // through LazyJavaClassMemberScope@27
+    nestedClasses('readCount': Name@48) = null // through LazyJavaClassMemberScope@27
+    nestedClasses('readLock': Name@33) = null // through LazyJavaClassMemberScope@27
+    nestedClasses('rl': Name@69) = null // through LazyJavaClassMemberScope@27
+    nestedClasses('wl': Name@79) = null // through LazyJavaClassMemberScope@27
+    nestedClasses('writeCount': Name@42) = null // through LazyJavaClassMemberScope@27
+    nestedClasses('writeLock': Name@75) = null // through LazyJavaClassMemberScope@27
+    thisAsReceiverParameter = LazyClassReceiverParameterDescriptor@31['<this>']
+}
+
+LazyJavaClassDescriptor@117['Serializable'] {
+    _functions('action': Name@83) = LinkedHashSet@153[empty] // through LazyJavaClassMemberScope@116
+    _functions('compareTo': Name@54) = LinkedHashSet@134[empty] // through LazyJavaClassMemberScope@116
+    _functions('equals': Name@44) = LinkedHashSet@126[1] { DeserializedSimpleFunctionDescriptor@127['equals'] } // through LazyJavaClassMemberScope@116
+    _functions('getReadHoldCount': Name@131) = LinkedHashSet@132[empty] // through LazyJavaClassMemberScope@116
+    _functions('getWriteHoldCount': Name@122) = LinkedHashSet@123[empty] // through LazyJavaClassMemberScope@116
+    _functions('hasNext': Name@63) = LinkedHashSet@140[empty] // through LazyJavaClassMemberScope@116
+    _functions('invoke': Name@86) = LinkedHashSet@155[empty] // through LazyJavaClassMemberScope@116
+    _functions('iterator': Name@60) = LinkedHashSet@138[empty] // through LazyJavaClassMemberScope@116
+    _functions('lock': Name@14) = LinkedHashSet@151[empty] // through LazyJavaClassMemberScope@116
+    _functions('next': Name@66) = LinkedHashSet@142[empty] // through LazyJavaClassMemberScope@116
+    _functions('rangeTo': Name@57) = LinkedHashSet@136[empty] // through LazyJavaClassMemberScope@116
+    _functions('readLock': Name@119) = LinkedHashSet@120[empty] // through LazyJavaClassMemberScope@116
+    _functions('unlock': Name@8) = LinkedHashSet@145[empty] // through LazyJavaClassMemberScope@116
+    _functions('writeLock': Name@147) = LinkedHashSet@148[empty] // through LazyJavaClassMemberScope@116
+    _properties('action': Name@83) = ArrayList@154[empty] // through LazyJavaClassMemberScope@116
+    _properties('compareTo': Name@54) = ArrayList@135[empty] // through LazyJavaClassMemberScope@116
+    _properties('equals': Name@44) = ArrayList@129[empty] // through LazyJavaClassMemberScope@116
+    _properties('getReadHoldCount': Name@50) = ArrayList@133[empty] // through LazyJavaClassMemberScope@116
+    _properties('getWriteHoldCount': Name@38) = ArrayList@124[empty] // through LazyJavaClassMemberScope@116
+    _properties('hasNext': Name@63) = ArrayList@141[empty] // through LazyJavaClassMemberScope@116
+    _properties('iterator': Name@60) = ArrayList@139[empty] // through LazyJavaClassMemberScope@116
+    _properties('lock': Name@17) = ArrayList@152[empty] // through LazyJavaClassMemberScope@116
+    _properties('next': Name@66) = ArrayList@143[empty] // through LazyJavaClassMemberScope@116
+    _properties('rangeTo': Name@57) = ArrayList@137[empty] // through LazyJavaClassMemberScope@116
+    _properties('readCount': Name@48) = ArrayList@130[empty] // through LazyJavaClassMemberScope@116
+    _properties('readLock': Name@33) = ArrayList@121[empty] // through LazyJavaClassMemberScope@116
+    _properties('rl': Name@69) = ArrayList@144[empty] // through LazyJavaClassMemberScope@116
+    _properties('unlock': Name@12) = ArrayList@146[empty] // through LazyJavaClassMemberScope@116
+    _properties('wl': Name@79) = ArrayList@150[empty] // through LazyJavaClassMemberScope@116
+    _properties('writeCount': Name@42) = ArrayList@125[empty] // through LazyJavaClassMemberScope@116
+    _properties('writeLock': Name@75) = ArrayList@149[empty] // through LazyJavaClassMemberScope@116
+    _typeConstructor = LazyJavaClassTypeConstructor@114['Serializable']
+    defaultType = JetTypeImpl@128
+    memberIndex = computeMemberIndex$1@118 // through LazyJavaClassMemberScope@116
+}
+
+LazyJavaClassDescriptor@74['WriteLock'] {
+    _functions('lock': Name@17) = LinkedHashSet@175[1] { JavaMethodDescriptor@176['lock'] } // through LazyJavaClassMemberScope@172
+    _functions('unlock': Name@180) = LinkedHashSet@181[1] { JavaMethodDescriptor@182['unlock'] } // through LazyJavaClassMemberScope@172
+    _properties('lock': Name@17) = ArrayList@179[empty] // through LazyJavaClassMemberScope@172
+    _properties('unlock': Name@180) = ArrayList@183[empty] // through LazyJavaClassMemberScope@172
+    _typeConstructor = LazyJavaClassTypeConstructor@170['WriteLock']
+    defaultType = JetTypeImpl@174
+    enumEntryIndex = LinkedHashMap@178 // through LazyJavaClassMemberScope@172
+    memberIndex = computeMemberIndex$1@171 // through LazyJavaClassMemberScope@172
+    nestedClassIndex = LinkedHashMap@177 // through LazyJavaClassMemberScope@172
+    nestedClasses('lock': Name@17) = null // through LazyJavaClassMemberScope@172
+    nestedClasses('unlock': Name@180) = null // through LazyJavaClassMemberScope@172
+    thisAsReceiverParameter = LazyClassReceiverParameterDescriptor@173['<this>']
+}
+
+LazyJavaClassTypeConstructor@4['Lock'] {
+    _parameters = ArrayList@19[empty]
+    _supertypes = ArrayList@20[1] { JetTypeImpl@21 }
+}
+
+LazyJavaClassTypeConstructor@212['ReadLock'] {
+    _parameters = ArrayList@289[empty]
+    _supertypes = ArrayList@290[2] { LazyJavaClassifierType@198['Lock'], LazyJavaClassifierType@281['Serializable'] }
+}
+
+LazyJavaClassTypeConstructor@272['ReadWriteLock'] {
+    _parameters = ArrayList@279[empty]
+    _supertypes = ArrayList@280[1] { JetTypeImpl@21 }
+}
+
+LazyJavaClassTypeConstructor@25['ReentrantReadWriteLock'] {
+    _parameters = ArrayList@207[empty]
+    _supertypes = ArrayList@208[2] { LazyJavaClassifierType@209['ReadWriteLock'], LazyJavaClassifierType@112['Serializable'] }
+}
+
+LazyJavaClassTypeConstructor@114['Serializable'] {
+    _parameters = ArrayList@293[empty]
+    _supertypes = ArrayList@294[1] { JetTypeImpl@21 }
+}
+
+LazyJavaClassTypeConstructor@170['WriteLock'] {
+    _parameters = ArrayList@184[empty]
+    _supertypes = ArrayList@185[2] { LazyJavaClassifierType@186['Lock'], LazyJavaClassifierType@165['Serializable'] }
+}
+
+LazyJavaClassifierType@198['Lock'] {
+    _arguments = ArrayList@200[empty]
+    _memberScope = LazyJavaClassMemberScope@6
+    _typeConstructor = LazyJavaClassTypeConstructor@4['Lock']
+    classifier = JavaClassImpl@199['Lock']
+}
+
+LazyJavaClassifierType@186['Lock'] {
+    _arguments = ArrayList@292[empty]
+    _memberScope = LazyJavaClassMemberScope@6
+    _typeConstructor = LazyJavaClassTypeConstructor@4['Lock']
+    classifier = JavaClassImpl@291['Lock']
+}
+
+LazyJavaClassifierType@158['Lock'] {
+    _arguments = ArrayList@161[empty]
+    _nullable = Boolean@159
+    _typeConstructor = LazyJavaClassTypeConstructor@4['Lock']
+    classifier = JavaClassImpl@160['Lock']
+}
+
+LazyJavaClassifierType@162['Lock'] {
+    _arguments = ArrayList@164[empty]
+    _nullable = Boolean@163
+    _typeConstructor = LazyJavaClassTypeConstructor@4['Lock']
+    classifier = JavaClassImpl@160['Lock']
+}
+
+LazyJavaClassifierType@189['Lock'] {
+    _arguments = ArrayList@191[empty]
+    _nullable = Boolean@163
+    _typeConstructor = LazyJavaClassTypeConstructor@4['Lock']
+    classifier = JavaClassImpl@190['Lock']
+}
+
+LazyJavaClassifierType@196['Lock'] {
+    _arguments = ArrayList@197[empty]
+    _nullable = Boolean@159
+    _typeConstructor = LazyJavaClassTypeConstructor@4['Lock']
+    classifier = JavaClassImpl@190['Lock']
+}
+
+LazyJavaClassifierType@0['Object'] {
+    _typeConstructor = DeserializedClassTypeConstructor@2
+    classifier = JavaClassImpl@1['Object']
+}
+
+LazyJavaClassifierType@22['Object'] {
+    _typeConstructor = DeserializedClassTypeConstructor@2
+    classifier = JavaClassImpl@23['Object']
+}
+
+LazyJavaClassifierType@156['Object'] {
+    _typeConstructor = DeserializedClassTypeConstructor@2
+    classifier = JavaClassImpl@157['Object']
+}
+
+LazyJavaClassifierType@168['Object'] {
+    _typeConstructor = DeserializedClassTypeConstructor@2
+    classifier = JavaClassImpl@169['Object']
+}
+
+LazyJavaClassifierType@187['Object'] {
+    _typeConstructor = DeserializedClassTypeConstructor@2
+    classifier = JavaClassImpl@188['Object']
+}
+
+LazyJavaClassifierType@275['Object'] {
+    _typeConstructor = DeserializedClassTypeConstructor@2
+    classifier = JavaClassImpl@276['Object']
+}
+
+LazyJavaClassifierType@210['ReadLock'] {
+    _arguments = ArrayList@213[empty]
+    _memberScope = LazyJavaClassMemberScope@214
+    _nullable = Boolean@159
+    _typeConstructor = LazyJavaClassTypeConstructor@212['ReadLock']
+    classifier = JavaClassImpl@211['ReadLock']
+}
+
+LazyJavaClassifierType@215['ReadLock'] {
+    _arguments = ArrayList@216[empty]
+    _nullable = Boolean@163
+    _typeConstructor = LazyJavaClassTypeConstructor@212['ReadLock']
+    classifier = JavaClassImpl@211['ReadLock']
+}
+
+LazyJavaClassifierType@209['ReadWriteLock'] {
+    _arguments = ArrayList@273[empty]
+    _memberScope = LazyJavaClassMemberScope@274
+    _typeConstructor = LazyJavaClassTypeConstructor@272['ReadWriteLock']
+    classifier = JavaClassImpl@253['ReadWriteLock']
+}
+
+LazyJavaClassifierType@112['Serializable'] {
+    _arguments = ArrayList@115[empty]
+    _memberScope = LazyJavaClassMemberScope@116
+    _typeConstructor = LazyJavaClassTypeConstructor@114['Serializable']
+    classifier = JavaClassImpl@113['Serializable']
+}
+
+LazyJavaClassifierType@165['Serializable'] {
+    _arguments = ArrayList@167[empty]
+    _memberScope = LazyJavaClassMemberScope@116
+    _typeConstructor = LazyJavaClassTypeConstructor@114['Serializable']
+    classifier = JavaClassImpl@166['Serializable']
+}
+
+LazyJavaClassifierType@281['Serializable'] {
+    _arguments = ArrayList@283[empty]
+    _memberScope = LazyJavaClassMemberScope@116
+    _typeConstructor = LazyJavaClassTypeConstructor@114['Serializable']
+    classifier = JavaClassImpl@282['Serializable']
+}
+
+LazyJavaClassifierType@269['WriteLock'] {
+    _arguments = ArrayList@271[empty]
+    _memberScope = LazyJavaClassMemberScope@172
+    _nullable = Boolean@159
+    _typeConstructor = LazyJavaClassTypeConstructor@170['WriteLock']
+    classifier = JavaClassImpl@270['WriteLock']
+}
+
+LazyJavaClassifierType@277['WriteLock'] {
+    _arguments = ArrayList@278[empty]
+    _nullable = Boolean@163
+    _typeConstructor = LazyJavaClassTypeConstructor@170['WriteLock']
+    classifier = JavaClassImpl@270['WriteLock']
+}
+
+LazyJavaPackageFragmentProvider@226 {
+    _packageFragments('<root>': FqName@227) = LazyJavaPackageFragment@228['<root>']
+    _packageFragments('ReentrantReadWriteLock': FqName@242) = null
+    _packageFragments('T': FqName@246) = null
+    _packageFragments('inline': FqName@250) = null
+    _packageFragments('java': FqName@230) = LazyJavaPackageFragment@217['java']
+    _packageFragments('java.io': FqName@255) = LazyJavaPackageFragment@256['io']
+    _packageFragments('java.lang': FqName@231) = LazyJavaPackageFragment@88['lang']
+    _packageFragments('java.lang.ReentrantReadWriteLock': FqName@244) = null
+    _packageFragments('java.lang.T': FqName@248) = null
+    _packageFragments('java.lang.inline': FqName@252) = null
+    _packageFragments('java.util': FqName@235) = LazyJavaPackageFragment@106['util']
+    _packageFragments('java.util.concurrent': FqName@236) = LazyJavaPackageFragment@237['concurrent']
+    _packageFragments('java.util.concurrent.locks': FqName@238) = LazyJavaPackageFragment@201['locks']
+    _packageFragments('java.util.concurrent.locks.ReentrantReadWriteLock': FqName@239) = null
+    _packageFragments('kotlin': FqName@232) = null
+    _packageFragments('kotlin.ReentrantReadWriteLock': FqName@243) = null
+    _packageFragments('kotlin.T': FqName@247) = null
+    _packageFragments('kotlin.inline': FqName@251) = null
+    _packageFragments('kotlin.io': FqName@234) = null
+    _packageFragments('kotlin.jvm': FqName@233) = null
+    _packageFragments('kt1189': FqName@229) = null
+    _packageFragments('kt1189.ReentrantReadWriteLock': FqName@241) = null
+    _packageFragments('kt1189.T': FqName@245) = null
+    _packageFragments('kt1189.inline': FqName@249) = null
+    topLevelClasses(JavaClassImpl@190['Lock']) = LazyJavaClassDescriptor@3['Lock']
+    topLevelClasses(JavaClassImpl@253['ReadWriteLock']) = LazyJavaClassDescriptor@254['ReadWriteLock']
+    topLevelClasses(JavaClassImpl@240['ReentrantReadWriteLock']) = LazyJavaClassDescriptor@24['ReentrantReadWriteLock']
+    topLevelClasses(JavaClassImpl@113['Serializable']) = LazyJavaClassDescriptor@117['Serializable']
+}
+
+LazyJavaPackageFragment@237['concurrent'] {
+    _functions('locks': Name@287) = LinkedHashSet@288[empty] // through LazyPackageFragmentScopeForJavaPackage@285
+    classes('locks': Name@284) = null // through LazyPackageFragmentScopeForJavaPackage@285
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@89 // through LazyPackageFragmentScopeForJavaPackage@285
+    memberIndex = computeMemberIndex$1@286 // through LazyPackageFragmentScopeForJavaPackage@285
+}
+
+LazyJavaPackageFragment@217['java'] {
+    _functions('lang': Name@222) = LinkedHashSet@223[empty] // through LazyPackageFragmentScopeForJavaPackage@219
+    _functions('util': Name@224) = LinkedHashSet@225[empty] // through LazyPackageFragmentScopeForJavaPackage@219
+    classes('lang': Name@218) = null // through LazyPackageFragmentScopeForJavaPackage@219
+    classes('util': Name@220) = null // through LazyPackageFragmentScopeForJavaPackage@219
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@89 // through LazyPackageFragmentScopeForJavaPackage@219
+    memberIndex = computeMemberIndex$1@221 // through LazyPackageFragmentScopeForJavaPackage@219
+}
+
+LazyJavaPackageFragment@88['lang'] {
+    _functions('action': Name@83) = LinkedHashSet@104[empty] // through LazyPackageFragmentScopeForJavaPackage@90
+    _functions('compareTo': Name@54) = LinkedHashSet@96[empty] // through LazyPackageFragmentScopeForJavaPackage@90
+    _functions('equals': Name@44) = LinkedHashSet@94[empty] // through LazyPackageFragmentScopeForJavaPackage@90
+    _functions('getReadHoldCount': Name@50) = LinkedHashSet@95[empty] // through LazyPackageFragmentScopeForJavaPackage@90
+    _functions('getWriteHoldCount': Name@38) = LinkedHashSet@93[empty] // through LazyPackageFragmentScopeForJavaPackage@90
+    _functions('hasNext': Name@63) = LinkedHashSet@99[empty] // through LazyPackageFragmentScopeForJavaPackage@90
+    _functions('invoke': Name@86) = LinkedHashSet@105[empty] // through LazyPackageFragmentScopeForJavaPackage@90
+    _functions('iterator': Name@60) = LinkedHashSet@98[empty] // through LazyPackageFragmentScopeForJavaPackage@90
+    _functions('lock': Name@17) = LinkedHashSet@103[empty] // through LazyPackageFragmentScopeForJavaPackage@90
+    _functions('next': Name@66) = LinkedHashSet@100[empty] // through LazyPackageFragmentScopeForJavaPackage@90
+    _functions('rangeTo': Name@57) = LinkedHashSet@97[empty] // through LazyPackageFragmentScopeForJavaPackage@90
+    _functions('readLock': Name@33) = LinkedHashSet@92[empty] // through LazyPackageFragmentScopeForJavaPackage@90
+    _functions('unlock': Name@12) = LinkedHashSet@101[empty] // through LazyPackageFragmentScopeForJavaPackage@90
+    _functions('writeLock': Name@75) = LinkedHashSet@102[empty] // through LazyPackageFragmentScopeForJavaPackage@90
+    classes('action': Name@83) = null // through LazyPackageFragmentScopeForJavaPackage@90
+    classes('compareTo': Name@54) = null // through LazyPackageFragmentScopeForJavaPackage@90
+    classes('equals': Name@44) = null // through LazyPackageFragmentScopeForJavaPackage@90
+    classes('getReadHoldCount': Name@50) = null // through LazyPackageFragmentScopeForJavaPackage@90
+    classes('getWriteHoldCount': Name@38) = null // through LazyPackageFragmentScopeForJavaPackage@90
+    classes('hasNext': Name@63) = null // through LazyPackageFragmentScopeForJavaPackage@90
+    classes('invoke': Name@86) = null // through LazyPackageFragmentScopeForJavaPackage@90
+    classes('iterator': Name@60) = null // through LazyPackageFragmentScopeForJavaPackage@90
+    classes('lock': Name@17) = null // through LazyPackageFragmentScopeForJavaPackage@90
+    classes('next': Name@66) = null // through LazyPackageFragmentScopeForJavaPackage@90
+    classes('rangeTo': Name@57) = null // through LazyPackageFragmentScopeForJavaPackage@90
+    classes('readLock': Name@33) = null // through LazyPackageFragmentScopeForJavaPackage@90
+    classes('unlock': Name@12) = null // through LazyPackageFragmentScopeForJavaPackage@90
+    classes('writeLock': Name@75) = null // through LazyPackageFragmentScopeForJavaPackage@90
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@89 // through LazyPackageFragmentScopeForJavaPackage@90
+    memberIndex = computeMemberIndex$1@91 // through LazyPackageFragmentScopeForJavaPackage@90
+}
+
+LazyJavaPackageFragment@201['locks'] {
+    _functions('ReentrantReadWriteLock': Name@205) = LinkedHashSet@206[empty] // through LazyPackageFragmentScopeForJavaPackage@203
+    classes('ReentrantReadWriteLock': Name@202) = LazyJavaClassDescriptor@24['ReentrantReadWriteLock'] // through LazyPackageFragmentScopeForJavaPackage@203
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@89 // through LazyPackageFragmentScopeForJavaPackage@203
+    memberIndex = computeMemberIndex$1@204 // through LazyPackageFragmentScopeForJavaPackage@203
+}
+
+LazyJavaPackageFragment@106['util'] {
+    _functions('concurrent': Name@110) = LinkedHashSet@111[empty] // through LazyPackageFragmentScopeForJavaPackage@108
+    classes('concurrent': Name@107) = null // through LazyPackageFragmentScopeForJavaPackage@108
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@89 // through LazyPackageFragmentScopeForJavaPackage@108
+    memberIndex = computeMemberIndex$1@109 // through LazyPackageFragmentScopeForJavaPackage@108
+}

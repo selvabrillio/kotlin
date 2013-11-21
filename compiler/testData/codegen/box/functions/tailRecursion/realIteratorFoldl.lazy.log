@@ -1,0 +1,100 @@
+DescriptorResolver@0 {
+    <name not found> = null
+}
+
+LazyAnnotationDescriptor@1 {
+    _resolutionResults = OverloadResolutionResultsImpl@3
+    _type = JetTypeImpl@2
+}
+
+LazyJavaPackageFragmentProvider@39 {
+    _packageFragments('<root>': FqName@40) = LazyJavaPackageFragment@4['<root>']
+    _packageFragments('A': FqName@53) = null
+    _packageFragments('Int': FqName@62) = null
+    _packageFragments('Iterator': FqName@47) = null
+    _packageFragments('Long': FqName@65) = null
+    _packageFragments('String': FqName@59) = null
+    _packageFragments('T': FqName@50) = null
+    _packageFragments('java': FqName@41) = LazyJavaPackageFragment@33['java']
+    _packageFragments('java.lang': FqName@42) = LazyJavaPackageFragment@43['lang']
+    _packageFragments('java.lang.A': FqName@55) = null
+    _packageFragments('java.lang.Int': FqName@64) = null
+    _packageFragments('java.lang.Iterator': FqName@49) = null
+    _packageFragments('java.lang.Long': FqName@67) = null
+    _packageFragments('java.lang.String': FqName@61) = null
+    _packageFragments('java.lang.T': FqName@52) = null
+    _packageFragments('java.lang.tailRecursive': FqName@58) = null
+    _packageFragments('kotlin': FqName@44) = null
+    _packageFragments('kotlin.A': FqName@54) = null
+    _packageFragments('kotlin.Int': FqName@63) = null
+    _packageFragments('kotlin.Iterator': FqName@48) = null
+    _packageFragments('kotlin.Long': FqName@66) = null
+    _packageFragments('kotlin.String': FqName@60) = null
+    _packageFragments('kotlin.T': FqName@51) = null
+    _packageFragments('kotlin.io': FqName@46) = null
+    _packageFragments('kotlin.jvm': FqName@45) = null
+    _packageFragments('kotlin.tailRecursive': FqName@57) = null
+    _packageFragments('tailRecursive': FqName@56) = null
+}
+
+LazyJavaPackageFragment@4['<root>'] {
+    _functions('equals': Name@31) = LinkedHashSet@32[empty] // through LazyPackageFragmentScopeForJavaPackage@6
+    _functions('foldFunction': Name@17) = LinkedHashSet@18[empty] // through LazyPackageFragmentScopeForJavaPackage@6
+    _functions('foldl': Name@15) = LinkedHashSet@16[empty] // through LazyPackageFragmentScopeForJavaPackage@6
+    _functions('hasNext': Name@11) = LinkedHashSet@12[empty] // through LazyPackageFragmentScopeForJavaPackage@6
+    _functions('invoke': Name@21) = LinkedHashSet@22[empty] // through LazyPackageFragmentScopeForJavaPackage@6
+    _functions('iterator': Name@25) = LinkedHashSet@26[empty] // through LazyPackageFragmentScopeForJavaPackage@6
+    _functions('next': Name@19) = LinkedHashSet@20[empty] // through LazyPackageFragmentScopeForJavaPackage@6
+    _functions('not': Name@13) = LinkedHashSet@14[empty] // through LazyPackageFragmentScopeForJavaPackage@6
+    _functions('plus': Name@29) = LinkedHashSet@30[empty] // through LazyPackageFragmentScopeForJavaPackage@6
+    _functions('rangeTo': Name@23) = LinkedHashSet@24[empty] // through LazyPackageFragmentScopeForJavaPackage@6
+    classes('Int': Name@27) = null // through LazyPackageFragmentScopeForJavaPackage@6
+    classes('Iterator': Name@5) = null // through LazyPackageFragmentScopeForJavaPackage@6
+    classes('Long': Name@28) = null // through LazyPackageFragmentScopeForJavaPackage@6
+    classes('String': Name@8) = null // through LazyPackageFragmentScopeForJavaPackage@6
+    classes('equals': Name@31) = null // through LazyPackageFragmentScopeForJavaPackage@6
+    classes('foldFunction': Name@17) = null // through LazyPackageFragmentScopeForJavaPackage@6
+    classes('foldl': Name@15) = null // through LazyPackageFragmentScopeForJavaPackage@6
+    classes('hasNext': Name@11) = null // through LazyPackageFragmentScopeForJavaPackage@6
+    classes('invoke': Name@21) = null // through LazyPackageFragmentScopeForJavaPackage@6
+    classes('iterator': Name@25) = null // through LazyPackageFragmentScopeForJavaPackage@6
+    classes('next': Name@19) = null // through LazyPackageFragmentScopeForJavaPackage@6
+    classes('not': Name@13) = null // through LazyPackageFragmentScopeForJavaPackage@6
+    classes('plus': Name@29) = null // through LazyPackageFragmentScopeForJavaPackage@6
+    classes('rangeTo': Name@23) = null // through LazyPackageFragmentScopeForJavaPackage@6
+    classes('tailRecursive': Name@7) = null // through LazyPackageFragmentScopeForJavaPackage@6
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@9 // through LazyPackageFragmentScopeForJavaPackage@6
+    memberIndex = computeMemberIndex$1@10 // through LazyPackageFragmentScopeForJavaPackage@6
+}
+
+LazyJavaPackageFragment@33['java'] {
+    _functions('lang': Name@37) = LinkedHashSet@38[empty] // through LazyPackageFragmentScopeForJavaPackage@35
+    classes('lang': Name@34) = null // through LazyPackageFragmentScopeForJavaPackage@35
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@9 // through LazyPackageFragmentScopeForJavaPackage@35
+    memberIndex = computeMemberIndex$1@36 // through LazyPackageFragmentScopeForJavaPackage@35
+}
+
+LazyJavaPackageFragment@43['lang'] {
+    _functions('equals': Name@31) = LinkedHashSet@79[empty] // through LazyPackageFragmentScopeForJavaPackage@68
+    _functions('foldFunction': Name@17) = LinkedHashSet@73[empty] // through LazyPackageFragmentScopeForJavaPackage@68
+    _functions('foldl': Name@15) = LinkedHashSet@72[empty] // through LazyPackageFragmentScopeForJavaPackage@68
+    _functions('hasNext': Name@11) = LinkedHashSet@70[empty] // through LazyPackageFragmentScopeForJavaPackage@68
+    _functions('invoke': Name@21) = LinkedHashSet@75[empty] // through LazyPackageFragmentScopeForJavaPackage@68
+    _functions('iterator': Name@25) = LinkedHashSet@77[empty] // through LazyPackageFragmentScopeForJavaPackage@68
+    _functions('next': Name@19) = LinkedHashSet@74[empty] // through LazyPackageFragmentScopeForJavaPackage@68
+    _functions('not': Name@13) = LinkedHashSet@71[empty] // through LazyPackageFragmentScopeForJavaPackage@68
+    _functions('plus': Name@29) = LinkedHashSet@78[empty] // through LazyPackageFragmentScopeForJavaPackage@68
+    _functions('rangeTo': Name@23) = LinkedHashSet@76[empty] // through LazyPackageFragmentScopeForJavaPackage@68
+    classes('equals': Name@31) = null // through LazyPackageFragmentScopeForJavaPackage@68
+    classes('foldFunction': Name@17) = null // through LazyPackageFragmentScopeForJavaPackage@68
+    classes('foldl': Name@15) = null // through LazyPackageFragmentScopeForJavaPackage@68
+    classes('hasNext': Name@11) = null // through LazyPackageFragmentScopeForJavaPackage@68
+    classes('invoke': Name@21) = null // through LazyPackageFragmentScopeForJavaPackage@68
+    classes('iterator': Name@25) = null // through LazyPackageFragmentScopeForJavaPackage@68
+    classes('next': Name@19) = null // through LazyPackageFragmentScopeForJavaPackage@68
+    classes('not': Name@13) = null // through LazyPackageFragmentScopeForJavaPackage@68
+    classes('plus': Name@29) = null // through LazyPackageFragmentScopeForJavaPackage@68
+    classes('rangeTo': Name@23) = null // through LazyPackageFragmentScopeForJavaPackage@68
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@9 // through LazyPackageFragmentScopeForJavaPackage@68
+    memberIndex = computeMemberIndex$1@69 // through LazyPackageFragmentScopeForJavaPackage@68
+}

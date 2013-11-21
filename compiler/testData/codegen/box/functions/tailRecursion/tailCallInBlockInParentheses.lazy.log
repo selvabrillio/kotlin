@@ -1,0 +1,55 @@
+LazyAnnotationDescriptor@7 {
+    _resolutionResults = OverloadResolutionResultsImpl@9
+    _type = JetTypeImpl@8
+}
+
+LazyJavaPackageFragmentProvider@19 {
+    _packageFragments('<root>': FqName@20) = LazyJavaPackageFragment@21['<root>']
+    _packageFragments('Int': FqName@27) = null
+    _packageFragments('String': FqName@33) = null
+    _packageFragments('java': FqName@22) = LazyJavaPackageFragment@0['java']
+    _packageFragments('java.lang': FqName@23) = LazyJavaPackageFragment@10['lang']
+    _packageFragments('java.lang.Int': FqName@29) = null
+    _packageFragments('java.lang.String': FqName@35) = null
+    _packageFragments('java.lang.tailRecursive': FqName@32) = null
+    _packageFragments('kotlin': FqName@24) = null
+    _packageFragments('kotlin.Int': FqName@28) = null
+    _packageFragments('kotlin.String': FqName@34) = null
+    _packageFragments('kotlin.io': FqName@26) = null
+    _packageFragments('kotlin.jvm': FqName@25) = null
+    _packageFragments('kotlin.tailRecursive': FqName@31) = null
+    _packageFragments('tailRecursive': FqName@30) = null
+}
+
+LazyJavaPackageFragment@21['<root>'] {
+    _functions('compareTo': Name@13) = LinkedHashSet@41[empty] // through LazyPackageFragmentScopeForJavaPackage@37
+    _functions('foo': Name@15) = LinkedHashSet@42[empty] // through LazyPackageFragmentScopeForJavaPackage@37
+    _functions('minus': Name@17) = LinkedHashSet@43[empty] // through LazyPackageFragmentScopeForJavaPackage@37
+    classes('Int': Name@36) = null // through LazyPackageFragmentScopeForJavaPackage@37
+    classes('String': Name@39) = null // through LazyPackageFragmentScopeForJavaPackage@37
+    classes('Unit': Name@44) = null // through LazyPackageFragmentScopeForJavaPackage@37
+    classes('compareTo': Name@13) = null // through LazyPackageFragmentScopeForJavaPackage@37
+    classes('foo': Name@15) = null // through LazyPackageFragmentScopeForJavaPackage@37
+    classes('minus': Name@17) = null // through LazyPackageFragmentScopeForJavaPackage@37
+    classes('tailRecursive': Name@38) = null // through LazyPackageFragmentScopeForJavaPackage@37
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@3 // through LazyPackageFragmentScopeForJavaPackage@37
+    memberIndex = computeMemberIndex$1@40 // through LazyPackageFragmentScopeForJavaPackage@37
+}
+
+LazyJavaPackageFragment@0['java'] {
+    _functions('lang': Name@5) = LinkedHashSet@6[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('lang': Name@1) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@3 // through LazyPackageFragmentScopeForJavaPackage@2
+    memberIndex = computeMemberIndex$1@4 // through LazyPackageFragmentScopeForJavaPackage@2
+}
+
+LazyJavaPackageFragment@10['lang'] {
+    _functions('compareTo': Name@13) = LinkedHashSet@14[empty] // through LazyPackageFragmentScopeForJavaPackage@11
+    _functions('foo': Name@15) = LinkedHashSet@16[empty] // through LazyPackageFragmentScopeForJavaPackage@11
+    _functions('minus': Name@17) = LinkedHashSet@18[empty] // through LazyPackageFragmentScopeForJavaPackage@11
+    classes('compareTo': Name@13) = null // through LazyPackageFragmentScopeForJavaPackage@11
+    classes('foo': Name@15) = null // through LazyPackageFragmentScopeForJavaPackage@11
+    classes('minus': Name@17) = null // through LazyPackageFragmentScopeForJavaPackage@11
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@3 // through LazyPackageFragmentScopeForJavaPackage@11
+    memberIndex = computeMemberIndex$1@12 // through LazyPackageFragmentScopeForJavaPackage@11
+}

@@ -1,0 +1,65 @@
+DescriptorResolver@6 {
+    <name not found> = DeserializedType@7['kotlin.Double']
+    <name not found> = DoubleValue@8
+    <name not found> = DoubleValue@9
+}
+
+LazyJavaPackageFragmentProvider@10 {
+    _packageFragments('<root>': FqName@11) = LazyJavaPackageFragment@12['<root>']
+    _packageFragments('A': FqName@19) = null
+    _packageFragments('B': FqName@43) = null
+    _packageFragments('Double': FqName@34) = null
+    _packageFragments('Int': FqName@22) = null
+    _packageFragments('Iterator': FqName@25) = null
+    _packageFragments('List': FqName@37) = null
+    _packageFragments('T': FqName@28) = null
+    _packageFragments('Unit': FqName@31) = null
+    _packageFragments('X': FqName@40) = null
+    _packageFragments('java': FqName@13) = LazyJavaPackageFragment@14['java']
+    _packageFragments('java.lang': FqName@15) = LazyJavaPackageFragment@0['lang']
+    _packageFragments('java.lang.A': FqName@21) = null
+    _packageFragments('java.lang.Double': FqName@36) = null
+    _packageFragments('java.lang.Int': FqName@24) = null
+    _packageFragments('java.lang.Iterator': FqName@27) = null
+    _packageFragments('java.lang.List': FqName@39) = null
+    _packageFragments('java.lang.T': FqName@30) = null
+    _packageFragments('java.lang.Unit': FqName@33) = null
+    _packageFragments('java.lang.X': FqName@42) = null
+    _packageFragments('kotlin': FqName@16) = null
+    _packageFragments('kotlin.A': FqName@20) = null
+    _packageFragments('kotlin.Double': FqName@35) = null
+    _packageFragments('kotlin.Int': FqName@23) = null
+    _packageFragments('kotlin.Iterator': FqName@26) = null
+    _packageFragments('kotlin.List': FqName@38) = null
+    _packageFragments('kotlin.T': FqName@29) = null
+    _packageFragments('kotlin.Unit': FqName@32) = null
+    _packageFragments('kotlin.X': FqName@41) = null
+    _packageFragments('kotlin.io': FqName@18) = null
+    _packageFragments('kotlin.jvm': FqName@17) = null
+}
+
+LazyJavaPackageFragment@12['<root>'] {
+    _functions('toDouble': Name@4) = LinkedHashSet@51[empty] // through LazyPackageFragmentScopeForJavaPackage@45
+    classes('Double': Name@48) = null // through LazyPackageFragmentScopeForJavaPackage@45
+    classes('Int': Name@44) = null // through LazyPackageFragmentScopeForJavaPackage@45
+    classes('Iterator': Name@46) = null // through LazyPackageFragmentScopeForJavaPackage@45
+    classes('List': Name@49) = null // through LazyPackageFragmentScopeForJavaPackage@45
+    classes('Unit': Name@47) = null // through LazyPackageFragmentScopeForJavaPackage@45
+    classes('toDouble': Name@4) = null // through LazyPackageFragmentScopeForJavaPackage@45
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@1 // through LazyPackageFragmentScopeForJavaPackage@45
+    memberIndex = computeMemberIndex$1@50 // through LazyPackageFragmentScopeForJavaPackage@45
+}
+
+LazyJavaPackageFragment@14['java'] {
+    _functions('lang': Name@55) = LinkedHashSet@56[empty] // through LazyPackageFragmentScopeForJavaPackage@53
+    classes('lang': Name@52) = null // through LazyPackageFragmentScopeForJavaPackage@53
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@1 // through LazyPackageFragmentScopeForJavaPackage@53
+    memberIndex = computeMemberIndex$1@54 // through LazyPackageFragmentScopeForJavaPackage@53
+}
+
+LazyJavaPackageFragment@0['lang'] {
+    _functions('toDouble': Name@4) = LinkedHashSet@5[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('toDouble': Name@4) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@1 // through LazyPackageFragmentScopeForJavaPackage@2
+    memberIndex = computeMemberIndex$1@3 // through LazyPackageFragmentScopeForJavaPackage@2
+}

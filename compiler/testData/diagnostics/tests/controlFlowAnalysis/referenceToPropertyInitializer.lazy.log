@@ -1,0 +1,65 @@
+DescriptorResolver@2 {
+    <name not found> = JetTypeImpl@3
+}
+
+DescriptorResolver@4 {
+    <name not found> = null
+}
+
+LazyJavaPackageFragmentProvider@30 {
+    _packageFragments('<root>': FqName@31) = LazyJavaPackageFragment@32['<root>']
+    _packageFragments('A': FqName@40) = null
+    _packageFragments('Int': FqName@44) = null
+    _packageFragments('Unit': FqName@48) = null
+    _packageFragments('java': FqName@34) = LazyJavaPackageFragment@7['java']
+    _packageFragments('java.lang': FqName@35) = LazyJavaPackageFragment@14['lang']
+    _packageFragments('java.lang.A': FqName@42) = null
+    _packageFragments('java.lang.Int': FqName@46) = null
+    _packageFragments('java.lang.Unit': FqName@50) = null
+    _packageFragments('kotlin': FqName@36) = null
+    _packageFragments('kotlin.A': FqName@41) = null
+    _packageFragments('kotlin.Int': FqName@45) = null
+    _packageFragments('kotlin.Unit': FqName@49) = null
+    _packageFragments('kotlin.io': FqName@38) = null
+    _packageFragments('kotlin.jvm': FqName@37) = null
+    _packageFragments('o': FqName@33) = null
+    _packageFragments('o.A': FqName@39) = null
+    _packageFragments('o.Int': FqName@43) = null
+    _packageFragments('o.TestFunctionLiteral': FqName@52) = null
+    _packageFragments('o.TestObjectLiteral': FqName@51) = null
+    _packageFragments('o.TestOther': FqName@53) = null
+    _packageFragments('o.Unit': FqName@47) = null
+}
+
+LazyJavaPackageFragment@7['java'] {
+    _functions('lang': Name@12) = LinkedHashSet@13[empty] // through LazyPackageFragmentScopeForJavaPackage@9
+    classes('lang': Name@8) = null // through LazyPackageFragmentScopeForJavaPackage@9
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@10 // through LazyPackageFragmentScopeForJavaPackage@9
+    memberIndex = computeMemberIndex$1@11 // through LazyPackageFragmentScopeForJavaPackage@9
+}
+
+LazyJavaPackageFragment@14['lang'] {
+    _functions('foo': Name@25) = LinkedHashSet@26[empty] // through LazyPackageFragmentScopeForJavaPackage@15
+    _functions('invoke': Name@21) = LinkedHashSet@22[empty] // through LazyPackageFragmentScopeForJavaPackage@15
+    _functions('minus': Name@19) = LinkedHashSet@20[empty] // through LazyPackageFragmentScopeForJavaPackage@15
+    _functions('plus': Name@23) = LinkedHashSet@24[empty] // through LazyPackageFragmentScopeForJavaPackage@15
+    _functions('sum': Name@17) = LinkedHashSet@18[empty] // through LazyPackageFragmentScopeForJavaPackage@15
+    classes('foo': Name@25) = null // through LazyPackageFragmentScopeForJavaPackage@15
+    classes('invoke': Name@21) = null // through LazyPackageFragmentScopeForJavaPackage@15
+    classes('minus': Name@19) = null // through LazyPackageFragmentScopeForJavaPackage@15
+    classes('obj': Name@27) = null // through LazyPackageFragmentScopeForJavaPackage@15
+    classes('obj1': Name@28) = null // through LazyPackageFragmentScopeForJavaPackage@15
+    classes('plus': Name@23) = null // through LazyPackageFragmentScopeForJavaPackage@15
+    classes('sum': Name@17) = null // through LazyPackageFragmentScopeForJavaPackage@15
+    classes('x': Name@29) = null // through LazyPackageFragmentScopeForJavaPackage@15
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@10 // through LazyPackageFragmentScopeForJavaPackage@15
+    memberIndex = computeMemberIndex$1@16 // through LazyPackageFragmentScopeForJavaPackage@15
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@0 {
+    <name not found> = JetTypeImpl@1
+}
+
+org.jetbrains.jet.lang.types.expressions.ClosureExpressionsTypingVisitor$1@5 {
+    <name not found> = JetTypeImpl@6
+}

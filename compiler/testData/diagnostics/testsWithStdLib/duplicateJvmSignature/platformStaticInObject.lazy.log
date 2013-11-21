@@ -1,0 +1,90 @@
+ClassDeserializer@76 {
+    classes(ClassKey@77) = DeserializedClassDescriptor@39['platformStatic']
+}
+
+DeserializedClassDescriptor@39['platformStatic'] {
+    containingDeclaration = LazyJavaPackageFragment@20['platform']
+    primaryConstructor = ConstructorDescriptorImpl@44['<init>']
+}
+
+LazyAnnotationDescriptor@47 {
+    _resolutionResults = OverloadResolutionResultsImpl@49
+    _type = JetTypeImpl@48
+}
+
+LazyJavaPackageFragmentProvider@7 {
+    _packageFragments('<root>': FqName@8) = LazyJavaPackageFragment@9['<root>']
+    _packageFragments('Base': FqName@22) = null
+    _packageFragments('Derived': FqName@37) = null
+    _packageFragments('Int': FqName@27) = null
+    _packageFragments('java': FqName@10) = LazyJavaPackageFragment@0['java']
+    _packageFragments('java.lang': FqName@11) = LazyJavaPackageFragment@12['lang']
+    _packageFragments('java.lang.Base': FqName@26) = null
+    _packageFragments('java.lang.Int': FqName@31) = null
+    _packageFragments('java.lang.platformStatic': FqName@36) = null
+    _packageFragments('kotlin': FqName@13) = LazyJavaPackageFragment@14['kotlin']
+    _packageFragments('kotlin.Base': FqName@25) = null
+    _packageFragments('kotlin.Int': FqName@30) = null
+    _packageFragments('kotlin.io': FqName@17) = LazyJavaPackageFragment@18['io']
+    _packageFragments('kotlin.io.Base': FqName@23) = null
+    _packageFragments('kotlin.io.Int': FqName@28) = null
+    _packageFragments('kotlin.io.platformStatic': FqName@33) = null
+    _packageFragments('kotlin.jvm': FqName@15) = LazyJavaPackageFragment@16['jvm']
+    _packageFragments('kotlin.jvm.Base': FqName@24) = null
+    _packageFragments('kotlin.jvm.Int': FqName@29) = null
+    _packageFragments('kotlin.jvm.platformStatic': FqName@34) = null
+    _packageFragments('kotlin.platform': FqName@19) = LazyJavaPackageFragment@20['platform']
+    _packageFragments('kotlin.platform.platformStatic': FqName@21) = null
+    _packageFragments('kotlin.platformStatic': FqName@35) = null
+    _packageFragments('platformStatic': FqName@32) = null
+}
+
+LazyJavaPackageFragment@9['<root>'] {
+    _functions('kotlin': Name@54) = LinkedHashSet@55[empty] // through LazyPackageFragmentScopeForJavaPackage@51
+    classes('Int': Name@45) = null // through LazyPackageFragmentScopeForJavaPackage@51
+    classes('kotlin': Name@50) = null // through LazyPackageFragmentScopeForJavaPackage@51
+    classes('platformStatic': Name@52) = null // through LazyPackageFragmentScopeForJavaPackage@51
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@3 // through LazyPackageFragmentScopeForJavaPackage@51
+    memberIndex = computeMemberIndex$1@53 // through LazyPackageFragmentScopeForJavaPackage@51
+}
+
+LazyJavaPackageFragment@18['io'] {
+    classes('Int': Name@45) = null // through LazyPackageFragmentScopeForJavaPackage@46
+}
+
+LazyJavaPackageFragment@0['java'] {
+    _functions('lang': Name@5) = LinkedHashSet@6[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('lang': Name@1) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@3 // through LazyPackageFragmentScopeForJavaPackage@2
+    memberIndex = computeMemberIndex$1@4 // through LazyPackageFragmentScopeForJavaPackage@2
+}
+
+LazyJavaPackageFragment@16['jvm'] {
+    classes('Int': Name@45) = null // through LazyPackageFragmentScopeForJavaPackage@56
+}
+
+LazyJavaPackageFragment@14['kotlin'] {
+    _functions('io': Name@68) = LinkedHashSet@70[empty] // through LazyPackageFragmentScopeForJavaPackage@58
+    _functions('jvm': Name@63) = LinkedHashSet@66[empty] // through LazyPackageFragmentScopeForJavaPackage@58
+    _functions('platform': Name@72) = LinkedHashSet@74[empty] // through LazyPackageFragmentScopeForJavaPackage@58
+    classes('Int': Name@45) = null // through LazyPackageFragmentScopeForJavaPackage@58
+    classes('io': Name@59) = null // through LazyPackageFragmentScopeForJavaPackage@58
+    classes('jvm': Name@57) = null // through LazyPackageFragmentScopeForJavaPackage@58
+    classes('platform': Name@60) = null // through LazyPackageFragmentScopeForJavaPackage@58
+    deserializedPackageScope = DeserializedPackageMemberScope@61 // through LazyPackageFragmentScopeForJavaPackage@58
+    functions('io': Name@68) = LinkedHashSet@69[empty] // through DeserializedPackageMemberScope@61
+    functions('jvm': Name@63) = LinkedHashSet@64[empty] // through DeserializedPackageMemberScope@61
+    functions('platform': Name@72) = LinkedHashSet@73[empty] // through DeserializedPackageMemberScope@61
+    memberIndex = computeMemberIndex$1@65 // through LazyPackageFragmentScopeForJavaPackage@58
+    membersProtos = HashMap@62 // through DeserializedPackageMemberScope@61
+    properties('io': Name@68) = LinkedHashSet@71[empty] // through DeserializedPackageMemberScope@61
+    properties('jvm': Name@63) = LinkedHashSet@67[empty] // through DeserializedPackageMemberScope@61
+    properties('platform': Name@72) = LinkedHashSet@75[empty] // through DeserializedPackageMemberScope@61
+}
+
+LazyJavaPackageFragment@20['platform'] {
+    _functions('platformStatic': Name@42) = LinkedHashSet@43[empty] // through LazyPackageFragmentScopeForJavaPackage@40
+    classes('platformStatic': Name@38) = DeserializedClassDescriptor@39['platformStatic'] // through LazyPackageFragmentScopeForJavaPackage@40
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@3 // through LazyPackageFragmentScopeForJavaPackage@40
+    memberIndex = computeMemberIndex$1@41 // through LazyPackageFragmentScopeForJavaPackage@40
+}

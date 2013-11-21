@@ -1,0 +1,76 @@
+DescriptorResolver@63 {
+    <name not found> = IntValue@65
+    <name not found> = IntValue@67
+    <name not found> = IntValue@68
+    <name not found> = IntValue@69
+    <name not found> = JetTypeImpl@64
+    <name not found> = JetTypeImpl@66
+    <name not found> = JetTypeImpl@70
+    <name not found> = null
+}
+
+LazyJavaPackageFragmentProvider@23 {
+    _packageFragments('<root>': FqName@24) = LazyJavaPackageFragment@25['<root>']
+    _packageFragments('A': FqName@46) = null
+    _packageFragments('B': FqName@50) = null
+    _packageFragments('C': FqName@38) = null
+    _packageFragments('Int': FqName@42) = null
+    _packageFragments('T': FqName@34) = null
+    _packageFragments('java': FqName@28) = LazyJavaPackageFragment@0['java']
+    _packageFragments('java.lang': FqName@29) = LazyJavaPackageFragment@7['lang']
+    _packageFragments('java.lang.A': FqName@48) = null
+    _packageFragments('java.lang.B': FqName@52) = null
+    _packageFragments('java.lang.C': FqName@40) = null
+    _packageFragments('java.lang.Int': FqName@44) = null
+    _packageFragments('java.lang.T': FqName@36) = null
+    _packageFragments('kotlin': FqName@30) = null
+    _packageFragments('kotlin.A': FqName@47) = null
+    _packageFragments('kotlin.B': FqName@51) = null
+    _packageFragments('kotlin.C': FqName@39) = null
+    _packageFragments('kotlin.Int': FqName@43) = null
+    _packageFragments('kotlin.T': FqName@35) = null
+    _packageFragments('kotlin.io': FqName@32) = null
+    _packageFragments('kotlin.jvm': FqName@31) = null
+    _packageFragments('test_visibility': FqName@26) = null
+    _packageFragments('test_visibility.A': FqName@45) = null
+    _packageFragments('test_visibility.B': FqName@49) = null
+    _packageFragments('test_visibility.C': FqName@37) = null
+    _packageFragments('test_visibility.D': FqName@58) = null
+    _packageFragments('test_visibility.E': FqName@57) = null
+    _packageFragments('test_visibility.F': FqName@56) = null
+    _packageFragments('test_visibility.G': FqName@53) = null
+    _packageFragments('test_visibility.Int': FqName@41) = null
+    _packageFragments('test_visibility.ProtectedClass': FqName@60) = null
+    _packageFragments('test_visibility.ProtectedTrait': FqName@55) = null
+    _packageFragments('test_visibility.T': FqName@33) = null
+    _packageFragments('test_visibility.Y': FqName@61) = null
+    _packageFragments('test_visibility.internal_val': FqName@54) = null
+    _packageFragments('test_visibility.private_val': FqName@62) = null
+    _packageFragments('test_visibility.protected_val': FqName@59) = null
+    _packageFragments('test_visibility2': FqName@27) = null
+}
+
+LazyJavaPackageFragment@0['java'] {
+    _functions('lang': Name@5) = LinkedHashSet@6[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('lang': Name@1) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@3 // through LazyPackageFragmentScopeForJavaPackage@2
+    memberIndex = computeMemberIndex$1@4 // through LazyPackageFragmentScopeForJavaPackage@2
+}
+
+LazyJavaPackageFragment@7['lang'] {
+    _functions('B': Name@10) = LinkedHashSet@11[empty] // through LazyPackageFragmentScopeForJavaPackage@8
+    _functions('doSmth': Name@21) = LinkedHashSet@22[empty] // through LazyPackageFragmentScopeForJavaPackage@8
+    _functions('f': Name@17) = LinkedHashSet@18[empty] // through LazyPackageFragmentScopeForJavaPackage@8
+    _functions('inc': Name@19) = LinkedHashSet@20[empty] // through LazyPackageFragmentScopeForJavaPackage@8
+    _functions('internal_fun': Name@13) = LinkedHashSet@14[empty] // through LazyPackageFragmentScopeForJavaPackage@8
+    _functions('private_fun': Name@15) = LinkedHashSet@16[empty] // through LazyPackageFragmentScopeForJavaPackage@8
+    classes('B': Name@10) = null // through LazyPackageFragmentScopeForJavaPackage@8
+    classes('doSmth': Name@21) = null // through LazyPackageFragmentScopeForJavaPackage@8
+    classes('f': Name@17) = null // through LazyPackageFragmentScopeForJavaPackage@8
+    classes('i': Name@12) = null // through LazyPackageFragmentScopeForJavaPackage@8
+    classes('inc': Name@19) = null // through LazyPackageFragmentScopeForJavaPackage@8
+    classes('internal_fun': Name@13) = null // through LazyPackageFragmentScopeForJavaPackage@8
+    classes('private_fun': Name@15) = null // through LazyPackageFragmentScopeForJavaPackage@8
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@3 // through LazyPackageFragmentScopeForJavaPackage@8
+    memberIndex = computeMemberIndex$1@9 // through LazyPackageFragmentScopeForJavaPackage@8
+}

@@ -1,0 +1,81 @@
+DescriptorResolver@62 {
+    <name not found> = JetTypeImpl@63
+    <name not found> = JetTypeImpl@64
+    <name not found> = JetTypeImpl@65
+    <name not found> = JetTypeImpl@66
+    <name not found> = JetTypeImpl@67
+    <name not found> = JetTypeImpl@68
+    <name not found> = JetTypeImpl@69
+    <name not found> = JetTypeImpl@71
+    <name not found> = JetTypeImpl@72
+    <name not found> = JetTypeImpl@73
+    <name not found> = JetTypeImpl@74
+    <name not found> = JetTypeImpl@75
+    <name not found> = JetTypeImpl@76
+    <name not found> = StringValue@70
+}
+
+LazyJavaPackageFragmentProvider@7 {
+    _packageFragments('<root>': FqName@8) = LazyJavaPackageFragment@9['<root>']
+    _packageFragments('Int': FqName@39) = null
+    _packageFragments('MyAbstractClass': FqName@27) = null
+    _packageFragments('MyGenericClass': FqName@35) = null
+    _packageFragments('MyProps': FqName@31) = null
+    _packageFragments('MyTrait': FqName@19) = null
+    _packageFragments('R': FqName@47) = null
+    _packageFragments('String': FqName@43) = null
+    _packageFragments('T': FqName@23) = null
+    _packageFragments('java': FqName@12) = LazyJavaPackageFragment@0['java']
+    _packageFragments('java.lang': FqName@13) = LazyJavaPackageFragment@14['lang']
+    _packageFragments('java.lang.Int': FqName@41) = null
+    _packageFragments('java.lang.MyAbstractClass': FqName@29) = null
+    _packageFragments('java.lang.MyGenericClass': FqName@37) = null
+    _packageFragments('java.lang.MyProps': FqName@33) = null
+    _packageFragments('java.lang.MyTrait': FqName@21) = null
+    _packageFragments('java.lang.R': FqName@49) = null
+    _packageFragments('java.lang.String': FqName@45) = null
+    _packageFragments('java.lang.T': FqName@25) = null
+    _packageFragments('kotlin': FqName@15) = null
+    _packageFragments('kotlin.Int': FqName@40) = null
+    _packageFragments('kotlin.MyAbstractClass': FqName@28) = null
+    _packageFragments('kotlin.MyGenericClass': FqName@36) = null
+    _packageFragments('kotlin.MyProps': FqName@32) = null
+    _packageFragments('kotlin.MyTrait': FqName@20) = null
+    _packageFragments('kotlin.R': FqName@48) = null
+    _packageFragments('kotlin.String': FqName@44) = null
+    _packageFragments('kotlin.T': FqName@24) = null
+    _packageFragments('kotlin.io': FqName@17) = null
+    _packageFragments('kotlin.jvm': FqName@16) = null
+    _packageFragments('override': FqName@10) = null
+    _packageFragments('override.generics': FqName@11) = null
+    _packageFragments('override.generics.Int': FqName@38) = null
+    _packageFragments('override.generics.MyAbstractClass': FqName@26) = null
+    _packageFragments('override.generics.MyAbstractClass1': FqName@50) = null
+    _packageFragments('override.generics.MyChildClass': FqName@60) = null
+    _packageFragments('override.generics.MyChildClass1': FqName@52) = null
+    _packageFragments('override.generics.MyChildClass2': FqName@54) = null
+    _packageFragments('override.generics.MyClass': FqName@56) = null
+    _packageFragments('override.generics.MyGenericClass': FqName@34) = null
+    _packageFragments('override.generics.MyIllegalClass1': FqName@51) = null
+    _packageFragments('override.generics.MyIllegalClass2': FqName@53) = null
+    _packageFragments('override.generics.MyIllegalGenericClass1': FqName@58) = null
+    _packageFragments('override.generics.MyIllegalGenericClass2': FqName@59) = null
+    _packageFragments('override.generics.MyLegalAbstractClass1': FqName@57) = null
+    _packageFragments('override.generics.MyLegalAbstractClass2': FqName@55) = null
+    _packageFragments('override.generics.MyProps': FqName@30) = null
+    _packageFragments('override.generics.MyTrait': FqName@18) = null
+    _packageFragments('override.generics.R': FqName@46) = null
+    _packageFragments('override.generics.String': FqName@42) = null
+    _packageFragments('override.generics.T': FqName@22) = null
+}
+
+LazyJavaPackageFragment@0['java'] {
+    _functions('lang': Name@5) = LinkedHashSet@6[empty] // through LazyPackageFragmentScopeForJavaPackage@2
+    classes('lang': Name@1) = null // through LazyPackageFragmentScopeForJavaPackage@2
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@3 // through LazyPackageFragmentScopeForJavaPackage@2
+    memberIndex = computeMemberIndex$1@4 // through LazyPackageFragmentScopeForJavaPackage@2
+}
+
+LazyJavaPackageFragment@14['lang'] {
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@3 // through LazyPackageFragmentScopeForJavaPackage@61
+}

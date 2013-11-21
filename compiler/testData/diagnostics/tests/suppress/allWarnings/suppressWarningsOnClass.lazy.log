@@ -1,0 +1,38 @@
+LazyAnnotationDescriptor@7 {
+    _resolutionResults = OverloadResolutionResultsImpl@9
+    _type = JetTypeImpl@8
+    _valueArguments(ValueParameterDescriptorImpl@10['names']) = ArrayValue@11
+}
+
+LazyJavaPackageFragmentProvider@12 {
+    _packageFragments('<root>': FqName@13) = LazyJavaPackageFragment@3['<root>']
+    _packageFragments('C': FqName@26) = null
+    _packageFragments('String': FqName@20) = null
+    _packageFragments('java': FqName@14) = LazyJavaPackageFragment@15['java']
+    _packageFragments('java.lang': FqName@16) = LazyJavaPackageFragment@0['lang']
+    _packageFragments('java.lang.String': FqName@22) = null
+    _packageFragments('java.lang.suppress': FqName@25) = null
+    _packageFragments('kotlin': FqName@17) = null
+    _packageFragments('kotlin.String': FqName@21) = null
+    _packageFragments('kotlin.io': FqName@19) = null
+    _packageFragments('kotlin.jvm': FqName@18) = null
+    _packageFragments('kotlin.suppress': FqName@24) = null
+    _packageFragments('suppress': FqName@23) = null
+}
+
+LazyJavaPackageFragment@3['<root>'] {
+    classes('String': Name@4) = null // through LazyPackageFragmentScopeForJavaPackage@5
+    classes('suppress': Name@6) = null // through LazyPackageFragmentScopeForJavaPackage@5
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@1 // through LazyPackageFragmentScopeForJavaPackage@5
+}
+
+LazyJavaPackageFragment@15['java'] {
+    _functions('lang': Name@30) = LinkedHashSet@31[empty] // through LazyPackageFragmentScopeForJavaPackage@28
+    classes('lang': Name@27) = null // through LazyPackageFragmentScopeForJavaPackage@28
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@1 // through LazyPackageFragmentScopeForJavaPackage@28
+    memberIndex = computeMemberIndex$1@29 // through LazyPackageFragmentScopeForJavaPackage@28
+}
+
+LazyJavaPackageFragment@0['lang'] {
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@1 // through LazyPackageFragmentScopeForJavaPackage@2
+}

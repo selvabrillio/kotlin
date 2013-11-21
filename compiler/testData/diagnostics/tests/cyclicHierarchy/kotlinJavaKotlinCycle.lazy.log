@@ -1,0 +1,43 @@
+LazyJavaClassDescriptor@20['J'] {
+    _constructors = ArrayList@24[1] { JavaConstructorDescriptor@25['<init>'] } // through LazyJavaClassMemberScope@26
+    _typeConstructor = LazyJavaClassTypeConstructor@22['J']
+    defaultType = JetTypeImpl@23
+}
+
+LazyJavaClassTypeConstructor@22['J'] {
+    _parameters = ArrayList@27[empty]
+    _supertypes = ArrayList@28[1] { LazyJavaClassifierType@0['I'] }
+}
+
+LazyJavaClassifierType@0['I'] {
+    _typeConstructor = org.jetbrains.jet.lang.types.TypeConstructorImpl$1@2
+    classifier = JavaClassImpl@1['I']
+}
+
+LazyJavaPackageFragmentProvider@3 {
+    _packageFragments('<root>': FqName@4) = LazyJavaPackageFragment@5['<root>']
+    _packageFragments('I': FqName@21) = null
+    _packageFragments('J': FqName@16) = null
+    _packageFragments('K': FqName@13) = null
+    _packageFragments('java': FqName@6) = LazyJavaPackageFragment@7['java']
+    _packageFragments('java.lang': FqName@8) = LazyJavaPackageFragment@9['lang']
+    _packageFragments('java.lang.J': FqName@18) = null
+    _packageFragments('java.lang.K': FqName@15) = null
+    _packageFragments('kotlin': FqName@10) = null
+    _packageFragments('kotlin.J': FqName@17) = null
+    _packageFragments('kotlin.K': FqName@14) = null
+    _packageFragments('kotlin.io': FqName@12) = null
+    _packageFragments('kotlin.jvm': FqName@11) = null
+    topLevelClasses(JavaClassImpl@19['J']) = LazyJavaClassDescriptor@20['J']
+}
+
+LazyJavaPackageFragment@5['<root>'] {
+    classes('J': Name@35) = LazyJavaClassDescriptor@20['J'] // through LazyPackageFragmentScopeForJavaPackage@36
+}
+
+LazyJavaPackageFragment@7['java'] {
+    _functions('lang': Name@33) = LinkedHashSet@34[empty] // through LazyPackageFragmentScopeForJavaPackage@30
+    classes('lang': Name@29) = null // through LazyPackageFragmentScopeForJavaPackage@30
+    deserializedPackageScope = org.jetbrains.jet.lang.resolve.scopes.JetScope$1@31 // through LazyPackageFragmentScopeForJavaPackage@30
+    memberIndex = computeMemberIndex$1@32 // through LazyPackageFragmentScopeForJavaPackage@30
+}
