@@ -31,7 +31,19 @@ import org.jetbrains.jet.lang.resolve.java.sources.JavaSourceElement
 import org.jetbrains.jet.lang.resolve.java.structure.JavaElement
 import org.jetbrains.jet.lang.descriptors.DeclarationDescriptorWithSource
 
+public var PLATFORM_TYPES: Boolean = run {
+    val result = "true" == System.getProperty("platform.types")
+    if ("true" == System.getProperty("print.platform.types")) {
+        println(if (result) "Using platform types in JDR" else "NO platform types")
+    }
+    result
+}
+
 public class JavaDescriptorResolver(public val packageFragmentProvider: LazyJavaPackageFragmentProvider, private val module: ModuleDescriptor) {
+    class object {
+
+    }
+
     public fun resolveClass(javaClass: JavaClass): ClassDescriptor? {
         return packageFragmentProvider.getClass(javaClass)
     }
