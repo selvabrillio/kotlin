@@ -32,7 +32,6 @@ import org.jetbrains.jet.lang.types.lang.KotlinBuiltIns
 import org.jetbrains.jet.lang.resolve.java.structure.JavaTypeParameter
 import org.jetbrains.jet.lang.resolve.java.structure.JavaClass
 import org.jetbrains.kotlin.util.sure
-import org.jetbrains.jet.utils.*
 import org.jetbrains.jet.lang.resolve.scopes.JetScope
 import org.jetbrains.jet.lang.resolve.java.structure.JavaAnnotationOwner
 import org.jetbrains.jet.lang.resolve.java.lazy.*
@@ -40,6 +39,8 @@ import org.jetbrains.jet.storage.*
 import org.jetbrains.jet.lang.resolve.java.structure.JavaMethod
 import java.util.HashSet
 import org.jetbrains.jet.lang.types.checker.JetTypeChecker
+import org.jetbrains.jet.lang.resolve.java.PLATFORM_TYPES
+import org.jetbrains.jet.lang.resolve.java.lazy.types.Flexibility.*
 
 class LazyJavaTypeResolver(
         private val c: LazyJavaResolverContext,
@@ -54,7 +55,9 @@ class LazyJavaTypeResolver(
                 assert(jetType != null, "Primitive type is not found: " + canonicalText)
                 return jetType!!
             }
-            is JavaClassifierType -> LazyJavaClassifierType(javaType, attr)
+            is JavaClassifierType -> if (PLATFORM_TYPES)
+                                         LazyFlexibleJavaClassifierType(javaType, attr)
+                                     else LazyJavaClassifierType(javaType, attr)
             is JavaArrayType -> transformArrayType(javaType, attr)
             else -> throw UnsupportedOperationException("Unsupported type: " + javaType)
         }
@@ -71,7 +74,16 @@ class LazyJavaTypeResolver(
 
         val howArgumentTypeIsUsed = if (isVararg) MEMBER_SIGNATURE_CONTRAVARIANT else TYPE_ARGUMENT
         val componentType = transformJavaType(javaComponentType, howArgumentTypeIsUsed.toAttributes())
-        return TypeUtils.makeNullableAsSpecified(KotlinBuiltIns.getInstance().getArrayType(projectionKind, componentType), !attr.isMarkedNotNull)
+        val result = KotlinBuiltIns.getInstance().getArrayType(projectionKind, componentType)
+        return if (PLATFORM_TYPES)
+                   DelegatingFlexibleType(
+                           KotlinBuiltIns.getInstance().getArrayType(INVARIANT, componentType),
+                           TypeUtils.makeNullable(
+                                   KotlinBuiltIns.getInstance().getArrayType(OUT_VARIANCE, componentType)
+                           )
+                   )
+               else
+                   TypeUtils.makeNullableAsSpecified(result, !attr.isMarkedNotNull)
     }
 
     private class LazyStarProjection(
@@ -104,6 +116,9 @@ class LazyJavaTypeResolver(
 
                     val javaToKotlinClassMap = JavaToKotlinClassMap.getInstance()
                     val howThisTypeIsUsedEffectively = when {
+                        attr.flexibility == FLEXIBLE_LOWER_BOUND -> MEMBER_SIGNATURE_COVARIANT
+                        attr.flexibility == FLEXIBLE_UPPER_BOUND -> MEMBER_SIGNATURE_CONTRAVARIANT
+
                         // This case has to be checked before isMarkedReadOnly/isMarkedMutable, because those two are slow
                         // not mapped, we don't care about being marked mutable/read-only
                         javaToKotlinClassMap.mapPlatformClass(fqName).isEmpty() -> attr.howThisTypeIsUsed
@@ -231,7 +246,12 @@ class LazyJavaTypeResolver(
             return (descriptor as ClassDescriptor).getMemberScope(getArguments())
         }
 
-        private val _nullable = c.storageManager.createLazyValue {
+        private val _nullable = c.storageManager.createLazyValue @nullable{
+            (): Boolean ->
+            when (attr.flexibility) {
+                FLEXIBLE_LOWER_BOUND -> return@nullable false
+                FLEXIBLE_UPPER_BOUND -> return@nullable true
+            }
             !attr.isMarkedNotNull &&
             // 'L extends List<T>' in Java is a List<T> in Kotlin, not a List<T?>
             // nullability will be taken care of in individual member signatures
@@ -249,12 +269,45 @@ class LazyJavaTypeResolver(
         }
         override fun isNullable(): Boolean = _nullable()
     }
+
+    private open class DelegatingFlexibleType(
+            override val lowerBound: JetType,
+            override val upperBound: JetType
+    ) : DelegatingType(), FlexibleType {
+
+        override fun getDelegate() = lowerBound
+
+        override fun toString() = "('$lowerBound'..'$upperBound')"
+    }
+
+    /*
+     * For a java type like java.util.List<Foo>
+     *     lowerBound = MutableList<Foo>
+     *     upperBound = List<Foo?>
+     */
+    private inner class LazyFlexibleJavaClassifierType(
+            javaType: JavaClassifierType,
+            attr: JavaTypeAttributes
+    ) : DelegatingFlexibleType(
+            LazyJavaClassifierType(javaType, attr.toFlexible(FLEXIBLE_LOWER_BOUND)),
+            LazyJavaClassifierType(javaType, attr.toFlexible(FLEXIBLE_UPPER_BOUND))
+    )
 }
 
 trait JavaTypeAttributes {
     val howThisTypeIsUsed: TypeUsage
     val howThisTypeIsUsedAccordingToAnnotations: TypeUsage
     val isMarkedNotNull: Boolean
+    open val flexibility: Flexibility
+        get() = INFLEXIBLE
+}
+
+fun JavaTypeAttributes.isFlexible() = flexibility != INFLEXIBLE
+
+enum class Flexibility {
+    INFLEXIBLE
+    FLEXIBLE_UPPER_BOUND
+    FLEXIBLE_LOWER_BOUND
 }
 
 class LazyJavaTypeAttributes(
@@ -277,3 +330,8 @@ fun TypeUsage.toAttributes() = object : JavaTypeAttributes {
             get() = howThisTypeIsUsed
     override val isMarkedNotNull: Boolean = false
 }
+
+fun JavaTypeAttributes.toFlexible(flexibility: Flexibility) =
+        object : JavaTypeAttributes by this {
+            override val flexibility = flexibility
+        }
