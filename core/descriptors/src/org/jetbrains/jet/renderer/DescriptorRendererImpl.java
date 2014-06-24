@@ -278,6 +278,10 @@ public class DescriptorRendererImpl implements DescriptorRenderer {
             }
             return "???";
         }
+        if (type instanceof FlexibleType && debugMode) {
+            FlexibleType flexibleType = (FlexibleType) type;
+            return "(" + renderType(flexibleType.getLowerBound()) + ".." + renderType(flexibleType.getUpperBound()) + ")";
+        }
         if (type instanceof PackageType) {
             return type.toString();
         }
