@@ -6360,6 +6360,26 @@ public class JetDiagnosticsTestGenerated extends AbstractJetDiagnosticsTest {
                     doTest("compiler/testData/diagnostics/tests/platformTypes/methodCall/intArray.kt");
                 }
                 
+                @TestMetadata("javaCollectionToKotlin.kt")
+                public void testJavaCollectionToKotlin() throws Exception {
+                    doTest("compiler/testData/diagnostics/tests/platformTypes/methodCall/javaCollectionToKotlin.kt");
+                }
+                
+                @TestMetadata("javaToJava.kt")
+                public void testJavaToJava() throws Exception {
+                    doTest("compiler/testData/diagnostics/tests/platformTypes/methodCall/javaToJava.kt");
+                }
+                
+                @TestMetadata("javaToKotlin.kt")
+                public void testJavaToKotlin() throws Exception {
+                    doTest("compiler/testData/diagnostics/tests/platformTypes/methodCall/javaToKotlin.kt");
+                }
+                
+                @TestMetadata("kotlinCollectionToJava.kt")
+                public void testKotlinCollectionToJava() throws Exception {
+                    doTest("compiler/testData/diagnostics/tests/platformTypes/methodCall/kotlinCollectionToJava.kt");
+                }
+                
                 @TestMetadata("list.kt")
                 public void testList() throws Exception {
                     doTest("compiler/testData/diagnostics/tests/platformTypes/methodCall/list.kt");
