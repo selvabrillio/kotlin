@@ -150,6 +150,7 @@ public class SignaturesPropagationData {
     private JetType modifyReturnTypeAccordingToSuperMethods(
             @NotNull JetType autoType // type built by JavaTypeTransformer
     ) {
+        if (superFunctions.isEmpty()) return autoType;
         List<TypeAndVariance> typesFromSuperMethods = ContainerUtil.map(superFunctions,
                 new Function<FunctionDescriptor, TypeAndVariance>() {
                     @Override
@@ -162,6 +163,8 @@ public class SignaturesPropagationData {
     }
 
     private List<TypeParameterDescriptor> modifyTypeParametersAccordingToSuperMethods(List<TypeParameterDescriptor> autoTypeParameters) {
+        if (superFunctions.isEmpty()) return autoTypeParameters;
+
         List<TypeParameterDescriptor> result = Lists.newArrayList();
 
         for (TypeParameterDescriptor autoParameter : autoTypeParameters) {
@@ -399,6 +402,8 @@ public class SignaturesPropagationData {
             @NotNull List<TypeAndVariance> typesFromSuper,
             @NotNull TypeUsage howThisTypeIsUsed
     ) {
+        if (typesFromSuper.isEmpty()) return autoType;
+
         if (autoType.isError()) {
             return autoType;
         }
@@ -430,6 +435,8 @@ public class SignaturesPropagationData {
             @NotNull ClassifierDescriptor classifier,
             @NotNull List<TypeAndVariance> typesFromSuper
     ) {
+        if (typesFromSuper.isEmpty()) return autoType.getArguments();
+
         List<TypeProjection> autoArguments = autoType.getArguments();
 
         if (!(classifier instanceof ClassDescriptor)) {
@@ -462,6 +469,8 @@ public class SignaturesPropagationData {
             @NotNull TypeProjection argument,
             @NotNull List<TypeProjectionAndVariance> projectionsFromSuper
     ) {
+        if (projectionsFromSuper.isEmpty()) return argument.getProjectionKind();
+
         Set<Variance> projectionKindsInSuper = Sets.newLinkedHashSet();
         for (TypeProjectionAndVariance projectionAndVariance : projectionsFromSuper) {
             projectionKindsInSuper.add(projectionAndVariance.typeProjection.getProjectionKind());
