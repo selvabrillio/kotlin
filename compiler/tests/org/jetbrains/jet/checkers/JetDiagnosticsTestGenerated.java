@@ -6349,6 +6349,11 @@ public class JetDiagnosticsTestGenerated extends AbstractJetDiagnosticsTest {
                 doTest("compiler/testData/diagnostics/tests/platformTypes/dereference.kt");
             }
             
+            @TestMetadata("override.kt")
+            public void testOverride() throws Exception {
+                doTest("compiler/testData/diagnostics/tests/platformTypes/override.kt");
+            }
+            
             @TestMetadata("compiler/testData/diagnostics/tests/platformTypes/methodCall")
             public static class MethodCall extends AbstractJetDiagnosticsTest {
                 public void testAllFilesPresentInMethodCall() throws Exception {

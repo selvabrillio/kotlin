@@ -402,11 +402,10 @@ public class SignaturesPropagationData {
             @NotNull List<TypeAndVariance> typesFromSuper,
             @NotNull TypeUsage howThisTypeIsUsed
     ) {
-        if (typesFromSuper.isEmpty()) return autoType;
+        if (autoType.isError()) return autoType;
 
-        if (autoType.isError()) {
-            return autoType;
-        }
+        List<TypeAndVariance> inflexibleSuperTypes = filterOutFlexible(typesFromSuper);
+        if (inflexibleSuperTypes.isEmpty()) return autoType;
 
         boolean resultNullable = typeMustBeNullable(autoType, typesFromSuper, howThisTypeIsUsed);
         ClassifierDescriptor resultClassifier = modifyTypeClassifier(autoType, typesFromSuper);
@@ -427,6 +426,17 @@ public class SignaturesPropagationData {
 
         PropagationHeuristics.checkArrayInReturnType(this, type, typesFromSuper);
         return type;
+    }
+
+    private static List<TypeAndVariance> filterOutFlexible(@NotNull List<TypeAndVariance> types) {
+        return KotlinPackage.filter(
+                types,
+                new Function1<TypeAndVariance, Boolean>() {
+                    @Override
+                    public Boolean invoke(TypeAndVariance typeAndVariance) {
+                        return !TypesPackage.isFlexible(typeAndVariance.type);
+                    }
+                });
     }
 
     @NotNull
