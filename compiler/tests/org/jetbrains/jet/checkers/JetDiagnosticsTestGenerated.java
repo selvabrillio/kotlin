@@ -6344,6 +6344,11 @@ public class JetDiagnosticsTestGenerated extends AbstractJetDiagnosticsTest {
                 JetTestUtils.assertAllTestsPresentByMetadata(this.getClass(), "org.jetbrains.jet.generators.tests.TestsPackage", new File("compiler/testData/diagnostics/tests/platformTypes"), Pattern.compile("^(.+)\\.kt$"), true);
             }
             
+            @TestMetadata("dereference.kt")
+            public void testDereference() throws Exception {
+                doTest("compiler/testData/diagnostics/tests/platformTypes/dereference.kt");
+            }
+            
             @TestMetadata("compiler/testData/diagnostics/tests/platformTypes/methodCall")
             public static class MethodCall extends AbstractJetDiagnosticsTest {
                 public void testAllFilesPresentInMethodCall() throws Exception {
