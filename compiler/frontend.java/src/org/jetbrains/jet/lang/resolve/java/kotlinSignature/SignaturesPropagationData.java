@@ -594,7 +594,7 @@ public class SignaturesPropagationData {
         boolean someSupersCovariantNullable = false;
         boolean someSupersNotNull = false;
         for (TypeAndVariance typeFromSuper : typesFromSuper) {
-            if (!typeFromSuper.type.isNullable()) {
+            if (!TypeUtils.isNullableType(typeFromSuper.type)) {
                 someSupersNotNull = true;
             }
             else {
@@ -609,13 +609,13 @@ public class SignaturesPropagationData {
 
         if (someSupersNotNull && someSupersNotCovariantNullable) {
             reportError("Incompatible types in superclasses: " + typesFromSuper);
-            return autoType.isNullable();
+            return TypeUtils.isNullableType(autoType);
         }
         else if (someSupersNotNull) {
             return false;
         }
         else if (someSupersNotCovariantNullable || someSupersCovariantNullable) {
-            boolean annotatedAsNotNull = howThisTypeIsUsed != TYPE_ARGUMENT && !autoType.isNullable();
+            boolean annotatedAsNotNull = howThisTypeIsUsed != TYPE_ARGUMENT && !TypeUtils.isNullableType(autoType);
 
             if (annotatedAsNotNull && someSupersNotCovariantNullable) {
                 DescriptorRenderer renderer = DescriptorRenderer.SOURCE_CODE_SHORT_NAMES_IN_TYPES;
@@ -625,7 +625,7 @@ public class SignaturesPropagationData {
 
             return !annotatedAsNotNull;
         }
-        return autoType.isNullable();
+        return TypeUtils.isNullableType(autoType);
     }
 
     @NotNull
