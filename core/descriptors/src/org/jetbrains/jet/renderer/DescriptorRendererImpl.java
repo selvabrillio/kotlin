@@ -269,15 +269,6 @@ public class DescriptorRendererImpl implements DescriptorRenderer {
     @NotNull
     @Override
     public String renderType(@NotNull JetType type) {
-        if (type == CANT_INFER_LAMBDA_PARAM_TYPE || type == DONT_CARE) {
-            return "???";
-        }
-        if (ErrorUtils.isUninferredParameter(type)) {
-            if (uninferredTypeParameterAsName) {
-                return renderError(((UninferredParameterType) type).getTypeParameterDescriptor().getName().toString());
-            }
-            return "???";
-        }
         if (type instanceof FlexibleType) {
             FlexibleType flexibleType = (FlexibleType) type;
             if (!debugMode) {
@@ -286,6 +277,21 @@ public class DescriptorRendererImpl implements DescriptorRenderer {
             else {
                 return "(" + renderType(flexibleType.getLowerBound()) + ".." + renderType(flexibleType.getUpperBound()) + ")";
             }
+        }
+        return renderInflexibleType(type);
+    }
+
+    private String renderInflexibleType(@NotNull JetType type) {
+        assert !TypesPackage.isFlexible(type) : "Flexible types not allowed here: " + renderType(type);
+
+        if (type == CANT_INFER_LAMBDA_PARAM_TYPE || type == DONT_CARE) {
+            return "???";
+        }
+        if (ErrorUtils.isUninferredParameter(type)) {
+            if (uninferredTypeParameterAsName) {
+                return renderError(((UninferredParameterType) type).getTypeParameterDescriptor().getName().toString());
+            }
+            return "???";
         }
         if (type instanceof PackageType) {
             return type.toString();
@@ -307,10 +313,14 @@ public class DescriptorRendererImpl implements DescriptorRenderer {
         JetType lower = type.getLowerBound();
         JetType upper = type.getUpperBound();
 
-        String lowerRendered = renderDefaultType(lower);
-        String upperRendered = renderDefaultType(upper);
+        String lowerRendered = renderInflexibleType(lower);
+        String upperRendered = renderInflexibleType(upper);
 
         if (differsOnlyInNullability(lowerRendered, upperRendered)) {
+            if (upperRendered.startsWith("(")) {
+                // the case of complex type, e.g. (() -> Unit)?
+                return "(" + lowerRendered + ")!";
+            }
             return lowerRendered + "!";
         }
 
@@ -338,7 +348,8 @@ public class DescriptorRendererImpl implements DescriptorRenderer {
     }
 
     private static boolean differsOnlyInNullability(String lower, String upper) {
-        return lower.equals(upper.replace("?", "")) || upper.endsWith("?") && (lower + "?").equals(upper);
+        return lower.equals(upper.replace("?", ""))
+               || upper.endsWith("?") && ((lower + "?").equals(upper)) || (("(" + lower + ")?").equals(upper));
     }
 
     @NotNull
