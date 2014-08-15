@@ -553,152 +553,152 @@ public class LoadJavaTestGenerated extends AbstractLoadJavaTest {
         
         @TestMetadata("ArrayTypeVariance.java")
         public void testArrayTypeVariance() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/ArrayTypeVariance.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/ArrayTypeVariance.java");
         }
         
         @TestMetadata("ClassDoesNotOverrideMethod.java")
         public void testClassDoesNotOverrideMethod() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/ClassDoesNotOverrideMethod.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/ClassDoesNotOverrideMethod.java");
         }
         
         @TestMetadata("ClassWithConstVal.java")
         public void testClassWithConstVal() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/ClassWithConstVal.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/ClassWithConstVal.java");
         }
         
         @TestMetadata("ClassWithTypeP.java")
         public void testClassWithTypeP() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/ClassWithTypeP.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/ClassWithTypeP.java");
         }
         
         @TestMetadata("ClassWithTypePExtendsIterableP.java")
         public void testClassWithTypePExtendsIterableP() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/ClassWithTypePExtendsIterableP.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/ClassWithTypePExtendsIterableP.java");
         }
         
         @TestMetadata("ClassWithTypePP.java")
         public void testClassWithTypePP() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/ClassWithTypePP.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/ClassWithTypePP.java");
         }
         
         @TestMetadata("ClassWithTypePRefNext.java")
         public void testClassWithTypePRefNext() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/ClassWithTypePRefNext.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/ClassWithTypePRefNext.java");
         }
         
         @TestMetadata("ClassWithTypePRefSelf.java")
         public void testClassWithTypePRefSelf() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/ClassWithTypePRefSelf.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/ClassWithTypePRefSelf.java");
         }
         
         @TestMetadata("ClassWithTypePRefSelfAndClass.java")
         public void testClassWithTypePRefSelfAndClass() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/ClassWithTypePRefSelfAndClass.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/ClassWithTypePRefSelfAndClass.java");
         }
         
         @TestMetadata("FieldAsVar.java")
         public void testFieldAsVar() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/FieldAsVar.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/FieldAsVar.java");
         }
         
         @TestMetadata("FieldOfArrayType.java")
         public void testFieldOfArrayType() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/FieldOfArrayType.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/FieldOfArrayType.java");
         }
         
         @TestMetadata("FinalFieldAsVal.java")
         public void testFinalFieldAsVal() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/FinalFieldAsVal.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/FinalFieldAsVal.java");
         }
         
         @TestMetadata("InheritMethodsDifferentReturnTypes.java")
         public void testInheritMethodsDifferentReturnTypes() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/InheritMethodsDifferentReturnTypes.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/InheritMethodsDifferentReturnTypes.java");
         }
         
         @TestMetadata("InheritMethodsDifferentReturnTypesGeneric.java")
         public void testInheritMethodsDifferentReturnTypesGeneric() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/InheritMethodsDifferentReturnTypesGeneric.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/InheritMethodsDifferentReturnTypesGeneric.java");
         }
         
         @TestMetadata("InnerClass.java")
         public void testInnerClass() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/InnerClass.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/InnerClass.java");
         }
         
         @TestMetadata("InnerClassReferencesOuterTP.java")
         public void testInnerClassReferencesOuterTP() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/InnerClassReferencesOuterTP.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/InnerClassReferencesOuterTP.java");
         }
         
         @TestMetadata("InnerClassesInGeneric.java")
         public void testInnerClassesInGeneric() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/InnerClassesInGeneric.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/InnerClassesInGeneric.java");
         }
         
         @TestMetadata("MethodReferencesOuterClassTP.java")
         public void testMethodReferencesOuterClassTP() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/MethodReferencesOuterClassTP.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/MethodReferencesOuterClassTP.java");
         }
         
         @TestMetadata("MethodTypePOneUpperBound.java")
         public void testMethodTypePOneUpperBound() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/MethodTypePOneUpperBound.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/MethodTypePOneUpperBound.java");
         }
         
         @TestMetadata("MethodTypePTwoUpperBounds.java")
         public void testMethodTypePTwoUpperBounds() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/MethodTypePTwoUpperBounds.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/MethodTypePTwoUpperBounds.java");
         }
         
         @TestMetadata("MethodWithTypeP.java")
         public void testMethodWithTypeP() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/MethodWithTypeP.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/MethodWithTypeP.java");
         }
         
         @TestMetadata("MethodWithTypePP.java")
         public void testMethodWithTypePP() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/MethodWithTypePP.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/MethodWithTypePP.java");
         }
         
         @TestMetadata("MethodWithTypePRefClassP.java")
         public void testMethodWithTypePRefClassP() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/MethodWithTypePRefClassP.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/MethodWithTypePRefClassP.java");
         }
         
         @TestMetadata("MethosWithPRefTP.java")
         public void testMethosWithPRefTP() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/MethosWithPRefTP.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/MethosWithPRefTP.java");
         }
         
         @TestMetadata("MyException.java")
         public void testMyException() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/MyException.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/MyException.java");
         }
         
         @TestMetadata("NestedClass.java")
         public void testNestedClass() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/NestedClass.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/NestedClass.java");
         }
         
         @TestMetadata("RemoveRedundantProjectionKind.java")
         public void testRemoveRedundantProjectionKind() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/RemoveRedundantProjectionKind.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/RemoveRedundantProjectionKind.java");
         }
         
         @TestMetadata("Simple.java")
         public void testSimple() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/Simple.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/Simple.java");
         }
         
         @TestMetadata("TwoFields.java")
         public void testTwoFields() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/TwoFields.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/TwoFields.java");
         }
         
         @TestMetadata("UnboundWildcard.java")
         public void testUnboundWildcard() throws Exception {
-            doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/UnboundWildcard.java");
+            doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/UnboundWildcard.java");
         }
         
         @TestMetadata("compiler/testData/loadJava/compiledJavaCompareWithKotlin/annotation")
@@ -709,17 +709,17 @@ public class LoadJavaTestGenerated extends AbstractLoadJavaTest {
             
             @TestMetadata("AnnotatedAnnotation.java")
             public void testAnnotatedAnnotation() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/annotation/AnnotatedAnnotation.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/annotation/AnnotatedAnnotation.java");
             }
             
             @TestMetadata("AnnotatedMethod.java")
             public void testAnnotatedMethod() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/annotation/AnnotatedMethod.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/annotation/AnnotatedMethod.java");
             }
             
             @TestMetadata("SimpleAnnotation.java")
             public void testSimpleAnnotation() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/annotation/SimpleAnnotation.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/annotation/SimpleAnnotation.java");
             }
             
         }
@@ -732,17 +732,17 @@ public class LoadJavaTestGenerated extends AbstractLoadJavaTest {
             
             @TestMetadata("ConstructorGenericDeep.java")
             public void testConstructorGenericDeep() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/constructor/ConstructorGenericDeep.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/constructor/ConstructorGenericDeep.java");
             }
             
             @TestMetadata("ConstructorGenericSimple.java")
             public void testConstructorGenericSimple() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/constructor/ConstructorGenericSimple.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/constructor/ConstructorGenericSimple.java");
             }
             
             @TestMetadata("ConstructorGenericUpperBound.java")
             public void testConstructorGenericUpperBound() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/constructor/ConstructorGenericUpperBound.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/constructor/ConstructorGenericUpperBound.java");
             }
             
         }
@@ -755,32 +755,32 @@ public class LoadJavaTestGenerated extends AbstractLoadJavaTest {
             
             @TestMetadata("DifferentGetterAndSetter.java")
             public void testDifferentGetterAndSetter() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/javaBean/DifferentGetterAndSetter.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/javaBean/DifferentGetterAndSetter.java");
             }
             
             @TestMetadata("JavaBeanAbstractGetter.java")
             public void testJavaBeanAbstractGetter() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/javaBean/JavaBeanAbstractGetter.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/javaBean/JavaBeanAbstractGetter.java");
             }
             
             @TestMetadata("JavaBeanVal.java")
             public void testJavaBeanVal() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/javaBean/JavaBeanVal.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/javaBean/JavaBeanVal.java");
             }
             
             @TestMetadata("JavaBeanVar.java")
             public void testJavaBeanVar() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/javaBean/JavaBeanVar.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/javaBean/JavaBeanVar.java");
             }
             
             @TestMetadata("JavaBeanVarOfGenericType.java")
             public void testJavaBeanVarOfGenericType() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/javaBean/JavaBeanVarOfGenericType.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/javaBean/JavaBeanVarOfGenericType.java");
             }
             
             @TestMetadata("TwoSetters.java")
             public void testTwoSetters() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/javaBean/TwoSetters.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/javaBean/TwoSetters.java");
             }
             
         }
@@ -790,7 +790,7 @@ public class LoadJavaTestGenerated extends AbstractLoadJavaTest {
         public static class KotlinSignature extends AbstractLoadJavaTest {
             @TestMetadata("AllBoundsInWhen.java")
             public void testAllBoundsInWhen() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/AllBoundsInWhen.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/AllBoundsInWhen.java");
             }
             
             public void testAllFilesPresentInKotlinSignature() throws Exception {
@@ -799,84 +799,84 @@ public class LoadJavaTestGenerated extends AbstractLoadJavaTest {
             
             @TestMetadata("ArrayType.java")
             public void testArrayType() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/ArrayType.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/ArrayType.java");
             }
             
             @TestMetadata("ConstructorWithNewTypeParams.java")
             public void testConstructorWithNewTypeParams() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/ConstructorWithNewTypeParams.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/ConstructorWithNewTypeParams.java");
             }
             
             @TestMetadata("ConstructorWithParentTypeParams.java")
             public void testConstructorWithParentTypeParams() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/ConstructorWithParentTypeParams.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/ConstructorWithParentTypeParams.java");
             }
             
             @TestMetadata("ConstructorWithSeveralParams.java")
             public void testConstructorWithSeveralParams() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/ConstructorWithSeveralParams.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/ConstructorWithSeveralParams.java");
             }
             
             @TestMetadata("ConstructorWithoutParams.java")
             public void testConstructorWithoutParams() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/ConstructorWithoutParams.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/ConstructorWithoutParams.java");
             }
             
             @TestMetadata("CustomProjectionKind.java")
             public void testCustomProjectionKind() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/CustomProjectionKind.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/CustomProjectionKind.java");
             }
             
             @TestMetadata("MethodWithFunctionTypes.java")
             public void testMethodWithFunctionTypes() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/MethodWithFunctionTypes.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/MethodWithFunctionTypes.java");
             }
             
             @TestMetadata("MethodWithGenerics.java")
             public void testMethodWithGenerics() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/MethodWithGenerics.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/MethodWithGenerics.java");
             }
             
             @TestMetadata("MethodWithMappedClasses.java")
             public void testMethodWithMappedClasses() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/MethodWithMappedClasses.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/MethodWithMappedClasses.java");
             }
             
             @TestMetadata("MethodWithTypeParameters.java")
             public void testMethodWithTypeParameters() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/MethodWithTypeParameters.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/MethodWithTypeParameters.java");
             }
             
             @TestMetadata("MethodWithVararg.java")
             public void testMethodWithVararg() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/MethodWithVararg.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/MethodWithVararg.java");
             }
             
             @TestMetadata("PropertyArrayTypes.java")
             public void testPropertyArrayTypes() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/PropertyArrayTypes.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/PropertyArrayTypes.java");
             }
             
             @TestMetadata("PropertyComplexTypes.java")
             public void testPropertyComplexTypes() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/PropertyComplexTypes.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/PropertyComplexTypes.java");
             }
             
             @TestMetadata("PropertySimpleType.java")
             public void testPropertySimpleType() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/PropertySimpleType.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/PropertySimpleType.java");
             }
             
             @TestMetadata("StarProjection.java")
             public void testStarProjection() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/StarProjection.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/StarProjection.java");
             }
             
             @TestMetadata("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error")
             public static class Error extends AbstractLoadJavaTest {
                 @TestMetadata("AddingNullability.java")
                 public void testAddingNullability() throws Exception {
-                    doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/AddingNullability.java");
+                    doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/AddingNullability.java");
                 }
                 
                 public void testAllFilesPresentInError() throws Exception {
@@ -885,132 +885,132 @@ public class LoadJavaTestGenerated extends AbstractLoadJavaTest {
                 
                 @TestMetadata("ConflictingProjectionKind.java")
                 public void testConflictingProjectionKind() throws Exception {
-                    doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/ConflictingProjectionKind.java");
+                    doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/ConflictingProjectionKind.java");
                 }
                 
                 @TestMetadata("ExplicitFieldGettersAndSetters.java")
                 public void testExplicitFieldGettersAndSetters() throws Exception {
-                    doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/ExplicitFieldGettersAndSetters.java");
+                    doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/ExplicitFieldGettersAndSetters.java");
                 }
                 
                 @TestMetadata("ExtraUpperBound.java")
                 public void testExtraUpperBound() throws Exception {
-                    doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/ExtraUpperBound.java");
+                    doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/ExtraUpperBound.java");
                 }
                 
                 @TestMetadata("MissingUpperBound.java")
                 public void testMissingUpperBound() throws Exception {
-                    doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/MissingUpperBound.java");
+                    doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/MissingUpperBound.java");
                 }
                 
                 @TestMetadata("NoFieldTypeRef.java")
                 public void testNoFieldTypeRef() throws Exception {
-                    doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/NoFieldTypeRef.java");
+                    doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/NoFieldTypeRef.java");
                 }
                 
                 @TestMetadata("NotVarargReplacedWithVararg.java")
                 public void testNotVarargReplacedWithVararg() throws Exception {
-                    doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/NotVarargReplacedWithVararg.java");
+                    doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/NotVarargReplacedWithVararg.java");
                 }
                 
                 @TestMetadata("RedundantProjectionKind.java")
                 public void testRedundantProjectionKind() throws Exception {
-                    doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/RedundantProjectionKind.java");
+                    doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/RedundantProjectionKind.java");
                 }
                 
                 @TestMetadata("ReturnTypeMissing.java")
                 public void testReturnTypeMissing() throws Exception {
-                    doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/ReturnTypeMissing.java");
+                    doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/ReturnTypeMissing.java");
                 }
                 
                 @TestMetadata("SyntaxError.java")
                 public void testSyntaxError() throws Exception {
-                    doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/SyntaxError.java");
+                    doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/SyntaxError.java");
                 }
                 
                 @TestMetadata("SyntaxErrorInFieldAnnotation.java")
                 public void testSyntaxErrorInFieldAnnotation() throws Exception {
-                    doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/SyntaxErrorInFieldAnnotation.java");
+                    doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/SyntaxErrorInFieldAnnotation.java");
                 }
                 
                 @TestMetadata("VarargReplacedWithNotVararg.java")
                 public void testVarargReplacedWithNotVararg() throws Exception {
-                    doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/VarargReplacedWithNotVararg.java");
+                    doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/VarargReplacedWithNotVararg.java");
                 }
                 
                 @TestMetadata("WrongFieldInitializer.java")
                 public void testWrongFieldInitializer() throws Exception {
-                    doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongFieldInitializer.java");
+                    doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongFieldInitializer.java");
                 }
                 
                 @TestMetadata("WrongFieldMutability.java")
                 public void testWrongFieldMutability() throws Exception {
-                    doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongFieldMutability.java");
+                    doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongFieldMutability.java");
                 }
                 
                 @TestMetadata("WrongFieldName.java")
                 public void testWrongFieldName() throws Exception {
-                    doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongFieldName.java");
+                    doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongFieldName.java");
                 }
                 
                 @TestMetadata("WrongMethodName.java")
                 public void testWrongMethodName() throws Exception {
-                    doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongMethodName.java");
+                    doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongMethodName.java");
                 }
                 
                 @TestMetadata("WrongProjectionKind.java")
                 public void testWrongProjectionKind() throws Exception {
-                    doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongProjectionKind.java");
+                    doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongProjectionKind.java");
                 }
                 
                 @TestMetadata("WrongReturnTypeStructure.java")
                 public void testWrongReturnTypeStructure() throws Exception {
-                    doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongReturnTypeStructure.java");
+                    doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongReturnTypeStructure.java");
                 }
                 
                 @TestMetadata("WrongTypeName1.java")
                 public void testWrongTypeName1() throws Exception {
-                    doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongTypeName1.java");
+                    doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongTypeName1.java");
                 }
                 
                 @TestMetadata("WrongTypeName2.java")
                 public void testWrongTypeName2() throws Exception {
-                    doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongTypeName2.java");
+                    doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongTypeName2.java");
                 }
                 
                 @TestMetadata("WrongTypeName3.java")
                 public void testWrongTypeName3() throws Exception {
-                    doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongTypeName3.java");
+                    doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongTypeName3.java");
                 }
                 
                 @TestMetadata("WrongTypeParameterBoundStructure1.java")
                 public void testWrongTypeParameterBoundStructure1() throws Exception {
-                    doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongTypeParameterBoundStructure1.java");
+                    doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongTypeParameterBoundStructure1.java");
                 }
                 
                 @TestMetadata("WrongTypeParameterBoundStructure2.java")
                 public void testWrongTypeParameterBoundStructure2() throws Exception {
-                    doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongTypeParameterBoundStructure2.java");
+                    doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongTypeParameterBoundStructure2.java");
                 }
                 
                 @TestMetadata("WrongTypeParametersCount.java")
                 public void testWrongTypeParametersCount() throws Exception {
-                    doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongTypeParametersCount.java");
+                    doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongTypeParametersCount.java");
                 }
                 
                 @TestMetadata("WrongValueParameterStructure1.java")
                 public void testWrongValueParameterStructure1() throws Exception {
-                    doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongValueParameterStructure1.java");
+                    doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongValueParameterStructure1.java");
                 }
                 
                 @TestMetadata("WrongValueParameterStructure2.java")
                 public void testWrongValueParameterStructure2() throws Exception {
-                    doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongValueParameterStructure2.java");
+                    doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongValueParameterStructure2.java");
                 }
                 
                 @TestMetadata("WrongValueParametersCount.java")
                 public void testWrongValueParametersCount() throws Exception {
-                    doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongValueParametersCount.java");
+                    doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/error/WrongValueParametersCount.java");
                 }
                 
             }
@@ -1024,7 +1024,7 @@ public class LoadJavaTestGenerated extends AbstractLoadJavaTest {
                 
                 @TestMetadata("PropagateTypeArgumentNullable.java")
                 public void testPropagateTypeArgumentNullable() throws Exception {
-                    doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/PropagateTypeArgumentNullable.java");
+                    doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/PropagateTypeArgumentNullable.java");
                 }
                 
                 @TestMetadata("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter")
@@ -1035,132 +1035,132 @@ public class LoadJavaTestGenerated extends AbstractLoadJavaTest {
                     
                     @TestMetadata("ChangeProjectionKind1.java")
                     public void testChangeProjectionKind1() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/ChangeProjectionKind1.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/ChangeProjectionKind1.java");
                     }
                     
                     @TestMetadata("ChangeProjectionKind2.java")
                     public void testChangeProjectionKind2() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/ChangeProjectionKind2.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/ChangeProjectionKind2.java");
                     }
                     
                     @TestMetadata("DeeplySubstitutedClassParameter.java")
                     public void testDeeplySubstitutedClassParameter() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/DeeplySubstitutedClassParameter.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/DeeplySubstitutedClassParameter.java");
                     }
                     
                     @TestMetadata("DeeplySubstitutedClassParameter2.java")
                     public void testDeeplySubstitutedClassParameter2() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/DeeplySubstitutedClassParameter2.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/DeeplySubstitutedClassParameter2.java");
                     }
                     
                     @TestMetadata("InheritMutability.java")
                     public void testInheritMutability() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/InheritMutability.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/InheritMutability.java");
                     }
                     
                     @TestMetadata("InheritNotVararg.java")
                     public void testInheritNotVararg() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/InheritNotVararg.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/InheritNotVararg.java");
                     }
                     
                     @TestMetadata("InheritNotVarargInteger.java")
                     public void testInheritNotVarargInteger() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/InheritNotVarargInteger.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/InheritNotVarargInteger.java");
                     }
                     
                     @TestMetadata("InheritNotVarargNotNull.java")
                     public void testInheritNotVarargNotNull() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/InheritNotVarargNotNull.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/InheritNotVarargNotNull.java");
                     }
                     
                     @TestMetadata("InheritNotVarargPrimitive.java")
                     public void testInheritNotVarargPrimitive() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/InheritNotVarargPrimitive.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/InheritNotVarargPrimitive.java");
                     }
                     
                     @TestMetadata("InheritNullability.java")
                     public void testInheritNullability() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/InheritNullability.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/InheritNullability.java");
                     }
                     
                     @TestMetadata("InheritProjectionKind.java")
                     public void testInheritProjectionKind() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/InheritProjectionKind.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/InheritProjectionKind.java");
                     }
                     
                     @TestMetadata("InheritReadOnliness.java")
                     public void testInheritReadOnliness() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/InheritReadOnliness.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/InheritReadOnliness.java");
                     }
                     
                     @TestMetadata("InheritVararg.java")
                     public void testInheritVararg() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/InheritVararg.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/InheritVararg.java");
                     }
                     
                     @TestMetadata("InheritVarargInteger.java")
                     public void testInheritVarargInteger() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/InheritVarargInteger.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/InheritVarargInteger.java");
                     }
                     
                     @TestMetadata("InheritVarargNotNull.java")
                     public void testInheritVarargNotNull() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/InheritVarargNotNull.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/InheritVarargNotNull.java");
                     }
                     
                     @TestMetadata("InheritVarargPrimitive.java")
                     public void testInheritVarargPrimitive() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/InheritVarargPrimitive.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/InheritVarargPrimitive.java");
                     }
                     
                     @TestMetadata("Kt3302.java")
                     public void testKt3302() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/Kt3302.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/Kt3302.java");
                     }
                     
                     @TestMetadata("MutableToReadOnly.java")
                     public void testMutableToReadOnly() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/MutableToReadOnly.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/MutableToReadOnly.java");
                     }
                     
                     @TestMetadata("NotNullToNullable.java")
                     public void testNotNullToNullable() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/NotNullToNullable.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/NotNullToNullable.java");
                     }
                     
                     @TestMetadata("NullableToNotNull.java")
                     public void testNullableToNotNull() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/NullableToNotNull.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/NullableToNotNull.java");
                     }
                     
                     @TestMetadata("NullableToNotNullKotlinSignature.java")
                     public void testNullableToNotNullKotlinSignature() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/NullableToNotNullKotlinSignature.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/NullableToNotNullKotlinSignature.java");
                     }
                     
                     @TestMetadata("OverrideWithErasedParameter.java")
                     public void testOverrideWithErasedParameter() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/OverrideWithErasedParameter.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/OverrideWithErasedParameter.java");
                     }
                     
                     @TestMetadata("ReadOnlyToMutable.java")
                     public void testReadOnlyToMutable() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/ReadOnlyToMutable.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/ReadOnlyToMutable.java");
                     }
                     
                     @TestMetadata("SubclassFromGenericAndNot.java")
                     public void testSubclassFromGenericAndNot() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/SubclassFromGenericAndNot.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/SubclassFromGenericAndNot.java");
                     }
                     
                     @TestMetadata("SubstitutedClassParameter.java")
                     public void testSubstitutedClassParameter() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/SubstitutedClassParameter.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/SubstitutedClassParameter.java");
                     }
                     
                     @TestMetadata("SubstitutedClassParameters.java")
                     public void testSubstitutedClassParameters() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/SubstitutedClassParameters.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/parameter/SubstitutedClassParameters.java");
                     }
                     
                 }
@@ -1169,32 +1169,32 @@ public class LoadJavaTestGenerated extends AbstractLoadJavaTest {
                 public static class Return extends AbstractLoadJavaTest {
                     @TestMetadata("AddNotNullJavaSubtype.java")
                     public void testAddNotNullJavaSubtype() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/AddNotNullJavaSubtype.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/AddNotNullJavaSubtype.java");
                     }
                     
                     @TestMetadata("AddNotNullSameJavaType.java")
                     public void testAddNotNullSameJavaType() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/AddNotNullSameJavaType.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/AddNotNullSameJavaType.java");
                     }
                     
                     @TestMetadata("AddNullabilityJavaSubtype.java")
                     public void testAddNullabilityJavaSubtype() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/AddNullabilityJavaSubtype.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/AddNullabilityJavaSubtype.java");
                     }
                     
                     @TestMetadata("AddNullabilitySameGenericType1.java")
                     public void testAddNullabilitySameGenericType1() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/AddNullabilitySameGenericType1.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/AddNullabilitySameGenericType1.java");
                     }
                     
                     @TestMetadata("AddNullabilitySameGenericType2.java")
                     public void testAddNullabilitySameGenericType2() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/AddNullabilitySameGenericType2.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/AddNullabilitySameGenericType2.java");
                     }
                     
                     @TestMetadata("AddNullabilitySameJavaType.java")
                     public void testAddNullabilitySameJavaType() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/AddNullabilitySameJavaType.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/AddNullabilitySameJavaType.java");
                     }
                     
                     public void testAllFilesPresentInReturn() throws Exception {
@@ -1203,142 +1203,142 @@ public class LoadJavaTestGenerated extends AbstractLoadJavaTest {
                     
                     @TestMetadata("CantMakeImmutableInSubclass.java")
                     public void testCantMakeImmutableInSubclass() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/CantMakeImmutableInSubclass.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/CantMakeImmutableInSubclass.java");
                     }
                     
                     @TestMetadata("DeeplySubstitutedClassParameter.java")
                     public void testDeeplySubstitutedClassParameter() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/DeeplySubstitutedClassParameter.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/DeeplySubstitutedClassParameter.java");
                     }
                     
                     @TestMetadata("DeeplySubstitutedClassParameter2.java")
                     public void testDeeplySubstitutedClassParameter2() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/DeeplySubstitutedClassParameter2.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/DeeplySubstitutedClassParameter2.java");
                     }
                     
                     @TestMetadata("HalfSubstitutedTypeParameters.java")
                     public void testHalfSubstitutedTypeParameters() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/HalfSubstitutedTypeParameters.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/HalfSubstitutedTypeParameters.java");
                     }
                     
                     @TestMetadata("InheritNullabilityGenericSubclassSimple.java")
                     public void testInheritNullabilityGenericSubclassSimple() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/InheritNullabilityGenericSubclassSimple.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/InheritNullabilityGenericSubclassSimple.java");
                     }
                     
                     @TestMetadata("InheritNullabilityJavaSubtype.java")
                     public void testInheritNullabilityJavaSubtype() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/InheritNullabilityJavaSubtype.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/InheritNullabilityJavaSubtype.java");
                     }
                     
                     @TestMetadata("InheritNullabilitySameGenericType.java")
                     public void testInheritNullabilitySameGenericType() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/InheritNullabilitySameGenericType.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/InheritNullabilitySameGenericType.java");
                     }
                     
                     @TestMetadata("InheritNullabilitySameJavaType.java")
                     public void testInheritNullabilitySameJavaType() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/InheritNullabilitySameJavaType.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/InheritNullabilitySameJavaType.java");
                     }
                     
                     @TestMetadata("InheritProjectionKind.java")
                     public void testInheritProjectionKind() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/InheritProjectionKind.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/InheritProjectionKind.java");
                     }
                     
                     @TestMetadata("InheritReadOnlinessOfArgument.java")
                     public void testInheritReadOnlinessOfArgument() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/InheritReadOnlinessOfArgument.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/InheritReadOnlinessOfArgument.java");
                     }
                     
                     @TestMetadata("InheritReadOnlinessSameClass.java")
                     public void testInheritReadOnlinessSameClass() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/InheritReadOnlinessSameClass.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/InheritReadOnlinessSameClass.java");
                     }
                     
                     @TestMetadata("InheritReadOnlinessSubclass.java")
                     public void testInheritReadOnlinessSubclass() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/InheritReadOnlinessSubclass.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/InheritReadOnlinessSubclass.java");
                     }
                     
                     @TestMetadata("SameProjectionKind.java")
                     public void testSameProjectionKind() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/SameProjectionKind.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/SameProjectionKind.java");
                     }
                     
                     @TestMetadata("SubclassFromGenericAndNot.java")
                     public void testSubclassFromGenericAndNot() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/SubclassFromGenericAndNot.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/SubclassFromGenericAndNot.java");
                     }
                     
                     @TestMetadata("SubclassOfCollection.java")
                     public void testSubclassOfCollection() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/SubclassOfCollection.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/SubclassOfCollection.java");
                     }
                     
                     @TestMetadata("SubclassOfMapEntry.java")
                     public void testSubclassOfMapEntry() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/SubclassOfMapEntry.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/SubclassOfMapEntry.java");
                     }
                     
                     @TestMetadata("SubstitutedClassParameter.java")
                     public void testSubstitutedClassParameter() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/SubstitutedClassParameter.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/SubstitutedClassParameter.java");
                     }
                     
                     @TestMetadata("SubstitutedClassParameters.java")
                     public void testSubstitutedClassParameters() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/SubstitutedClassParameters.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/SubstitutedClassParameters.java");
                     }
                     
                     @TestMetadata("TwoSuperclassesConflictingProjectionKinds.java")
                     public void testTwoSuperclassesConflictingProjectionKinds() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/TwoSuperclassesConflictingProjectionKinds.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/TwoSuperclassesConflictingProjectionKinds.java");
                     }
                     
                     @TestMetadata("TwoSuperclassesInvariantAndCovariantInferMutability.java")
                     public void testTwoSuperclassesInvariantAndCovariantInferMutability() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/TwoSuperclassesInvariantAndCovariantInferMutability.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/TwoSuperclassesInvariantAndCovariantInferMutability.java");
                     }
                     
                     @TestMetadata("TwoSuperclassesInvariantAndCovariantInferNullability.java")
                     public void testTwoSuperclassesInvariantAndCovariantInferNullability() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/TwoSuperclassesInvariantAndCovariantInferNullability.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/TwoSuperclassesInvariantAndCovariantInferNullability.java");
                     }
                     
                     @TestMetadata("TwoSuperclassesMutableAndNot.java")
                     public void testTwoSuperclassesMutableAndNot() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/TwoSuperclassesMutableAndNot.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/TwoSuperclassesMutableAndNot.java");
                     }
                     
                     @TestMetadata("TwoSuperclassesReturnJavaSubtype.java")
                     public void testTwoSuperclassesReturnJavaSubtype() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/TwoSuperclassesReturnJavaSubtype.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/TwoSuperclassesReturnJavaSubtype.java");
                     }
                     
                     @TestMetadata("TwoSuperclassesReturnSameJavaType.java")
                     public void testTwoSuperclassesReturnSameJavaType() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/TwoSuperclassesReturnSameJavaType.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/TwoSuperclassesReturnSameJavaType.java");
                     }
                     
                     @TestMetadata("TwoSuperclassesSupplementNotNull.java")
                     public void testTwoSuperclassesSupplementNotNull() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/TwoSuperclassesSupplementNotNull.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/TwoSuperclassesSupplementNotNull.java");
                     }
                     
                     @TestMetadata("TypeParamOfClass.java")
                     public void testTypeParamOfClass() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/TypeParamOfClass.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/TypeParamOfClass.java");
                     }
                     
                     @TestMetadata("TypeParamOfClassSubstituted.java")
                     public void testTypeParamOfClassSubstituted() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/TypeParamOfClassSubstituted.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/TypeParamOfClassSubstituted.java");
                     }
                     
                     @TestMetadata("TypeParamOfFun.java")
                     public void testTypeParamOfFun() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/TypeParamOfFun.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/return/TypeParamOfFun.java");
                     }
                     
                 }
@@ -1351,47 +1351,47 @@ public class LoadJavaTestGenerated extends AbstractLoadJavaTest {
                     
                     @TestMetadata("InheritMutability.java")
                     public void testInheritMutability() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/typeParameter/InheritMutability.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/typeParameter/InheritMutability.java");
                     }
                     
                     @TestMetadata("InheritNullability.java")
                     public void testInheritNullability() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/typeParameter/InheritNullability.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/typeParameter/InheritNullability.java");
                     }
                     
                     @TestMetadata("InheritReadOnliness.java")
                     public void testInheritReadOnliness() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/typeParameter/InheritReadOnliness.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/typeParameter/InheritReadOnliness.java");
                     }
                     
                     @TestMetadata("TwoBounds.java")
                     public void testTwoBounds() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/typeParameter/TwoBounds.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/typeParameter/TwoBounds.java");
                     }
                     
                     @TestMetadata("TwoSuperclasses.java")
                     public void testTwoSuperclasses() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/typeParameter/TwoSuperclasses.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/typeParameter/TwoSuperclasses.java");
                     }
                     
                     @TestMetadata("TwoTypeParameters.java")
                     public void testTwoTypeParameters() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/typeParameter/TwoTypeParameters.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/typeParameter/TwoTypeParameters.java");
                     }
                     
                     @TestMetadata("UseParameterAsUpperBound.java")
                     public void testUseParameterAsUpperBound() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/typeParameter/UseParameterAsUpperBound.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/typeParameter/UseParameterAsUpperBound.java");
                     }
                     
                     @TestMetadata("UseParameterInUpperBound.java")
                     public void testUseParameterInUpperBound() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/typeParameter/UseParameterInUpperBound.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/typeParameter/UseParameterInUpperBound.java");
                     }
                     
                     @TestMetadata("UseParameterInUpperBoundWithKotlinSignature.java")
                     public void testUseParameterInUpperBoundWithKotlinSignature() throws Exception {
-                        doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/typeParameter/UseParameterInUpperBoundWithKotlinSignature.java");
+                        doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/kotlinSignature/propagation/typeParameter/UseParameterInUpperBoundWithKotlinSignature.java");
                     }
                     
                 }
@@ -1423,17 +1423,17 @@ public class LoadJavaTestGenerated extends AbstractLoadJavaTest {
             
             @TestMetadata("LoadIterable.java")
             public void testLoadIterable() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/library/LoadIterable.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/library/LoadIterable.java");
             }
             
             @TestMetadata("LoadIterator.java")
             public void testLoadIterator() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/library/LoadIterator.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/library/LoadIterator.java");
             }
             
             @TestMetadata("Max.java")
             public void testMax() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/library/Max.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/library/Max.java");
             }
             
         }
@@ -1446,7 +1446,7 @@ public class LoadJavaTestGenerated extends AbstractLoadJavaTest {
             
             @TestMetadata("ModalityOfFakeOverrides.java")
             public void testModalityOfFakeOverrides() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/modality/ModalityOfFakeOverrides.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/modality/ModalityOfFakeOverrides.java");
             }
             
         }
@@ -1459,22 +1459,22 @@ public class LoadJavaTestGenerated extends AbstractLoadJavaTest {
             
             @TestMetadata("LoadIterable.java")
             public void testLoadIterable() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/mutability/LoadIterable.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/mutability/LoadIterable.java");
             }
             
             @TestMetadata("LoadIterableWithConflict.java")
             public void testLoadIterableWithConflict() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/mutability/LoadIterableWithConflict.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/mutability/LoadIterableWithConflict.java");
             }
             
             @TestMetadata("LoadIterableWithNullability.java")
             public void testLoadIterableWithNullability() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/mutability/LoadIterableWithNullability.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/mutability/LoadIterableWithNullability.java");
             }
             
             @TestMetadata("LoadIterableWithPropagation.java")
             public void testLoadIterableWithPropagation() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/mutability/LoadIterableWithPropagation.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/mutability/LoadIterableWithPropagation.java");
             }
             
         }
@@ -1487,27 +1487,27 @@ public class LoadJavaTestGenerated extends AbstractLoadJavaTest {
             
             @TestMetadata("NotNullField.java")
             public void testNotNullField() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/notNull/NotNullField.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/notNull/NotNullField.java");
             }
             
             @TestMetadata("NotNullIntArray.java")
             public void testNotNullIntArray() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/notNull/NotNullIntArray.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/notNull/NotNullIntArray.java");
             }
             
             @TestMetadata("NotNullMethod.java")
             public void testNotNullMethod() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/notNull/NotNullMethod.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/notNull/NotNullMethod.java");
             }
             
             @TestMetadata("NotNullObjectArray.java")
             public void testNotNullObjectArray() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/notNull/NotNullObjectArray.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/notNull/NotNullObjectArray.java");
             }
             
             @TestMetadata("NotNullParameter.java")
             public void testNotNullParameter() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/notNull/NotNullParameter.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/notNull/NotNullParameter.java");
             }
             
         }
@@ -1520,12 +1520,12 @@ public class LoadJavaTestGenerated extends AbstractLoadJavaTest {
             
             @TestMetadata("VarargInt.java")
             public void testVarargInt() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/vararg/VarargInt.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/vararg/VarargInt.java");
             }
             
             @TestMetadata("VarargString.java")
             public void testVarargString() throws Exception {
-                doTestCompiledJavaCompareWithKotlin("compiler/testData/loadJava/compiledJavaCompareWithKotlin/vararg/VarargString.java");
+                doTestCompiledJava("compiler/testData/loadJava/compiledJavaCompareWithKotlin/vararg/VarargString.java");
             }
             
         }
