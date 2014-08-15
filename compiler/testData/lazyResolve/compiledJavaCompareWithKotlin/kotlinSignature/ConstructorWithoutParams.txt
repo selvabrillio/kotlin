@@ -1,5 +1,5 @@
 package test
 
 public open class ConstructorWithoutParams {
-    public constructor ConstructorWithoutParams()
+    /*primary*/ public constructor ConstructorWithoutParams()
 }

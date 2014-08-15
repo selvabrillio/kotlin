@@ -1,14 +1,14 @@
 package test
 
 public open class InnerClassesInGeneric</*0*/ P, /*1*/ Q> {
-    public constructor InnerClassesInGeneric</*0*/ P, /*1*/ Q>()
+    /*primary*/ public constructor InnerClassesInGeneric</*0*/ P, /*1*/ Q>()
 
     public open inner class Inner {
-        public constructor Inner()
+        /*primary*/ public constructor Inner()
     }
 
     public open inner class Inner2 : test.InnerClassesInGeneric.Inner {
-        public constructor Inner2()
+        /*primary*/ public constructor Inner2()
         public open fun iterator(): kotlin.MutableIterator<P>?
     }
 }

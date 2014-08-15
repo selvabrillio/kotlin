@@ -236,7 +236,7 @@ fun main(args: Array<String>) {
 
         testClass(javaClass<AbstractLazyResolveRecursiveComparingTest>()) {
             model("loadJava/compiledKotlin", testMethod = "doTestCheckingPrimaryConstructorsAndAccessors")
-            model("lazyResolve/compiledJavaCompareWithKotlin", testMethod = "doTestNotCheckingPrimaryConstructors")
+            model("lazyResolve/compiledJavaCompareWithKotlin", testMethod = "doTestCheckingPrimaryConstructorsAndAccessors")
             model("lazyResolve/recursiveComparator", testMethod = "doTestCheckingPrimaryConstructors")
         }
 
@@ -596,7 +596,7 @@ fun main(args: Array<String>) {
     testGroup("idea/tests", "compiler/testData") {
         testClass(javaClass<AbstractLazyResolveByStubTest>()) {
             model("loadJava/compiledKotlin", testMethod = "doTestCheckingPrimaryConstructorsAndAccessors")
-            model("lazyResolve/compiledJavaCompareWithKotlin", testMethod = "doTestNotCheckingPrimaryConstructors")
+            model("lazyResolve/compiledJavaCompareWithKotlin", testMethod = "doTestCheckingPrimaryConstructorsAndAccessors")
         }
     }
 

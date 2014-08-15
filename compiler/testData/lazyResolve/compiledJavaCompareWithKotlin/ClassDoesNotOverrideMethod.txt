@@ -1,7 +1,7 @@
 package test
 
 public abstract class ClassDoesNotOverrideMethod : java.util.Date {
-    public constructor ClassDoesNotOverrideMethod()
+    /*primary*/ public constructor ClassDoesNotOverrideMethod()
     invisible_fake final override /*1*/ /*fake_override*/ var cdate: sun.util.calendar.BaseCalendar.Date?
     invisible_fake final override /*1*/ /*fake_override*/ var fastTime: kotlin.Long
     public open override /*1*/ /*fake_override*/ fun after(/*0*/ p0: java.util.Date): kotlin.Boolean

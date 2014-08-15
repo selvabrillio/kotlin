@@ -1,7 +1,7 @@
 package test
 
 public final class InheritMethodsDifferentReturnTypesGeneric {
-    public constructor InheritMethodsDifferentReturnTypesGeneric()
+    /*primary*/ public constructor InheritMethodsDifferentReturnTypesGeneric()
 
     public trait Sub : test.InheritMethodsDifferentReturnTypesGeneric.Super1<kotlin.String, kotlin.CharSequence>, test.InheritMethodsDifferentReturnTypesGeneric.Super2<kotlin.CharSequence, kotlin.String> {
         public abstract override /*2*/ /*fake_override*/ fun bar(): kotlin.String?

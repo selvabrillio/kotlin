@@ -1,9 +1,9 @@
 package test
 
 public open class NestedClass {
-    public constructor NestedClass()
+    /*primary*/ public constructor NestedClass()
 
     public open class Nested {
-        public constructor Nested()
+        /*primary*/ public constructor Nested()
     }
 }

@@ -1,5 +1,5 @@
 package test
 
 public final class Simple {
-    public constructor Simple()
+    /*primary*/ public constructor Simple()
 }

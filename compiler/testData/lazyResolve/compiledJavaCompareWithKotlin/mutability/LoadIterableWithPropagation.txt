@@ -10,7 +10,7 @@ public trait LoadIterableWithPropagation {
     }
 
     public open class LoadIterableImpl</*0*/ T> : test.LoadIterableWithPropagation.LoadIterable<T> {
-        public constructor LoadIterableImpl</*0*/ T>()
+        /*primary*/ public constructor LoadIterableImpl</*0*/ T>()
         public open override /*1*/ fun getIterable(): kotlin.MutableIterable<T>?
         public open override /*1*/ fun getReadOnlyIterable(): kotlin.Iterable<T>?
         public open override /*1*/ fun setIterable(/*0*/ p0: kotlin.MutableIterable<T>?): kotlin.Unit

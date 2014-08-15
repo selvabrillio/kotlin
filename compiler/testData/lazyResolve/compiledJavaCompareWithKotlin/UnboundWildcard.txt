@@ -1,7 +1,7 @@
 package test
 
 public final class UnboundWildcard {
-    public constructor UnboundWildcard()
+    /*primary*/ public constructor UnboundWildcard()
     public final fun foo(): test.UnboundWildcard.MyClass<out kotlin.CharSequence?>?
 
     public trait MyClass</*0*/ T : kotlin.CharSequence?> {
