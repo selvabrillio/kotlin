@@ -33,7 +33,7 @@ import org.jetbrains.jet.checkers.AbstractJetDiagnosticsTest;
 @InnerTestClasses({JetDiagnosticsTestGenerated.Tests.class, JetDiagnosticsTestGenerated.Script.class, JetDiagnosticsTestGenerated.TailRecursion.class})
 public class JetDiagnosticsTestGenerated extends AbstractJetDiagnosticsTest {
     @TestMetadata("compiler/testData/diagnostics/tests")
-    @InnerTestClasses({Tests.Annotations.class, Tests.BackingField.class, Tests.Cast.class, Tests.CheckArguments.class, Tests.ClassObjects.class, Tests.ControlFlowAnalysis.class, Tests.ControlStructures.class, Tests.CyclicHierarchy.class, Tests.DataClasses.class, Tests.DataFlow.class, Tests.DataFlowInfoTraversal.class, Tests.DeclarationChecks.class, Tests.DelegatedProperty.class, Tests.Deparenthesize.class, Tests.DuplicateJvmSignature.class, Tests.Enum.class, Tests.Evaluate.class, Tests.Extensions.class, Tests.FunctionLiterals.class, Tests.Generics.class, Tests.Imports.class, Tests.IncompleteCode.class, Tests.Inference.class, Tests.Infos.class, Tests.Inline.class, Tests.Inner.class, Tests.J_k.class, Tests.Jdk_annotations.class, Tests.Labels.class, Tests.Library.class, Tests.Multimodule.class, Tests.NamedArguments.class, Tests.NullabilityAndAutoCasts.class, Tests.NullableTypes.class, Tests.Numbers.class, Tests.Objects.class, Tests.OperatorsOverloading.class, Tests.Overload.class, Tests.Override.class, Tests.Recovery.class, Tests.Redeclarations.class, Tests.Regressions.class, Tests.Resolve.class, Tests.Scopes.class, Tests.SenselessComparison.class, Tests.Shadowing.class, Tests.SmartCasts.class, Tests.Substitutions.class, Tests.Subtyping.class, Tests.Suppress.class, Tests.ThisAndSuper.class, Tests.TraitWithRequired.class, Tests.Typedefs.class, Tests.Unit.class, Tests.Varargs.class, Tests.When.class})
+    @InnerTestClasses({Tests.Annotations.class, Tests.BackingField.class, Tests.Cast.class, Tests.CheckArguments.class, Tests.ClassObjects.class, Tests.ControlFlowAnalysis.class, Tests.ControlStructures.class, Tests.CyclicHierarchy.class, Tests.DataClasses.class, Tests.DataFlow.class, Tests.DataFlowInfoTraversal.class, Tests.DeclarationChecks.class, Tests.DelegatedProperty.class, Tests.Deparenthesize.class, Tests.DuplicateJvmSignature.class, Tests.Enum.class, Tests.Evaluate.class, Tests.Extensions.class, Tests.FunctionLiterals.class, Tests.Generics.class, Tests.Imports.class, Tests.IncompleteCode.class, Tests.Inference.class, Tests.Infos.class, Tests.Inline.class, Tests.Inner.class, Tests.J_k.class, Tests.Jdk_annotations.class, Tests.Labels.class, Tests.Library.class, Tests.Multimodule.class, Tests.NamedArguments.class, Tests.NullabilityAndAutoCasts.class, Tests.NullableTypes.class, Tests.Numbers.class, Tests.Objects.class, Tests.OperatorsOverloading.class, Tests.Overload.class, Tests.Override.class, Tests.PlatformTypes.class, Tests.Recovery.class, Tests.Redeclarations.class, Tests.Regressions.class, Tests.Resolve.class, Tests.Scopes.class, Tests.SenselessComparison.class, Tests.Shadowing.class, Tests.SmartCasts.class, Tests.Substitutions.class, Tests.Subtyping.class, Tests.Suppress.class, Tests.ThisAndSuper.class, Tests.TraitWithRequired.class, Tests.Typedefs.class, Tests.Unit.class, Tests.Varargs.class, Tests.When.class})
     public static class Tests extends AbstractJetDiagnosticsTest {
         @TestMetadata("Abstract.kt")
         public void testAbstract() throws Exception {
@@ -6337,6 +6337,54 @@ public class JetDiagnosticsTestGenerated extends AbstractJetDiagnosticsTest {
             }
         }
         
+        @TestMetadata("compiler/testData/diagnostics/tests/platformTypes")
+        @InnerTestClasses({PlatformTypes.MethodCall.class})
+        public static class PlatformTypes extends AbstractJetDiagnosticsTest {
+            public void testAllFilesPresentInPlatformTypes() throws Exception {
+                JetTestUtils.assertAllTestsPresentByMetadata(this.getClass(), "org.jetbrains.jet.generators.tests.TestsPackage", new File("compiler/testData/diagnostics/tests/platformTypes"), Pattern.compile("^(.+)\\.kt$"), true);
+            }
+            
+            @TestMetadata("compiler/testData/diagnostics/tests/platformTypes/methodCall")
+            public static class MethodCall extends AbstractJetDiagnosticsTest {
+                public void testAllFilesPresentInMethodCall() throws Exception {
+                    JetTestUtils.assertAllTestsPresentByMetadata(this.getClass(), "org.jetbrains.jet.generators.tests.TestsPackage", new File("compiler/testData/diagnostics/tests/platformTypes/methodCall"), Pattern.compile("^(.+)\\.kt$"), true);
+                }
+                
+                @TestMetadata("int.kt")
+                public void testInt() throws Exception {
+                    doTest("compiler/testData/diagnostics/tests/platformTypes/methodCall/int.kt");
+                }
+                
+                @TestMetadata("intArray.kt")
+                public void testIntArray() throws Exception {
+                    doTest("compiler/testData/diagnostics/tests/platformTypes/methodCall/intArray.kt");
+                }
+                
+                @TestMetadata("list.kt")
+                public void testList() throws Exception {
+                    doTest("compiler/testData/diagnostics/tests/platformTypes/methodCall/list.kt");
+                }
+                
+                @TestMetadata("objectArray.kt")
+                public void testObjectArray() throws Exception {
+                    doTest("compiler/testData/diagnostics/tests/platformTypes/methodCall/objectArray.kt");
+                }
+                
+                @TestMetadata("string.kt")
+                public void testString() throws Exception {
+                    doTest("compiler/testData/diagnostics/tests/platformTypes/methodCall/string.kt");
+                }
+                
+            }
+            
+            public static Test innerSuite() {
+                TestSuite suite = new TestSuite("PlatformTypes");
+                suite.addTestSuite(PlatformTypes.class);
+                suite.addTestSuite(MethodCall.class);
+                return suite;
+            }
+        }
+        
         @TestMetadata("compiler/testData/diagnostics/tests/recovery")
         public static class Recovery extends AbstractJetDiagnosticsTest {
             @TestMetadata("absentLeftHandSide.kt")
@@ -8171,6 +8219,7 @@ public class JetDiagnosticsTestGenerated extends AbstractJetDiagnosticsTest {
             suite.addTestSuite(OperatorsOverloading.class);
             suite.addTestSuite(Overload.class);
             suite.addTest(Override.innerSuite());
+            suite.addTest(PlatformTypes.innerSuite());
             suite.addTestSuite(Recovery.class);
             suite.addTestSuite(Redeclarations.class);
             suite.addTestSuite(Regressions.class);
