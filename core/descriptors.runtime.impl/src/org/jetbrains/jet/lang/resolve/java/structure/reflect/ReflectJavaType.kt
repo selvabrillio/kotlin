@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2013 JetBrains s.r.o.
+ * Copyright 2010-2014 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,27 +14,14 @@
  * limitations under the License.
  */
 
-package org.jetbrains.jet.lang.resolve.java.structure;
+package org.jetbrains.jet.lang.resolve.java.structure.reflect
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.jetbrains.annotations.ReadOnly;
+import org.jetbrains.jet.lang.resolve.java.structure.JavaType
+import org.jetbrains.jet.lang.resolve.java.structure.JavaArrayType
 
-import java.util.Collection;
-
-public interface JavaTypeParameter extends JavaClassifier {
-    int getIndex();
-
-    @NotNull
-    @ReadOnly
-    Collection<JavaClassifierType> getUpperBounds();
-
-    @Nullable
-    JavaTypeParameterListOwner getOwner();
-
-    @NotNull
-    JavaType getType();
-
-    @NotNull
-    JavaTypeProvider getTypeProvider();
+public abstract class ReflectJavaType : JavaType {
+    override fun createArrayType(): JavaArrayType {
+        // TODO
+        throw UnsupportedOperationException()
+    }
 }

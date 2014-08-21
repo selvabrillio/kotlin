@@ -18,6 +18,7 @@ package org.jetbrains.jet.lang.resolve.java.resolver;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.ReadOnly;
 import org.jetbrains.jet.lang.resolve.java.structure.JavaAnnotation;
 import org.jetbrains.jet.lang.resolve.java.structure.JavaAnnotationOwner;
 import org.jetbrains.jet.lang.resolve.name.FqName;
@@ -29,5 +30,6 @@ public interface ExternalAnnotationResolver {
     JavaAnnotation findExternalAnnotation(@NotNull JavaAnnotationOwner owner, @NotNull FqName fqName);
 
     @NotNull
+    @ReadOnly
     Collection<JavaAnnotation> findExternalAnnotations(@NotNull JavaAnnotationOwner owner);
 }

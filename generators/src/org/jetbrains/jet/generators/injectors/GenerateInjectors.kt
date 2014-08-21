@@ -34,6 +34,9 @@ import org.jetbrains.jet.lang.types.expressions.ExpressionTypingComponents
 import org.jetbrains.jet.lang.types.expressions.ExpressionTypingUtils
 import org.jetbrains.jet.lang.resolve.calls.CallResolver
 import org.jetbrains.jet.lang.resolve.java.structure.impl.JavaPropertyInitializerEvaluatorImpl
+import org.jetbrains.jet.storage.LockBasedStorageManager
+import org.jetbrains.jet.lang.resolve.kotlin.reflect.ReflectKotlinClassFinder
+import org.jetbrains.jet.lang.resolve.java.reflect.ReflectJavaClassFinder
 import com.intellij.psi.search.GlobalSearchScope
 import org.jetbrains.jet.lang.resolve.java.lazy.ModuleClassResolver
 import org.jetbrains.jet.lang.resolve.kotlin.DeserializationGlobalContextForJava
@@ -61,6 +64,7 @@ public fun createInjectorGenerators(): List<DependencyInjectorGenerator> =
         listOf(
                 generatorForTopDownAnalyzerBasic(),
                 generatorForTopDownAnalyzerForJvm(),
+                generatorForRuntimeDescriptorLoader(),
                 generatorForJavaDescriptorResolver(),
                 generatorForLazyResolveWithJava(),
                 generatorForTopDownAnalyzerForJs(),
@@ -126,6 +130,32 @@ private fun generatorForTopDownAnalyzerForJvm() =
                     javaClass<JavaFlexibleTypeCapabilitiesProvider>()
             )
             field(javaClass<VirtualFileFinder>(), init = GivenExpression(javaClass<VirtualFileFinder>().getName() + ".SERVICE.getInstance(project)"))
+        }
+
+private fun generatorForRuntimeDescriptorLoader() =
+        generator("core/descriptors.runtime.impl/src", "org.jetbrains.jet.di", "InjectorForRuntimeDescriptorLoader") {
+            parameters(
+                    javaClass<ClassLoader>(),
+                    javaClass<ModuleDescriptor>()
+            )
+
+            publicField(javaClass<JavaDescriptorResolver>())
+
+            fields(
+                    javaClass<RuntimeExternalSignatureResolver>(),
+                    javaClass<RuntimeJavaResolverCache>(),
+                    javaClass<RuntimeErrorReporter>(),
+                    javaClass<RuntimeMethodSignatureChecker>(),
+                    javaClass<RuntimeExternalAnnotationResolver>(),
+                    javaClass<RuntimePropertyInitializerEvaluator>(),
+                    javaClass<RuntimeSourceElementFactory>(),
+                    javaClass<RuntimeSamConversionResolver>(),
+                    javaClass<SingleModuleClassResolver>()
+            )
+
+            field(javaClass<LockBasedStorageManager>())
+            field(javaClass<ReflectJavaClassFinder>())
+            field(javaClass<ReflectKotlinClassFinder>())
         }
 
 private fun generatorForJavaDescriptorResolver() =

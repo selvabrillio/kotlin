@@ -18,12 +18,14 @@ package org.jetbrains.jet.lang.resolve.java.structure;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.ReadOnly;
 import org.jetbrains.jet.lang.resolve.name.FqName;
 
 import java.util.Collection;
 
 public interface JavaClass extends JavaClassifier, JavaTypeParameterListOwner, JavaModifierListOwner, JavaAnnotationOwner {
     @NotNull
+    @ReadOnly
     Collection<JavaClass> getInnerClasses();
 
     @Nullable
@@ -39,15 +41,19 @@ public interface JavaClass extends JavaClassifier, JavaTypeParameterListOwner, J
     JavaClass getOuterClass();
 
     @NotNull
+    @ReadOnly
     Collection<JavaClassifierType> getSupertypes();
 
     @NotNull
+    @ReadOnly
     Collection<JavaMethod> getMethods();
 
     @NotNull
+    @ReadOnly
     Collection<JavaField> getFields();
 
     @NotNull
+    @ReadOnly
     Collection<JavaConstructor> getConstructors();
 
     @NotNull

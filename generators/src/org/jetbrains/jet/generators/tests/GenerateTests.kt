@@ -35,6 +35,7 @@ import org.jetbrains.jet.codegen.defaultConstructor.AbstractDefaultArgumentsRefl
 import org.jetbrains.jet.jvm.compiler.AbstractLoadJavaTest
 import org.jetbrains.jet.jvm.compiler.AbstractCompileJavaAgainstKotlinTest
 import org.jetbrains.jet.jvm.compiler.AbstractCompileKotlinAgainstKotlinTest
+import org.jetbrains.jet.jvm.compiler.AbstractJvmRuntimeDescriptorLoaderTest
 import org.jetbrains.jet.lang.resolve.lazy.AbstractLazyResolveDescriptorRendererTest
 import org.jetbrains.jet.lang.resolve.lazy.AbstractLazyResolveTest
 import org.jetbrains.jet.lang.resolve.lazy.AbstractLazyResolveRecursiveComparingTest
@@ -228,6 +229,10 @@ fun main(args: Array<String>) {
             model("loadJava/javaAgainstKotlin", extension = "txt", testMethod = "doTestJavaAgainstKotlin")
             model("loadJava/kotlinAgainstCompiledJavaWithKotlin", extension = "kt", testMethod = "doTestKotlinAgainstCompiledJavaWithKotlin", recursive = false)
             model("loadJava/sourceJava", extension = "java", testMethod = "doTestSourceJava")
+        }
+
+        testClass(javaClass<AbstractJvmRuntimeDescriptorLoaderTest>()) {
+            model("loadJava/compiledKotlin")
         }
 
         testClass(javaClass<AbstractCompileJavaAgainstKotlinTest>()) {
