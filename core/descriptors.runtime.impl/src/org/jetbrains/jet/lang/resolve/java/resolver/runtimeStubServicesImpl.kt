@@ -26,6 +26,7 @@ import org.jetbrains.jet.lang.resolve.constants.CompileTimeConstant
 import org.jetbrains.jet.lang.resolve.java.sources.JavaSourceElementFactory
 import org.jetbrains.jet.lang.resolve.java.sources.JavaSourceElement
 import org.jetbrains.jet.lang.resolve.java.structure.reflect.ReflectJavaElement
+import org.jetbrains.jet.lang.resolve.java.structure.reflect.ReflectJavaField
 import org.jetbrains.jet.lang.resolve.name.Name
 import org.jetbrains.jet.lang.resolve.scopes.JetScope
 import org.jetbrains.jet.lang.resolve.java.descriptor.SamConstructorDescriptor
@@ -117,8 +118,11 @@ public object RuntimeExternalAnnotationResolver : ExternalAnnotationResolver {
 
 public object RuntimePropertyInitializerEvaluator : JavaPropertyInitializerEvaluator {
     override fun isNotNullCompileTimeConstant(field: JavaField): Boolean {
-        // TODO
-        return false
+        if (!field.isStatic()) return false
+        field as ReflectJavaField
+        val value = field.field.get(null)
+        // TODO: also annotations, enums, Class<*>, arrays, etc.
+        return value is String || value is Number || value is Boolean || value is Char
     }
 
     // TODO: ?

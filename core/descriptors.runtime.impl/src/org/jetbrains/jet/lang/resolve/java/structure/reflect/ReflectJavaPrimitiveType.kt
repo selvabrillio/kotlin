@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2013 JetBrains s.r.o.
+ * Copyright 2010-2014 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,10 @@
  * limitations under the License.
  */
 
-package org.jetbrains.jet.lang.resolve.java.structure;
+package org.jetbrains.jet.lang.resolve.java.structure.reflect
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.jetbrains.annotations.ReadOnly;
+import org.jetbrains.jet.lang.resolve.java.structure.JavaPrimitiveType
 
-import java.util.List;
-
-public interface JavaMethod extends JavaMember, JavaTypeParameterListOwner {
-    @NotNull
-    @ReadOnly
-    List<JavaValueParameter> getValueParameters();
-
-    boolean hasAnnotationParameterDefaultValue();
-
-    @Nullable
-    JavaType getReturnType();
+public class ReflectJavaPrimitiveType(private val klass: Class<*>): ReflectJavaType(), JavaPrimitiveType {
+    override fun getCanonicalText() = klass.getName()
 }
