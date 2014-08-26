@@ -223,6 +223,7 @@ fun main(args: Array<String>) {
             model("loadJava/compiledJavaAndKotlin", extension = "txt", testMethod = "doTestCompiledJavaAndKotlin")
             model("loadJava/compiledJavaIncludeObjectMethods", extension = "java", testMethod = "doTestCompiledJavaIncludeObjectMethods")
             model("loadJava/compiledKotlin", testMethod = "doTestCompiledKotlin")
+            model("loadJava/compiledKotlinCompilerOnly", testMethod = "doTestCompiledKotlin")
             model("loadJava/compiledKotlinWithStdlib", testMethod = "doTestCompiledKotlinWithStdlib")
             model("loadJava/javaAgainstKotlin", extension = "txt", testMethod = "doTestJavaAgainstKotlin")
             model("loadJava/kotlinAgainstCompiledJavaWithKotlin", extension = "kt", testMethod = "doTestKotlinAgainstCompiledJavaWithKotlin", recursive = false)
@@ -247,6 +248,7 @@ fun main(args: Array<String>) {
 
         testClass(javaClass<AbstractLazyResolveRecursiveComparingTest>()) {
             model("loadJava/compiledKotlin")
+            model("loadJava/compiledKotlinCompilerOnly")
             model("lazyResolve/recursiveComparator")
         }
 
@@ -626,6 +628,7 @@ fun main(args: Array<String>) {
     testGroup("idea/tests", "compiler/testData") {
         testClass(javaClass<AbstractLazyResolveByStubTest>()) {
             model("loadJava/compiledKotlin")
+            model("loadJava/compiledKotlinCompilerOnly")
         }
     }
 
