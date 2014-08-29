@@ -17,10 +17,12 @@
 package org.jetbrains.jet.lang.resolve.java.structure;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.ReadOnly;
 
 import java.util.List;
 
 public interface JavaConstructor extends JavaMember, JavaTypeParameterListOwner {
     @NotNull
+    @ReadOnly
     List<JavaValueParameter> getValueParameters();
 }

@@ -116,7 +116,7 @@ public final class LoadDescriptorUtil {
         return loadTestPackageAndBindingContextFromJavaRoot(outDir, disposable, configurationKind);
     }
 
-    private static void compileJavaWithAnnotationsJar(@NotNull Collection<File> javaFiles, @NotNull File outDir) throws IOException {
+    public static void compileJavaWithAnnotationsJar(@NotNull Collection<File> javaFiles, @NotNull File outDir) throws IOException {
         String classPath = ForTestCompileRuntime.runtimeJarForTests() + File.pathSeparator +
                            JetTestUtils.getAnnotationsJar().getPath();
         JetTestUtils.compileJavaFiles(javaFiles, Arrays.asList(

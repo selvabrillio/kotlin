@@ -18,6 +18,7 @@ package org.jetbrains.jet.lang.resolve.java.structure;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.ReadOnly;
 import org.jetbrains.jet.lang.resolve.name.ClassId;
 import org.jetbrains.jet.lang.resolve.name.Name;
 
@@ -28,6 +29,7 @@ public interface JavaAnnotation extends JavaElement {
     JavaAnnotationArgument findArgument(@NotNull Name name);
 
     @NotNull
+    @ReadOnly
     Collection<JavaAnnotationArgument> getArguments();
 
     @Nullable
