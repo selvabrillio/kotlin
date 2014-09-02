@@ -427,7 +427,7 @@ public class JetTestUtils {
         for (String path : paths) {
             jetFiles.add(loadJetFile(environment.getProject(), new File(path)));
         }
-        LazyResolveTestUtil.resolveEagerly(jetFiles, environment);
+        LazyResolveTestUtil.resolve(jetFiles, environment);
     }
 
     @NotNull
