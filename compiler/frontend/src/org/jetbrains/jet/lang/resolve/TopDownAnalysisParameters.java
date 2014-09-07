@@ -27,27 +27,9 @@ import org.jetbrains.jet.storage.StorageManager;
  * Various junk that cannot be placed into context (yet).
  */
 public class TopDownAnalysisParameters implements GlobalContext {
-    private static boolean LAZY;
-
-    static {
-        LAZY = "true".equals(System.getProperty("lazy.tda"));
-        LAZY = true;
-    }
 
     @NotNull
     public static TopDownAnalysisParameters create(
-            @NotNull StorageManager storageManager,
-            @NotNull ExceptionTracker exceptionTracker,
-            @NotNull Predicate<PsiFile> analyzeCompletely,
-            boolean analyzingBootstrapLibrary,
-            boolean declaredLocally
-    ) {
-        return new TopDownAnalysisParameters(storageManager, exceptionTracker, analyzeCompletely, analyzingBootstrapLibrary,
-                                             declaredLocally, LAZY);
-    }
-
-    @NotNull
-    public static TopDownAnalysisParameters createForLazy(
             @NotNull StorageManager storageManager,
             @NotNull ExceptionTracker exceptionTracker,
             @NotNull Predicate<PsiFile> analyzeCompletely,
