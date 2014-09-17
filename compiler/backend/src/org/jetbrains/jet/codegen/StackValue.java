@@ -95,32 +95,38 @@ public abstract class StackValue implements StackValueTrait {
         }
     }
 
-    public static Local local(int index, Type type) {
+    @NotNull
+    public static Local local(int index, @NotNull Type type) {
         return new Local(index, type);
     }
 
-    public static StackValue shared(int index, Type type) {
+    @NotNull
+    public static StackValue shared(int index, @NotNull Type type) {
         return new Shared(index, type);
     }
 
-    public static StackValue onStack(Type type) {
+    @NotNull
+    public static StackValue onStack(@NotNull Type type) {
         return type == Type.VOID_TYPE ? none() : new OnStack(type);
     }
 
-    public static StackValue constant(@Nullable Object value, Type type) {
+    @NotNull
+    public static StackValue constant(@Nullable Object value, @NotNull Type type) {
         return new Constant(value, type);
     }
 
-    public static StackValue cmp(IElementType opToken, Type type) {
+    @NotNull
+    public static StackValue cmp(@NotNull IElementType opToken, @NotNull Type type) {
         return type.getSort() == Type.OBJECT ? new ObjectCompare(opToken, type) : new NumberCompare(opToken, type);
     }
 
-    public static StackValue not(StackValue stackValue) {
+    @NotNull
+    public static StackValue not(@NotNull StackValue stackValue) {
         return new Invert(stackValue);
     }
 
     @NotNull
-    public static StackValue arrayElement(Type type) {
+    public static StackValue arrayElement(@NotNull Type type) {
         return new ArrayElement(type);
     }
 
@@ -216,15 +222,15 @@ public abstract class StackValue implements StackValueTrait {
         }
     }
 
-    protected void coerceTo(Type toType, InstructionAdapter v) {
+    protected void coerceTo(@NotNull Type toType, @NotNull InstructionAdapter v) {
         coerce(this.type, toType, v);
     }
 
-    protected void coerceFrom(Type topOfStackType, InstructionAdapter v) {
+    protected void coerceFrom(@NotNull Type topOfStackType, @NotNull InstructionAdapter v) {
         coerce(topOfStackType, this.type, v);
     }
 
-    public static void coerce(Type fromType, Type toType, InstructionAdapter v) {
+    public static void coerce(@NotNull Type fromType, @NotNull Type toType, @NotNull InstructionAdapter v) {
         if (toType.equals(fromType)) return;
 
         if (toType.getSort() == Type.VOID) {
@@ -283,7 +289,7 @@ public abstract class StackValue implements StackValueTrait {
         }
     }
 
-    public static void putUnitInstance(InstructionAdapter v) {
+    public static void putUnitInstance(@NotNull InstructionAdapter v) {
         v.visitFieldInsn(GETSTATIC, UNIT_TYPE.getInternalName(), JvmAbi.INSTANCE_FIELD, UNIT_TYPE.getDescriptor());
     }
 
@@ -302,15 +308,15 @@ public abstract class StackValue implements StackValueTrait {
         return None.INSTANCE;
     }
 
-    public static StackValue fieldForSharedVar(Type localType, Type classType, String fieldName) {
+    public static StackValue fieldForSharedVar(@NotNull Type localType, @NotNull Type classType, @NotNull String fieldName) {
         return new FieldForSharedVar(localType, classType, fieldName);
     }
 
-    public static StackValue composed(StackValue prefix, StackValue suffix) {
+    public static StackValue composed(@NotNull StackValue prefix, @NotNull StackValue suffix) {
         return new Composed(prefix, suffix);
     }
 
-    public static StackValue thisOrOuter(ExpressionCodegen codegen, ClassDescriptor descriptor, boolean isSuper, boolean isExplicit) {
+    public static StackValue thisOrOuter(@NotNull ExpressionCodegen codegen, @NotNull ClassDescriptor descriptor, boolean isSuper, boolean isExplicit) {
         // Coerce this/super for traits to support traits with required classes.
         // Coerce explicit 'this' for the case when it is smart cast.
         // Do not coerce for other classes due to the 'protected' access issues (JVMS 7, 4.9.2 Structural Constraints).
