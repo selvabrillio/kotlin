@@ -268,7 +268,7 @@ public abstract class CodegenContext<T extends DeclarationDescriptor> {
 
                 return canHaveOuter(typeMapper.getBindingContext(), classDescriptor)
                        ? StackValue.field(typeMapper.mapType(enclosingClass), typeMapper.mapType(classDescriptor),
-                                          CAPTURED_THIS_FIELD, false)
+                                          CAPTURED_THIS_FIELD, false, StackValue.none())
                        : null;
             }
         });
@@ -279,19 +279,20 @@ public abstract class CodegenContext<T extends DeclarationDescriptor> {
         if (closure != null) {
             EnclosedValueDescriptor answer = closure.getCaptureVariables().get(d);
             if (answer != null) {
-                StackValue innerValue = answer.getInnerValue();
-                return result == null ? innerValue : StackValue.composed(result, innerValue);
+                StackValue.StackValueWithSimpleReceiver innerValue = answer.getInnerValue();
+                return result == null ? innerValue : StackValue.changeReceiverForFieldAndSharedVar(innerValue, result);
             }
 
             for (LocalLookup.LocalLookupCase aCase : LocalLookup.LocalLookupCase.values()) {
                 if (aCase.isCase(d)) {
                     Type classType = state.getTypeMapper().mapType(getThisDescriptor());
-                    StackValue innerValue = aCase.innerValue(d, enclosingLocalLookup, state, closure, classType);
+                    StackValue.StackValueWithSimpleReceiver innerValue = aCase.innerValue(d, enclosingLocalLookup, state, closure, classType);
                     if (innerValue == null) {
                         break;
                     }
                     else {
-                        return result == null ? innerValue : composedOrStatic(result, innerValue);
+                        //return result == null ? innerValue : composedOrStatic(result, innerValue);
+                        return StackValue.changeReceiverForFieldAndSharedVar(innerValue, result);
                     }
                 }
             }
@@ -441,15 +442,15 @@ public abstract class CodegenContext<T extends DeclarationDescriptor> {
         return childContexts == null ? null : childContexts.get(child);
     }
 
-    @NotNull
-    private static StackValue composedOrStatic(@NotNull StackValue prefix, @NotNull StackValue suffix) {
-        if (isStaticField(suffix)) {
-            return suffix;
-        }
-        return StackValue.composed(prefix, suffix);
-    }
+    //@NotNull
+    //private static StackValue composedOrStatic(@NotNull StackValue prefix, @NotNull StackValue suffix) {
+    //    if (isStaticField(suffix)) {
+    //        return suffix;
+    //    }
+    //    return StackValue.composed(prefix, suffix);
+    //}
 
     private static boolean isStaticField(@NotNull StackValue value) {
-        return value instanceof StackValue.Field && ((StackValue.Field) value).isStatic;
+        return value instanceof StackValue.Field && ((StackValue.Field) value).isReadStatic;
     }
 }

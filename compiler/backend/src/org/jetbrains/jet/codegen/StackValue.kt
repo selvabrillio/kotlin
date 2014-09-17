@@ -19,48 +19,90 @@ package org.jetbrains.jet.codegen
 import org.jetbrains.org.objectweb.asm.Type
 import org.jetbrains.org.objectweb.asm.commons.InstructionAdapter
 import org.jetbrains.org.objectweb.asm.Label
+import org.jetbrains.jet.codegen.StackValue.StackValueWithReceiver
+import org.jetbrains.jet.codegen.StackValue.StackValueWithoutReceiver
+import org.jetbrains.jet.codegen.StackValue.StackValueWithSimpleReceiver
 
-trait StackValueTrait {
-    fun put(`type`: Type, v: InstructionAdapter);
+public fun castValue(value: StackValue, castType: Type): StackValue {
+    return if (value is StackValueWithReceiver) CastValueWithReceiver(value, castType) else CastValue(value, castType)
+}
 
-    public fun store(topOfStackType: Type, v: InstructionAdapter)
+public class CastValueWithReceiver(val value: StackValueWithReceiver, val castType: Type) : StackValueWithSimpleReceiver(castType, !value.hasReceiver(true), !value.hasReceiver(false), value.receiver), StackValueI by value {
 
-    public fun dupReceiver(v: InstructionAdapter)
+    override fun putReceiver(v: InstructionAdapter, isRead: Boolean) {
+        value.putReceiver(v, isRead )
+    }
 
-    public fun receiverSize(): Int
+    override fun putNoReceiver(type: Type, v: InstructionAdapter) {
+        value.putNoReceiver(type, v)
+    }
 
-    public fun condJump(label: Label, jumpIfFalse: Boolean, v: InstructionAdapter)
+    override fun hasReceiver(isRead: Boolean): Boolean {
+        return value.hasReceiver(isRead)
+    }
+}
+
+public class CastValue(val value: StackValue, val castType: Type) : StackValueWithoutReceiver(castType), StackValueI by value {
 
 }
 
-public class CastValue(val value: StackValue, val castType: Type) : StackValue(castType), StackValueTrait by value {
+public class FunctionCallStackValue(val resultType: Type, val lambda: (type: Type, v: InstructionAdapter)-> Unit) : StackValueWithoutReceiver(resultType) {
 
+    override fun put(type: Type, v: InstructionAdapter) {
+        lambda(resultType, v)
+        coerceTo(type, v)
+    }
+
+    override fun store(topOfStackType: Type, v: InstructionAdapter) {
+        throw UnsupportedOperationException();
+    }
 }
 
+public class StackValueWithLeaveTask(val stackValue: StackValue, val leaveTasks: StackValueWithLeaveTask.()-> Unit) : StackValueWithReceiver(stackValue.type, if (stackValue is StackValueWithReceiver) stackValue.receiver else StackValue.none()), StackValueI by stackValue {
 
-public abstract class StackValueComplex(val value: StackValue, val receiver: StackValue) : StackValue(value.`type`) {
+    override fun put(type: Type, v: InstructionAdapter) {
+        stackValue.put(type, v)
+        leaveTasks()
+    }
 
-    override fun dupReceiver(v: InstructionAdapter) {
+    override fun condJump(label: Label, jumpIfFalse: Boolean, v: InstructionAdapter ) {
+        stackValue.condJump(label, jumpIfFalse, v)
+        leaveTasks()
+    }
+
+    override fun putReceiver(v: InstructionAdapter, isRead: Boolean) {
+        if (stackValue is StackValueWithReceiver) {
+            stackValue.putReceiver(v, isRead)
+        }
+    }
+
+    override fun putNoReceiver(type: Type, v: InstructionAdapter) {
+        throw UnsupportedOperationException()
+    }
+
+    override fun hasReceiver(isRead: Boolean): Boolean {
         throw UnsupportedOperationException()
     }
 
     override fun store(topOfStackType: Type, v: InstructionAdapter) {
-        receiver.store(receiver.`type`, v)
-        value.store(topOfStackType, v)
+        throw UnsupportedOperationException();
+    }
+}
+
+public class OperationStackValue(val resultType: Type, val lambda: (v: InstructionAdapter)-> Unit) : StackValueWithoutReceiver(resultType) {
+
+    override fun put(type: Type, v: InstructionAdapter) {
+        lambda(v)
+        coerceTo(type, v)
     }
 
-    override fun put(`type`: Type, v: InstructionAdapter) {
-        throw UnsupportedOperationException()
+    override fun store(topOfStackType: Type, v: InstructionAdapter) {
+        throw UnsupportedOperationException();
     }
+}
 
-    public fun put(`type`: Type, v: InstructionAdapter, what: StackValue) {
-        receiver.put(receiver.`type`, v)
-        what.put(what.`type`, v)
-        value.store(`type`, v)
-    }
-
-    override fun receiverSize(): Int {
-        val size = receiver.`type`.getSize()
-        return size
-    }
+fun box() : String {
+    val i : Int? = 0
+    val j = i?.plus(3) //verify error
+    return "OK"
 }

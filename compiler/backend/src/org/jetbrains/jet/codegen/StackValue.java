@@ -24,10 +24,14 @@ import org.jetbrains.jet.codegen.intrinsics.IntrinsicMethod;
 import org.jetbrains.jet.codegen.state.GenerationState;
 import org.jetbrains.jet.codegen.state.JetTypeMapper;
 import org.jetbrains.jet.lang.descriptors.*;
+import org.jetbrains.jet.lang.psi.JetArrayAccessExpression;
 import org.jetbrains.jet.lang.psi.JetExpression;
 import org.jetbrains.jet.lang.resolve.annotations.AnnotationsPackage;
 import org.jetbrains.jet.lang.resolve.calls.model.ResolvedCall;
+import org.jetbrains.jet.lang.resolve.calls.model.ResolvedValueArgument;
 import org.jetbrains.jet.lang.resolve.java.JvmAbi;
+import org.jetbrains.jet.lang.resolve.java.jvmSignature.JvmMethodParameterKind;
+import org.jetbrains.jet.lang.resolve.java.jvmSignature.JvmMethodParameterSignature;
 import org.jetbrains.jet.lang.resolve.scopes.receivers.ReceiverValue;
 import org.jetbrains.jet.lexer.JetTokens;
 import org.jetbrains.org.objectweb.asm.Label;
@@ -41,11 +45,14 @@ import static org.jetbrains.jet.codegen.AsmUtil.*;
 import static org.jetbrains.jet.lang.resolve.java.AsmTypeConstants.*;
 import static org.jetbrains.org.objectweb.asm.Opcodes.*;
 
-public abstract class StackValue implements StackValueTrait {
+public abstract class StackValue implements StackValueI {
 
     private static final String NULLABLE_BYTE_TYPE_NAME = "java/lang/Byte";
     private static final String NULLABLE_SHORT_TYPE_NAME = "java/lang/Short";
     private static final String NULLABLE_LONG_TYPE_NAME = "java/lang/Long";
+
+    public static final int RECEIVER_READ = 0;
+    public static final int RECEIVER_WRITE = 1;
 
     @NotNull
     public final Type type;
@@ -62,29 +69,41 @@ public abstract class StackValue implements StackValueTrait {
      * @param v     the visitor used to genClassOrObject the instructions
      * @param depth the number of new values put onto the stack
      */
-    protected void moveToTopOfStack(@NotNull Type type, @NotNull InstructionAdapter v, int depth) {
+    @Override
+    public void moveToTopOfStack(@NotNull Type type, @NotNull InstructionAdapter v, int depth) {
         put(type, v);
+    }
+
+    @Override
+    public abstract void put(@NotNull Type type, @NotNull InstructionAdapter v);
+
+    public void dup(@NotNull InstructionAdapter v, boolean withReceiver) {
+        switch (type.getSize()) {
+            case 0: break;
+            case 1: v.dup(); break;
+            case 2: v.dup2(); break;
+            default:
+                throw new UnsupportedOperationException();
+        }
     }
 
     /**
      * Set this value from the top of the stack.
      */
+    //@Override
     @Override
     public void store(@NotNull Type topOfStackType, @NotNull InstructionAdapter v) {
         throw new UnsupportedOperationException("cannot store to value " + this);
     }
 
-    @Override
-    public void dupReceiver(InstructionAdapter v) {
+    public void store(@NotNull StackValue value, @NotNull InstructionAdapter v, boolean skipReceiver) {
+        value.put(value.type, v);
+        store(value.type, v);
     }
 
+    //@Override
     @Override
-    public int receiverSize() {
-        return 0;
-    }
-
-    @Override
-    public void condJump(Label label, boolean jumpIfFalse, InstructionAdapter v) {
+    public void condJump(@NotNull Label label, boolean jumpIfFalse, @NotNull InstructionAdapter v) {
         put(this.type, v);
         coerceTo(Type.BOOLEAN_TYPE, v);
         if (jumpIfFalse) {
@@ -116,8 +135,8 @@ public abstract class StackValue implements StackValueTrait {
     }
 
     @NotNull
-    public static StackValue cmp(@NotNull IElementType opToken, @NotNull Type type) {
-        return type.getSort() == Type.OBJECT ? new ObjectCompare(opToken, type) : new NumberCompare(opToken, type);
+    public static StackValue cmp(@NotNull IElementType opToken, @NotNull Type type, StackValue left, StackValue right) {
+        return type.getSort() == Type.OBJECT ? new ObjectCompare(opToken, type, left, right) : new NumberCompare(opToken, type, left, right);
     }
 
     @NotNull
@@ -126,24 +145,47 @@ public abstract class StackValue implements StackValueTrait {
     }
 
     @NotNull
-    public static StackValue arrayElement(@NotNull Type type) {
-        return new ArrayElement(type);
+    public static StackValue arrayElement(@NotNull Type type, StackValue array, StackValue index) {
+        return new ArrayElement(type, array, index);
     }
 
     @NotNull
     public static StackValue collectionElement(
+            StackValue collectionElementReceiver,
             Type type,
             ResolvedCall<FunctionDescriptor> getter,
             ResolvedCall<FunctionDescriptor> setter,
             ExpressionCodegen codegen,
             GenerationState state
     ) {
-        return new CollectionElement(type, getter, setter, codegen, state);
+        return new CollectionElement(collectionElementReceiver, type, getter, setter, codegen, state);
     }
 
     @NotNull
-    public static Field field(@NotNull Type type, @NotNull Type owner, @NotNull String name, boolean isStatic) {
-        return new Field(type, owner, name, isStatic);
+    public static Field field(@NotNull Type type, @NotNull Type owner, @NotNull String name, boolean isStatic, @NotNull StackValue receiver) {
+        return new Field(type, owner, name, isStatic, receiver);
+    }
+
+    @NotNull
+    public static Field field(@NotNull StackValue.Field field, @NotNull StackValue newReceiver) {
+        return new Field(field.type, field.owner, field.name, field.isReadStatic, newReceiver);
+    }
+
+
+    @NotNull
+    public static StackValue changeReceiverForFieldAndSharedVar(@NotNull StackValueWithSimpleReceiver stackValue, @Nullable StackValue newReceiver) {
+        //TODO static check
+        if (newReceiver != null) {
+            if (!stackValue.isReadStatic) {
+                if (stackValue instanceof Field) {
+                    return field((Field) stackValue, newReceiver);
+                }
+                else if (stackValue instanceof FieldForSharedVar) {
+                    return fieldForSharedVar((FieldForSharedVar) stackValue, newReceiver);
+                }
+            }
+        }
+        return stackValue;
     }
 
     @NotNull
@@ -155,9 +197,10 @@ public abstract class StackValue implements StackValueTrait {
             @Nullable String fieldName,
             @Nullable CallableMethod getter,
             @Nullable CallableMethod setter,
-            GenerationState state
+            GenerationState state,
+            @NotNull StackValue receiver
     ) {
-        return new Property(descriptor, methodOwner, getter, setter, isStatic, fieldName, type, state);
+        return new Property(descriptor, methodOwner, getter, setter, isStatic, fieldName, type, state, receiver);
     }
 
     @NotNull
@@ -222,11 +265,13 @@ public abstract class StackValue implements StackValueTrait {
         }
     }
 
-    protected void coerceTo(@NotNull Type toType, @NotNull InstructionAdapter v) {
+    @Override
+    public void coerceTo(@NotNull Type toType, @NotNull InstructionAdapter v) {
         coerce(this.type, toType, v);
     }
 
-    protected void coerceFrom(@NotNull Type topOfStackType, @NotNull InstructionAdapter v) {
+    @Override
+    public void coerceFrom(@NotNull Type topOfStackType, @NotNull InstructionAdapter v) {
         coerce(topOfStackType, this.type, v);
     }
 
@@ -293,7 +338,8 @@ public abstract class StackValue implements StackValueTrait {
         v.visitFieldInsn(GETSTATIC, UNIT_TYPE.getInternalName(), JvmAbi.INSTANCE_FIELD, UNIT_TYPE.getDescriptor());
     }
 
-    protected void putAsBoolean(InstructionAdapter v) {
+    @Override
+    public void putAsBoolean(InstructionAdapter v) {
         Label ifTrue = new Label();
         Label end = new Label();
         condJump(ifTrue, false, v);
@@ -308,12 +354,20 @@ public abstract class StackValue implements StackValueTrait {
         return None.INSTANCE;
     }
 
-    public static StackValue fieldForSharedVar(@NotNull Type localType, @NotNull Type classType, @NotNull String fieldName) {
-        return new FieldForSharedVar(localType, classType, fieldName);
+    public static FieldForSharedVar fieldForSharedVar(@NotNull Type localType, @NotNull Type classType, @NotNull String fieldName, @NotNull StackValue receiver) {
+        Field receiverWithRefWrapper = field(sharedTypeForType(localType), classType, fieldName, false, receiver);
+        return new FieldForSharedVar(localType, classType, fieldName, receiverWithRefWrapper);
     }
 
-    public static StackValue composed(@NotNull StackValue prefix, @NotNull StackValue suffix) {
-        return new Composed(prefix, suffix);
+    @NotNull
+    public static FieldForSharedVar fieldForSharedVar(@NotNull FieldForSharedVar field, @NotNull StackValue newReceiver) {
+        Field oldReceiver = (Field) field.receiver;
+        Field newSharedVarReceiver = field(oldReceiver, newReceiver);
+        return new FieldForSharedVar(field.type, field.owner, field.name, newSharedVarReceiver);
+    }
+
+    public static StackValue lazyCast(@NotNull StackValue receiver, @NotNull Type type) {
+        return CodegenPackage.castValue(receiver, type);
     }
 
     public static StackValue thisOrOuter(@NotNull ExpressionCodegen codegen, @NotNull ClassDescriptor descriptor, boolean isSuper, boolean isExplicit) {
@@ -360,14 +414,14 @@ public abstract class StackValue implements StackValueTrait {
 
     public static Field singleton(ClassDescriptor classDescriptor, JetTypeMapper typeMapper) {
         FieldInfo info = FieldInfo.createForSingleton(classDescriptor, typeMapper);
-        return field(info.getFieldType(), Type.getObjectType(info.getOwnerInternalName()), info.getFieldName(), true);
+        return field(info.getFieldType(), Type.getObjectType(info.getOwnerInternalName()), info.getFieldName(), true, StackValue.none());
     }
 
     public static boolean couldSkipReceiverOnStaticCall(StackValue value) {
         return value instanceof Local || value instanceof Constant;
     }
 
-    private static class None extends StackValue {
+    private static class None extends StackValueWithoutReceiver {
         public static final None INSTANCE = new None();
 
         private None() {
@@ -380,7 +434,7 @@ public abstract class StackValue implements StackValueTrait {
         }
     }
 
-    public static class Local extends StackValue {
+    public static class Local extends StackValueWithoutReceiver {
         public final int index;
 
         private Local(int index, Type type) {
@@ -406,7 +460,7 @@ public abstract class StackValue implements StackValueTrait {
         }
     }
 
-    public static class OnStack extends StackValue {
+    public static class OnStack extends StackValueWithoutReceiver {
         public OnStack(Type type) {
             super(type);
         }
@@ -440,7 +494,7 @@ public abstract class StackValue implements StackValueTrait {
         }
     }
 
-    public static class Constant extends StackValue {
+    public static class Constant extends StackValueWithoutReceiver {
         @Nullable
         private final Object value;
 
@@ -484,14 +538,18 @@ public abstract class StackValue implements StackValueTrait {
         }
     }
 
-    private static class NumberCompare extends StackValue {
+    private static class NumberCompare extends StackValueWithoutReceiver {
         protected final IElementType opToken;
-        private final Type operandType;
+        protected final Type operandType;
+        protected final StackValue left;
+        protected final StackValue right;
 
-        public NumberCompare(IElementType opToken, Type operandType) {
+        public NumberCompare(IElementType opToken, Type operandType, StackValue left, StackValue right) {
             super(Type.BOOLEAN_TYPE);
             this.opToken = opToken;
             this.operandType = operandType;
+            this.left = left;
+            this.right = right;
         }
 
         @Override
@@ -502,6 +560,8 @@ public abstract class StackValue implements StackValueTrait {
 
         @Override
         public void condJump(Label label, boolean jumpIfFalse, InstructionAdapter v) {
+            left.put(this.operandType, v);
+            right.put(this.operandType, v);
             int opcode;
             if (opToken == JetTokens.EQEQ) {
                 opcode = jumpIfFalse ? IFNE : IFEQ;
@@ -543,12 +603,14 @@ public abstract class StackValue implements StackValueTrait {
     }
 
     private static class ObjectCompare extends NumberCompare {
-        public ObjectCompare(IElementType opToken, Type operandType) {
-            super(opToken, operandType);
+        public ObjectCompare(IElementType opToken, Type operandType, StackValue left, StackValue right) {
+            super(opToken, operandType, left, right);
         }
 
         @Override
         public void condJump(Label label, boolean jumpIfFalse, InstructionAdapter v) {
+            left.put(this.operandType, v);
+            right.put(this.operandType, v);
             int opcode;
             if (opToken == JetTokens.EQEQEQ) {
                 opcode = jumpIfFalse ? IF_ACMPNE : IF_ACMPEQ;
@@ -563,7 +625,7 @@ public abstract class StackValue implements StackValueTrait {
         }
     }
 
-    private static class Invert extends StackValue {
+    private static class Invert extends StackValueWithoutReceiver {
         private final StackValue myOperand;
 
         private Invert(StackValue operand) {
@@ -586,15 +648,12 @@ public abstract class StackValue implements StackValueTrait {
         }
     }
 
-    private static class ArrayElement extends StackValue {
-        public ArrayElement(Type type) {
-            super(type);
-        }
+    private static class ArrayElement extends StackValueWithSimpleReceiver {
+        private final Type type;
 
-        @Override
-        public void put(@NotNull Type type, @NotNull InstructionAdapter v) {
-            v.aload(this.type);    // assumes array and index are on the stack
-            coerceTo(type, v);
+        public ArrayElement(Type type, StackValue array, StackValue index) {
+            super(type, false, false, new Receiver(Type.LONG_TYPE, array, index));
+            this.type = type;
         }
 
         @Override
@@ -604,94 +663,88 @@ public abstract class StackValue implements StackValueTrait {
         }
 
         @Override
-        public void dupReceiver(InstructionAdapter v) {
-            v.dup2();   // array and index
-        }
-
-        @Override
-        public int receiverSize() {
-            return 2;
+        public void putNoReceiver(
+                @NotNull Type type, @NotNull InstructionAdapter v
+        ) {
+            v.aload(this.type);    // assumes array and index are on the stack
+            coerceTo(type, v);
         }
     }
 
-    private static class CollectionElement extends StackValue {
-        private final Callable getter;
-        private final Callable setter;
+    public static class CollectionElementReceiver extends ReadOnlyValue {
+        private final Callable callable;
+        private final boolean isGetter;
         private final ExpressionCodegen codegen;
-        private final GenerationState state;
+        private final JetExpression array;
+        private final Type arrayType;
+        private final JetArrayAccessExpression expression;
+        private final Type[] argumentTypes;
+        private final ArgumentGenerator argumentGenerator;
+        private final List<ResolvedValueArgument> valueArguments;
         private final FrameMap frame;
+        private final StackValue receiver;
         private final ResolvedCall<FunctionDescriptor> resolvedGetCall;
         private final ResolvedCall<FunctionDescriptor> resolvedSetCall;
-        private final FunctionDescriptor setterDescriptor;
-        private final FunctionDescriptor getterDescriptor;
 
-        public CollectionElement(
-                Type type,
+        public CollectionElementReceiver(
+                Callable callable,
+                StackValue receiver,
                 ResolvedCall<FunctionDescriptor> resolvedGetCall,
                 ResolvedCall<FunctionDescriptor> resolvedSetCall,
+                boolean isGetter,
                 ExpressionCodegen codegen,
-                GenerationState state
+                ArgumentGenerator argumentGenerator,
+                List<ResolvedValueArgument> valueArguments,
+                JetExpression array,
+                Type arrayType,
+                JetArrayAccessExpression expression,
+                Type[] argumentTypes
         ) {
-            super(type);
+            super(OBJECT_TYPE);
+            this.callable = callable;
+
+            this.isGetter = isGetter;
+            this.receiver = receiver;
             this.resolvedGetCall = resolvedGetCall;
             this.resolvedSetCall = resolvedSetCall;
-            this.state = state;
-            this.setterDescriptor = resolvedSetCall == null ? null : resolvedSetCall.getResultingDescriptor();
-            this.getterDescriptor = resolvedGetCall == null ? null : resolvedGetCall.getResultingDescriptor();
-            this.setter = resolvedSetCall == null ? null : codegen.resolveToCallable(setterDescriptor, false);
-            this.getter = resolvedGetCall == null ? null : codegen.resolveToCallable(getterDescriptor, false);
+            this.argumentGenerator = argumentGenerator;
+            this.valueArguments = valueArguments;
             this.codegen = codegen;
+            this.array = array;
+            this.arrayType = arrayType;
+            this.expression = expression;
+            this.argumentTypes = argumentTypes;
             this.frame = codegen.myFrameMap;
         }
 
         @Override
-        public void put(@NotNull Type type, @NotNull InstructionAdapter v) {
-            if (getter == null) {
-                throw new UnsupportedOperationException("no getter specified");
-            }
-            if (getter instanceof CallableMethod) {
-                ((CallableMethod) getter).invokeWithNotNullAssertion(v, state, resolvedGetCall);
+        public void put(
+                @NotNull Type type, @NotNull InstructionAdapter v
+        ) {
+            ResolvedCall<?> call = isGetter ? resolvedGetCall : resolvedSetCall;
+            if (callable instanceof CallableMethod) {
+                StackValue newReceiver = StackValue.receiver(call, receiver, codegen, (CallableMethod) callable);
+                newReceiver.put(newReceiver.type, v);
+                argumentGenerator.generate(valueArguments);
             }
             else {
-                ((IntrinsicMethod) getter).generate(codegen, v, this.type, null, null, null);
-            }
-            coerceTo(type, v);
-        }
+                codegen.gen(array, arrayType); // intrinsic method
 
-        @Override
-        public void store(@NotNull Type topOfStackType, @NotNull InstructionAdapter v) {
-            if (setter == null) {
-                throw new UnsupportedOperationException("no setter specified");
-            }
-            if (setter instanceof CallableMethod) {
-                CallableMethod method = (CallableMethod) setter;
-                Method asmMethod = method.getAsmMethod();
-                Type[] argumentTypes = asmMethod.getArgumentTypes();
-                coerce(topOfStackType, argumentTypes[argumentTypes.length - 1], v);
-                method.invokeWithNotNullAssertion(v, state, resolvedSetCall);
-                Type returnType = asmMethod.getReturnType();
-                if (returnType != Type.VOID_TYPE) {
-                    pop(v, returnType);
+                int index = call.getExtensionReceiver().exists() ? 1 : 0;
+
+                for (JetExpression jetExpression : expression.getIndexExpressions()) {
+                    codegen.gen(jetExpression, argumentTypes[index]);
+                    index++;
                 }
             }
-            else {
-                //noinspection ConstantConditions
-                ((IntrinsicMethod) setter).generate(codegen, v, null, null, null, null);
-            }
         }
 
         @Override
-        public int receiverSize() {
-            if (isStandardStack(resolvedGetCall, 1) && isStandardStack(resolvedSetCall, 2)) {
-                return 2;
-            }
-            else {
-                return -1;
-            }
+        public void dup(@NotNull InstructionAdapter v, boolean withReceiver) {
+            dupReceiver(v);
         }
 
-        @Override
-        public void dupReceiver(InstructionAdapter v) {
+        public void dupReceiver(@NotNull InstructionAdapter v) {
             if (isStandardStack(resolvedGetCall, 1) && isStandardStack(resolvedSetCall, 2)) {
                 v.dup2();   // collection and index
                 return;
@@ -812,27 +865,136 @@ public abstract class StackValue implements StackValueTrait {
         }
     }
 
+    public static class CollectionElement extends StackValueWithSimpleReceiver {
+        private final Callable getter;
+        private final Callable setter;
+        private final ExpressionCodegen codegen;
+        private final GenerationState state;
+        private final ResolvedCall<FunctionDescriptor> resolvedGetCall;
+        private final ResolvedCall<FunctionDescriptor> resolvedSetCall;
+        private final FunctionDescriptor setterDescriptor;
+        private final FunctionDescriptor getterDescriptor;
+
+        public CollectionElement(
+                StackValue collectionElementReceiver,
+                Type type,
+                ResolvedCall<FunctionDescriptor> resolvedGetCall,
+                ResolvedCall<FunctionDescriptor> resolvedSetCall,
+                ExpressionCodegen codegen,
+                GenerationState state
+        ) {
+            super(type, false, false, collectionElementReceiver);
+            this.resolvedGetCall = resolvedGetCall;
+            this.resolvedSetCall = resolvedSetCall;
+            this.state = state;
+            this.setterDescriptor = resolvedSetCall == null ? null : resolvedSetCall.getResultingDescriptor();
+            this.getterDescriptor = resolvedGetCall == null ? null : resolvedGetCall.getResultingDescriptor();
+            this.setter = resolvedSetCall == null ? null : codegen.resolveToCallable(setterDescriptor, false);
+            this.getter = resolvedGetCall == null ? null : codegen.resolveToCallable(getterDescriptor, false);
+            this.codegen = codegen;
+        }
+
+        @Override
+        public void putNoReceiver(@NotNull Type type, @NotNull InstructionAdapter v) {
+            if (getter == null) {
+                throw new UnsupportedOperationException("no getter specified");
+            }
+            if (getter instanceof CallableMethod) {
+                ((CallableMethod) getter).invokeWithNotNullAssertion(v, state, resolvedGetCall);
+            }
+            else {
+                StackValue result = ((IntrinsicMethod) getter).generate(codegen, v, this.type, null, null, null);
+                result.put(result.type, v);
+            }
+            coerceTo(type, v);
+        }
+
+        @Override
+        public int receiverSize() {
+            if (isStandardStack(resolvedGetCall, 1) && isStandardStack(resolvedSetCall, 2)) {
+                return 2;
+            }
+            else {
+                return -1;
+            }
+        }
+
+        private boolean isStandardStack(ResolvedCall<?> call, int valueParamsSize) {
+            if (call == null) {
+                return true;
+            }
+
+            List<ValueParameterDescriptor> valueParameters = call.getResultingDescriptor().getValueParameters();
+            if (valueParameters.size() != valueParamsSize) {
+                return false;
+            }
+
+            for (ValueParameterDescriptor valueParameter : valueParameters) {
+                if (codegen.typeMapper.mapType(valueParameter.getType()).getSize() != 1) {
+                    return false;
+                }
+            }
+
+            if (call.getDispatchReceiver().exists()) {
+                if (call.getExtensionReceiver().exists()) {
+                    return false;
+                }
+            }
+            else {
+                if (codegen.typeMapper.mapType(call.getResultingDescriptor().getExtensionReceiverParameter().getType())
+                            .getSize() != 1) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        @Override
+        public void store(@NotNull Type topOfStackType, @NotNull InstructionAdapter v) {
+            if (setter == null) {
+                throw new UnsupportedOperationException("no setter specified");
+            }
+            if (setter instanceof CallableMethod) {
+                CallableMethod method = (CallableMethod) setter;
+                Method asmMethod = method.getAsmMethod();
+                Type[] argumentTypes = asmMethod.getArgumentTypes();
+                coerce(topOfStackType, argumentTypes[argumentTypes.length - 1], v);
+                method.invokeWithNotNullAssertion(v, state, resolvedSetCall);
+                Type returnType = asmMethod.getReturnType();
+                if (returnType != Type.VOID_TYPE) {
+                    pop(v, returnType);
+                }
+            }
+            else {
+                //noinspection ConstantConditions
+                StackValue result = ((IntrinsicMethod) setter).generate(codegen, v, null, null, null, null);
+                result.put(result.type, v);
+            }
+        }
+    }
+
 
     public static class Field extends StackValueWithSimpleReceiver {
         public final Type owner;
         public final String name;
 
-        public Field(Type type, Type owner, String name, boolean isStatic) {
-            super(type, isStatic);
+        public Field(Type type, Type owner, String name, boolean isStatic, StackValue receiver) {
+            super(type, isStatic, isStatic, receiver);
             this.owner = owner;
             this.name = name;
         }
 
         @Override
-        public void put(@NotNull Type type, @NotNull InstructionAdapter v) {
-            v.visitFieldInsn(isStatic ? GETSTATIC : GETFIELD, owner.getInternalName(), name, this.type.getDescriptor());
+        public void putNoReceiver(@NotNull Type type, @NotNull InstructionAdapter v) {
+            v.visitFieldInsn(isReadStatic ? GETSTATIC : GETFIELD, owner.getInternalName(), name, this.type.getDescriptor());
             coerceTo(type, v);
         }
 
         @Override
         public void store(@NotNull Type topOfStackType, @NotNull InstructionAdapter v) {
             coerceFrom(topOfStackType, v);
-            v.visitFieldInsn(isStatic ? PUTSTATIC : PUTFIELD, owner.getInternalName(), name, this.type.getDescriptor());
+            v.visitFieldInsn(isWriteStatic ? PUTSTATIC : PUTFIELD, owner.getInternalName(), name, this.type.getDescriptor());
         }
     }
 
@@ -848,10 +1010,11 @@ public abstract class StackValue implements StackValueTrait {
 
         public Property(
                 @NotNull PropertyDescriptor descriptor, @NotNull Type methodOwner,
-                @Nullable CallableMethod getter, @Nullable CallableMethod setter, boolean isStatic,
-                @Nullable String fieldName, @NotNull Type type, @NotNull GenerationState state
+                @Nullable CallableMethod getter, @Nullable CallableMethod setter, boolean isStaticBackingField,
+                @Nullable String fieldName, @NotNull Type type, @NotNull GenerationState state,
+                @NotNull StackValue receiver
         ) {
-            super(type, isStatic);
+            super(type, isStatic(isStaticBackingField, getter), isStatic(isStaticBackingField, setter), receiver);
             this.methodOwner = methodOwner;
             this.getter = getter;
             this.setter = setter;
@@ -861,10 +1024,10 @@ public abstract class StackValue implements StackValueTrait {
         }
 
         @Override
-        public void put(@NotNull Type type, @NotNull InstructionAdapter v) {
+        public void putNoReceiver(@NotNull Type type, @NotNull InstructionAdapter v) {
             if (getter == null) {
                 assert fieldName != null : "Property should have either a getter or a field name: " + descriptor;
-                v.visitFieldInsn(isStatic ? GETSTATIC : GETFIELD, methodOwner.getInternalName(), fieldName, this.type.getDescriptor());
+                v.visitFieldInsn(isReadStatic ? GETSTATIC : GETFIELD, methodOwner.getInternalName(), fieldName, this.type.getDescriptor());
                 genNotNullAssertionForField(v, state, descriptor);
                 coerceTo(type, v);
             }
@@ -879,19 +1042,37 @@ public abstract class StackValue implements StackValueTrait {
             coerceFrom(topOfStackType, v);
             if (setter == null) {
                 assert fieldName != null : "Property should have either a setter or a field name: " + descriptor;
-                v.visitFieldInsn(isStatic ? PUTSTATIC : PUTFIELD, methodOwner.getInternalName(), fieldName, this.type.getDescriptor());
+                v.visitFieldInsn(isWriteStatic ? PUTSTATIC : PUTFIELD, methodOwner.getInternalName(), fieldName, this.type.getDescriptor());
             }
             else {
                 setter.invokeWithoutAssertions(v);
             }
         }
 
-        public boolean isPropertyWithBackingFieldInOuterClass() {
-            return descriptor instanceof AccessorForPropertyBackingFieldInOuterClass;
+        private static boolean isStatic(boolean isStaticBackingField, @Nullable CallableMethod callable) {
+            if (isStaticBackingField && callable == null) {
+                return true;
+            }
+
+            if (callable != null && callable.isStaticCall()) {
+                List<JvmMethodParameterSignature> parameters = callable.getValueParameters();
+                for (JvmMethodParameterSignature parameter : parameters) {
+                    JvmMethodParameterKind kind = parameter.getKind();
+                    if (kind == JvmMethodParameterKind.VALUE) {
+                        break;
+                    }
+                    if (kind == JvmMethodParameterKind.RECEIVER || kind == JvmMethodParameterKind.THIS) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            return false;
         }
     }
 
-    private static class Expression extends StackValue {
+    private static class Expression extends StackValueWithoutReceiver {
         private final JetExpression expression;
         private final ExpressionCodegen generator;
 
@@ -907,12 +1088,12 @@ public abstract class StackValue implements StackValueTrait {
         }
     }
 
-    public static class Shared extends StackValue {
+    public static class Shared extends StackValueWithSimpleReceiver {
         private final int index;
         private boolean isReleaseOnPut = false;
 
         public Shared(int index, Type type) {
-            super(type);
+            super(type, false, false, local(index, OBJECT_TYPE));
             this.index = index;
         }
 
@@ -925,8 +1106,7 @@ public abstract class StackValue implements StackValueTrait {
         }
 
         @Override
-        public void put(@NotNull Type type, @NotNull InstructionAdapter v) {
-            v.load(index, OBJECT_TYPE);
+        public void putNoReceiver(@NotNull Type type, @NotNull InstructionAdapter v) {
             Type refType = refType(this.type);
             Type sharedType = sharedTypeForType(this.type);
             v.visitFieldInsn(GETFIELD, sharedType.getInternalName(), "element", refType.getDescriptor());
@@ -941,8 +1121,6 @@ public abstract class StackValue implements StackValueTrait {
         @Override
         public void store(@NotNull Type topOfStackType, @NotNull InstructionAdapter v) {
             coerceFrom(topOfStackType, v);
-            v.load(index, OBJECT_TYPE);
-            AsmUtil.swap(v, sharedTypeForType(this.type), topOfStackType);
             Type refType = refType(this.type);
             Type sharedType = sharedTypeForType(this.type);
             v.visitFieldInsn(PUTFIELD, sharedType.getInternalName(), "element", refType.getDescriptor());
@@ -984,18 +1162,18 @@ public abstract class StackValue implements StackValueTrait {
         return type;
     }
 
-    static class FieldForSharedVar extends StackValueWithSimpleReceiver {
+    public static class FieldForSharedVar extends StackValueWithSimpleReceiver {
         final Type owner;
         final String name;
 
-        public FieldForSharedVar(Type type, Type owner, String name) {
-            super(type, false);
+        public FieldForSharedVar(Type type, Type owner, String name, StackValue.Field receiver) {
+            super(type, false, false, receiver);
             this.owner = owner;
             this.name = name;
         }
 
         @Override
-        public void put(@NotNull Type type, @NotNull InstructionAdapter v) {
+        public void putNoReceiver(@NotNull Type type, @NotNull InstructionAdapter v) {
             Type sharedType = sharedTypeForType(this.type);
             Type refType = refType(this.type);
             v.visitFieldInsn(GETFIELD, sharedType.getInternalName(), "element", refType.getDescriptor());
@@ -1010,30 +1188,7 @@ public abstract class StackValue implements StackValueTrait {
         }
     }
 
-    public static class Composed extends StackValue {
-        public final StackValue prefix;
-        public final StackValue suffix;
-
-        public Composed(StackValue prefix, StackValue suffix) {
-            super(suffix.type);
-            this.prefix = prefix;
-            this.suffix = suffix;
-        }
-
-        @Override
-        public void put(@NotNull Type type, @NotNull InstructionAdapter v) {
-            prefix.put(prefix.type, v);
-            suffix.put(type, v);
-        }
-
-        @Override
-        public void store(@NotNull Type topOfStackType, @NotNull InstructionAdapter v) {
-            prefix.put(OBJECT_TYPE, v);
-            suffix.store(topOfStackType, v);
-        }
-    }
-
-    private static class ThisOuter extends StackValue {
+    private static class ThisOuter extends StackValueWithoutReceiver {
         private final ExpressionCodegen codegen;
         private final ClassDescriptor descriptor;
         private final boolean isSuper;
@@ -1054,7 +1209,7 @@ public abstract class StackValue implements StackValueTrait {
         }
     }
 
-    private static class PostIncrement extends StackValue {
+    private static class PostIncrement extends StackValueWithoutReceiver {
         private final int index;
         private final int increment;
 
@@ -1074,7 +1229,7 @@ public abstract class StackValue implements StackValueTrait {
         }
     }
 
-    private static class PreIncrement extends StackValue {
+    private static class PreIncrement extends StackValueWithoutReceiver {
         private final int index;
         private final int increment;
 
@@ -1094,7 +1249,7 @@ public abstract class StackValue implements StackValueTrait {
         }
     }
 
-    public static class CallReceiver extends StackValue {
+    public static class CallReceiver extends StackValueWithoutReceiver {
         private final ResolvedCall<?> resolvedCall;
         private final StackValue receiver;
         private final ExpressionCodegen codegen;
@@ -1146,6 +1301,13 @@ public abstract class StackValue implements StackValueTrait {
             ReceiverValue dispatchReceiver = resolvedCall.getDispatchReceiver();
             ReceiverValue extensionReceiver = resolvedCall.getExtensionReceiver();
             int depth = 0;
+
+            StackValue currentReceiver = receiver;
+            if (putReceiverArgumentOnStack && extensionReceiver.exists() && receiver instanceof StackValue.Safe) {
+                currentReceiver.put(currentReceiver.type, v);
+                currentReceiver = StackValue.onStack(currentReceiver.type);
+            }
+
             if (dispatchReceiver.exists()) {
                 if (!AnnotationsPackage.isPlatformStaticInObject(descriptor)) {
                     if (extensionReceiver.exists()) {
@@ -1158,7 +1320,7 @@ public abstract class StackValue implements StackValueTrait {
                         codegen.generateReceiverValue(dispatchReceiver, resultType);
                     }
                     else {
-                        genReceiver(v, dispatchReceiver, type, null, 0);
+                        genReceiver(v, dispatchReceiver, type, null, 0, receiver);
                     }
                     depth = 1;
                 }
@@ -1174,7 +1336,7 @@ public abstract class StackValue implements StackValueTrait {
             }
 
             if (putReceiverArgumentOnStack && extensionReceiver.exists()) {
-                genReceiver(v, extensionReceiver, type, descriptor.getExtensionReceiverParameter(), depth);
+                genReceiver(v, extensionReceiver, type, descriptor.getExtensionReceiverParameter(), depth, currentReceiver);
             }
         }
 
@@ -1183,7 +1345,8 @@ public abstract class StackValue implements StackValueTrait {
                 @NotNull ReceiverValue receiverArgument,
                 @NotNull Type type,
                 @Nullable ReceiverParameterDescriptor receiverParameter,
-                int depth
+                int depth,
+                @NotNull StackValue receiver
         ) {
             if (receiver == StackValue.none()) {
                 if (receiverParameter != null) {
@@ -1201,25 +1364,297 @@ public abstract class StackValue implements StackValueTrait {
         }
     }
 
-    public abstract static class StackValueWithSimpleReceiver extends StackValue {
+    public abstract static class StackValueWithSimpleReceiver extends StackValueWithReceiver {
 
-        public final boolean isStatic;
+        public final boolean isReadStatic;
 
-        public StackValueWithSimpleReceiver(@NotNull Type type, boolean isStatic) {
-            super(type);
-            this.isStatic = isStatic;
+        public final boolean isWriteStatic;
+
+        public StackValueWithSimpleReceiver(
+                @NotNull Type type,
+                boolean isReadStatic,
+                boolean isWriteStatic,
+                @NotNull StackValue receiver
+        ) {
+            super(type, receiver);
+            this.isReadStatic = isReadStatic;
+            this.isWriteStatic = isWriteStatic;
         }
 
         @Override
-        public void dupReceiver(InstructionAdapter v) {
-            if (!isStatic) {
-                v.dup();
+        public void put(
+                @NotNull Type type, @NotNull InstructionAdapter v
+        ) {
+            putReceiver(v, true);
+            putNoReceiver(type, v);
+        }
+
+        @Override
+        public abstract void putNoReceiver(@NotNull Type type, @NotNull InstructionAdapter v);
+
+        public void putReceiver(@NotNull InstructionAdapter v, boolean isRead) {
+            if (hasReceiver(isRead)) {
+                receiver.put(receiver.type, v);
             }
         }
 
         @Override
+        public boolean hasReceiver(boolean isRead) {
+            return isRead ? !isReadStatic : !isWriteStatic;
+        }
+    }
+
+    public abstract static class StackValueWithReceiver extends StackValue {
+
+        @NotNull public final StackValue receiver;
+
+        protected StackValueWithReceiver(@NotNull Type type, @NotNull StackValue receiver) {
+            super(type);
+            this.receiver = receiver;
+        }
+
+        public abstract void putReceiver(@NotNull InstructionAdapter v, boolean isRead);
+
+        public abstract void putNoReceiver(@NotNull Type type, @NotNull InstructionAdapter v);
+
+        public abstract boolean hasReceiver(boolean isRead);
+
         public int receiverSize() {
-            return isStatic ? 0 : 1;
+            return receiver.type.getSize();
+        }
+
+        @Override
+        public void dup(@NotNull InstructionAdapter v, boolean withReceiver) {
+            if (!withReceiver) {
+                super.dup(v, withReceiver);
+            } else {
+                int receiverSize = hasReceiver(false) && hasReceiver(true) ? receiverSize() : 0;
+                switch (receiverSize) {
+                    case 0:
+                        AsmUtil.dup(v, type);
+                        break;
+
+                    case 1:
+                        if (type.getSize() == 2) {
+                            v.dup2X1();
+                        }
+                        else {
+                            v.dupX1();
+                        }
+                        break;
+
+                    case 2:
+                        if (type.getSize() == 2) {
+                            v.dup2X2();
+                        }
+                        else {
+                            v.dupX2();
+                        }
+                        break;
+
+                    case -1:
+                        throw new UnsupportedOperationException();
+                }
+            }
+        }
+
+        @Override
+        public void store(
+                @NotNull StackValue rightSide, @NotNull InstructionAdapter v, boolean skipReceiver
+        ) {
+            if (!skipReceiver) {
+                putReceiver(v, false);
+            }
+            rightSide.put(rightSide.type, v);
+            store(rightSide.type, v);
+        }
+    }
+
+    public abstract static class ReadOnlyValue extends StackValueWithoutReceiver {
+
+        public ReadOnlyValue(@NotNull Type type) {
+            super(type);
+        }
+
+        @Override
+        public void store(
+                @NotNull Type topOfStackType, @NotNull InstructionAdapter v
+        ) {
+            throw new UnsupportedOperationException("Read only value could be stored");
+        }
+    }
+
+    public abstract static class StackValueWithoutReceiver extends StackValue {
+
+        public StackValueWithoutReceiver(@NotNull Type type) {
+            super(type);
+        }
+    }
+
+
+    static class ComplexReceiver extends ReadOnlyValue {
+
+        private final StackValueWithSimpleReceiver originalValueWithReceiver;
+        private final int[] operations;
+
+        public ComplexReceiver(StackValueWithSimpleReceiver value, int [] operations) {
+            super(value.type);
+            this.originalValueWithReceiver = value;
+            this.operations = operations;
+        }
+
+        @Override
+        public void put(
+                @NotNull Type type, @NotNull InstructionAdapter v
+        ) {
+            boolean wasPutted = false;
+            for (int operation : operations) {
+                if (originalValueWithReceiver.hasReceiver(operation == RECEIVER_READ)) {
+                    StackValue receiver = originalValueWithReceiver.receiver;
+                    if (!wasPutted) {
+                        receiver.put(receiver.type, v);
+                        wasPutted = true;
+                    } else {
+                        receiver.dup(v, false);
+                    }
+                }
+            }
+        }
+    }
+
+    public static class Receiver extends StackValue {
+
+        private final StackValue[] instructions;
+
+        protected Receiver(@NotNull Type type, StackValue ... receiverInstructions) {
+            super(type);
+            instructions = receiverInstructions;
+        }
+
+        @Override
+        public void put(
+                @NotNull Type type, @NotNull InstructionAdapter v
+        ) {
+            for (StackValue instruction : instructions) {
+                instruction.put(instruction.type, v);
+            }
+        }
+    }
+
+    public static class Delegated extends StackValueWithSimpleReceiver {
+
+        public final StackValueWithSimpleReceiver originalValue;
+
+        public Delegated(
+                @NotNull Type type,
+                @NotNull StackValueWithSimpleReceiver originalValue,
+                @NotNull StackValue receiver
+        ) {
+            super(type, !originalValue.hasReceiver(true), !originalValue.hasReceiver(false), receiver);
+            this.originalValue = originalValue;
+        }
+
+        @Override
+        public void putNoReceiver(
+                @NotNull Type type, @NotNull InstructionAdapter v
+        ) {
+            originalValue.putNoReceiver(type, v);
+        }
+
+        @Override
+        public void store(
+                @NotNull Type topOfStackType, @NotNull InstructionAdapter v
+        ) {
+            originalValue.store(topOfStackType, v);
+        }
+
+        @Override
+        public void dup(@NotNull InstructionAdapter v, boolean withReceiver) {
+            originalValue.dup(v, withReceiver);
+        }
+    }
+
+    public static StackValue complexReceiver(StackValue stackValue, int ... operations) {
+        if (stackValue instanceof StackValueWithoutReceiver) {
+            return stackValue;
+        } else {
+            if (stackValue instanceof StackValueWithSimpleReceiver) {
+                return new Delegated(stackValue.type, (StackValueWithSimpleReceiver) stackValue,
+                                     new ComplexReceiver((StackValueWithSimpleReceiver) stackValue, operations));
+            } else {
+                throw new UnsupportedOperationException();
+            }
+        }
+    }
+
+    public static void putNoReceiver(StackValue value, Type type, InstructionAdapter iv) {
+        if (value instanceof StackValueWithSimpleReceiver) {
+            ((StackValueWithSimpleReceiver) value).putNoReceiver(type, iv);
+        } else {
+            value.put(type, iv);
+        }
+    }
+
+    static class Safe extends StackValueWithoutReceiver {
+
+        @NotNull private final Type type;
+        private final StackValue receiver;
+        @Nullable private final Label ifNull;
+
+        public Safe(@NotNull Type type, @NotNull StackValue value, @Nullable Label ifNull) {
+            super(type);
+            this.type = type;
+            this.receiver = value;
+            this.ifNull = ifNull;
+        }
+
+        @Override
+        public void put(@NotNull Type type, @NotNull InstructionAdapter v) {
+            receiver.put(this.type, v);
+            if (ifNull != null) {
+                //not a primitive
+                v.dup();
+                v.ifnull(ifNull);
+            }
+            coerceTo(type, v);
+        }
+    }
+
+    static class SafeFallback extends StackValueWithSimpleReceiver {
+
+        @Nullable private final Label ifNull;
+
+        public SafeFallback(@NotNull Type type, @Nullable Label ifNull, StackValue receiver) {
+            super(type, false, false, receiver);
+            this.ifNull = ifNull;
+        }
+
+        @Override
+        public void putNoReceiver(@NotNull Type type, @NotNull InstructionAdapter v) {
+            Label end = new Label();
+
+            v.goTo(end);
+            v.mark(ifNull);
+            v.pop();
+            if (!this.type.equals(Type.VOID_TYPE)) {
+                v.aconst(null);
+            }
+            v.mark(end);
+
+            coerceTo(type, v);
+        }
+
+        @Override
+        public void store(
+                @NotNull StackValue rightSide, @NotNull InstructionAdapter v, boolean skipReceiver
+        ) {
+            receiver.store(rightSide, v, skipReceiver);
+
+            Label end = new Label();
+            v.goTo(end);
+            v.mark(ifNull);
+            v.pop();
+            v.mark(end);
         }
     }
 }

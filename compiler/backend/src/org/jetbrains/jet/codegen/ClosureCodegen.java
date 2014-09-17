@@ -19,6 +19,9 @@ package org.jetbrains.jet.codegen;
 import com.google.common.collect.Lists;
 import com.intellij.psi.PsiElement;
 import com.intellij.util.ArrayUtil;
+import jet.runtime.typeinfo.JetValueParameter;
+import kotlin.Function1;
+import kotlin.Unit;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.jet.codegen.binding.CalculatedClosure;
@@ -202,18 +205,23 @@ public class ClosureCodegen extends ParentCodegenAware {
     }
 
     @NotNull
-    public StackValue putInstanceOnStack(@NotNull InstructionAdapter v, @NotNull ExpressionCodegen codegen) {
-        if (isConst(closure)) {
-            v.getstatic(asmType.getInternalName(), JvmAbi.INSTANCE_FIELD, asmType.getDescriptor());
-        }
-        else {
-            v.anew(asmType);
-            v.dup();
+    public StackValue putInstanceOnStack(@NotNull InstructionAdapter v, @NotNull final ExpressionCodegen codegen) {
+        return new OperationStackValue(asmType, new Function1<InstructionAdapter, Unit>() {
+            @Override
+            public Unit invoke(InstructionAdapter v) {
+                if (isConst(closure)) {
+                    v.getstatic(asmType.getInternalName(), JvmAbi.INSTANCE_FIELD, asmType.getDescriptor());
+                }
+                else {
+                    v.anew(asmType);
+                    v.dup();
 
-            codegen.pushClosureOnStack(classDescriptor, true, codegen.defaultCallGenerator);
-            v.invokespecial(asmType.getInternalName(), "<init>", constructor.getDescriptor(), false);
-        }
-        return StackValue.onStack(asmType);
+                codegen.pushClosureOnStack(classDescriptor, true, codegen.defaultCallGenerator);
+                v.invokespecial(asmType.getInternalName(), "<init>", constructor.getDescriptor(), false);
+                }
+                return Unit.INSTANCE$;
+            }
+        });
     }
 
 
