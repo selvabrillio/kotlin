@@ -41,7 +41,7 @@ import static org.jetbrains.jet.codegen.AsmUtil.*;
 import static org.jetbrains.jet.lang.resolve.java.AsmTypeConstants.*;
 import static org.jetbrains.org.objectweb.asm.Opcodes.*;
 
-public abstract class StackValue {
+public abstract class StackValue implements StackValueTrait {
 
     private static final String NULLABLE_BYTE_TYPE_NAME = "java/lang/Byte";
     private static final String NULLABLE_SHORT_TYPE_NAME = "java/lang/Short";
@@ -55,11 +55,6 @@ public abstract class StackValue {
     }
 
     /**
-     * Put this value to the top of the stack.
-     */
-    public abstract void put(Type type, InstructionAdapter v);
-
-    /**
      * This method is called to put the value on the top of the JVM stack if <code>depth</code> other values have been put on the
      * JVM stack after this value was generated.
      *
@@ -67,24 +62,28 @@ public abstract class StackValue {
      * @param v     the visitor used to genClassOrObject the instructions
      * @param depth the number of new values put onto the stack
      */
-    protected void moveToTopOfStack(Type type, InstructionAdapter v, int depth) {
+    protected void moveToTopOfStack(@NotNull Type type, @NotNull InstructionAdapter v, int depth) {
         put(type, v);
     }
 
     /**
      * Set this value from the top of the stack.
      */
-    public void store(Type topOfStackType, InstructionAdapter v) {
+    @Override
+    public void store(@NotNull Type topOfStackType, @NotNull InstructionAdapter v) {
         throw new UnsupportedOperationException("cannot store to value " + this);
     }
 
+    @Override
     public void dupReceiver(InstructionAdapter v) {
     }
 
+    @Override
     public int receiverSize() {
         return 0;
     }
 
+    @Override
     public void condJump(Label label, boolean jumpIfFalse, InstructionAdapter v) {
         put(this.type, v);
         coerceTo(Type.BOOLEAN_TYPE, v);
@@ -370,7 +369,7 @@ public abstract class StackValue {
         }
 
         @Override
-        public void put(Type type, InstructionAdapter v) {
+        public void put(@NotNull Type type, @NotNull InstructionAdapter v) {
             coerceTo(type, v);
         }
     }
@@ -388,14 +387,14 @@ public abstract class StackValue {
         }
 
         @Override
-        public void put(Type type, InstructionAdapter v) {
+        public void put(@NotNull Type type, @NotNull InstructionAdapter v) {
             v.load(index, this.type);
             coerceTo(type, v);
             // TODO unbox
         }
 
         @Override
-        public void store(Type topOfStackType, InstructionAdapter v) {
+        public void store(@NotNull Type topOfStackType, @NotNull InstructionAdapter v) {
             coerceFrom(topOfStackType, v);
             v.store(index, this.type);
         }
@@ -407,12 +406,12 @@ public abstract class StackValue {
         }
 
         @Override
-        public void put(Type type, InstructionAdapter v) {
+        public void put(@NotNull Type type, @NotNull InstructionAdapter v) {
             coerceTo(type, v);
         }
 
         @Override
-        public void moveToTopOfStack(Type type, InstructionAdapter v, int depth) {
+        public void moveToTopOfStack(@NotNull Type type, @NotNull InstructionAdapter v, int depth) {
             if (depth == 0) {
                 put(type, v);
             }
@@ -445,7 +444,7 @@ public abstract class StackValue {
         }
 
         @Override
-        public void put(Type type, InstructionAdapter v) {
+        public void put(@NotNull Type type, @NotNull InstructionAdapter v) {
             if (value instanceof Integer) {
                 v.iconst((Integer) value);
             }
@@ -490,7 +489,7 @@ public abstract class StackValue {
         }
 
         @Override
-        public void put(Type type, InstructionAdapter v) {
+        public void put(@NotNull Type type, @NotNull InstructionAdapter v) {
             putAsBoolean(v);
             coerceTo(type, v);
         }
@@ -570,7 +569,7 @@ public abstract class StackValue {
         }
 
         @Override
-        public void put(Type type, InstructionAdapter v) {
+        public void put(@NotNull Type type, @NotNull InstructionAdapter v) {
             putAsBoolean(v);
             coerceTo(type, v);
         }
@@ -587,13 +586,13 @@ public abstract class StackValue {
         }
 
         @Override
-        public void put(Type type, InstructionAdapter v) {
+        public void put(@NotNull Type type, @NotNull InstructionAdapter v) {
             v.aload(this.type);    // assumes array and index are on the stack
             coerceTo(type, v);
         }
 
         @Override
-        public void store(Type topOfStackType, InstructionAdapter v) {
+        public void store(@NotNull Type topOfStackType, @NotNull InstructionAdapter v) {
             coerceFrom(topOfStackType, v);
             v.astore(this.type);
         }
@@ -640,7 +639,7 @@ public abstract class StackValue {
         }
 
         @Override
-        public void put(Type type, InstructionAdapter v) {
+        public void put(@NotNull Type type, @NotNull InstructionAdapter v) {
             if (getter == null) {
                 throw new UnsupportedOperationException("no getter specified");
             }
@@ -654,7 +653,7 @@ public abstract class StackValue {
         }
 
         @Override
-        public void store(Type topOfStackType, InstructionAdapter v) {
+        public void store(@NotNull Type topOfStackType, @NotNull InstructionAdapter v) {
             if (setter == null) {
                 throw new UnsupportedOperationException("no setter specified");
             }
@@ -819,13 +818,13 @@ public abstract class StackValue {
         }
 
         @Override
-        public void put(Type type, InstructionAdapter v) {
+        public void put(@NotNull Type type, @NotNull InstructionAdapter v) {
             v.visitFieldInsn(isStatic ? GETSTATIC : GETFIELD, owner.getInternalName(), name, this.type.getDescriptor());
             coerceTo(type, v);
         }
 
         @Override
-        public void store(Type topOfStackType, InstructionAdapter v) {
+        public void store(@NotNull Type topOfStackType, @NotNull InstructionAdapter v) {
             coerceFrom(topOfStackType, v);
             v.visitFieldInsn(isStatic ? PUTSTATIC : PUTFIELD, owner.getInternalName(), name, this.type.getDescriptor());
         }
@@ -856,7 +855,7 @@ public abstract class StackValue {
         }
 
         @Override
-        public void put(Type type, InstructionAdapter v) {
+        public void put(@NotNull Type type, @NotNull InstructionAdapter v) {
             if (getter == null) {
                 assert fieldName != null : "Property should have either a getter or a field name: " + descriptor;
                 v.visitFieldInsn(isStatic ? GETSTATIC : GETFIELD, methodOwner.getInternalName(), fieldName, this.type.getDescriptor());
@@ -870,7 +869,7 @@ public abstract class StackValue {
         }
 
         @Override
-        public void store(Type topOfStackType, InstructionAdapter v) {
+        public void store(@NotNull Type topOfStackType, @NotNull InstructionAdapter v) {
             coerceFrom(topOfStackType, v);
             if (setter == null) {
                 assert fieldName != null : "Property should have either a setter or a field name: " + descriptor;
@@ -897,7 +896,7 @@ public abstract class StackValue {
         }
 
         @Override
-        public void put(Type type, InstructionAdapter v) {
+        public void put(@NotNull Type type, @NotNull InstructionAdapter v) {
             generator.gen(expression, type);
         }
     }
@@ -920,7 +919,7 @@ public abstract class StackValue {
         }
 
         @Override
-        public void put(Type type, InstructionAdapter v) {
+        public void put(@NotNull Type type, @NotNull InstructionAdapter v) {
             v.load(index, OBJECT_TYPE);
             Type refType = refType(this.type);
             Type sharedType = sharedTypeForType(this.type);
@@ -934,7 +933,7 @@ public abstract class StackValue {
         }
 
         @Override
-        public void store(Type topOfStackType, InstructionAdapter v) {
+        public void store(@NotNull Type topOfStackType, @NotNull InstructionAdapter v) {
             coerceFrom(topOfStackType, v);
             v.load(index, OBJECT_TYPE);
             AsmUtil.swap(v, sharedTypeForType(this.type), topOfStackType);
@@ -990,7 +989,7 @@ public abstract class StackValue {
         }
 
         @Override
-        public void put(Type type, InstructionAdapter v) {
+        public void put(@NotNull Type type, @NotNull InstructionAdapter v) {
             Type sharedType = sharedTypeForType(this.type);
             Type refType = refType(this.type);
             v.visitFieldInsn(GETFIELD, sharedType.getInternalName(), "element", refType.getDescriptor());
@@ -999,7 +998,7 @@ public abstract class StackValue {
         }
 
         @Override
-        public void store(Type topOfStackType, InstructionAdapter v) {
+        public void store(@NotNull Type topOfStackType, @NotNull InstructionAdapter v) {
             coerceFrom(topOfStackType, v);
             v.visitFieldInsn(PUTFIELD, sharedTypeForType(type).getInternalName(), "element", refType(type).getDescriptor());
         }
@@ -1016,13 +1015,13 @@ public abstract class StackValue {
         }
 
         @Override
-        public void put(Type type, InstructionAdapter v) {
+        public void put(@NotNull Type type, @NotNull InstructionAdapter v) {
             prefix.put(prefix.type, v);
             suffix.put(type, v);
         }
 
         @Override
-        public void store(Type topOfStackType, InstructionAdapter v) {
+        public void store(@NotNull Type topOfStackType, @NotNull InstructionAdapter v) {
             prefix.put(OBJECT_TYPE, v);
             suffix.store(topOfStackType, v);
         }
@@ -1043,7 +1042,7 @@ public abstract class StackValue {
         }
 
         @Override
-        public void put(Type type, InstructionAdapter v) {
+        public void put(@NotNull Type type, @NotNull InstructionAdapter v) {
             StackValue stackValue = codegen.generateThisOrOuter(descriptor, isSuper);
             stackValue.put(coerceType ? type : stackValue.type, v);
         }
@@ -1060,7 +1059,7 @@ public abstract class StackValue {
         }
 
         @Override
-        public void put(Type type, InstructionAdapter v) {
+        public void put(@NotNull Type type, @NotNull InstructionAdapter v) {
             if (!type.equals(Type.VOID_TYPE)) {
                 v.load(index, Type.INT_TYPE);
                 coerceTo(type, v);
@@ -1080,7 +1079,7 @@ public abstract class StackValue {
         }
 
         @Override
-        public void put(Type type, InstructionAdapter v) {
+        public void put(@NotNull Type type, @NotNull InstructionAdapter v) {
             v.iinc(index, increment);
             if (!type.equals(Type.VOID_TYPE)) {
                 v.load(index, Type.INT_TYPE);
@@ -1135,7 +1134,7 @@ public abstract class StackValue {
         }
 
         @Override
-        public void put(Type type, InstructionAdapter v) {
+        public void put(@NotNull Type type, @NotNull InstructionAdapter v) {
             CallableDescriptor descriptor = resolvedCall.getResultingDescriptor();
 
             ReceiverValue dispatchReceiver = resolvedCall.getDispatchReceiver();
