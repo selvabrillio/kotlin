@@ -185,16 +185,23 @@ public class TopDownAnalyzer {
             @NotNull Collection<JetFile> files,
             @NotNull List<PackageFragmentProvider> additionalProviders
     ) {
+        ModuleDescriptorImpl moduleDescriptorImpl = (ModuleDescriptorImpl) moduleDescriptor;
+
         if (topDownAnalysisParameters.isLazyTopDownAnalysis()) {
             return lazyTopDownAnalyzer.analyzeFiles(
-                    project, topDownAnalysisParameters, files, additionalProviders, additionalCheckerProvider);
+                    project, topDownAnalysisParameters,
+                    files,
+                    moduleDescriptorImpl,
+                    additionalProviders,
+                    trace,
+                    additionalCheckerProvider);
         }
 
         TopDownAnalysisContext c = new TopDownAnalysisContext(topDownAnalysisParameters);
         CompositePackageFragmentProvider provider =
                 new CompositePackageFragmentProvider(KotlinPackage.plus(Arrays.asList(packageFragmentProvider), additionalProviders));
 
-        ((ModuleDescriptorImpl) moduleDescriptor).initialize(provider);
+        moduleDescriptorImpl.initialize(provider);
 
         // dummy builder is used because "root" is module descriptor,
         // packages added to module explicitly in
@@ -208,7 +215,6 @@ public class TopDownAnalyzer {
     public MutablePackageFragmentProvider getPackageFragmentProvider() {
         return packageFragmentProvider;
     }
-
 }
 
 
