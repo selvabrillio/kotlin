@@ -58,12 +58,23 @@ public enum TopDownAnalyzerFacadeForJVM {
 
     @NotNull
     public static AnalyzeExhaust analyzeFilesWithJavaIntegration(
-            Project project,
-            Collection<JetFile> files,
-            BindingTrace trace,
-            Predicate<PsiFile> filesToAnalyzeCompletely,
-            ModuleDescriptorImpl module,
-            List<String> moduleIds,
+            @NotNull Project project,
+            @NotNull Collection<JetFile> files,
+            @NotNull BindingTrace trace,
+            @NotNull TopDownAnalysisParameters topDownAnalysisParameters,
+            @NotNull ModuleDescriptorImpl module
+    ) {
+        return analyzeFilesWithJavaIntegration(project, files, trace, topDownAnalysisParameters, module, null, null);
+    }
+
+    @NotNull
+    public static AnalyzeExhaust analyzeFilesWithJavaIntegration(
+            @NotNull Project project,
+            @NotNull Collection<JetFile> files,
+            @NotNull BindingTrace trace,
+            @NotNull Predicate<PsiFile> filesToAnalyzeCompletely,
+            @NotNull ModuleDescriptorImpl module,
+            @Nullable List<String> moduleIds,
             @Nullable IncrementalCacheProvider incrementalCacheProvider
     ) {
         GlobalContext globalContext = ContextPackage.GlobalContext();
@@ -75,6 +86,20 @@ public enum TopDownAnalyzerFacadeForJVM {
                 false
         );
 
+        return analyzeFilesWithJavaIntegration(
+                project, files, trace, topDownAnalysisParameters, module, moduleIds, incrementalCacheProvider);
+    }
+
+    @NotNull
+    private static AnalyzeExhaust analyzeFilesWithJavaIntegration(
+            Project project,
+            Collection<JetFile> files,
+            BindingTrace trace,
+            TopDownAnalysisParameters topDownAnalysisParameters,
+            ModuleDescriptorImpl module,
+            @Nullable List<String> moduleIds,
+            @Nullable IncrementalCacheProvider incrementalCacheProvider
+    ) {
         InjectorForTopDownAnalyzerForJvm injector = new InjectorForTopDownAnalyzerForJvm(project, topDownAnalysisParameters, trace, module);
         try {
             List<PackageFragmentProvider> additionalProviders = new ArrayList<PackageFragmentProvider>();
@@ -85,7 +110,7 @@ public enum TopDownAnalyzerFacadeForJVM {
 
                     additionalProviders.add(
                             new IncrementalPackageFragmentProvider(
-                                    files, module, globalContext.getStorageManager(), injector.getDeserializationGlobalContextForJava(),
+                                    files, module, topDownAnalysisParameters.getStorageManager(), injector.getDeserializationGlobalContextForJava(),
                                     incrementalCache, moduleId, injector.getJavaDescriptorResolver()
                             )
                     );
