@@ -27,6 +27,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiFileFactory;
 import com.intellij.psi.impl.PsiFileFactoryImpl;
+import com.intellij.psi.search.ProjectScope;
 import com.intellij.testFramework.LightVirtualFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -41,17 +42,22 @@ import org.jetbrains.jet.codegen.CompilationErrorHandler;
 import org.jetbrains.jet.codegen.KotlinCodegenFacade;
 import org.jetbrains.jet.codegen.state.GenerationState;
 import org.jetbrains.jet.config.CompilerConfiguration;
+import org.jetbrains.jet.context.ContextPackage;
+import org.jetbrains.jet.context.GlobalContextImpl;
 import org.jetbrains.jet.di.InjectorForTopDownAnalyzerForJvm;
 import org.jetbrains.jet.lang.descriptors.ScriptDescriptor;
 import org.jetbrains.jet.lang.descriptors.impl.CompositePackageFragmentProvider;
 import org.jetbrains.jet.lang.descriptors.impl.ModuleDescriptorImpl;
-import org.jetbrains.jet.lang.descriptors.impl.PackageLikeBuilderDummy;
 import org.jetbrains.jet.lang.parsing.JetParserDefinition;
 import org.jetbrains.jet.lang.psi.JetFile;
 import org.jetbrains.jet.lang.psi.JetScript;
 import org.jetbrains.jet.lang.resolve.*;
 import org.jetbrains.jet.lang.resolve.java.JvmClassName;
 import org.jetbrains.jet.lang.resolve.java.TopDownAnalyzerFacadeForJVM;
+import org.jetbrains.jet.lang.resolve.lazy.data.JetClassLikeInfo;
+import org.jetbrains.jet.lang.resolve.lazy.declarations.ClassMemberDeclarationProvider;
+import org.jetbrains.jet.lang.resolve.lazy.declarations.DeclarationProviderFactory;
+import org.jetbrains.jet.lang.resolve.lazy.declarations.PackageMemberDeclarationProvider;
 import org.jetbrains.jet.lang.resolve.name.FqName;
 import org.jetbrains.jet.lang.resolve.scopes.JetScope;
 import org.jetbrains.jet.lang.resolve.scopes.WritableScope;
@@ -59,8 +65,6 @@ import org.jetbrains.jet.lang.resolve.scopes.WritableScopeImpl;
 import org.jetbrains.jet.lang.types.JetType;
 import org.jetbrains.jet.lang.types.lang.KotlinBuiltIns;
 import org.jetbrains.jet.plugin.JetLanguage;
-import org.jetbrains.jet.storage.ExceptionTracker;
-import org.jetbrains.jet.storage.LockBasedStorageManager;
 import org.jetbrains.jet.utils.UtilsPackage;
 import org.jetbrains.org.objectweb.asm.Type;
 
@@ -92,8 +96,10 @@ public class ReplInterpreter {
     private final PsiFileFactoryImpl psiFileFactory;
     private final BindingTraceContext trace;
     private final ModuleDescriptorImpl module;
+
     private final TopDownAnalysisContext topDownAnalysisContext;
-    private final TopDownAnalyzer topDownAnalyzer;
+    private final LazyTopDownAnalyzer topDownAnalyzer;
+    private final ScriptDeclarationProviderFactory scriptDeclarationFactory;
 
     public ReplInterpreter(@NotNull Disposable disposable, @NotNull CompilerConfiguration configuration) {
         JetCoreEnvironment environment = JetCoreEnvironment.createForProduction(disposable, configuration);
@@ -101,18 +107,32 @@ public class ReplInterpreter {
         this.psiFileFactory = (PsiFileFactoryImpl) PsiFileFactory.getInstance(project);
         this.trace = new BindingTraceContext();
         this.module = TopDownAnalyzerFacadeForJVM.createJavaModule("<repl>");
+
+        GlobalContextImpl context = ContextPackage.GlobalContext();
+
         TopDownAnalysisParameters topDownAnalysisParameters = TopDownAnalysisParameters.createForLocalDeclarations(
-                new LockBasedStorageManager(),
-                new ExceptionTracker(), // dummy
+                context.getStorageManager(),
+                context.getExceptionTracker(),
                 Predicates.<PsiFile>alwaysTrue()
         );
-        InjectorForTopDownAnalyzerForJvm injector = new InjectorForTopDownAnalyzerForJvm(project, topDownAnalysisParameters, trace, module);
+
+        scriptDeclarationFactory = new ScriptDeclarationProviderFactory();
+
+        InjectorForTopDownAnalyzerForJvm injector = new InjectorForTopDownAnalyzerForJvm(
+                project,
+                context,
+                trace,
+                module,
+                ProjectScope.getAllScope(project),
+                scriptDeclarationFactory
+                );
+
         this.topDownAnalysisContext = new TopDownAnalysisContext(topDownAnalysisParameters);
-        this.topDownAnalyzer = injector.getTopDownAnalyzer();
+        this.topDownAnalyzer = injector.getLazyTopDownAnalyzer();
 
         module.initialize(new CompositePackageFragmentProvider(
                 Arrays.asList(
-                        topDownAnalyzer.getPackageFragmentProvider(),
+                        injector.getResolveSession().getPackageFragmentProvider(),
                         injector.getJavaDescriptorResolver().getPackageFragmentProvider()
                 )
         ));
@@ -339,7 +359,10 @@ public class ReplInterpreter {
 
         // dummy builder is used because "root" is module descriptor,
         // packages added to module explicitly in
-        topDownAnalyzer.doProcess(topDownAnalysisContext, scope, new PackageLikeBuilderDummy(), Collections.singletonList(psiFile));
+
+        // TODO: Make repl work
+        //topDownAnalyzer.analyzeDeclarations(
+        //        topDownAnalysisContext.getTopDownAnalysisParameters(), scope, new PackageLikeBuilderDummy(), Collections.singletonList(psiFile));
 
         boolean hasErrors = AnalyzerWithCompilerReport.reportDiagnostics(trace.getBindingContext().getDiagnostics(), messageCollector);
         if (hasErrors) {
@@ -396,4 +419,23 @@ public class ReplInterpreter {
         );
     }
 
+    private static class ScriptDeclarationProviderFactory implements DeclarationProviderFactory {
+        private DeclarationProviderFactory delegateFactory;
+
+        public void setDelegateFactory(DeclarationProviderFactory delegateFactory) {
+            this.delegateFactory = delegateFactory;
+        }
+
+        @NotNull
+        @Override
+        public ClassMemberDeclarationProvider getClassMemberDeclarationProvider(@NotNull JetClassLikeInfo classLikeInfo) {
+            return delegateFactory.getClassMemberDeclarationProvider(classLikeInfo);
+        }
+
+        @Nullable
+        @Override
+        public PackageMemberDeclarationProvider getPackageMemberDeclarationProvider(@NotNull FqName packageFqName) {
+            return delegateFactory.getPackageMemberDeclarationProvider(packageFqName);
+        }
+    }
 }

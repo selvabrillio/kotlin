@@ -18,12 +18,12 @@ package org.jetbrains.jet.lang.resolve;
 
 import org.jetbrains.jet.lang.psi.JetDeclaration;
 import org.jetbrains.jet.lang.psi.JetPsiUtil;
-import org.jetbrains.jet.lang.resolve.lazy.ResolveSession;
+import org.jetbrains.jet.lang.resolve.lazy.KotlinCodeAnalyzer;
 import org.jetbrains.jet.util.slicedmap.ReadOnlySlice;
 import org.jetbrains.jet.util.slicedmap.WritableSlice;
 
 public class CliClassGenerationSupportTrace extends BindingTraceContext {
-    private ResolveSession resolveSession;
+    private KotlinCodeAnalyzer kotlinCodeAnalyzer;
 
     @Override
     public <K, V> void record(WritableSlice<K, V> slice, K key, V value) {
@@ -39,18 +39,18 @@ public class CliClassGenerationSupportTrace extends BindingTraceContext {
         return CliClassGenerationSupportTrace.class.getName();
     }
 
-    public void setResolveSession(ResolveSession resolveSession) {
-        this.resolveSession = resolveSession;
+    public void setKotlinCodeAnalyzer(KotlinCodeAnalyzer kotlinCodeAnalyzer) {
+        this.kotlinCodeAnalyzer = kotlinCodeAnalyzer;
     }
 
     @Override
     public <K, V> V get(ReadOnlySlice<K, V> slice, K key) {
-        if (resolveSession != null) {
+        if (kotlinCodeAnalyzer != null) {
             if (BindingContext.FUNCTION == slice || BindingContext.VARIABLE == slice) {
                 if (super.get(slice, key) == null && key instanceof JetDeclaration) {
                     JetDeclaration jetDeclaration = (JetDeclaration) key;
                     if (!JetPsiUtil.isLocal(jetDeclaration)) {
-                        resolveSession.resolveToDescriptor(jetDeclaration);
+                        kotlinCodeAnalyzer.resolveToDescriptor(jetDeclaration);
                     }
                 }
             }

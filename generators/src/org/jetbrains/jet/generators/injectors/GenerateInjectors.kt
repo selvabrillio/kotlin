@@ -79,8 +79,7 @@ private fun DependencyInjectorGenerator.commonForTopDownAnalyzer() {
     publicParameter(javaClass<ModuleDescriptor>(), useAsContext = true)
 
     publicFields(
-            javaClass<TopDownAnalyzer>(),
-            javaClass<LazyTopDownAnalyzer>()
+            javaClass<TopDownAnalyzer>()
     )
 
     field(javaClass<MutablePackageFragmentProvider>())
@@ -117,29 +116,41 @@ private fun generatorForTopDownAnalyzerForJs() =
 
 private fun generatorForTopDownAnalyzerForJvm() =
         generator("compiler/frontend.java/src", "org.jetbrains.jet.di", "InjectorForTopDownAnalyzerForJvm") {
-            commonForTopDownAnalyzer()
+            parameter(javaClass<Project>())
+            parameter(javaClass<GlobalContext>(), useAsContext = true)
+            parameter(javaClass<BindingTrace>())
+            parameter(javaClass<ModuleDescriptorImpl>(), name = "module", useAsContext = true)
+            parameter(javaClass<GlobalSearchScope>(), name = "moduleContentScope")
+            parameter(javaClass<DeclarationProviderFactory>())
 
-            publicField(javaClass<JavaDescriptorResolver>())
-            publicField(javaClass<DeserializationGlobalContextForJava>())
+            publicFields(
+                    javaClass<LazyTopDownAnalyzer>(),
+                    javaClass<ResolveSession>(),
+                    javaClass<JavaDescriptorResolver>(),
+                    javaClass<DeserializationGlobalContextForJava>()
+            )
+
+            field(javaClass<VirtualFileFinder>(),
+                  init = GivenExpression(javaClass<VirtualFileFinderFactory>().getName()
+                                         + ".SERVICE.getInstance(project).create(moduleContentScope)")
+            )
+            fields(
+                    javaClass<JavaClassFinderImpl>(),
+                    javaClass<TraceBasedExternalSignatureResolver>(),
+                    javaClass<LazyResolveBasedCache>(),
+                    javaClass<TraceBasedErrorReporter>(),
+                    javaClass<PsiBasedMethodSignatureChecker>(),
+                    javaClass<PsiBasedExternalAnnotationResolver>(),
+                    javaClass<JavaPropertyInitializerEvaluatorImpl>(),
+                    javaClass<JavaSourceElementFactoryImpl>(),
+                    javaClass<SingleModuleClassResolver>(),
+                    javaClass<MutablePackageFragmentProvider>(),
+                    javaClass<JavaFlexibleTypeCapabilitiesProvider>()
+            )
 
             field(javaClass<AdditionalCheckerProvider>(),
                   init = GivenExpression(javaClass<JavaDeclarationCheckerProvider>().getName() + ".INSTANCE$"))
 
-            field(javaClass <GlobalSearchScope>(),
-                  init = GivenExpression(javaClass<GlobalSearchScope>().getName() + ".allScope(project)"))
-            fields(
-                    javaClass<JavaClassFinderImpl>(),
-                    javaClass<TraceBasedExternalSignatureResolver>(),
-                    javaClass<TraceBasedJavaResolverCache>(),
-                    javaClass<TraceBasedErrorReporter>(),
-                    javaClass<PsiBasedMethodSignatureChecker>(),
-                    javaClass<PsiBasedExternalAnnotationResolver>(),
-                    javaClass<MutablePackageFragmentProvider>(),
-                    javaClass<JavaPropertyInitializerEvaluatorImpl>(),
-                    javaClass<JavaSourceElementFactoryImpl>(),
-                    javaClass<SingleModuleClassResolver>(),
-                    javaClass<JavaFlexibleTypeCapabilitiesProvider>()
-            )
             field(javaClass<VirtualFileFinder>(), init = GivenExpression(javaClass<VirtualFileFinder>().getName() + ".SERVICE.getInstance(project)"))
         }
 

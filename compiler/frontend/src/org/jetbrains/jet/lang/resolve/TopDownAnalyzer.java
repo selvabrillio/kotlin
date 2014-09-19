@@ -58,9 +58,6 @@ public class TopDownAnalyzer {
     @NotNull
     private Project project;
 
-    @NotNull
-    private LazyTopDownAnalyzer lazyTopDownAnalyzer;
-
     @Inject
     public void setTrace(@NotNull BindingTrace trace) {
         this.trace = trace;
@@ -104,11 +101,6 @@ public class TopDownAnalyzer {
     @Inject
     public void setProject(@NotNull Project project) {
         this.project = project;
-    }
-
-    @Inject
-    public void setLazyTopDownAnalyzer(@NotNull LazyTopDownAnalyzer lazyTopDownAnalyzer) {
-        this.lazyTopDownAnalyzer = lazyTopDownAnalyzer;
     }
 
     @Inject
@@ -185,22 +177,13 @@ public class TopDownAnalyzer {
             @NotNull Collection<JetFile> files,
             @NotNull List<PackageFragmentProvider> additionalProviders
     ) {
-        ModuleDescriptorImpl moduleDescriptorImpl = (ModuleDescriptorImpl) moduleDescriptor;
-
-        if (topDownAnalysisParameters.isLazyTopDownAnalysis()) {
-            return lazyTopDownAnalyzer.analyzeFiles(
-                    project, topDownAnalysisParameters,
-                    files,
-                    moduleDescriptorImpl,
-                    additionalProviders,
-                    trace,
-                    additionalCheckerProvider);
-        }
+        assert !topDownAnalysisParameters.isLazyTopDownAnalysis() : "Lazy resolve must be disabled for this method";
 
         TopDownAnalysisContext c = new TopDownAnalysisContext(topDownAnalysisParameters);
         CompositePackageFragmentProvider provider =
                 new CompositePackageFragmentProvider(KotlinPackage.plus(Arrays.asList(packageFragmentProvider), additionalProviders));
 
+        ModuleDescriptorImpl moduleDescriptorImpl = (ModuleDescriptorImpl) moduleDescriptor;
         moduleDescriptorImpl.initialize(provider);
 
         // dummy builder is used because "root" is module descriptor,

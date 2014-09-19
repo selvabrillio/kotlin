@@ -77,6 +77,7 @@ public class LazyTopDownAnalyzer {
     @NotNull
     private BodyResolver bodyResolver = null;
 
+    @Inject
     public void setKotlinCodeAnalyzer(@NotNull KotlinCodeAnalyzer kotlinCodeAnalyzer) {
         this.resolveSession = kotlinCodeAnalyzer;
     }
@@ -136,7 +137,7 @@ public class LazyTopDownAnalyzer {
         setTrace(trace);
 
         if (trace instanceof CliClassGenerationSupportTrace) {
-            ((CliClassGenerationSupportTrace) trace).setResolveSession(resolveSession);
+            ((CliClassGenerationSupportTrace) trace).setKotlinCodeAnalyzer(resolveSession);
         }
 
         CompositePackageFragmentProvider provider =
@@ -150,6 +151,28 @@ public class LazyTopDownAnalyzer {
         );
 
         return c;
+    }
+
+    @NotNull
+    public TopDownAnalysisContext analyzeFiles(
+            @NotNull TopDownAnalysisParameters topDownAnalysisParameters,
+            @NotNull Collection<JetFile> files,
+            @NotNull List<? extends PackageFragmentProvider> additionalProviders
+    ) {
+        if (trace instanceof CliClassGenerationSupportTrace) {
+            ((CliClassGenerationSupportTrace) trace).setKotlinCodeAnalyzer(resolveSession);
+        }
+
+        PackageFragmentProvider provider =
+                additionalProviders.isEmpty() ?
+                resolveSession.getPackageFragmentProvider() :
+                new CompositePackageFragmentProvider(KotlinPackage.plus(
+                        Arrays.asList(resolveSession.getPackageFragmentProvider()),
+                        additionalProviders));
+
+        ((ModuleDescriptorImpl)resolveSession.getModuleDescriptor()).initialize(provider);
+
+        return analyzeDeclarations(topDownAnalysisParameters, files);
     }
 
     @NotNull
