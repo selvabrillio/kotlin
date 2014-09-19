@@ -430,6 +430,11 @@ public class LazyTopDownAnalyzer {
             }
         }
     }
+
+    @NotNull
+    public KotlinCodeAnalyzer getCodeAnalyzer() {
+        return resolveSession;
+    }
 }
 
 
