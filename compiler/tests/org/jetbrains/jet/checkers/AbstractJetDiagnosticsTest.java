@@ -29,8 +29,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.jet.JetTestUtils;
 import org.jetbrains.jet.cli.jvm.compiler.CliLightClassGenerationSupport;
 import org.jetbrains.jet.lang.descriptors.DeclarationDescriptor;
-import org.jetbrains.jet.lang.descriptors.PackageFragmentDescriptor;
-import org.jetbrains.jet.lang.descriptors.PackageFragmentProvider;
 import org.jetbrains.jet.lang.descriptors.PackageViewDescriptor;
 import org.jetbrains.jet.lang.descriptors.impl.ModuleDescriptorImpl;
 import org.jetbrains.jet.lang.diagnostics.*;
@@ -70,9 +68,6 @@ public abstract class AbstractJetDiagnosticsTest extends BaseDiagnosticsTest {
                 }
         );
 
-        CliLightClassGenerationSupport support = CliLightClassGenerationSupport.getInstanceForCli(getProject());
-        BindingTrace supportTrace = support.getTrace();
-
         List<JetFile> allJetFiles = new ArrayList<JetFile>();
         Map<TestModule, ModuleDescriptorImpl> modules = createModules(groupedByModule);
         Map<TestModule, BindingContext> moduleBindings = new HashMap<TestModule, BindingContext>();
@@ -85,19 +80,9 @@ public abstract class AbstractJetDiagnosticsTest extends BaseDiagnosticsTest {
             allJetFiles.addAll(jetFiles);
 
             ModuleDescriptorImpl module = modules.get(testModule);
-            BindingTrace moduleTrace = groupedByModule.size() > 1
-                                           ? new DelegatingBindingTrace(supportTrace.getBindingContext(), "Trace for module " + module)
-                                           : supportTrace;
-            moduleBindings.put(testModule, moduleTrace.getBindingContext());
+            BindingTrace moduleTrace = CliLightClassGenerationSupport.createTrace();
 
-            if (module == null) {
-                module = support.newModule();
-                modules.put(entry.getKey(), module);
-            }
-            else {
-                module.addDependencyOnModule(KotlinBuiltIns.getInstance().getBuiltInsModule());
-                module.seal();
-            }
+            moduleBindings.put(testModule, moduleTrace.getBindingContext());
 
             // New JavaDescriptorResolver is created for each module, which is good because it emulates different Java libraries for each module,
             // albeit with same class names
@@ -119,7 +104,7 @@ public abstract class AbstractJetDiagnosticsTest extends BaseDiagnosticsTest {
         Throwable exceptionFromDescriptorValidation = null;
         try {
             File expectedFile = new File(FileUtil.getNameWithoutExtension(testDataFile.getAbsolutePath()) + ".txt");
-            validateAndCompareDescriptorWithFile(expectedFile, testFiles, support, modules);
+            validateAndCompareDescriptorWithFile(expectedFile, testFiles, modules);
         }
         catch (Throwable e) {
             exceptionFromDescriptorValidation = e;
@@ -137,7 +122,8 @@ public abstract class AbstractJetDiagnosticsTest extends BaseDiagnosticsTest {
 
         assertTrue("Diagnostics mismatch. See the output above", ok);
 
-        checkAllResolvedCallsAreCompleted(allJetFiles, supportTrace.getBindingContext());
+        // TODO:
+        // checkAllResolvedCallsAreCompleted(allJetFiles, trace.getBindingContext());
 
         // now we throw a previously found error, if any
         if (exceptionFromDescriptorValidation != null) {
@@ -148,27 +134,8 @@ public abstract class AbstractJetDiagnosticsTest extends BaseDiagnosticsTest {
     private void validateAndCompareDescriptorWithFile(
             File expectedFile,
             List<TestFile> testFiles,
-            CliLightClassGenerationSupport support,
             Map<TestModule, ModuleDescriptorImpl> modules
     ) {
-        ModuleDescriptorImpl lightClassModule = support.getLightClassModule();
-        if (lightClassModule == null) {
-            ModuleDescriptorImpl cliModule = support.newModule();
-            cliModule.initialize(new PackageFragmentProvider() {
-                @NotNull
-                @Override
-                public List<PackageFragmentDescriptor> getPackageFragments(@NotNull FqName fqName) {
-                    return Collections.emptyList();
-                }
-
-                @NotNull
-                @Override
-                public Collection<FqName> getSubPackagesOf(@NotNull FqName fqName) {
-                    return Collections.emptyList();
-                }
-            });
-        }
-
         RecursiveDescriptorComparator comparator = new RecursiveDescriptorComparator(createdAffectedPackagesConfiguration(testFiles));
 
         boolean isMultiModuleTest = modules.size() != 1;
@@ -176,12 +143,12 @@ public abstract class AbstractJetDiagnosticsTest extends BaseDiagnosticsTest {
 
         for (TestModule module : KotlinPackage.sort(modules.keySet())) {
             ModuleDescriptorImpl moduleDescriptor = modules.get(module);
+            DeclarationDescriptor aPackage = moduleDescriptor.getPackage(FqName.ROOT);
+            assertNotNull(aPackage);
+
             if (isMultiModuleTest) {
                 rootPackageText.append(String.format("// -- Module: %s --\n", moduleDescriptor.getName()));
             }
-
-            DeclarationDescriptor aPackage = moduleDescriptor.getPackage(FqName.ROOT);
-            assertNotNull(aPackage);
 
             String actualSerialized = comparator.serializeRecursively(aPackage);
             rootPackageText.append(actualSerialized);
@@ -220,8 +187,11 @@ public abstract class AbstractJetDiagnosticsTest extends BaseDiagnosticsTest {
         Map<TestModule, ModuleDescriptorImpl> modules = new HashMap<TestModule, ModuleDescriptorImpl>();
 
         for (TestModule testModule : groupedByModule.keySet()) {
-            if (testModule == null) continue;
-            ModuleDescriptorImpl module = TopDownAnalyzerFacadeForJVM.createJavaModule("<" + testModule.getName() + ">");
+            ModuleDescriptorImpl module =
+                    testModule == null ?
+                    TopDownAnalyzerFacadeForJVM.createAnalyzeModule() :
+                    TopDownAnalyzerFacadeForJVM.createJavaModule("<" + testModule.getName() + ">");
+
             modules.put(testModule, module);
         }
 
@@ -233,7 +203,11 @@ public abstract class AbstractJetDiagnosticsTest extends BaseDiagnosticsTest {
             for (TestModule dependency : testModule.getDependencies()) {
                 module.addDependencyOnModule(modules.get(dependency));
             }
+
+            module.addDependencyOnModule(KotlinBuiltIns.getInstance().getBuiltInsModule());
+            module.seal();
         }
+
         return modules;
     }
 

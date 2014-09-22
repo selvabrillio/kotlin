@@ -41,6 +41,7 @@ import org.jetbrains.jet.lang.resolve.kotlin.JavaClassDataFinder;
 import org.jetbrains.jet.lang.resolve.kotlin.AnnotationDescriptorLoader;
 import org.jetbrains.jet.lang.resolve.kotlin.DescriptorLoadersStorage;
 import org.jetbrains.jet.lang.resolve.kotlin.ConstantDescriptorLoader;
+import org.jetbrains.jet.lang.resolve.AnalyzerPostConstruct;
 import org.jetbrains.annotations.NotNull;
 import javax.annotation.PreDestroy;
 
@@ -73,6 +74,7 @@ public class InjectorForJavaDescriptorResolver {
     private final AnnotationDescriptorLoader annotationDescriptorLoader;
     private final DescriptorLoadersStorage descriptorLoadersStorage;
     private final ConstantDescriptorLoader constantDescriptorLoader;
+    private final AnalyzerPostConstruct analyzerPostConstruct;
 
     public InjectorForJavaDescriptorResolver(
         @NotNull Project project,
@@ -103,7 +105,9 @@ public class InjectorForJavaDescriptorResolver {
         this.constantDescriptorLoader = new ConstantDescriptorLoader();
         this.deserializationGlobalContextForJava = new DeserializationGlobalContextForJava(lockBasedStorageManager, getModule(), javaClassDataFinder, annotationDescriptorLoader, constantDescriptorLoader, lazyJavaPackageFragmentProvider);
         this.descriptorLoadersStorage = new DescriptorLoadersStorage(lockBasedStorageManager);
+        this.analyzerPostConstruct = new AnalyzerPostConstruct();
 
+        this.javaClassFinder.setComponentPostConstruct(analyzerPostConstruct);
         this.javaClassFinder.setProject(project);
         this.javaClassFinder.setScope(globalSearchScope);
 
@@ -136,6 +140,8 @@ public class InjectorForJavaDescriptorResolver {
         constantDescriptorLoader.setStorage(descriptorLoadersStorage);
 
         javaClassFinder.initialize();
+
+        analyzerPostConstruct.postCreate();
 
     }
 

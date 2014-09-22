@@ -24,8 +24,6 @@ import com.intellij.psi.util.PsiTreeUtil;
 import kotlin.KotlinPackage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.jetbrains.jet.context.GlobalContextImpl;
-import org.jetbrains.jet.di.InjectorForLazyResolve;
 import org.jetbrains.jet.lang.descriptors.*;
 import org.jetbrains.jet.lang.descriptors.impl.CompositePackageFragmentProvider;
 import org.jetbrains.jet.lang.descriptors.impl.ModuleDescriptorImpl;
@@ -33,12 +31,10 @@ import org.jetbrains.jet.lang.psi.*;
 import org.jetbrains.jet.lang.resolve.calls.CallsPackage;
 import org.jetbrains.jet.lang.resolve.lazy.KotlinCodeAnalyzer;
 import org.jetbrains.jet.lang.resolve.lazy.LazyImportScope;
-import org.jetbrains.jet.lang.resolve.lazy.ResolveSession;
-import org.jetbrains.jet.lang.resolve.lazy.declarations.FileBasedDeclarationProviderFactory;
 import org.jetbrains.jet.lang.resolve.lazy.descriptors.LazyClassDescriptor;
 import org.jetbrains.jet.lang.resolve.name.FqName;
-import org.jetbrains.jet.storage.LockBasedStorageManager;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -114,55 +110,10 @@ public class LazyTopDownAnalyzer {
 
     @NotNull
     public TopDownAnalysisContext analyzeFiles(
-            @NotNull Project project,
-            @NotNull TopDownAnalysisParameters topDownAnalysisParameters,
-            @NotNull Collection<JetFile> files,
-            @NotNull ModuleDescriptorImpl moduleDescriptor,
-            @NotNull List<? extends PackageFragmentProvider> additionalProviders,
-            @NotNull BindingTrace trace,
-            @NotNull AdditionalCheckerProvider additionalCheckerProvider
-    ) {
-        TopDownAnalysisContext c = new TopDownAnalysisContext(topDownAnalysisParameters);
-
-        ResolveSession resolveSession = new InjectorForLazyResolve(
-                project,
-                new GlobalContextImpl((LockBasedStorageManager) c.getStorageManager(), c.getExceptionTracker()), // TODO
-                moduleDescriptor, // TODO
-                new FileBasedDeclarationProviderFactory(c.getStorageManager(), files),
-                trace,
-                additionalCheckerProvider
-        ).getResolveSession();
-
-        setKotlinCodeAnalyzer(resolveSession);
-        setTrace(trace);
-
-        if (trace instanceof CliClassGenerationSupportTrace) {
-            ((CliClassGenerationSupportTrace) trace).setKotlinCodeAnalyzer(resolveSession);
-        }
-
-        CompositePackageFragmentProvider provider =
-                new CompositePackageFragmentProvider(KotlinPackage.plus(Arrays.asList(resolveSession.getPackageFragmentProvider()), additionalProviders));
-
-        moduleDescriptor.initialize(provider);
-
-        analyzeDeclarations(
-                c.getTopDownAnalysisParameters(),
-                files
-        );
-
-        return c;
-    }
-
-    @NotNull
-    public TopDownAnalysisContext analyzeFiles(
             @NotNull TopDownAnalysisParameters topDownAnalysisParameters,
             @NotNull Collection<JetFile> files,
             @NotNull List<? extends PackageFragmentProvider> additionalProviders
     ) {
-        if (trace instanceof CliClassGenerationSupportTrace) {
-            ((CliClassGenerationSupportTrace) trace).setKotlinCodeAnalyzer(resolveSession);
-        }
-
         PackageFragmentProvider provider =
                 additionalProviders.isEmpty() ?
                 resolveSession.getPackageFragmentProvider() :
