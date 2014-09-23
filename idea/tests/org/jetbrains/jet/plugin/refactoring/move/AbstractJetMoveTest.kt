@@ -60,9 +60,21 @@ import org.jetbrains.jet.lang.psi.JetFile
 import org.jetbrains.jet.plugin.search.allScope
 import org.jetbrains.jet.InTextDirectivesUtils
 import org.jetbrains.jet.testing.ConfigLibraryUtil
+import com.intellij.openapi.vfs.newvfs.impl.VfsRootAccess
+import org.jetbrains.jet.JetTestCaseBuilder
 import org.jetbrains.jet.plugin.util.application.runWriteAction
 
 public abstract class AbstractJetMoveTest : MultiFileTestCase() {
+    override fun setUp() {
+        super.setUp()
+        VfsRootAccess.allowRootAccess(JetTestCaseBuilder.getHomeDirectory())
+    }
+
+    override fun tearDown() {
+        VfsRootAccess.disallowRootAccess(JetTestCaseBuilder.getHomeDirectory())
+        super.tearDown()
+    }
+
     protected fun doTest(path: String) {
         fun extractCaretOffset(doc: Document): Int {
             return runWriteAction {
