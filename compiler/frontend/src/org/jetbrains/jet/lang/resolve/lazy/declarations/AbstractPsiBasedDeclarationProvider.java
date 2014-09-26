@@ -41,8 +41,8 @@ public abstract class AbstractPsiBasedDeclarationProvider implements Declaration
     protected static class Index {
         // This mutable state is only modified under inside the computable
         private final List<JetDeclaration> allDeclarations = Lists.newArrayList();
-        private final Multimap<Name, JetNamedFunction> functions = HashMultimap.create();
-        private final Multimap<Name, JetProperty> properties = HashMultimap.create();
+        private final Multimap<Name, JetNamedFunction> functions = ArrayListMultimap.create();  // store order of declaration
+        private final Multimap<Name, JetProperty> properties = ArrayListMultimap.create();      // store order of declaration
         private final Multimap<Name, JetClassLikeInfo> classesAndObjects = ArrayListMultimap.create(); // order matters here
 
         public void putToIndex(@NotNull JetDeclaration declaration) {
