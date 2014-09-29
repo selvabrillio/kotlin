@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2013 JetBrains s.r.o.
+ * Copyright 2010-2014 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,20 +14,6 @@
  * limitations under the License.
  */
 
-package org.jetbrains.jet.plugin.quickfix;
+package org.jetbrains.k2js.translate.utils
 
-import com.intellij.psi.PsiElement;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.jet.plugin.JetBundle;
-
-public abstract class CreateFromUsageFixBase extends JetIntentionAction<PsiElement> {
-    public CreateFromUsageFixBase(@NotNull PsiElement element) {
-        super(element);
-    }
-
-    @NotNull
-    @Override
-    public String getFamilyName() {
-        return JetBundle.message("create.from.usage.family");
-    }
-}
+public val <T> ID: (T) -> T = { it }

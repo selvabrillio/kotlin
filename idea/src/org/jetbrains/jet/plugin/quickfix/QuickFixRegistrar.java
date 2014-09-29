@@ -18,6 +18,7 @@ package org.jetbrains.jet.plugin.quickfix;
 
 import org.jetbrains.jet.lang.psi.JetClass;
 import org.jetbrains.jet.plugin.codeInsight.ImplementMethodsHandler;
+import org.jetbrains.jet.plugin.quickfix.createFromUsage.createFunction.*;
 
 import static org.jetbrains.jet.lang.diagnostics.Errors.*;
 import static org.jetbrains.jet.lexer.JetTokens.*;
@@ -221,6 +222,23 @@ public class QuickFixRegistrar {
         QuickFixes.factories.put(EXPECTED_TYPE_MISMATCH, changeFunctionLiteralReturnTypeFix);
         QuickFixes.factories.put(ASSIGNMENT_TYPE_MISMATCH, changeFunctionLiteralReturnTypeFix);
 
+        QuickFixes.factories.put(UNRESOLVED_REFERENCE, CreateUnaryOperationActionFactory.INSTANCE$);
+        QuickFixes.factories.put(UNRESOLVED_REFERENCE_WRONG_RECEIVER, CreateUnaryOperationActionFactory.INSTANCE$);
+        QuickFixes.factories.put(NO_VALUE_FOR_PARAMETER, CreateUnaryOperationActionFactory.INSTANCE$);
+
+        QuickFixes.factories.put(UNRESOLVED_REFERENCE_WRONG_RECEIVER, CreateBinaryOperationActionFactory.INSTANCE$);
+        QuickFixes.factories.put(UNRESOLVED_REFERENCE, CreateBinaryOperationActionFactory.INSTANCE$);
+        QuickFixes.factories.put(NONE_APPLICABLE, CreateBinaryOperationActionFactory.INSTANCE$);
+        QuickFixes.factories.put(NO_VALUE_FOR_PARAMETER, CreateBinaryOperationActionFactory.INSTANCE$);
+        QuickFixes.factories.put(TOO_MANY_ARGUMENTS, CreateBinaryOperationActionFactory.INSTANCE$);
+
+        QuickFixes.factories.put(UNRESOLVED_REFERENCE_WRONG_RECEIVER, CreateFunctionFromCallActionFactory.INSTANCE$);
+        QuickFixes.factories.put(UNRESOLVED_REFERENCE, CreateFunctionFromCallActionFactory.INSTANCE$);
+        QuickFixes.factories.put(NO_VALUE_FOR_PARAMETER, CreateFunctionFromCallActionFactory.INSTANCE$);
+        QuickFixes.factories.put(TOO_MANY_ARGUMENTS, CreateFunctionFromCallActionFactory.INSTANCE$);
+
+        QuickFixes.factories.put(FUNCTION_EXPECTED, CreateInvokeFunctionActionFactory.INSTANCE$);
+
         QuickFixes.factories.put(TYPE_MISMATCH, new QuickFixFactoryForTypeMismatchError());
 
         QuickFixes.factories.put(AUTOCAST_IMPOSSIBLE, CastExpressionFix.createFactoryForAutoCastImpossible());
@@ -229,15 +247,13 @@ public class QuickFixRegistrar {
 
         QuickFixes.factories.put(MANY_CLASSES_IN_SUPERTYPE_LIST, RemoveSupertypeFix.createFactory());
 
-        QuickFixes.factories.put(NO_GET_METHOD, CreateFunctionFromUsageFix.OBJECT$.createCreateGetFunctionFromUsageFactory());
-        QuickFixes.factories.put(NO_SET_METHOD, CreateFunctionFromUsageFix.OBJECT$.createCreateSetFunctionFromUsageFactory());
-        JetSingleIntentionActionFactory createHasNextFromUsageFactory = CreateFunctionFromUsageFix.OBJECT$.createCreateHasNextFunctionFromUsageFactory();
-        QuickFixes.factories.put(HAS_NEXT_MISSING, createHasNextFromUsageFactory);
-        QuickFixes.factories.put(HAS_NEXT_FUNCTION_NONE_APPLICABLE, createHasNextFromUsageFactory);
-        JetSingleIntentionActionFactory createNextFromUsageFactory = CreateFunctionFromUsageFix.OBJECT$.createCreateNextFunctionFromUsageFactory();
-        QuickFixes.factories.put(NEXT_MISSING, createNextFromUsageFactory);
-        QuickFixes.factories.put(NEXT_NONE_APPLICABLE, createNextFromUsageFactory);
-        QuickFixes.factories.put(ITERATOR_MISSING, CreateFunctionFromUsageFix.OBJECT$.createCreateIteratorFunctionFromUsageFactory());
-        QuickFixes.factories.put(COMPONENT_FUNCTION_MISSING, CreateFunctionFromUsageFix.OBJECT$.createCreateComponentFunctionFromUsageFactory());
+        QuickFixes.factories.put(NO_GET_METHOD, CreateGetFunctionActionFactory.INSTANCE$);
+        QuickFixes.factories.put(NO_SET_METHOD, CreateSetFunctionActionFactory.INSTANCE$);
+        QuickFixes.factories.put(HAS_NEXT_MISSING, CreateHasNextFunctionActionFactory.INSTANCE$);
+        QuickFixes.factories.put(HAS_NEXT_FUNCTION_NONE_APPLICABLE, CreateHasNextFunctionActionFactory.INSTANCE$);
+        QuickFixes.factories.put(NEXT_MISSING, CreateNextFunctionActionFactory.INSTANCE$);
+        QuickFixes.factories.put(NEXT_NONE_APPLICABLE, CreateNextFunctionActionFactory.INSTANCE$);
+        QuickFixes.factories.put(ITERATOR_MISSING, CreateIteratorFunctionActionFactory.INSTANCE$);
+        QuickFixes.factories.put(COMPONENT_FUNCTION_MISSING, CreateComponentFunctionActionFactory.INSTANCE$);
     }
 }
