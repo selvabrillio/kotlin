@@ -25,23 +25,15 @@ import kotlin.KotlinPackage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.jet.context.GlobalContext;
-import org.jetbrains.jet.context.GlobalContextImpl;
-import org.jetbrains.jet.di.InjectorForLazyResolve;
 import org.jetbrains.jet.di.InjectorForTopDownAnalyzerBasic;
-import org.jetbrains.jet.lang.PlatformToKotlinClassMap;
 import org.jetbrains.jet.lang.descriptors.*;
 import org.jetbrains.jet.lang.descriptors.impl.*;
 import org.jetbrains.jet.lang.psi.JetClassOrObject;
 import org.jetbrains.jet.lang.psi.JetFile;
-import org.jetbrains.jet.lang.resolve.lazy.ResolveSession;
-import org.jetbrains.jet.lang.resolve.lazy.declarations.FileBasedDeclarationProviderFactory;
 import org.jetbrains.jet.lang.resolve.name.FqName;
-import org.jetbrains.jet.lang.resolve.name.Name;
 import org.jetbrains.jet.lang.resolve.scopes.JetScope;
 import org.jetbrains.jet.lang.resolve.scopes.WritableScope;
 import org.jetbrains.jet.lang.types.expressions.ExpressionTypingContext;
-import org.jetbrains.jet.lang.types.lang.KotlinBuiltIns;
-import org.jetbrains.jet.storage.LockBasedStorageManager;
 
 import javax.inject.Inject;
 import java.util.*;
@@ -212,7 +204,7 @@ public class TopDownAnalyzer {
                context.scope,
                new PackageLikeBuilder() {
 
-                   @NotNull
+    @NotNull
                    @Override
                    public DeclarationDescriptor getOwnerForChildren() {
                        return containingDeclaration;
@@ -259,40 +251,20 @@ public class TopDownAnalyzer {
             @NotNull Collection<JetFile> files,
             @NotNull List<PackageFragmentProvider> additionalProviders
     ) {
+        if (topDownAnalysisParameters.isLazyTopDownAnalysis()) {
+            return lazyTopDownAnalyzer.analyzeFiles(
+                    project, topDownAnalysisParameters, files, additionalProviders, additionalCheckerProvider);
+        }
+
         TopDownAnalysisContext c = new TopDownAnalysisContext(topDownAnalysisParameters);
+        CompositePackageFragmentProvider provider =
+                new CompositePackageFragmentProvider(KotlinPackage.plus(Arrays.asList(packageFragmentProvider), additionalProviders));
 
-        if (c.getTopDownAnalysisParameters().isLazyTopDownAnalysis()) {
-            ResolveSession resolveSession = new InjectorForLazyResolve(
-                    project,
-                    new GlobalContextImpl((LockBasedStorageManager) c.getStorageManager(), c.getExceptionTracker()), // TODO
-                    (ModuleDescriptorImpl) moduleDescriptor, // TODO
-                    new FileBasedDeclarationProviderFactory(c.getStorageManager(), files),
-                    trace,
-                    additionalCheckerProvider
-            ).getResolveSession();
+        ((ModuleDescriptorImpl) moduleDescriptor).initialize(provider);
 
-            CompositePackageFragmentProvider provider =
-                    new CompositePackageFragmentProvider(KotlinPackage.plus(Arrays.asList(resolveSession.getPackageFragmentProvider()), additionalProviders));
-
-            ((ModuleDescriptorImpl) moduleDescriptor).initialize(provider);
-
-            lazyTopDownAnalyzer.analyzeDeclarations(
-                    resolveSession,
-                    c.getTopDownAnalysisParameters(),
-                    files
-            );
-            return c;
-        }
-        else {
-            CompositePackageFragmentProvider provider =
-                    new CompositePackageFragmentProvider(KotlinPackage.plus(Arrays.asList(packageFragmentProvider), additionalProviders));
-
-            ((ModuleDescriptorImpl) moduleDescriptor).initialize(provider);
-
-            // dummy builder is used because "root" is module descriptor,
-            // packages added to module explicitly in
-            doProcess(c, JetModuleUtil.getSubpackagesOfRootScope(moduleDescriptor), new PackageLikeBuilderDummy(), files);
-        }
+        // dummy builder is used because "root" is module descriptor,
+        // packages added to module explicitly in
+        doProcess(c, JetModuleUtil.getSubpackagesOfRootScope(moduleDescriptor), new PackageLikeBuilderDummy(), files);
 
         return c;
     }
