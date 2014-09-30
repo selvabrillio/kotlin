@@ -446,6 +446,72 @@ public class JvmSmartCompletionTestGenerated extends AbstractJvmSmartCompletionT
         doTest(fileName);
     }
     
+    @TestMetadata("MultipleArgsItem1.kt")
+    public void testMultipleArgsItem1() throws Exception {
+        String fileName = JetTestUtils.navigationMetadata("idea/testData/completion/smart/MultipleArgsItem1.kt");
+        doTest(fileName);
+    }
+    
+    @TestMetadata("MultipleArgsItem10.kt")
+    public void testMultipleArgsItem10() throws Exception {
+        String fileName = JetTestUtils.navigationMetadata("idea/testData/completion/smart/MultipleArgsItem10.kt");
+        doTest(fileName);
+    }
+    
+    @TestMetadata("MultipleArgsItem11.kt")
+    public void testMultipleArgsItem11() throws Exception {
+        String fileName = JetTestUtils.navigationMetadata("idea/testData/completion/smart/MultipleArgsItem11.kt");
+        doTest(fileName);
+    }
+    
+    @TestMetadata("MultipleArgsItem2.kt")
+    public void testMultipleArgsItem2() throws Exception {
+        String fileName = JetTestUtils.navigationMetadata("idea/testData/completion/smart/MultipleArgsItem2.kt");
+        doTest(fileName);
+    }
+    
+    @TestMetadata("MultipleArgsItem3.kt")
+    public void testMultipleArgsItem3() throws Exception {
+        String fileName = JetTestUtils.navigationMetadata("idea/testData/completion/smart/MultipleArgsItem3.kt");
+        doTest(fileName);
+    }
+    
+    @TestMetadata("MultipleArgsItem4.kt")
+    public void testMultipleArgsItem4() throws Exception {
+        String fileName = JetTestUtils.navigationMetadata("idea/testData/completion/smart/MultipleArgsItem4.kt");
+        doTest(fileName);
+    }
+    
+    @TestMetadata("MultipleArgsItem5.kt")
+    public void testMultipleArgsItem5() throws Exception {
+        String fileName = JetTestUtils.navigationMetadata("idea/testData/completion/smart/MultipleArgsItem5.kt");
+        doTest(fileName);
+    }
+    
+    @TestMetadata("MultipleArgsItem6.kt")
+    public void testMultipleArgsItem6() throws Exception {
+        String fileName = JetTestUtils.navigationMetadata("idea/testData/completion/smart/MultipleArgsItem6.kt");
+        doTest(fileName);
+    }
+    
+    @TestMetadata("MultipleArgsItem7.kt")
+    public void testMultipleArgsItem7() throws Exception {
+        String fileName = JetTestUtils.navigationMetadata("idea/testData/completion/smart/MultipleArgsItem7.kt");
+        doTest(fileName);
+    }
+    
+    @TestMetadata("MultipleArgsItem8.kt")
+    public void testMultipleArgsItem8() throws Exception {
+        String fileName = JetTestUtils.navigationMetadata("idea/testData/completion/smart/MultipleArgsItem8.kt");
+        doTest(fileName);
+    }
+    
+    @TestMetadata("MultipleArgsItem9.kt")
+    public void testMultipleArgsItem9() throws Exception {
+        String fileName = JetTestUtils.navigationMetadata("idea/testData/completion/smart/MultipleArgsItem9.kt");
+        doTest(fileName);
+    }
+    
     @TestMetadata("NoConstructorWithQualifier.kt")
     public void testNoConstructorWithQualifier() throws Exception {
         String fileName = JetTestUtils.navigationMetadata("idea/testData/completion/smart/NoConstructorWithQualifier.kt");
@@ -539,6 +605,12 @@ public class JvmSmartCompletionTestGenerated extends AbstractJvmSmartCompletionT
     @TestMetadata("OverloadedMethodCallArgument3.kt")
     public void testOverloadedMethodCallArgument3() throws Exception {
         String fileName = JetTestUtils.navigationMetadata("idea/testData/completion/smart/OverloadedMethodCallArgument3.kt");
+        doTest(fileName);
+    }
+    
+    @TestMetadata("ParameterWithDefaultValue.kt")
+    public void testParameterWithDefaultValue() throws Exception {
+        String fileName = JetTestUtils.navigationMetadata("idea/testData/completion/smart/ParameterWithDefaultValue.kt");
         doTest(fileName);
     }
     
