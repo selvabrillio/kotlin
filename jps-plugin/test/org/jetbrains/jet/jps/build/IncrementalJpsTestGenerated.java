@@ -354,6 +354,18 @@ public class IncrementalJpsTestGenerated extends AbstractIncrementalJpsTest {
                 doTest(fileName);
             }
             
+            @TestMetadata("constantChanged")
+            public void testConstantChanged() throws Exception {
+                String fileName = JetTestUtils.navigationMetadata("jps-plugin/testData/incremental/withJava/kotlinUsedInJava/constantChanged/");
+                doTest(fileName);
+            }
+            
+            @TestMetadata("constantUnchanged")
+            public void testConstantUnchanged() throws Exception {
+                String fileName = JetTestUtils.navigationMetadata("jps-plugin/testData/incremental/withJava/kotlinUsedInJava/constantUnchanged/");
+                doTest(fileName);
+            }
+            
             @TestMetadata("notChangeSignature")
             public void testNotChangeSignature() throws Exception {
                 String fileName = JetTestUtils.navigationMetadata("jps-plugin/testData/incremental/withJava/kotlinUsedInJava/notChangeSignature/");
