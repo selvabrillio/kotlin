@@ -9,6 +9,7 @@ import org.jetbrains.jet.lang.diagnostics.Errors
 import org.jetbrains.jet.lang.types.Variance
 import org.jetbrains.jet.plugin.quickfix.QuickFixUtil
 import org.jetbrains.jet.lang.psi.JetForExpression
+import org.jetbrains.jet.plugin.quickfix.createFromUsage.callableBuilder.*
 
 object CreateNextFunctionActionFactory : JetSingleIntentionActionFactory() {
     override fun createAction(diagnostic: Diagnostic): IntentionAction? {
@@ -18,6 +19,6 @@ object CreateNextFunctionActionFactory : JetSingleIntentionActionFactory() {
         val forExpr = QuickFixUtil.getParentElementOfType(diagnostic, javaClass<JetForExpression>()) ?: return null
         val variableExpr: JetExpression = ((forExpr.getLoopParameter() ?: forExpr.getMultiParameter()) ?: return null) as JetExpression
         val returnType = TypeInfo(variableExpr, Variance.OUT_VARIANCE)
-        return CreateFunctionFromUsageFix(forExpr, FunctionInfo("next", ownerType, returnType))
+        return CreateFunctionFromUsageFix(forExpr, createFunctionInfo("next", ownerType, returnType))
     }
 }

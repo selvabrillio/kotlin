@@ -9,6 +9,7 @@ import org.jetbrains.jet.plugin.quickfix.QuickFixUtil
 import org.jetbrains.jet.lang.psi.JetMultiDeclaration
 import org.jetbrains.jet.lang.psi.JetForExpression
 import org.jetbrains.jet.lang.types.Variance
+import org.jetbrains.jet.plugin.quickfix.createFromUsage.callableBuilder.*
 
 object CreateComponentFunctionActionFactory : JetSingleIntentionActionFactory() {
     override fun createAction(diagnostic: Diagnostic): IntentionAction? {
@@ -33,6 +34,6 @@ object CreateComponentFunctionActionFactory : JetSingleIntentionActionFactory() 
         val entry = entries[componentNumber]
         val returnType = TypeInfo(entry, Variance.OUT_VARIANCE)
 
-        return CreateFunctionFromUsageFix(multiDeclaration!!, FunctionInfo(name.getIdentifier(), ownerType, returnType))
+        return CreateFunctionFromUsageFix(multiDeclaration!!, createFunctionInfo(name.getIdentifier(), ownerType, returnType))
     }
 }

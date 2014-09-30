@@ -10,6 +10,7 @@ import org.jetbrains.jet.lang.psi.JetBinaryExpression
 import org.jetbrains.jet.lang.types.Variance
 import java.util.Collections
 import org.jetbrains.jet.lang.psi.JetUnaryExpression
+import org.jetbrains.jet.plugin.quickfix.createFromUsage.callableBuilder.*
 
 public object CreateUnaryOperationActionFactory: JetSingleIntentionActionFactory() {
     override fun createAction(diagnostic: Diagnostic): IntentionAction? {
@@ -22,6 +23,6 @@ public object CreateUnaryOperationActionFactory: JetSingleIntentionActionFactory
 
         val receiverType = TypeInfo(receiverExpr, Variance.IN_VARIANCE)
         val returnType = if (incDec) TypeInfo.ByReceiverType(Variance.OUT_VARIANCE) else TypeInfo(callExpr, Variance.OUT_VARIANCE)
-        return CreateFunctionFromUsageFix(callExpr, FunctionInfo(operationName.asString(), receiverType, returnType))
+        return CreateFunctionFromUsageFix(callExpr, createFunctionInfo(operationName.asString(), receiverType, returnType))
     }
 }

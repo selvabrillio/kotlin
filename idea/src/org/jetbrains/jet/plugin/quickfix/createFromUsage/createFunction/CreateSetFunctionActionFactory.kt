@@ -9,6 +9,7 @@ import org.jetbrains.jet.lang.types.Variance
 import java.util.ArrayList
 import org.jetbrains.jet.lang.psi.JetBinaryExpression
 import org.jetbrains.jet.lang.types.lang.KotlinBuiltIns
+import org.jetbrains.jet.plugin.quickfix.createFromUsage.callableBuilder.*
 
 object CreateSetFunctionActionFactory : JetSingleIntentionActionFactory() {
     override fun createAction(diagnostic: Diagnostic): IntentionAction? {
@@ -26,6 +27,6 @@ object CreateSetFunctionActionFactory : JetSingleIntentionActionFactory() {
         parameters.add(ParameterInfo(valType, "value"))
 
         val returnType = TypeInfo(KotlinBuiltIns.getInstance().getUnitType(), Variance.OUT_VARIANCE)
-        return CreateFunctionFromUsageFix(accessExpr, FunctionInfo("set", arrayType, returnType, parameters))
+        return CreateFunctionFromUsageFix(accessExpr, createFunctionInfo("set", arrayType, returnType, parameters))
     }
 }

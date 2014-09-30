@@ -13,6 +13,7 @@ import org.jetbrains.jet.plugin.caches.resolve.getBindingContext
 import org.jetbrains.jet.lang.types.TypeProjectionImpl
 import java.util.Collections
 import org.jetbrains.jet.lang.types.JetTypeImpl
+import org.jetbrains.jet.plugin.quickfix.createFromUsage.callableBuilder.*
 
 object CreateIteratorFunctionActionFactory : JetSingleIntentionActionFactory() {
     override fun createAction(diagnostic: Diagnostic): IntentionAction? {
@@ -31,6 +32,6 @@ object CreateIteratorFunctionActionFactory : JetSingleIntentionActionFactory() {
         val returnJetTypeArguments = Collections.singletonList(returnJetTypeParameterType)
         val newReturnJetType = JetTypeImpl(returnJetType.getAnnotations(), returnJetType.getConstructor(), returnJetType.isNullable(), returnJetTypeArguments, returnJetType.getMemberScope())
         val returnType = TypeInfo(newReturnJetType, Variance.OUT_VARIANCE)
-        return CreateFunctionFromUsageFix(forExpr, FunctionInfo("iterator", iterableType, returnType))
+        return CreateFunctionFromUsageFix(forExpr, createFunctionInfo("iterator", iterableType, returnType))
     }
 }

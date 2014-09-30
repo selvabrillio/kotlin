@@ -1,4 +1,4 @@
-package org.jetbrains.jet.plugin.quickfix.createFromUsage.createFunction
+package org.jetbrains.jet.plugin.quickfix.createFromUsage.callableBuilder
 
 import com.intellij.codeInsight.template.Expression
 import com.intellij.codeInsight.template.ExpressionContext
@@ -139,4 +139,14 @@ private class TypeParameterListExpression(private val typeParameterNamesFromRece
 
     // do not offer the user any choices
     override fun calculateLookupItems(context: ExpressionContext?) = array<LookupElement>()
+}
+
+private object ValVarExpression: Expression() {
+    private val cachedLookupElements = listOf("val", "var").map { LookupElementBuilder.create(it) }.copyToArray<LookupElement>()
+
+    override fun calculateResult(context: ExpressionContext?): Result? = TextResult("val")
+
+    override fun calculateQuickResult(context: ExpressionContext?): Result? = calculateResult(context)
+
+    override fun calculateLookupItems(context: ExpressionContext?): Array<LookupElement>? = cachedLookupElements
 }
