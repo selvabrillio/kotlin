@@ -431,7 +431,8 @@
                           implementation="org.jetbrains.jet.plugin.codeInsight.upDownMover.JetDeclarationMover"
                           order="before jetExpression" />
 
-    <joinLinesHandler implementation="org.jetbrains.jet.plugin.intentions.declarations.JetDeclarationJoinLinesHandler"/>
+    <joinLinesHandler implementation="org.jetbrains.jet.plugin.joinLines.JoinDeclarationAndAssignmentHandler"/>
+    <joinLinesHandler implementation="org.jetbrains.jet.plugin.joinLines.JoinBlockIntoSingleStatementHandler"/>
 
     <targetElementEvaluator
         language="jet"
