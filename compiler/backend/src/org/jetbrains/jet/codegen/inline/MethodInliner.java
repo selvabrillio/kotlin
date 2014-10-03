@@ -355,9 +355,17 @@ public class MethodInliner {
         }
 
         AbstractInsnNode cur = node.instructions.getFirst();
-        int index = 0;
-        Set<LabelNode> possibleDeadLabels = new HashSet<LabelNode>();
 
+        Set<LabelNode> possibleDeadLabels = new HashSet<LabelNode>();
+        Map<AbstractInsnNode, Integer> originalIndexes = new HashMap();
+        ListIterator<AbstractInsnNode> insIterator = node.instructions.iterator();
+        int index = 0;
+        while (insIterator.hasNext()) {
+            AbstractInsnNode next = insIterator.next();
+            originalIndexes.put(next, index++);
+        }
+
+        index = 0;
         while (cur != null) {
             Frame<SourceValue> frame = sources[index];
 
@@ -372,18 +380,8 @@ public class MethodInliner {
                     if (isInvokeOnLambda(owner, name) /*&& methodInsnNode.owner.equals(INLINE_RUNTIME)*/) {
                         SourceValue sourceValue = frame.getStack(frame.getStackSize() - paramLength);
 
-                        LambdaInfo lambdaInfo = null;
                         int varIndex = -1;
-
-                        if (sourceValue.insns.size() == 1) {
-                            AbstractInsnNode insnNode = sourceValue.insns.iterator().next();
-
-                            lambdaInfo = getLambdaIfExists(insnNode);
-                            if (lambdaInfo != null) {
-                                //remove inlinable access
-                                node.instructions.remove(insnNode);
-                            }
-                        }
+                        LambdaInfo lambdaInfo = removeLambdaNodeAndSwapLikeInstruction(node, sources, originalIndexes, sourceValue);
 
                         invokeCalls.add(new InvokeCall(varIndex, lambdaInfo));
                     }
@@ -438,6 +436,32 @@ public class MethodInliner {
         }
 
         return node;
+    }
+
+    //see StackValue.CallReceiver for SwapLikeInstruction
+    private LambdaInfo removeLambdaNodeAndSwapLikeInstruction(
+            MethodNode node,
+            Frame<SourceValue>[] sources,
+            Map<AbstractInsnNode, Integer> originalIndexes,
+            SourceValue sourceValue
+    ) {
+        LambdaInfo lambdaInfo = null;
+        if (sourceValue.insns.size() == 1) {
+            AbstractInsnNode insnNode = sourceValue.insns.iterator().next();
+            if (insnNode.getOpcode() == Opcodes.SWAP) {
+                Integer insIndex = originalIndexes.get(insnNode);
+                SourceValue sourceOfSwapValue = sources[insIndex].getStack(1);
+                lambdaInfo = removeLambdaNodeAndSwapLikeInstruction(node, sources, originalIndexes, sourceOfSwapValue);
+            } else {
+                lambdaInfo = getLambdaIfExists(insnNode);
+            }
+
+            if (lambdaInfo != null) {
+                //remove inlinable access or swap
+                node.instructions.remove(insnNode);
+            }
+        }
+        return lambdaInfo;
     }
 
     public LambdaInfo getLambdaIfExists(AbstractInsnNode insnNode) {

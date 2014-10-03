@@ -60,18 +60,6 @@ public abstract class StackValue {
     public abstract void put(Type type, InstructionAdapter v);
 
     /**
-     * This method is called to put the value on the top of the JVM stack if <code>depth</code> other values have been put on the
-     * JVM stack after this value was generated.
-     *
-     * @param type  the type as which the value should be put
-     * @param v     the visitor used to genClassOrObject the instructions
-     * @param depth the number of new values put onto the stack
-     */
-    protected void moveToTopOfStack(Type type, InstructionAdapter v, int depth) {
-        put(type, v);
-    }
-
-    /**
      * Set this value from the top of the stack.
      */
     public void store(Type topOfStackType, InstructionAdapter v) {
@@ -405,22 +393,6 @@ public abstract class StackValue {
         @Override
         public void put(Type type, InstructionAdapter v) {
             coerceTo(type, v);
-        }
-
-        @Override
-        public void moveToTopOfStack(Type type, InstructionAdapter v, int depth) {
-            if (depth == 0) {
-                put(type, v);
-            }
-            else if (depth == 1) {
-                if (type.getSize() != 1) {
-                    throw new UnsupportedOperationException("don't know how to move type " + type + " to top of stack");
-                }
-                v.swap();
-            }
-            else {
-                throw new UnsupportedOperationException("unsupported move-to-top depth " + depth);
-            }
         }
     }
 
@@ -1129,7 +1101,14 @@ public abstract class StackValue {
 
             ReceiverValue dispatchReceiver = resolvedCall.getDispatchReceiver();
             ReceiverValue extensionReceiver = resolvedCall.getExtensionReceiver();
-            int depth = 0;
+            int extensionReceiverSize = 0;
+            if (putReceiverArgumentOnStack && extensionReceiver.exists()) {
+                genReceiver(v, extensionReceiver, type, descriptor.getExtensionReceiverParameter());
+                extensionReceiverSize += type.getSize();
+            }
+
+            boolean dispatchReceiverGenerated = false;
+
             if (dispatchReceiver.exists()) {
                 if (!AnnotationsPackage.isPlatformStaticInObject(descriptor)) {
                     if (extensionReceiver.exists()) {
@@ -1142,9 +1121,9 @@ public abstract class StackValue {
                         codegen.generateReceiverValue(dispatchReceiver, resultType);
                     }
                     else {
-                        genReceiver(v, dispatchReceiver, type, null, 0);
+                        genReceiver(v, dispatchReceiver, type, null);
                     }
-                    depth = 1;
+                    dispatchReceiverGenerated = true;
                 }
             }
             else if (isLocalFunCall(callableMethod)) {
@@ -1154,20 +1133,27 @@ public abstract class StackValue {
                 assert value != null : "Local fun should be found in locals or in captured params: " + resolvedCall;
                 value.put(callableMethod.getGenerateCalleeType(), v);
 
-                depth = 1;
+                dispatchReceiverGenerated = true;
             }
 
-            if (putReceiverArgumentOnStack && extensionReceiver.exists()) {
-                genReceiver(v, extensionReceiver, type, descriptor.getExtensionReceiverParameter(), depth);
+            if (dispatchReceiverGenerated && extensionReceiverSize != 0) {
+                if (extensionReceiverSize == 1) {
+                    v.swap();
+                } else if (extensionReceiverSize == 2) {
+                    v.dupX2();
+                    v.pop();
+                } else {
+                    throw new UnsupportedOperationException("Wrong extension receiver size: "  + extensionReceiverSize + ", " + extensionReceiver);
+                }
             }
+
         }
 
         private void genReceiver(
                 @NotNull InstructionAdapter v,
                 @NotNull ReceiverValue receiverArgument,
                 @NotNull Type type,
-                @Nullable ReceiverParameterDescriptor receiverParameter,
-                int depth
+                @Nullable ReceiverParameterDescriptor receiverParameter
         ) {
             if (receiver == StackValue.none()) {
                 if (receiverParameter != null) {
@@ -1180,7 +1166,7 @@ public abstract class StackValue {
                 }
             }
             else {
-                receiver.moveToTopOfStack(type, v, depth);
+                receiver.put(type, v);
             }
         }
     }
