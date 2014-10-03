@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
-package org.jetbrains.jet.asJava
+package org.jetbrains.jet.resolve
 
-import com.intellij.psi.*
-import org.jetbrains.jet.lang.psi.JetDeclaration
+import org.jetbrains.jet.plugin.PluginTestCaseBase
 
-class KotlinLightFieldForDeclaration(
-        manager: PsiManager,
-        origin: JetDeclaration,
-        field: PsiField,
-        containingClass: PsiClass
-) : KotlinLightField<JetDeclaration, PsiField>(manager, origin, field, containingClass) {
-    override fun copy() = KotlinLightFieldForDeclaration(getManager()!!, getOrigin(), getDelegate(), getContainingClass()!!)
+private val FILE_WITH_KOTLIN_CODE = PluginTestCaseBase.getTestDataPathBase() +  "/resolve/referenceInJava/dependencies.kt"
+
+public abstract class AbstractReferenceResolveInJavaTest : AbstractReferenceResolveTest() {
+
+    protected override fun doTest(path: String) {
+        assert(path.endsWith(".java")) { path }
+        myFixture!!.configureByFile(FILE_WITH_KOTLIN_CODE)
+        myFixture!!.configureByFile(path)
+        performChecks()
+    }
 }
