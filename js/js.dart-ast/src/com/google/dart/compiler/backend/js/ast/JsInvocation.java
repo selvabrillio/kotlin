@@ -4,11 +4,11 @@
 
 package com.google.dart.compiler.backend.js.ast;
 
+import com.google.dart.compiler.util.AstUtil;
 import com.intellij.util.SmartList;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public final class JsInvocation extends JsExpressionImpl.JsExpressionHasArguments {
@@ -24,7 +24,7 @@ public final class JsInvocation extends JsExpressionImpl.JsExpressionHasArgument
     }
 
     public JsInvocation(JsExpression qualifier, JsExpression arg) {
-        this(qualifier, Collections.singletonList(arg));
+        this(qualifier, new SmartList<JsExpression>(arg));
     }
 
     public JsInvocation(JsExpression qualifier, JsExpression... arguments) {
@@ -59,5 +59,22 @@ public final class JsInvocation extends JsExpressionImpl.JsExpressionHasArgument
     public void acceptChildren(JsVisitor visitor) {
         visitor.accept(qualifier);
         visitor.acceptList(arguments);
+    }
+
+    @Override
+    public void traverse(JsVisitorWithContext v, JsContext ctx) {
+        if (v.visit(this, ctx)) {
+            qualifier = v.accept(qualifier);
+            v.acceptList(arguments);
+        }
+        v.endVisit(this, ctx);
+    }
+
+    @NotNull
+    @Override
+    public JsInvocation deepCopy() {
+        JsExpression qualifierCopy = AstUtil.deepCopy(qualifier);
+        List<JsExpression> argumentsCopy = AstUtil.deepCopy(arguments);
+        return new JsInvocation(qualifierCopy, argumentsCopy).withMetadataFrom(this);
     }
 }
