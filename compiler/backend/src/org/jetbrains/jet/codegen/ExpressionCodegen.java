@@ -3069,24 +3069,25 @@ public class ExpressionCodegen extends JetVisitor<StackValue, StackValue> implem
 
     @Override
     public StackValue visitPrefixExpression(@NotNull JetPrefixExpression expression, StackValue receiver) {
-        DeclarationDescriptor op = bindingContext.get(REFERENCE_TARGET, expression.getOperationReference());
-        assert op instanceof FunctionDescriptor : String.valueOf(op);
+        DeclarationDescriptor originalOperation = bindingContext.get(REFERENCE_TARGET, expression.getOperationReference());
+        ResolvedCall<?> resolvedCall = getResolvedCallWithAssert(expression, bindingContext);
+        CallableDescriptor op = resolvedCall.getResultingDescriptor();
+
+        assert op instanceof FunctionDescriptor || originalOperation == null : String.valueOf(op);
         Callable callable = resolveToCallable((FunctionDescriptor) op, false);
         if (callable instanceof IntrinsicMethod) {
-            Type returnType = typeMapper.mapType((FunctionDescriptor) op);
+            Type returnType = typeMapper.mapType(op);
             ((IntrinsicMethod) callable).generate(this, v, returnType, expression,
                                                   Collections.singletonList(expression.getBaseExpression()), receiver);
             return StackValue.onStack(returnType);
         }
 
         DeclarationDescriptor cls = op.getContainingDeclaration();
-        ResolvedCall<?> resolvedCall = getResolvedCallWithAssert(expression, bindingContext);
 
-        if (isPrimitiveNumberClassDescriptor(cls) || !(op.getName().asString().equals("inc") || op.getName().asString().equals("dec"))) {
+        if (isPrimitiveNumberClassDescriptor(cls) || !(originalOperation.getName().asString().equals("inc") || originalOperation.getName().asString().equals("dec"))) {
             return invokeFunction(resolvedCall, receiver);
         }
 
-        CallableMethod callableMethod = (CallableMethod) callable;
 
         StackValue value = gen(expression.getBaseExpression());
         value.dupReceiver(v);
@@ -3094,9 +3095,8 @@ public class ExpressionCodegen extends JetVisitor<StackValue, StackValue> implem
 
         Type type = expressionType(expression.getBaseExpression());
         value.put(type, v);
-        callableMethod.invokeWithNotNullAssertion(v, state, resolvedCall);
-
-        value.store(callableMethod.getReturnType(), v);
+        StackValue result = invokeFunction(resolvedCall, StackValue.onStack(type));
+        value.store(result.type, v);
         value.put(type, v);
         return StackValue.onStack(type);
     }
@@ -3117,23 +3117,26 @@ public class ExpressionCodegen extends JetVisitor<StackValue, StackValue> implem
             return StackValue.onStack(base.type);
         }
 
-        DeclarationDescriptor op = bindingContext.get(REFERENCE_TARGET, expression.getOperationReference());
-        if (!(op instanceof FunctionDescriptor)) {
-            throw new UnsupportedOperationException("Don't know how to generate this postfix expression: " + op);
+        DeclarationDescriptor originalOperation = bindingContext.get(REFERENCE_TARGET, expression.getOperationReference());
+        String originalOperationName = originalOperation != null ? originalOperation.getName().asString() : null;
+        ResolvedCall<?> resolvedCall = getResolvedCallWithAssert(expression, bindingContext);
+        DeclarationDescriptor op = resolvedCall.getResultingDescriptor();
+        if (!(op instanceof FunctionDescriptor) || originalOperation == null) {
+            throw new UnsupportedOperationException("Don't know how to generate this postfix expression: " + originalOperationName + " " + op);
         }
 
         Type asmType = expressionType(expression);
         DeclarationDescriptor cls = op.getContainingDeclaration();
 
         int increment;
-        if (op.getName().asString().equals("inc")) {
+        if (originalOperationName.equals("inc")) {
             increment = 1;
         }
-        else if (op.getName().asString().equals("dec")) {
+        else if (originalOperationName.equals("dec")) {
             increment = -1;
         }
         else {
-            throw new UnsupportedOperationException("Unsupported postfix operation: " + op);
+            throw new UnsupportedOperationException("Unsupported postfix operation: " + originalOperationName + " " + op);
         }
 
         boolean isPrimitiveNumberClassDescriptor = isPrimitiveNumberClassDescriptor(cls);
@@ -3161,11 +3164,8 @@ public class ExpressionCodegen extends JetVisitor<StackValue, StackValue> implem
             storeType = type;
         }
         else {
-            ResolvedCall<?> resolvedCall = getResolvedCallWithAssert(expression, bindingContext);
-            Callable callable = resolveToCallable((FunctionDescriptor) op, false);
-            CallableMethod callableMethod = (CallableMethod) callable;
-            callableMethod.invokeWithNotNullAssertion(v, state, resolvedCall);
-            storeType = callableMethod.getReturnType();
+            StackValue result = invokeFunction(resolvedCall, StackValue.onStack(type));
+            storeType = result.type;
         }
 
         value.store(storeType, v);
