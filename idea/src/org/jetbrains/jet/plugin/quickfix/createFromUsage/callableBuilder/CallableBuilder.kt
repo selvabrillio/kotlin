@@ -57,6 +57,8 @@ import com.intellij.psi.PsiElement
 import org.jetbrains.jet.lexer.JetTokens
 import org.jetbrains.jet.plugin.quickfix.createFromUsage.createFunction
 import org.jetbrains.jet.plugin.util.application.runWriteAction
+import org.jetbrains.jet.plugin.refactoring.isMultiLine
+import org.jetbrains.jet.plugin.intentions.declarations.DeclarationUtils
 
 private val TYPE_PARAMETER_LIST_VARIABLE_NAME = "typeParameterList"
 private val TEMPLATE_FROM_USAGE_FUNCTION_BODY = "New Kotlin Function Body.kt"
@@ -91,6 +93,7 @@ class TypeCandidate(val theType: JetType, scope: JetScope? = null) {
 
 class CallableBuilderConfiguration(
         val callableInfo: CallableInfo,
+        val originalExpression: JetExpression,
         val currentFile: JetFile,
         val currentEditor: Editor
 )
@@ -240,25 +243,48 @@ class CallableBuilder(val config: CallableBuilderConfiguration) {
 
         private fun createDeclarationSkeleton(): JetCallableDeclaration {
             with (config) {
+                val assignmentToReplace =
+                        if (containingElement is JetBlockExpression && (config.callableInfo as? PropertyInfo)?.writable ?: false) {
+                            originalExpression as JetBinaryExpression
+                        }
+                        else null
+
                 val ownerTypeString = if (isExtension) "${receiverTypeCandidate!!.renderedType!!}." else ""
                 val paramList = when (callableInfo.kind) {
-                    CallableKind.FUNCTION -> "(${callableInfo.parameterInfos.indices.map { i -> "p$i: Any" }.joinToString(", ")})"
-                    CallableKind.PROPERTY -> ""
+                    CallableKind.FUNCTION ->
+                        "(${(callableInfo as FunctionInfo).parameterInfos.indices.map { i -> "p$i: Any" }.joinToString(", ")})"
+                    CallableKind.PROPERTY ->
+                        ""
                 }
-                val returnTypeString = if (isUnit) "" else ": Any"
+                val returnTypeString = if (isUnit || assignmentToReplace != null) "" else ": Any"
                 val header = "$ownerTypeString${callableInfo.name}$paramList$returnTypeString"
 
                 val psiFactory = JetPsiFactory(currentFile)
 
                 val declaration = when (callableInfo.kind) {
                     CallableKind.FUNCTION -> psiFactory.createFunction("fun $header {}")
-                    CallableKind.PROPERTY -> psiFactory.createProperty("val $header")
+                    CallableKind.PROPERTY -> {
+                        val valVar = if ((callableInfo as PropertyInfo).writable) "var" else "val"
+                        psiFactory.createProperty("$valVar $header")
+                    }
                 }
+
+                if (assignmentToReplace != null) {
+                    (declaration as JetProperty).setInitializer(assignmentToReplace.getRight())
+                    return assignmentToReplace.replace(declaration) as JetCallableDeclaration
+                }
+
                 val newLine = psiFactory.createNewLine()
 
-                fun prepend(element: PsiElement, elementBeforeStart: PsiElement): PsiElement {
+                fun prepend(element: PsiElement, elementBeforeStart: PsiElement, skipInitial: Boolean): PsiElement {
                     val parent = elementBeforeStart.getParent()!!
-                    val anchor = PsiTreeUtil.skipSiblingsForward(elementBeforeStart, javaClass<PsiWhiteSpace>())
+                    val anchor =
+                            if (!skipInitial && elementBeforeStart !is PsiWhiteSpace) {
+                                elementBeforeStart
+                            }
+                            else {
+                                PsiTreeUtil.skipSiblingsForward(elementBeforeStart, javaClass<PsiWhiteSpace>())
+                            }
                     val addedElement = parent.addBefore(element, anchor)!!
                     parent.addAfter(newLine, addedElement)
                     parent.addAfter(newLine, addedElement)
@@ -291,12 +317,27 @@ class CallableBuilder(val config: CallableBuilderConfiguration) {
                             classBody = containingElement.add(psiFactory.createEmptyClassBody()) as JetClassBody
                             containingElement.addBefore(psiFactory.createWhiteSpace(), classBody)
                         }
-                        val rBrace = classBody!!.getRBrace()
-                        return (rBrace?.let { append(declaration, it, true) }
-                                ?: append(declaration, classBody!!.getLastChild()!!, false)) as JetCallableDeclaration
+
+                        if (declaration is JetNamedFunction) {
+                            val rBrace = classBody!!.getRBrace()
+                            return (rBrace?.let { append(declaration, it, true) }
+                                    ?: append(declaration, classBody!!.getLastChild()!!, false)) as JetCallableDeclaration
+                        }
+                        return prepend(declaration, classBody!!.getLBrace()!!, true) as JetCallableDeclaration
                     }
 
-                    is JetBlockExpression -> return prepend(declaration, containingElement.getLBrace()!!) as JetCallableDeclaration
+                    is JetBlockExpression -> {
+                        val parent = containingElement.getParent()
+                        if (parent is JetFunctionLiteral) {
+                            if (!parent.isMultiLine()) {
+                                parent.addBefore(newLine, containingElement)
+                                parent.addAfter(newLine, containingElement)
+                            }
+
+                            return prepend(declaration, containingElement.getFirstChild()!!, false) as JetCallableDeclaration
+                        }
+                        return prepend(declaration, containingElement.getLBrace()!!, true) as JetCallableDeclaration
+                    }
 
                     else -> throw AssertionError("Invalid containing element: ${containingElement.getText()}")
                 }
@@ -337,8 +378,7 @@ class CallableBuilder(val config: CallableBuilderConfiguration) {
                 }
             }
 
-            if (!isUnit) {
-                returnTypeExpression!!
+            if (returnTypeExpression != null) {
                 val returnTypeRef = declaration.getReturnTypeRef()
                 if (returnTypeRef != null) {
                     val returnType = returnTypeExpression.getTypeFromSelection(
@@ -403,15 +443,29 @@ class CallableBuilder(val config: CallableBuilderConfiguration) {
             func.getBodyExpression()!!.replace(newBodyExpression)
         }
 
-        private fun setupReturnTypeTemplate(builder: TemplateBuilder, declaration: JetCallableDeclaration): TypeExpression {
-            val returnTypeRef = declaration.getReturnTypeRef()!!
-            val returnTypeExpression = TypeExpression(typeCandidates[config.callableInfo.returnTypeInfo]!!)
-            builder.replaceElement(returnTypeRef, returnTypeExpression)
-            return returnTypeExpression
+        private fun setupReturnTypeTemplate(builder: TemplateBuilder, declaration: JetCallableDeclaration): TypeExpression? {
+            val returnTypeRef = declaration.getReturnTypeRef() ?: return null
+            val candidates = typeCandidates[config.callableInfo.returnTypeInfo]!!
+            return when (candidates.size) {
+                0 -> null
+
+                1 -> {
+                    builder.replaceElement(returnTypeRef, candidates.first().renderedType!!)
+                    null
+                }
+
+                else -> {
+                    val returnTypeExpression = TypeExpression(candidates)
+                    builder.replaceElement(returnTypeRef, returnTypeExpression)
+                    returnTypeExpression
+                }
+            }
         }
 
         private fun setupValVarTemplate(builder: TemplateBuilder, property: JetProperty) {
-            builder.replaceElement(property.getValOrVarNode().getPsi()!!, ValVarExpression)
+            if (!(config.callableInfo as PropertyInfo).writable) {
+                builder.replaceElement(property.getValOrVarNode().getPsi()!!, ValVarExpression)
+            }
         }
 
         private fun setupTypeParameterListTemplate(builder: TemplateBuilderImpl, declaration: JetCallableDeclaration): TypeParameterListExpression {

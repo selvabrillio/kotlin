@@ -1,6 +1,5 @@
 package org.jetbrains.jet.plugin.quickfix.createFromUsage.createFunction
 
-import com.intellij.psi.PsiElement
 import org.jetbrains.jet.plugin.quickfix.createFromUsage.CreateFromUsageFixBase
 import org.jetbrains.jet.lang.psi.JetFile
 import com.intellij.openapi.editor.Editor
@@ -14,22 +13,29 @@ import org.jetbrains.jet.plugin.refactoring.chooseContainerElementIfNecessary
 import org.jetbrains.jet.plugin.refactoring.getExtractionContainers
 import org.jetbrains.jet.lang.psi.JetClassBody
 import org.jetbrains.jet.plugin.quickfix.createFromUsage.callableBuilder.*
+import org.jetbrains.jet.lang.psi.JetExpression
 
-public class CreateFunctionFromUsageFix(element: PsiElement, val functionInfo: CallableInfo) : CreateFromUsageFixBase(element) {
+public class CreateCallableFromUsageFix(
+        originalExpression: JetExpression,
+        val callableInfo: CallableInfo) : CreateFromUsageFixBase(originalExpression) {
     override fun getText(): String {
-        return JetBundle.message("create.function.from.usage", functionInfo.name)
+        val key = when (callableInfo.kind) {
+            CallableKind.FUNCTION -> "create.function.from.usage"
+            CallableKind.PROPERTY -> "create.property.from.usage"
+        }
+        return JetBundle.message(key, callableInfo.name)
     }
 
     override fun invoke(project: Project, editor: Editor?, file: JetFile?) {
-        val functionBuilder = CallableBuilderConfiguration(functionInfo, file!!, editor!!).createBuilder()
+        val callableBuilder = CallableBuilderConfiguration(callableInfo, element as JetExpression, file!!, editor!!).createBuilder()
 
         fun runBuilder(placement: CallablePlacement) {
-            functionBuilder.placement = placement
-            CommandProcessor.getInstance().executeCommand(project, { functionBuilder.build() }, getText(), null)
+            callableBuilder.placement = placement
+            CommandProcessor.getInstance().executeCommand(project, { callableBuilder.build() }, getText(), null)
         }
 
         val popupTitle = JetBundle.message("choose.target.class.or.trait.title")
-        val receiverTypeCandidates = functionBuilder.computeTypeCandidates(functionInfo.receiverTypeInfo)
+        val receiverTypeCandidates = callableBuilder.computeTypeCandidates(callableInfo.receiverTypeInfo)
         if (receiverTypeCandidates.isNotEmpty()) {
             val toPsi: (TypeCandidate) -> JetClassOrObject = {
                 val descriptor = DescriptorUtils.getClassDescriptorForType(it.theType)
@@ -40,9 +46,9 @@ public class CreateFunctionFromUsageFix(element: PsiElement, val functionInfo: C
             }
         }
         else {
-            assert(functionInfo.receiverTypeInfo is TypeInfo.Empty, "No receiver type candidates: ${element.getText()} in ${file.getText()}")
+            assert(callableInfo.receiverTypeInfo is TypeInfo.Empty, "No receiver type candidates: ${element.getText()} in ${file.getText()}")
 
-            chooseContainerElementIfNecessary(element.getExtractionContainers(), editor, popupTitle, true, { it }) {
+            chooseContainerElementIfNecessary(callableInfo.possibleContainers, editor, popupTitle, true, { it }) {
                 val container = if (it is JetClassBody) it.getParent() as JetClassOrObject else it
                 runBuilder(CallablePlacement.NoReceiver(container))
             }
