@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-package kotlin
+// Externs for closure compiler
 
-/**
- * Concatenates this Char and a String
- */
-public fun Char.plus(string: String) : String = this.toString() + string
+// from QUnit
+function ok() {}

@@ -14,9 +14,15 @@
  * limitations under the License.
  */
 
-package kotlin
+package org.jetbrains.k2js.test.utils
 
-/**
- * Concatenates this Char and a String
- */
-public fun Char.plus(string: String) : String = this.toString() + string
+import com.intellij.util.Consumer
+import com.google.dart.compiler.backend.js.ast.JsNode
+
+class MemoizeConsumer<T: Any> : Consumer<T> {
+    var lastValue: T? = null
+
+    override fun consume(value: T?) {
+        lastValue = value
+    }
+}

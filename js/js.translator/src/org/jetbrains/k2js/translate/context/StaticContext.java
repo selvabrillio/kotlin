@@ -41,8 +41,8 @@ import java.util.Map;
 import static org.jetbrains.jet.lang.resolve.DescriptorToSourceUtils.descriptorToDeclaration;
 import static org.jetbrains.k2js.translate.utils.AnnotationsUtils.*;
 import static org.jetbrains.k2js.translate.utils.JsDescriptorUtils.*;
-import static org.jetbrains.k2js.translate.utils.TranslationUtils.getMangledName;
-import static org.jetbrains.k2js.translate.utils.TranslationUtils.getSuggestedName;
+import static org.jetbrains.k2js.translate.utils.ManglingUtils.getMangledName;
+import static org.jetbrains.k2js.translate.utils.ManglingUtils.getSuggestedName;
 
 /**
  * Aggregates all the static parts of the context.
@@ -279,7 +279,7 @@ public final class StaticContext {
                         return declarePropertyOrPropertyAccessorName(descriptor, nameFromAnnotation, false);
                     }
 
-                    String propertyName =  propertyDescriptor.getName().asString();
+                    String propertyName = getSuggestedName(propertyDescriptor);
 
                     if (!isExtension(propertyDescriptor)) {
                         if (propertyDescriptor.getVisibility() == Visibilities.PRIVATE) {
@@ -288,7 +288,7 @@ public final class StaticContext {
                         return declarePropertyOrPropertyAccessorName(descriptor, propertyName, false);
                     } else {
                         if (descriptor instanceof PropertyDescriptor) {
-                            return declarePropertyOrPropertyAccessorName(descriptor, propertyName, true);
+                            return declarePropertyOrPropertyAccessorName(descriptor, propertyName, false);
                         } else {
                             String propertyJsName = getNameForDescriptor(propertyDescriptor).getIdent();
                             boolean isGetter = descriptor instanceof PropertyGetterDescriptor;

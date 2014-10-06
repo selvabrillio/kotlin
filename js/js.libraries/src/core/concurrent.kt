@@ -16,7 +16,10 @@
 
 package kotlin
 
-/**
- * Concatenates this Char and a String
- */
-public fun Char.plus(string: String) : String = this.toString() + string
+import kotlin.InlineOption.ONLY_LOCAL_RETURN
+
+public annotation class volatile
+
+public annotation class synchronized
+
+public inline fun <R> synchronized(lock: Any, [inlineOptions(ONLY_LOCAL_RETURN)] block: () -> R): R = block()
