@@ -56,11 +56,19 @@ public interface DescriptorRenderer extends Renderer<DeclarationDescriptor> {
             .setWithoutSuperTypes(true)
             .setStartFromName(true).build();
 
-    DescriptorRenderer FQ_NAMES_IN_TYPES = new DescriptorRendererBuilder().build();
+    DescriptorRenderer FQ_NAMES_IN_TYPES = new DescriptorRendererBuilder()
+            .setModifiers(DescriptorRenderer.Modifier.values())
+            .build();
 
-    DescriptorRenderer SHORT_NAMES_IN_TYPES = new DescriptorRendererBuilder().setShortNames(true).setIncludeSynthesizedParameterNames(false).build();
+    DescriptorRenderer SHORT_NAMES_IN_TYPES = new DescriptorRendererBuilder()
+            .setShortNames(true)
+            .setIncludeSynthesizedParameterNames(false)
+            .build();
 
-    DescriptorRenderer DEBUG_TEXT = new DescriptorRendererBuilder().setDebugMode(true).build();
+    DescriptorRenderer DEBUG_TEXT = new DescriptorRendererBuilder()
+            .setModifiers(DescriptorRenderer.Modifier.values())
+            .setDebugMode(true)
+            .build();
 
     DescriptorRenderer FLEXIBLE_TYPES_FOR_CODE = new DescriptorRendererBuilder()
             .setFlexibleTypesForCode(true)
@@ -71,12 +79,16 @@ public interface DescriptorRenderer extends Renderer<DeclarationDescriptor> {
             .setTextFormat(TextFormat.HTML).build();
 
     DescriptorRenderer HTML_NAMES_WITH_SHORT_TYPES = new DescriptorRendererBuilder()
+            .setModifiers(DescriptorRenderer.Modifier.values())
             .setWithDefinedIn(false)
             .setShortNames(true)
             .setRenderClassObjectName(true)
             .setTextFormat(TextFormat.HTML).build();
 
-    DescriptorRenderer HTML = new DescriptorRendererBuilder().setTextFormat(TextFormat.HTML).build();
+    DescriptorRenderer HTML = new DescriptorRendererBuilder()
+            .setModifiers(DescriptorRenderer.Modifier.values())
+            .setTextFormat(TextFormat.HTML)
+            .build();
 
     DescriptorRenderer HTML_FOR_UNINFERRED_TYPE_PARAMS = new DescriptorRendererBuilder()
             .setUninferredTypeParameterAsName(true)

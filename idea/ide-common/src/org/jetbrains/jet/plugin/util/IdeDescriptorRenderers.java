@@ -39,11 +39,13 @@ public class IdeDescriptorRenderers {
 
     public static final DescriptorRenderer SOURCE_CODE = commonBuilder()
             .setShortNames(false)
+            .setModifiers(DescriptorRenderer.Modifier.values())
             .setTypeNormalizer(APPROXIMATE_FLEXIBLE_TYPES)
             .build();
 
     public static final DescriptorRenderer SOURCE_CODE_FOR_TYPE_ARGUMENTS = commonBuilder()
             .setShortNames(false)
+            .setModifiers(DescriptorRenderer.Modifier.values())
             .setTypeNormalizer(APPROXIMATE_FLEXIBLE_TYPES_IN_ARGUMENTS)
             .build();
 

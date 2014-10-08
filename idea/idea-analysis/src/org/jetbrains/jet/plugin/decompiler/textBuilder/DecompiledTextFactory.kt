@@ -61,6 +61,7 @@ public val descriptorRendererForDecompiler: DescriptorRenderer = DescriptorRende
         .setWithDefinedIn(false)
         .setClassWithPrimaryConstructor(true)
         .setTypeNormalizer(IdeDescriptorRenderers.APPROXIMATE_FLEXIBLE_TYPES)
+        .setModifiers(DescriptorRenderer.Modifier.values().toSet())
         .build()
 
 //TODO: should use more accurate way to identify descriptors

@@ -47,9 +47,10 @@ import java.util.List;
 
 public abstract class AbstractAnnotationDescriptorResolveTest extends JetLiteFixture {
     private static final DescriptorRenderer WITH_ANNOTATION_ARGUMENT_TYPES = new DescriptorRendererBuilder()
-                                                                                    .setVerbose(true)
-                                                                                    .setShortNames(true)
-                                                                                    .build();
+            .setVerbose(true)
+            .setShortNames(true)
+            .setModifiers(DescriptorRenderer.Modifier.values())
+            .build();
 
     private static final String PATH = "compiler/testData/resolveAnnotations/testFile.kt";
 

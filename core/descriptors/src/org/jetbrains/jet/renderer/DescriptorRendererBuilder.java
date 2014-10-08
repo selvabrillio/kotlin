@@ -28,9 +28,15 @@ import java.util.EnumSet;
 import java.util.Set;
 
 public class DescriptorRendererBuilder {
+    public static final Set<DescriptorRenderer.Modifier> DEFAULT_MODIFIERS = EnumSet.of(DescriptorRenderer.Modifier.VISIBILITY,
+                                                                                        DescriptorRenderer.Modifier.MODALITY,
+                                                                                        DescriptorRenderer.Modifier.OVERRIDE,
+                                                                                        DescriptorRenderer.Modifier.INNER,
+                                                                                        DescriptorRenderer.Modifier.MEMBER_KIND);
+
     private boolean shortNames = false;
     private boolean withDefinedIn = true;
-    private Set<DescriptorRenderer.Modifier> modifiers = EnumSet.allOf(DescriptorRenderer.Modifier.class);
+    private Set<DescriptorRenderer.Modifier> modifiers = DEFAULT_MODIFIERS;
     private boolean startFromName = false;
     private boolean debugMode = false;
     private boolean classWithPrimaryConstructor = false;

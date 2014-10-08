@@ -52,6 +52,7 @@ public class LoadBuiltinsTest extends KotlinTestWithEnvironment {
                                 .setOverrideRenderingPolicy(DescriptorRenderer.OverrideRenderingPolicy.RENDER_OPEN_OVERRIDE)
                                 .setVerbose(true)
                                 .setPrettyFunctionTypes(false)
+                                .setModifiers(DescriptorRenderer.Modifier.values())
                                 .build()
                 );
 

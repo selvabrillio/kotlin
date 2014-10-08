@@ -50,6 +50,7 @@ public class RecursiveDescriptorComparator {
             .setExcludedAnnotationClasses(Arrays.asList(new FqName(ExpectedLoadErrorsUtil.ANNOTATION_CLASS_NAME)))
             .setOverrideRenderingPolicy(DescriptorRenderer.OverrideRenderingPolicy.RENDER_OPEN_OVERRIDE)
             .setIncludePropertyConstant(true)
+            .setModifiers(DescriptorRenderer.Modifier.values())
             .setVerbose(true).build();
 
     public static final Configuration DONT_INCLUDE_METHODS_OF_OBJECT = new Configuration(false, false, false, 
