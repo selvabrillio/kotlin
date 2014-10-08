@@ -71,7 +71,7 @@ public class KotlinLightClassForExplicitDeclaration extends KotlinWrappingLightC
         }
 
         FqName fqName = predictFqName(classOrObject);
-        if (fqName == null) return null;
+        if (fqName == null || fqName.isRoot()) return null;
 
         if (classOrObject instanceof JetObjectDeclaration && ((JetObjectDeclaration) classOrObject).isObjectLiteral()) {
             return new KotlinLightClassForAnonymousDeclaration(manager, fqName, classOrObject);

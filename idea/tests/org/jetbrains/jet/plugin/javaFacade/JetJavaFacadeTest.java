@@ -123,6 +123,10 @@ public class JetJavaFacadeTest extends JetLightCodeInsightFixtureTestCase {
         doTestWrapClass();
     }
 
+    public void testEa56152() {
+        doTestCannotWrapClass();
+    }
+
     public void testWrapTopLevelFunWithDefaultParams() {
         doTestWrapMethod(true);
     }
@@ -286,6 +290,14 @@ public class JetJavaFacadeTest extends JetLightCodeInsightFixtureTestCase {
     }
 
     private void doTestWrapClass() {
+        doTestWrapClass(true);
+    }
+
+    private void doTestCannotWrapClass() {
+        doTestWrapClass(false);
+    }
+
+    private void doTestWrapClass(boolean shouldGenerate) {
         myFixture.configureByFile(fileName());
 
         int offset = myFixture.getEditor().getCaretModel().getOffset();
@@ -299,11 +311,16 @@ public class JetJavaFacadeTest extends JetLightCodeInsightFixtureTestCase {
         // Should not fail!
         KotlinLightClass lightClass = (KotlinLightClass) LightClassUtil.getPsiClass(jetClass);
 
-        assertNotNull(String.format("Failed to wrap jetClass '%s' to class", jetClass.getText()), lightClass);
+        if (shouldGenerate) {
+            assertNotNull(String.format("Failed to wrap jetClass '%s' to class", jetClass.getText()), lightClass);
 
-        // This invokes codegen with ClassBuilderMode = LIGHT_CLASSES
-        // No exception/error should happen here
-        lightClass.getDelegate();
+            // This invokes codegen with ClassBuilderMode = LIGHT_CLASSES
+            // No exception/error should happen here
+            lightClass.getDelegate();
+        }
+        else {
+            assertNull(String.format("Wrapping must not succeed for class '%s'", jetClass.getText()), lightClass);
+        }
     }
 
     @NotNull
