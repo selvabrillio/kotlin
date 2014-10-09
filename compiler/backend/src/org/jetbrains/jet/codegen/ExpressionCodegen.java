@@ -2222,7 +2222,8 @@ public class ExpressionCodegen extends JetVisitor<StackValue, StackValue> implem
         boolean isInline = state.isInlineEnabled() &&
                            descriptor instanceof SimpleFunctionDescriptor &&
                            ((SimpleFunctionDescriptor) descriptor).getInlineStrategy().isInline();
-        if (!isInline) return defaultCallGenerator;
+        //TODO: support local fun inlining
+        if (!isInline || isLocalNamedFun(descriptor)) return defaultCallGenerator;
 
         SimpleFunctionDescriptor original = DescriptorUtils.unwrapFakeOverride((SimpleFunctionDescriptor) descriptor.getOriginal());
         return new InlineCodegen(this, state, original, callElement);
@@ -3042,9 +3043,8 @@ public class ExpressionCodegen extends JetVisitor<StackValue, StackValue> implem
                 JetExpression left = binaryExpression.getLeft();
                 JetExpression right = binaryExpression.getRight();
                 Type leftType = expressionType(left);
-                Type rightType = expressionType(right);
 
-                if (leftType.equals(JAVA_STRING_TYPE) && rightType.equals(JAVA_STRING_TYPE)) {
+                if (leftType.equals(JAVA_STRING_TYPE)) {
                     invokeAppend(left);
                     invokeAppend(right);
                     return;
