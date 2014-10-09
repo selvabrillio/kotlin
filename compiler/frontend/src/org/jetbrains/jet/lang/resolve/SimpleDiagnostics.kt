@@ -16,12 +16,18 @@
 
 package org.jetbrains.jet.lang.resolve
 
-import org.jetbrains.jet.lang.psi.JetDeclaration
-import org.jetbrains.jet.lang.descriptors.MemberDescriptor
-import org.jetbrains.jet.lang.diagnostics.DiagnosticSink
+import com.intellij.psi.PsiElement
+import org.jetbrains.jet.lang.diagnostics.Diagnostic
+import java.util.ArrayList
 
-public trait AnnotationChecker {
+public class SimpleDiagnostics(diagnostics: Collection<Diagnostic>) : Diagnostics {
+    //copy to prevent external change
+    private val diagnostics = ArrayList(diagnostics)
+    private val elementsCache = DiagnosticsElementsCache(this)
 
-    public fun check(declaration: JetDeclaration, descriptor: MemberDescriptor, diagnosticHolder: DiagnosticSink);
+    override fun all() = diagnostics
 
+    override fun forElement(psiElement: PsiElement) = elementsCache.getDiagnostics(psiElement)
+
+    override fun noSuppression() = this
 }
