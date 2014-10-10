@@ -2615,12 +2615,6 @@ public class BlackBoxCodegenTestGenerated extends AbstractBlackBoxCodegenTest {
             doTest(fileName);
         }
         
-        @TestMetadata("abstractmethod.kt")
-        public void testAbstractmethod() throws Exception {
-            String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/box/enum/abstractmethod.kt");
-            doTest(fileName);
-        }
-        
         public void testAllFilesPresentInEnum() throws Exception {
             JetTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("compiler/testData/codegen/box/enum"), Pattern.compile("^(.+)\\.kt$"), true);
         }
@@ -2646,6 +2640,12 @@ public class BlackBoxCodegenTestGenerated extends AbstractBlackBoxCodegenTest {
         @TestMetadata("entrywithinner.kt")
         public void testEntrywithinner() throws Exception {
             String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/box/enum/entrywithinner.kt");
+            doTest(fileName);
+        }
+        
+        @TestMetadata("enumInheritedFromTrait.kt")
+        public void testEnumInheritedFromTrait() throws Exception {
+            String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/box/enum/enumInheritedFromTrait.kt");
             doTest(fileName);
         }
         
@@ -2697,6 +2697,12 @@ public class BlackBoxCodegenTestGenerated extends AbstractBlackBoxCodegenTest {
             doTest(fileName);
         }
         
+        @TestMetadata("openMethod.kt")
+        public void testOpenMethod() throws Exception {
+            String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/box/enum/openMethod.kt");
+            doTest(fileName);
+        }
+        
         @TestMetadata("ordinal.kt")
         public void testOrdinal() throws Exception {
             String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/box/enum/ordinal.kt");
@@ -2706,6 +2712,12 @@ public class BlackBoxCodegenTestGenerated extends AbstractBlackBoxCodegenTest {
         @TestMetadata("simple.kt")
         public void testSimple() throws Exception {
             String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/box/enum/simple.kt");
+            doTest(fileName);
+        }
+        
+        @TestMetadata("superCallInEnumLiteral.kt")
+        public void testSuperCallInEnumLiteral() throws Exception {
+            String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/box/enum/superCallInEnumLiteral.kt");
             doTest(fileName);
         }
         

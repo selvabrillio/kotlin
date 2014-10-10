@@ -35,6 +35,8 @@ import java.util.*;
 import static org.jetbrains.jet.lang.diagnostics.Errors.*;
 import static org.jetbrains.jet.lang.resolve.BindingContext.TYPE;
 import static org.jetbrains.jet.lang.resolve.BindingContext.TYPE_PARAMETER;
+import static org.jetbrains.jet.lang.resolve.DescriptorUtils.classCanHaveAbstractMembers;
+import static org.jetbrains.jet.lang.resolve.DescriptorUtils.classCanHaveOpenMembers;
 
 public class DeclarationsChecker {
     @NotNull
@@ -336,10 +338,12 @@ public class DeclarationsChecker {
     }
 
     private void checkOpenMembers(ClassDescriptorWithResolutionScopes classDescriptor) {
+        if (classCanHaveOpenMembers(classDescriptor)) return;
+
         for (CallableMemberDescriptor memberDescriptor : classDescriptor.getDeclaredCallableMembers()) {
             if (memberDescriptor.getKind() != CallableMemberDescriptor.Kind.DECLARATION) continue;
             JetNamedDeclaration member = (JetNamedDeclaration) DescriptorToSourceUtils.descriptorToDeclaration(memberDescriptor);
-            if (member != null && classDescriptor.getModality() == Modality.FINAL && member.hasModifier(JetTokens.OPEN_KEYWORD)) {
+            if (member != null && member.hasModifier(JetTokens.OPEN_KEYWORD)) {
                 trace.report(NON_FINAL_MEMBER_IN_FINAL_CLASS.on(member));
             }
         }
@@ -385,7 +389,7 @@ public class DeclarationsChecker {
         ASTNode abstractNode = modifierList != null ? modifierList.getModifierNode(JetTokens.ABSTRACT_KEYWORD) : null;
 
         if (abstractNode != null) { //has abstract modifier
-            if (!(classDescriptor.getModality() == Modality.ABSTRACT) && classDescriptor.getKind() != ClassKind.ENUM_CLASS) {
+            if (!classCanHaveAbstractMembers(classDescriptor)) {
                 String name = property.getName();
                 trace.report(ABSTRACT_PROPERTY_IN_NON_ABSTRACT_CLASS.on(property, name != null ? name : "", classDescriptor));
                 return;
@@ -489,9 +493,7 @@ public class DeclarationsChecker {
         if (containingDescriptor instanceof ClassDescriptor) {
             ClassDescriptor classDescriptor = (ClassDescriptor) containingDescriptor;
             boolean inTrait = classDescriptor.getKind() == ClassKind.TRAIT;
-            boolean inEnum = classDescriptor.getKind() == ClassKind.ENUM_CLASS;
-            boolean inAbstractClass = classDescriptor.getModality() == Modality.ABSTRACT;
-            if (hasAbstractModifier && !inAbstractClass && !inEnum) {
+            if (hasAbstractModifier && !classCanHaveAbstractMembers(classDescriptor)) {
                 trace.report(ABSTRACT_FUNCTION_IN_NON_ABSTRACT_CLASS.on(function, functionDescriptor.getName().asString(), classDescriptor));
             }
             if (hasAbstractModifier && inTrait) {
@@ -542,6 +544,9 @@ public class DeclarationsChecker {
     private void checkEnumModifiers(JetClass aClass) {
         if (aClass.hasModifier(JetTokens.OPEN_KEYWORD)) {
             trace.report(OPEN_MODIFIER_IN_ENUM.on(aClass));
+        }
+        if (aClass.hasModifier(JetTokens.ABSTRACT_KEYWORD)) {
+            trace.report(ABSTRACT_MODIFIER_IN_ENUM.on(aClass));
         }
     }
 

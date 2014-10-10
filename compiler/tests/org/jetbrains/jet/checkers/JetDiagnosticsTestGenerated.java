@@ -3741,6 +3741,12 @@ public class JetDiagnosticsTestGenerated extends AbstractJetDiagnosticsTest {
                 doTest(fileName);
             }
             
+            @TestMetadata("AbstractOverrideInEnum.kt")
+            public void testAbstractOverrideInEnum() throws Exception {
+                String fileName = JetTestUtils.navigationMetadata("compiler/testData/diagnostics/tests/enum/AbstractOverrideInEnum.kt");
+                doTest(fileName);
+            }
+            
             public void testAllFilesPresentInEnum() throws Exception {
                 JetTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("compiler/testData/diagnostics/tests/enum"), Pattern.compile("^(.+)\\.kt$"), true);
             }
@@ -3772,6 +3778,18 @@ public class JetDiagnosticsTestGenerated extends AbstractJetDiagnosticsTest {
             @TestMetadata("enumEntryCannotHaveClassObject.kt")
             public void testEnumEntryCannotHaveClassObject() throws Exception {
                 String fileName = JetTestUtils.navigationMetadata("compiler/testData/diagnostics/tests/enum/enumEntryCannotHaveClassObject.kt");
+                doTest(fileName);
+            }
+            
+            @TestMetadata("enumEntryInAbstractEnum.kt")
+            public void testEnumEntryInAbstractEnum() throws Exception {
+                String fileName = JetTestUtils.navigationMetadata("compiler/testData/diagnostics/tests/enum/enumEntryInAbstractEnum.kt");
+                doTest(fileName);
+            }
+            
+            @TestMetadata("enumImplementingTrait.kt")
+            public void testEnumImplementingTrait() throws Exception {
+                String fileName = JetTestUtils.navigationMetadata("compiler/testData/diagnostics/tests/enum/enumImplementingTrait.kt");
                 doTest(fileName);
             }
             
@@ -3874,6 +3892,12 @@ public class JetDiagnosticsTestGenerated extends AbstractJetDiagnosticsTest {
             @TestMetadata("localEnums.kt")
             public void testLocalEnums() throws Exception {
                 String fileName = JetTestUtils.navigationMetadata("compiler/testData/diagnostics/tests/enum/localEnums.kt");
+                doTest(fileName);
+            }
+            
+            @TestMetadata("openMemberInEnum.kt")
+            public void testOpenMemberInEnum() throws Exception {
+                String fileName = JetTestUtils.navigationMetadata("compiler/testData/diagnostics/tests/enum/openMemberInEnum.kt");
                 doTest(fileName);
             }
             
