@@ -101,7 +101,7 @@ public class SpecifyTypeExplicitlyAction extends PsiElementBaseIntentionAction {
             setText(JetBundle.message("specify.type.explicitly.add.return.type.action.name"));
         }
         else if (declaration instanceof JetParameter && ((JetParameter) declaration).isLoopParameter()) {
-            if (((JetParameter) declaration).getTypeReference() != null) {
+            if (declaration.getTypeReference() != null) {
                 setText(JetBundle.message("specify.type.explicitly.remove.action.name"));
                 return true;
             }
@@ -155,7 +155,8 @@ public class SpecifyTypeExplicitlyAction extends PsiElementBaseIntentionAction {
             @NotNull final JetCallableDeclaration declaration,
             @NotNull JetType exprType
     ) {
-        assert !exprType.isError() : "Unexpected error type: " + declaration.getText();
+        assert !exprType.isError() : "Unexpected error type, should have been checked before: "
+                                     + JetPsiUtil.getElementTextWithContext(declaration) + ", type = " + exprType;
 
         ClassifierDescriptor descriptor = exprType.getConstructor().getDeclarationDescriptor();
         boolean isAnonymous = descriptor != null && DescriptorUtils.isAnonymousObject(descriptor);
