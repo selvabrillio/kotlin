@@ -2765,6 +2765,12 @@ public class BlackBoxCodegenTestGenerated extends AbstractBlackBoxCodegenTest {
             JetTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("compiler/testData/codegen/box/extensionFunctions"), Pattern.compile("^(.+)\\.kt$"), true);
         }
         
+        @TestMetadata("executionOrder.kt")
+        public void testExecutionOrder() throws Exception {
+            String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/box/extensionFunctions/executionOrder.kt");
+            doTest(fileName);
+        }
+        
         @TestMetadata("kt1061.kt")
         public void testKt1061() throws Exception {
             String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/box/extensionFunctions/kt1061.kt");
@@ -3505,12 +3511,6 @@ public class BlackBoxCodegenTestGenerated extends AbstractBlackBoxCodegenTest {
                 JetTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("compiler/testData/codegen/box/functions/localFunctions"), Pattern.compile("^(.+)\\.kt$"), true);
             }
             
-            @TestMetadata("disabledInline.kt")
-            public void testDisabledInline() throws Exception {
-                String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/box/functions/localFunctions/disabledInline.kt");
-                doTest(fileName);
-            }
-            
             @TestMetadata("kt2895.kt")
             public void testKt2895() throws Exception {
                 String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/box/functions/localFunctions/kt2895.kt");
@@ -4079,6 +4079,18 @@ public class BlackBoxCodegenTestGenerated extends AbstractBlackBoxCodegenTest {
     public static class Labels extends AbstractBlackBoxCodegenTest {
         public void testAllFilesPresentInLabels() throws Exception {
             JetTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("compiler/testData/codegen/box/labels"), Pattern.compile("^(.+)\\.kt$"), true);
+        }
+        
+        @TestMetadata("labeledDeclarations.kt")
+        public void testLabeledDeclarations() throws Exception {
+            String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/box/labels/labeledDeclarations.kt");
+            doTest(fileName);
+        }
+        
+        @TestMetadata("labeledDeclarations2.kt")
+        public void testLabeledDeclarations2() throws Exception {
+            String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/box/labels/labeledDeclarations2.kt");
+            doTest(fileName);
         }
         
         @TestMetadata("propertyAccessor.kt")
