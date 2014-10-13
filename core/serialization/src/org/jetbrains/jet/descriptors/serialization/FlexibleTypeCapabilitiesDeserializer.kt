@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 
-package org.jetbrains.jet.plugin.util
+package org.jetbrains.jet.descriptors.serialization
 
-import org.jetbrains.jet.lang.types.JetType
-import org.jetbrains.jet.lang.types.TypeUtils
-import org.jetbrains.jet.lang.types.lang.KotlinBuiltIns
+import org.jetbrains.jet.lang.resolve.name.FqName
+import org.jetbrains.jet.lang.types.FlexibleTypeCapabilities
 
-fun JetType.makeNullable() = TypeUtils.makeNullable(this)
-fun JetType.makeNotNullable() = TypeUtils.makeNotNullable(this)
+trait FlexibleTypeCapabilitiesDeserializer {
+    object ThrowException : FlexibleTypeCapabilitiesDeserializer {
+        override fun capabilitiesById(id: String): FlexibleTypeCapabilities? {
+            throw IllegalArgumentException("Capabilities not found by ThrowException manager: $id")
+        }
+    }
 
-fun JetType.supertypes(): Set<JetType> = TypeUtils.getAllSupertypes(this)
-
-fun JetType.isUnit(): Boolean = KotlinBuiltIns.getInstance().isUnit(this)
+    fun capabilitiesById(id: String): FlexibleTypeCapabilities?
+}
