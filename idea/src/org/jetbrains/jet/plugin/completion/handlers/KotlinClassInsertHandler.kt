@@ -22,21 +22,21 @@ import com.intellij.openapi.editor.Document
 import com.intellij.psi.PsiDocumentManager
 import org.jetbrains.jet.lang.psi.JetFile
 import org.jetbrains.jet.plugin.codeInsight.ShortenReferences
-import org.jetbrains.jet.plugin.completion.DeclarationLookupObject
+import org.jetbrains.jet.plugin.completion.DeclarationDescriptorLookupObject
 import org.jetbrains.jet.lang.descriptors.ClassDescriptor
 import org.jetbrains.jet.plugin.completion.qualifiedNameForSourceCode
+import com.intellij.psi.PsiClass
 
-public object JetClassInsertHandler : BaseDeclarationInsertHandler() {
+public object KotlinClassInsertHandler : BaseDeclarationInsertHandler() {
     override fun handleInsert(context: InsertionContext, item: LookupElement) {
         super.handleInsert(context, item)
 
         val file = context.getFile()
         if (file is JetFile) {
-            val descriptor = (item.getObject() as DeclarationLookupObject).descriptor as ClassDescriptor
             val startOffset = context.getStartOffset()
             val document = context.getDocument()
             if (!isAfterDot(document, startOffset)) {
-                val qualifiedName = qualifiedNameForSourceCode(descriptor)!!
+                val qualifiedName = qualifiedNameToInsert(item)
                 // insert dot after because otherwise parser can sometimes produce no suitable reference here
                 val tempSuffix = ".xxx" // we add "xxx" after dot because of some bugs in resolve (see KT-5145)
                 document.replaceString(startOffset, context.getTailOffset(), qualifiedName + tempSuffix)
@@ -54,6 +54,15 @@ public object JetClassInsertHandler : BaseDeclarationInsertHandler() {
                     document.deleteString(rangeMarker.getStartOffset(), rangeMarker.getEndOffset())
                 }
             }
+        }
+    }
+
+    private fun qualifiedNameToInsert(item: LookupElement): String {
+        val lookupObject = item.getObject()
+        return when (lookupObject) {
+            is DeclarationDescriptorLookupObject -> qualifiedNameForSourceCode(lookupObject.descriptor as ClassDescriptor)!!
+            is PsiClass -> lookupObject.getQualifiedName()!!
+            else -> error("Unknown object in LookupElement with KotlinClassInsertHandler: $lookupObject")
         }
     }
 

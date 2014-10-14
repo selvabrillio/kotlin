@@ -76,6 +76,12 @@ public class QuickFixMultiFileTestGenerated extends AbstractQuickFixMultiFileTes
             doTestWithExtraFile(fileName);
         }
         
+        @TestMetadata("extensionFunctionImportImplicitReceiver.before.Main.kt")
+        public void testExtensionFunctionImportImplicitReceiver() throws Exception {
+            String fileName = JetTestUtils.navigationMetadata("idea/testData/quickfix/autoImports/extensionFunctionImportImplicitReceiver.before.Main.kt");
+            doTestWithExtraFile(fileName);
+        }
+        
         @TestMetadata("extensionPropertyImport.before.Main.kt")
         public void testExtensionPropertyImport() throws Exception {
             String fileName = JetTestUtils.navigationMetadata("idea/testData/quickfix/autoImports/extensionPropertyImport.before.Main.kt");
