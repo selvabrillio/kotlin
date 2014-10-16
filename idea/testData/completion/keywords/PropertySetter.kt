@@ -1,14 +1,18 @@
-package Test
-
-<caret>
+class Some {
+    var a : Int
+        get() = 0
+        <caret>
+}
 
 // EXIST:  abstract
 // EXIST:  annotation
+// EXIST:  as
 // EXIST:  class
 // EXIST:  enum
 // EXIST:  final
 // EXIST:  fun
-// EXIST:  import
+// EXIST:  get
+/*TODO*/
 // EXIST:  in
 /*why?*/
 // EXIST:  inner
@@ -21,9 +25,10 @@ package Test
 // EXIST:  private
 // EXIST:  protected
 // EXIST:  public
+// EXIST: set
 // EXIST:  trait
 // EXIST:  val
 // EXIST:  var
 // EXIST:  vararg
 /*why?*/
-// NUMBER: 21
+// NUMBER: 23

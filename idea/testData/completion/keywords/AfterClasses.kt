@@ -1,4 +1,14 @@
-package Test
+class A {
+    fun foo() {
+        bar()
+    }
+}
+
+class B {
+    fun bar() {
+        foo()
+    }
+}
 
 <caret>
 
@@ -8,7 +18,6 @@ package Test
 // EXIST:  enum
 // EXIST:  final
 // EXIST:  fun
-// EXIST:  import
 // EXIST:  in
 /*why?*/
 // EXIST:  inner
@@ -26,4 +35,4 @@ package Test
 // EXIST:  var
 // EXIST:  vararg
 /*why?*/
-// NUMBER: 21
+// NUMBER: 20
