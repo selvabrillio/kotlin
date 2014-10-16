@@ -4191,6 +4191,12 @@ public class BlackBoxCodegenTestGenerated extends AbstractBlackBoxCodegenTest {
             doTest(fileName);
         }
         
+        @TestMetadata("innerOfLocalCaptureExtensionReceiver.kt")
+        public void testInnerOfLocalCaptureExtensionReceiver() throws Exception {
+            String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/box/localClasses/innerOfLocalCaptureExtensionReceiver.kt");
+            doTest(fileName);
+        }
+        
         @TestMetadata("kt2700.kt")
         public void testKt2700() throws Exception {
             String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/box/localClasses/kt2700.kt");
@@ -4227,6 +4233,12 @@ public class BlackBoxCodegenTestGenerated extends AbstractBlackBoxCodegenTest {
             doTest(fileName);
         }
         
+        @TestMetadata("localClassCaptureExtensionReceiver.kt")
+        public void testLocalClassCaptureExtensionReceiver() throws Exception {
+            String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/box/localClasses/localClassCaptureExtensionReceiver.kt");
+            doTest(fileName);
+        }
+        
         @TestMetadata("localClassInInitializer.kt")
         public void testLocalClassInInitializer() throws Exception {
             String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/box/localClasses/localClassInInitializer.kt");
@@ -4236,6 +4248,12 @@ public class BlackBoxCodegenTestGenerated extends AbstractBlackBoxCodegenTest {
         @TestMetadata("localClassInParameterInitializer.kt")
         public void testLocalClassInParameterInitializer() throws Exception {
             String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/box/localClasses/localClassInParameterInitializer.kt");
+            doTest(fileName);
+        }
+        
+        @TestMetadata("localExtendsInnerAndReferencesOuterMember.kt")
+        public void testLocalExtendsInnerAndReferencesOuterMember() throws Exception {
+            String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/box/localClasses/localExtendsInnerAndReferencesOuterMember.kt");
             doTest(fileName);
         }
         
@@ -4990,6 +5008,12 @@ public class BlackBoxCodegenTestGenerated extends AbstractBlackBoxCodegenTest {
         @TestMetadata("nestedObjectWithSuperclass.kt")
         public void testNestedObjectWithSuperclass() throws Exception {
             String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/box/objects/nestedObjectWithSuperclass.kt");
+            doTest(fileName);
+        }
+        
+        @TestMetadata("objectExtendsInnerAndReferencesOuterMember.kt")
+        public void testObjectExtendsInnerAndReferencesOuterMember() throws Exception {
+            String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/box/objects/objectExtendsInnerAndReferencesOuterMember.kt");
             doTest(fileName);
         }
         
@@ -6200,6 +6224,12 @@ public class BlackBoxCodegenTestGenerated extends AbstractBlackBoxCodegenTest {
             doTest(fileName);
         }
         
+        @TestMetadata("localClassOuterDiffersFromInnerOuter.kt")
+        public void testLocalClassOuterDiffersFromInnerOuter() throws Exception {
+            String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/box/superConstructorCall/localClassOuterDiffersFromInnerOuter.kt");
+            doTest(fileName);
+        }
+        
         @TestMetadata("localExtendsLocalWithClosure.kt")
         public void testLocalExtendsLocalWithClosure() throws Exception {
             String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/box/superConstructorCall/localExtendsLocalWithClosure.kt");
@@ -6257,6 +6287,12 @@ public class BlackBoxCodegenTestGenerated extends AbstractBlackBoxCodegenTest {
         @TestMetadata("objectExtendsLocalWithClosure.kt")
         public void testObjectExtendsLocalWithClosure() throws Exception {
             String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/box/superConstructorCall/objectExtendsLocalWithClosure.kt");
+            doTest(fileName);
+        }
+        
+        @TestMetadata("objectOuterDiffersFromInnerOuter.kt")
+        public void testObjectOuterDiffersFromInnerOuter() throws Exception {
+            String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/box/superConstructorCall/objectOuterDiffersFromInnerOuter.kt");
             doTest(fileName);
         }
         
