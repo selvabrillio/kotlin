@@ -3,3 +3,4 @@ class Test {
 }
 
 // EXIST: object
+// NUMBER: 1
