@@ -26,6 +26,7 @@ import org.jetbrains.jet.codegen.state.JetTypeMapper;
 import org.jetbrains.jet.lang.descriptors.*;
 import org.jetbrains.jet.lang.resolve.BindingContext;
 import org.jetbrains.jet.lang.resolve.DescriptorUtils;
+import org.jetbrains.jet.lang.resolve.java.AsmTypeConstants;
 import org.jetbrains.jet.lang.types.JetType;
 import org.jetbrains.jet.storage.LockBasedStorageManager;
 import org.jetbrains.jet.storage.NullableLazyValue;
@@ -52,7 +53,7 @@ public abstract class CodegenContext<T extends DeclarationDescriptor> {
 
     private Map<DeclarationDescriptor, DeclarationDescriptor> accessors;
     private Map<DeclarationDescriptor, CodegenContext> childContexts;
-    private NullableLazyValue<StackValue> lazyOuterExpression;
+    private NullableLazyValue<StackValue.Field> lazyOuterExpression;
 
     public CodegenContext(
             @NotNull T contextDescriptor,
@@ -128,7 +129,7 @@ public abstract class CodegenContext<T extends DeclarationDescriptor> {
             }
             closure.setCaptureThis();
         }
-        return prefix != null ? StackValue.composed(prefix, lazyOuterExpression.invoke()) : lazyOuterExpression.invoke();
+        return StackValue.changeReceiverForFieldAndSharedVar(lazyOuterExpression.invoke(), prefix);
     }
 
     @NotNull
@@ -260,15 +261,15 @@ public abstract class CodegenContext<T extends DeclarationDescriptor> {
     public abstract boolean isStatic();
 
     protected void initOuterExpression(@NotNull final JetTypeMapper typeMapper, @NotNull final ClassDescriptor classDescriptor) {
-        lazyOuterExpression = LockBasedStorageManager.NO_LOCKS.createNullableLazyValue(new Function0<StackValue>() {
+        lazyOuterExpression = LockBasedStorageManager.NO_LOCKS.createNullableLazyValue(new Function0<StackValue.Field>() {
             @Override
-            public StackValue invoke() {
+            public StackValue.Field invoke() {
                 ClassDescriptor enclosingClass = getEnclosingClass();
                 if (enclosingClass == null) return null;
 
                 return canHaveOuter(typeMapper.getBindingContext(), classDescriptor)
                        ? StackValue.field(typeMapper.mapType(enclosingClass), typeMapper.mapType(classDescriptor),
-                                          CAPTURED_THIS_FIELD, false, StackValue.none())
+                                          CAPTURED_THIS_FIELD, false, StackValue.local(0, AsmTypeConstants.OBJECT_TYPE))
                        : null;
             }
         });
@@ -297,8 +298,8 @@ public abstract class CodegenContext<T extends DeclarationDescriptor> {
                 }
             }
 
-            myOuter = getOuterExpression(null, ignoreNoOuter, false);
-            result = result == null || myOuter == null ? myOuter : StackValue.composed(result, myOuter);
+            myOuter = getOuterExpression(result, ignoreNoOuter, false);
+            result = myOuter;
         }
 
         StackValue resultValue;
