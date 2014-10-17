@@ -26,7 +26,6 @@ import org.jetbrains.jet.renderer.DescriptorRenderer;
 import java.util.HashSet;
 import com.intellij.psi.util.PsiTreeUtil
 import java.util.ArrayList
-import org.jetbrains.jet.lang.psi.psiUtil.getParentByType
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiDocumentManager
 import org.jetbrains.jet.plugin.caches.resolve.getLazyResolveSession
@@ -35,6 +34,11 @@ import org.jetbrains.jet.renderer.DescriptorRenderer.FQ_NAMES_IN_TYPES
 import org.jetbrains.jet.lang.resolve.calls.callUtil.getResolvedCall
 import org.jetbrains.jet.lang.resolve.DescriptorUtils
 import org.jetbrains.jet.lang.resolve.ImportPath
+import org.jetbrains.jet.lang.psi.psiUtil.getQualifiedElementSelector
+import java.util.Collections
+import org.jetbrains.jet.analyzer.analyzeInContext
+import org.jetbrains.jet.lang.resolve.calls.callUtil.getCalleeExpressionIfAny
+import java.util.LinkedHashSet
 
 public object ShortenReferences {
     public fun process(element: JetElement) {
@@ -104,35 +108,31 @@ public object ShortenReferences {
             // first resolve all qualified references - optimization
             val referenceToContext = JetFileReferencesResolver.resolve(file, fileElements, resolveShortNames = false)
 
-            val shortenTypesVisitor = ShortenTypesVisitor(file, elementFilter, referenceToContext)
-            processElements(fileElements, shortenTypesVisitor)
-            shortenTypesVisitor.finish()
-
+            processElements(fileElements, ShortenTypesVisitor(file, elementFilter, referenceToContext))
             processElements(fileElements, ShortenQualifiedExpressionsVisitor(file, elementFilter, referenceToContext))
         }
     }
 
-    private fun processElements(elements: Iterable<JetElement>, visitor: JetVisitorVoid) {
+    private fun processElements(elements: Iterable<JetElement>, visitor: ShorteningVisitor<*>) {
         for (element in elements) {
             element.accept(visitor)
         }
+        visitor.finish()
     }
 
-    private class ShortenTypesVisitor(val file: JetFile,
-                                      val elementFilter: (PsiElement) -> FilterResult,
-                                      val resolveMap: Map<JetReferenceExpression, BindingContext>) : JetVisitorVoid() {
-        private val resolveSession : ResolveSessionForBodies
+    private abstract class ShorteningVisitor<T : JetElement>(
+            val file: JetFile,
+            val elementFilter: (PsiElement) -> FilterResult,
+            val resolveMap: Map<JetReferenceExpression, BindingContext>) : JetVisitorVoid() {
+        protected val resolveSession: ResolveSessionForBodies
             get() = file.getLazyResolveSession()
 
-        private val typesToShorten = ArrayList<JetUserType>()
+        protected val elementsToShorten: MutableSet<T> = LinkedHashSet()
 
-        public fun finish() {
-            for (userType in typesToShorten) {
-                shortenType(userType)
-            }
-        }
+        protected fun bindingContext(element: JetElement): BindingContext
+                = resolveMap[element] ?: resolveSession.resolveToElement(element)
 
-        private fun bindingContext(expression: JetReferenceExpression): BindingContext = resolveMap[expression]!!
+        protected abstract fun getShortenedElement(element: T): JetElement?
 
         override fun visitElement(element: PsiElement) {
             if (elementFilter(element) != FilterResult.SKIP) {
@@ -140,20 +140,18 @@ public object ShortenReferences {
             }
         }
 
-        override fun visitUserType(userType: JetUserType) {
-            val filterResult = elementFilter(userType)
-            if (filterResult == FilterResult.SKIP) return
-
-            userType.getTypeArgumentList()?.accept(this)
-
-            if (filterResult == FilterResult.PROCESS && canShortenType(userType)) {
-                typesToShorten.add(userType)
-            }
-            else{
-                userType.getQualifier()?.accept(this)
+        public fun finish() {
+            for (element in elementsToShorten) {
+                getShortenedElement(element)?.let { element.replace(it) }
             }
         }
+    }
 
+    private class ShortenTypesVisitor(
+            file: JetFile,
+            elementFilter: (PsiElement) -> FilterResult,
+            resolveMap: Map<JetReferenceExpression, BindingContext>
+    ) : ShorteningVisitor<JetUserType>(file, elementFilter, resolveMap) {
         private fun canShortenType(userType: JetUserType): Boolean {
             if (userType.getQualifier() == null) return false
             val referenceExpression = userType.getReferenceExpression()
@@ -183,156 +181,97 @@ public object ShortenReferences {
             }
         }
 
-        private fun shortenType(userType: JetUserType) {
-            val referenceExpression = userType.getReferenceExpression()
-            if (referenceExpression == null) return
-            val typeArgumentList = userType.getTypeArgumentList()
+        override fun visitUserType(userType: JetUserType) {
+            val filterResult = elementFilter(userType)
+            if (filterResult == FilterResult.SKIP) return
+
+            userType.getTypeArgumentList()?.accept(this)
+
+            if (filterResult == FilterResult.PROCESS && canShortenType(userType)) {
+                elementsToShorten.add(userType)
+            }
+            else{
+                userType.getQualifier()?.accept(this)
+            }
+        }
+
+        override fun getShortenedElement(element: JetUserType): JetElement? {
+            val referenceExpression = element.getReferenceExpression() ?: return null
+            val typeArgumentList = element.getTypeArgumentList()
             val text = referenceExpression.getText() + (if (typeArgumentList != null) typeArgumentList.getText() else "")
-            val newUserType = JetPsiFactory(userType).createType(text).getTypeElement()!!
-            userType.replace(newUserType)
+            return JetPsiFactory(element).createType(text).getTypeElement()!!
         }
     }
 
-    private class ShortenQualifiedExpressionsVisitor(val file: JetFile,
-                                                     val elementFilter: (PsiElement) -> FilterResult,
-                                                     val resolveMap: Map<JetReferenceExpression, BindingContext>) : JetVisitorVoid() {
-        private val resolveSession : ResolveSessionForBodies
-            get() = file.getLazyResolveSession()
+    private class ShortenQualifiedExpressionsVisitor(
+            file: JetFile,
+            elementFilter: (PsiElement) -> FilterResult,
+            resolveMap: Map<JetReferenceExpression, BindingContext>
+    ) : ShorteningVisitor<JetQualifiedExpression>(file, elementFilter, resolveMap) {
+        private fun adjustDescriptor(it: DeclarationDescriptor): DeclarationDescriptor {
+            return (it as? ConstructorDescriptor)?.getContainingDeclaration() ?: it
+        }
 
-        private fun bindingContext(expression: JetReferenceExpression): BindingContext
-                = resolveMap[expression] ?: resolveSession.resolveToElement(expression) // binding context can be absent in the map if some references have been shortened already
+        private fun JetReferenceExpression.getTargets(context: BindingContext): Collection<DeclarationDescriptor> {
+            return context[BindingContext.REFERENCE_TARGET, this]?.let { Collections.singletonList(adjustDescriptor(it)) }
+                   ?: context[BindingContext.AMBIGUOUS_REFERENCE_TARGET, this]?.mapTo(HashSet<DeclarationDescriptor>()) { adjustDescriptor(it) }
+                   ?: Collections.emptyList()
+        }
 
-        override fun visitElement(element: PsiElement) {
-            if (elementFilter(element) != FilterResult.SKIP) {
-                acceptChildren(element)
+        private fun canShorten(qualifiedExpression: JetDotQualifiedExpression): Boolean {
+            val context = bindingContext(qualifiedExpression)
+
+            if (context[BindingContext.QUALIFIER, qualifiedExpression.getReceiverExpression()] == null) return false
+
+            if (PsiTreeUtil.getParentOfType(
+                    qualifiedExpression,
+                    javaClass<JetImportDirective>(), javaClass<JetPackageDirective>()) != null) return false
+
+            val selector = qualifiedExpression.getSelectorExpression() ?: return false
+            val callee = selector.getCalleeExpressionIfAny() as? JetReferenceExpression ?: return false
+            val targetBefore = callee.getTargets(context).singleOrNull() ?: return false
+            val isClassMember = targetBefore.getContainingDeclaration() is ClassDescriptor
+            val isClassOrPackage = targetBefore is ClassDescriptor || targetBefore is PackageViewDescriptor
+
+            val scope = context[BindingContext.RESOLUTION_SCOPE, qualifiedExpression] ?: return false
+            val selectorCopy = selector.copy() as JetReferenceExpression
+            val newContext = selectorCopy.analyzeInContext(scope)
+            val targetsAfter = (selectorCopy.getCalleeExpressionIfAny() as JetReferenceExpression).getTargets(newContext)
+
+            return when (targetsAfter.size) {
+                0 -> {
+                    if (!isClassMember && isClassOrPackage) {
+                        addImport(targetBefore, file)
+                        return true
+                    }
+                    false
+                }
+
+                1 -> targetBefore == targetsAfter.first()
+
+                else -> false
             }
         }
 
         override fun visitDotQualifiedExpression(expression: JetDotQualifiedExpression) {
             val filterResult = elementFilter(expression)
-            val resultElement = if (filterResult == FilterResult.PROCESS) processDotQualifiedExpression(expression) else expression
-            if (filterResult != FilterResult.SKIP) {
-                acceptChildren(resultElement)
-            }
-        }
+            if (filterResult == FilterResult.SKIP) return
 
-        private fun processDotQualifiedExpression(qualifiedExpression: JetDotQualifiedExpression): PsiElement {
-            val selectorExpression = qualifiedExpression.getSelectorExpression()
+            expression.getSelectorExpression()?.acceptChildren(this)
 
-            if (selectorExpression is JetCallExpression) {
-                val calleeExpression = selectorExpression.getCalleeExpression()
-                if (calleeExpression is JetReferenceExpression) {
-                    val bindingContext = bindingContext(calleeExpression)
-
-                    val targetClass = instantiatedClass(calleeExpression)
-                    if (targetClass != null) return shortenIfPossibleByDescriptor(qualifiedExpression, targetClass, bindingContext)
-
-                    return shortenIfPossible(qualifiedExpression, calleeExpression, bindingContext)
-                }
-            }
-            else if (selectorExpression is JetReferenceExpression) {
-                return shortenIfPossible(qualifiedExpression, selectorExpression, bindingContext(selectorExpression))
-            }
-
-            return qualifiedExpression
-        }
-
-        private fun shortenIfPossible(
-                qualifiedExpression: JetDotQualifiedExpression,
-                refExpression: JetReferenceExpression,
-                bindingContext: BindingContext
-        ): PsiElement {
-            val target = bindingContext[BindingContext.REFERENCE_TARGET, refExpression]
-            if (target == null) return qualifiedExpression
-            return shortenIfPossibleByDescriptor(qualifiedExpression, target, bindingContext)
-        }
-
-        private fun instantiatedClass(calleeExpression: JetReferenceExpression): ClassDescriptor? {
-            val bindingContext = bindingContext(calleeExpression)
-            val target = bindingContext[BindingContext.REFERENCE_TARGET, calleeExpression]
-            if (target != null) {
-                if (target is ConstructorDescriptor) {
-                    return target.getContainingDeclaration()
-                }
+            if (filterResult == FilterResult.PROCESS && canShorten(expression)) {
+                elementsToShorten.add(expression)
             }
             else {
-                val targets = bindingContext[BindingContext.AMBIGUOUS_REFERENCE_TARGET, calleeExpression]
-                if (targets != null && !targets.isEmpty()) {
-                    var targetClass: ClassDescriptor? = null
-                    for (descriptor in targets) {
-                        if (descriptor is ConstructorDescriptor) {
-                            val classDescriptor = descriptor.getContainingDeclaration().getOriginal() as ClassDescriptor
-                            if (targetClass == null || targetClass == classDescriptor) {
-                                targetClass = classDescriptor
-                                continue
-                            }
-                        }
-                        return null
-                    }
-                    return targetClass
-                }
-            }
-            return null
-        }
-
-        private fun shortenIfPossibleByDescriptor(qualifiedExpression: JetDotQualifiedExpression, targetDescriptor: DeclarationDescriptor, bindingContext: BindingContext): PsiElement {
-            val isClassMember = targetDescriptor.getContainingDeclaration() is ClassDescriptor
-            val isUsageInImport = qualifiedExpression.getParentByType(javaClass<JetImportDirective>()) != null
-            val isClassOrPackage = targetDescriptor is ClassDescriptor || targetDescriptor is PackageViewDescriptor
-
-            val referenceExpression = qualifiedExpression.getSelectorExpression()!!.referenceExpression()!!
-            val resolveBefore = resolveState(referenceExpression, bindingContext)
-
-            val copy = qualifiedExpression.copy()
-
-            val selectorExpression = qualifiedExpression.getSelectorExpression()!!
-            val newExpression = qualifiedExpression.replace(selectorExpression) as JetExpression
-            val newReferenceExpression = newExpression.referenceExpression()!!
-
-            val newBindingContext = resolveSession.resolveToElement(newReferenceExpression)
-            val resolveAfter = resolveState(newReferenceExpression, newBindingContext)
-            if (resolveAfter != null) {
-                if (resolveBefore == resolveAfter) return newExpression
-                return newExpression.replace(copy) // revert shortening
-            }
-
-            if (isUsageInImport || isClassMember || !isClassOrPackage) return newExpression.replace(copy) // revert shortening
-
-            addImport(targetDescriptor, file)
-            return newExpression
-        }
-
-        private fun resolveState(referenceExpression: JetReferenceExpression, bindingContext: BindingContext): Any? {
-            val target = bindingContext[BindingContext.REFERENCE_TARGET, referenceExpression]
-            if (target != null) {
-                val resolvedCall = referenceExpression.getResolvedCall(bindingContext)
-                if (resolvedCall != null) return resolvedCall.asString()
-
-                return target.asString()
-            }
-
-            val targets = bindingContext[BindingContext.AMBIGUOUS_REFERENCE_TARGET, referenceExpression]
-            if (targets != null) return HashSet(targets.map{it.asString()})
-
-            return null
-        }
-
-        // we do not use standard PsiElement.acceptChildren because it won't work correctly if the element is replaced by the visitor
-        private fun acceptChildren(element: PsiElement) {
-            var child = element.getFirstChild()
-            while(child != null) {
-                val nextChild = child!!.getNextSibling()
-                child!!.accept(this)
-                child = nextChild
+                expression.getReceiverExpression().accept(this)
             }
         }
+
+        override fun getShortenedElement(element: JetQualifiedExpression): JetElement = element.getSelectorExpression()!!
     }
 
     private fun DeclarationDescriptor.asString()
             = DescriptorRenderer.FQ_NAMES_IN_TYPES.render(this)
-
-    private fun ResolvedCall<*>.asString()
-            = "${getExtensionReceiver()}, ${getDispatchReceiver()} -> ${getResultingDescriptor()?.let {FQ_NAMES_IN_TYPES.render(it)}}"
 
     private fun addImport(descriptor: DeclarationDescriptor, file: JetFile) {
         ImportInsertHelper.getInstance().writeImportToFile(ImportPath(DescriptorUtils.getFqNameSafe(descriptor), false), file)
