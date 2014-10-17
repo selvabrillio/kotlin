@@ -24,19 +24,19 @@ import org.jetbrains.jet.lang.resolve.java.JvmAnnotationNames.KotlinSyntheticCla
 import com.intellij.ide.highlighter.JavaClassFileType
 
 public fun isKotlinCompiledFile(file: VirtualFile): Boolean {
-    if (isKotlinCompiledFileWithIncompatibleAbiVersion(file)) {
+    if (file.getExtension() != JavaClassFileType.INSTANCE!!.getDefaultExtension()) {
         return false
     }
+
     val header = KotlinBinaryClassCache.getKotlinBinaryClass(file)?.getClassHeader()
     return header != null && header.syntheticClassKind != KotlinSyntheticClass.Kind.TRAIT_IMPL
 }
 
-public fun isKotlinCompiledFileWithIncompatibleAbiVersion(file: VirtualFile): Boolean {
-    if (file.getExtension() != JavaClassFileType.INSTANCE!!.getDefaultExtension()) {
-        return false
-    }
+public fun isKotlinWithCompatibleAbiVersion(file: VirtualFile): Boolean {
+    if (!isKotlinCompiledFile(file)) return false
+
     val header = KotlinBinaryClassCache.getKotlinBinaryClass(file)?.getClassHeader()
-    return header?.kind == KotlinClassHeader.Kind.INCOMPATIBLE_ABI_VERSION
+    return header != null && header.kind != KotlinClassHeader.Kind.INCOMPATIBLE_ABI_VERSION
 }
 
 public fun isKotlinInternalCompiledFile(file: VirtualFile): Boolean {

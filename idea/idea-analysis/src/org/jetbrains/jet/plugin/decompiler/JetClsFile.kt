@@ -22,31 +22,55 @@ import com.intellij.psi.util.PsiTreeUtil
 import org.jetbrains.annotations.TestOnly
 import org.jetbrains.jet.lang.descriptors.DeclarationDescriptor
 import org.jetbrains.jet.lang.psi.JetDeclaration
-import kotlin.properties.Delegates
+import com.intellij.psi.PsiElement
+import org.jetbrains.jet.lang.psi.JetFile
+import org.jetbrains.jet.utils.concurrent.block.BlockingNotNullVar
+import org.jetbrains.jet.plugin.decompiler.textBuilder.DecompiledText
+import org.jetbrains.jet.plugin.decompiler.textBuilder.buildDecompiledText
 import org.jetbrains.jet.plugin.decompiler.textBuilder.descriptorToKey
 
 public class JetClsFile(val provider: JetClassFileViewProvider) : ClsFileImpl(provider) {
+    private val mirrorLock = Any()
 
-    private val decompiledFile by Delegates.blockingLazy(this) {
-        JetDummyClassFileViewProvider.createJetFile(provider.getManager(), getVirtualFile(), provider.decompiledText.text)
+    private var mirrorFile: JetFile? by BlockingNotNullVar(mirrorLock) {
+        JetDummyClassFileViewProvider.createJetFile(
+                provider.getManager(),
+                getVirtualFile(),
+                decompiledText!!.text)!!
     }
 
-    override fun getDecompiledPsiFile() = decompiledFile
+    private var decompiledText: DecompiledText? by BlockingNotNullVar(mirrorLock) {
+        buildDecompiledText(getVirtualFile())
+    }
+
+    override fun getMirror(): PsiElement? = mirrorFile
 
     public fun getDeclarationForDescriptor(descriptor: DeclarationDescriptor): JetDeclaration? {
         val key = descriptorToKey(descriptor.getOriginal())
-        val range = provider.decompiledText.renderedDescriptorsToRange[key]
-        if (range == null) {
-            return null
+
+        return synchronized(mirrorLock) {
+            val range = decompiledText!!.renderedDescriptorsToRange[key]
+            if (range != null) {
+                PsiTreeUtil.findElementOfClassAtRange(
+                        mirrorFile, range.getStartOffset(), range.getEndOffset(), javaClass<JetDeclaration>())
+            }
+            else {
+                null
+            }
         }
-        return PsiTreeUtil.findElementOfClassAtRange(decompiledFile, range.getStartOffset(), range.getEndOffset(), javaClass<JetDeclaration>())
+    }
+
+    override fun onContentReload() {
+        super<ClsFileImpl>.onContentReload()
+
+        synchronized (mirrorLock) {
+            decompiledText = null
+            mirrorFile = null
+        }
     }
 
     TestOnly
     fun getRenderedDescriptorsToRange(): Map<String, TextRange> {
-        return provider.decompiledText.renderedDescriptorsToRange
+        return decompiledText!!.renderedDescriptorsToRange
     }
-
-    override fun getTextLength() = decompiledFile.getTextLength()
-    override fun getText() = decompiledFile.getText()
 }
