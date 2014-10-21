@@ -7705,6 +7705,18 @@ public class JetDiagnosticsTestGenerated extends AbstractJetDiagnosticsTest {
                 doTest(fileName);
             }
 
+            @TestMetadata("explicitFlexibleNoPackage.kt")
+            public void testExplicitFlexibleNoPackage() throws Exception {
+                String fileName = JetTestUtils.navigationMetadata("compiler/testData/diagnostics/tests/platformTypes/explicitFlexibleNoPackage.kt");
+                doTest(fileName);
+            }
+
+            @TestMetadata("explicitFlexibleWithPackage.kt")
+            public void testExplicitFlexibleWithPackage() throws Exception {
+                String fileName = JetTestUtils.navigationMetadata("compiler/testData/diagnostics/tests/platformTypes/explicitFlexibleWithPackage.kt");
+                doTest(fileName);
+            }
+
             @TestMetadata("getParentOfType.kt")
             public void testGetParentOfType() throws Exception {
                 String fileName = JetTestUtils.navigationMetadata("compiler/testData/diagnostics/tests/platformTypes/getParentOfType.kt");
@@ -7723,6 +7735,12 @@ public class JetDiagnosticsTestGenerated extends AbstractJetDiagnosticsTest {
                 doTest(fileName);
             }
 
+            @TestMetadata("nullableTypeArgument.kt")
+            public void testNullableTypeArgument() throws Exception {
+                String fileName = JetTestUtils.navigationMetadata("compiler/testData/diagnostics/tests/platformTypes/nullableTypeArgument.kt");
+                doTest(fileName);
+            }
+
             @TestMetadata("override.kt")
             public void testOverride() throws Exception {
                 String fileName = JetTestUtils.navigationMetadata("compiler/testData/diagnostics/tests/platformTypes/override.kt");
@@ -7738,6 +7756,18 @@ public class JetDiagnosticsTestGenerated extends AbstractJetDiagnosticsTest {
             @TestMetadata("samConstructor.kt")
             public void testSamConstructor() throws Exception {
                 String fileName = JetTestUtils.navigationMetadata("compiler/testData/diagnostics/tests/platformTypes/samConstructor.kt");
+                doTest(fileName);
+            }
+
+            @TestMetadata("supertypeArgumentsExplicit.kt")
+            public void testSupertypeArgumentsExplicit() throws Exception {
+                String fileName = JetTestUtils.navigationMetadata("compiler/testData/diagnostics/tests/platformTypes/supertypeArgumentsExplicit.kt");
+                doTest(fileName);
+            }
+
+            @TestMetadata("supertypeTypeArguments.kt")
+            public void testSupertypeTypeArguments() throws Exception {
+                String fileName = JetTestUtils.navigationMetadata("compiler/testData/diagnostics/tests/platformTypes/supertypeTypeArguments.kt");
                 doTest(fileName);
             }
 
