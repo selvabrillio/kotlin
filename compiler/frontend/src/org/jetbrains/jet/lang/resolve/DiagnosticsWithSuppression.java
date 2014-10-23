@@ -52,6 +52,7 @@ public class DiagnosticsWithSuppression implements Diagnostics {
     private static final Logger LOG = Logger.getInstance(DiagnosticsWithSuppression.class);
 
     private static final SuppressStringProvider[] ADDITIONAL_SUPPRESS_STRING_PROVIDERS = Extensions.getExtensions(SuppressStringProvider.EP_NAME);
+    private static final DiagnosticSuppressor[] DIAGNOSTIC_SUPPRESSORS = Extensions.getExtensions(DiagnosticSuppressor.EP_NAME);
 
     private final BindingContext context;
     private final Collection<Diagnostic> diagnostics;
@@ -103,6 +104,10 @@ public class DiagnosticsWithSuppression implements Diagnostics {
 
     private boolean isSuppressed(@NotNull Diagnostic diagnostic) {
         PsiElement element = diagnostic.getPsiElement();
+
+        for (DiagnosticSuppressor suppressor : DIAGNOSTIC_SUPPRESSORS) {
+            if (suppressor.isSuppressed(diagnostic)) return true;
+        }
 
         if (isSuppressedForDebugger(diagnostic, element)) return true;
 
@@ -314,6 +319,12 @@ public class DiagnosticsWithSuppression implements Diagnostics {
 
         @Nullable
         String get(@NotNull AnnotationDescriptor annotationDescriptor);
+    }
+
+    public interface DiagnosticSuppressor {
+        ExtensionPointName<DiagnosticSuppressor> EP_NAME = ExtensionPointName.create("org.jetbrains.kotlin.diagnosticSuppressor");
+
+        boolean isSuppressed(@NotNull Diagnostic diagnostic);
     }
 
     @TestOnly
