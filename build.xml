@@ -234,19 +234,6 @@
             </src>
         </kotlin2js>
 
-        <jar jarfile="${kotlin-home}/lib/kotlin-jslib.jar">
-            <resources refid="js.lib.files" />
-            <zipfileset file="${kotlin-home}/build.txt" prefix="META-INF"/>
-
-            <manifest>
-                <attribute name="Built-By" value="${manifest.impl.vendor}"/>
-
-                <attribute name="Implementation-Vendor" value="${manifest.impl.vendor}"/>
-                <attribute name="Implementation-Title" value="${manifest.impl.title.kotlin.javascript.stdlib}"/>
-                <attribute name="Implementation-Version" value="${build.number}"/>
-            </manifest>
-        </jar>
-
         <taskdef name="closure-compiler"
                  classname="com.google.javascript.jscomp.ant.CompileTask"
                  classpath="${dependencies.dir}/closure-compiler.jar"/>
@@ -261,7 +248,7 @@
             prettyprint="true"
             languagein="ECMASCRIPT5_STRICT"
             warning="${warningLevel}"
-            output="${kotlin-home}/lib/kotlin.js" >
+            output="${output}/kotlin.js" >
 
             <sources dir="${stdlib.js.dir}">
                 <file name="kotlin_lib_ecma5.js"/>
@@ -286,6 +273,20 @@
                 <file name="externs.js"/>
             </externs>
         </closure-compiler>
+
+        <jar jarfile="${kotlin-home}/lib/kotlin-jslib.jar">
+            <resources refid="js.lib.files" />
+            <zipfileset file="${kotlin-home}/build.txt" prefix="META-INF"/>
+            <zipfileset file="${output}/kotlin.js" prefix=""/>
+
+            <manifest>
+                <attribute name="Built-By" value="${manifest.impl.vendor}"/>
+
+                <attribute name="Implementation-Vendor" value="${manifest.impl.vendor}"/>
+                <attribute name="Implementation-Title" value="${manifest.impl.title.kotlin.javascript.stdlib}"/>
+                <attribute name="Implementation-Version" value="${build.number}"/>
+            </manifest>
+        </jar>
     </target>
 
     <target name="preloader">
