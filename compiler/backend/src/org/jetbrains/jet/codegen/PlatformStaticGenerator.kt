@@ -23,12 +23,11 @@ import org.jetbrains.org.objectweb.asm.commons.InstructionAdapter
 import org.jetbrains.jet.lang.descriptors.ClassDescriptor
 import org.jetbrains.jet.lang.resolve.java.diagnostics.JvmDeclarationOrigin
 import org.jetbrains.jet.lang.resolve.java.diagnostics.Synthetic
+import org.jetbrains.jet.lang.resolve.java.jvmSignature.JvmMethodSignature
 
-class PlatformStaticGenerator(
-        val descriptor: FunctionDescriptor,
-        val declarationOrigin: JvmDeclarationOrigin,
-        val state: GenerationState
-) : Function2<ImplementationBodyCodegen, ClassBuilder, Unit> {
+class PlatformStaticGenerator(val descriptor: FunctionDescriptor,
+                              val declarationOrigin: JvmDeclarationOrigin,
+                              val state: GenerationState) : Function2<ImplementationBodyCodegen, ClassBuilder, Unit> {
 
     override fun invoke(p1: ImplementationBodyCodegen, p2: ClassBuilder) {
         val typeMapper = state.getTypeMapper()
@@ -39,7 +38,8 @@ class PlatformStaticGenerator(
                 Opcodes.ACC_STATIC or AsmUtil.getMethodAsmFlags(descriptor, OwnerKind.IMPLEMENTATION),
                 asmMethod.getName()!!,
                 asmMethod.getDescriptor()!!,
-                null, null)
+                typeMapper.mapSignature(descriptor).getGenericsSignature(),
+                FunctionCodegen.getThrownExceptions(descriptor, typeMapper))
 
         AnnotationCodegen.forMethod(methodVisitor, typeMapper)!!.genAnnotations(descriptor, asmMethod.getReturnType())
 
