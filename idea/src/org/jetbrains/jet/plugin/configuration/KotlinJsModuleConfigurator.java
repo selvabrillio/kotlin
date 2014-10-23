@@ -22,10 +22,8 @@ import com.intellij.openapi.module.ModuleManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.OrderRootType;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.jetbrains.jet.plugin.framework.JSLibraryStdDescription;
-import org.jetbrains.jet.plugin.framework.ui.CreateJavaScriptLibraryDialogWithModules;
-import org.jetbrains.jet.plugin.framework.ui.FileUIUtils;
+import org.jetbrains.jet.plugin.framework.ui.CreateLibraryDialogWithModules;
 import org.jetbrains.jet.plugin.project.ProjectStructureUtil;
 import org.jetbrains.jet.utils.PathUtil;
 
@@ -95,10 +93,7 @@ public class KotlinJsModuleConfigurator extends KotlinWithLibraryConfigurator {
     @Override
     public void configure(@NotNull Project project) {
         String defaultPathToJar = getDefaultPathToJarFile(project);
-        String defaultPathToJsFile = getDefaultPathToJsFile(project);
-
         boolean showPathToJarPanel = needToChooseJarPath(project);
-        boolean showPathToJsFilePanel = needToChooseJsFilePath(project);
 
         List<Module> nonConfiguredModules =
                 !ApplicationManager.getApplication().isUnitTestMode() ?
@@ -107,13 +102,12 @@ public class KotlinJsModuleConfigurator extends KotlinWithLibraryConfigurator {
 
         List<Module> modulesToConfigure = nonConfiguredModules;
         String copyLibraryIntoPath = null;
-        String jsFilesIntoPath = null;
 
-        if (nonConfiguredModules.size() > 1 || showPathToJarPanel || showPathToJsFilePanel) {
-            CreateJavaScriptLibraryDialogWithModules dialog =
-                    new CreateJavaScriptLibraryDialogWithModules(project, nonConfiguredModules,
-                                                                 defaultPathToJar, defaultPathToJsFile,
-                                                                 showPathToJarPanel, showPathToJsFilePanel);
+        if (nonConfiguredModules.size() > 1 || showPathToJarPanel) {
+            CreateLibraryDialogWithModules dialog = new CreateLibraryDialogWithModules(
+                    project, nonConfiguredModules, defaultPathToJar, showPathToJarPanel,
+                    JSLibraryStdDescription.DIALOG_TITLE,
+                    JSLibraryStdDescription.DIALOG_CAPTION);
 
             if (!ApplicationManager.getApplication().isUnitTestMode()) {
                 dialog.show();
@@ -121,45 +115,11 @@ public class KotlinJsModuleConfigurator extends KotlinWithLibraryConfigurator {
             }
 
             modulesToConfigure = dialog.getModulesToConfigure();
-            copyLibraryIntoPath = dialog.getCopyLibraryIntoPath();
-            jsFilesIntoPath = dialog.getCopyJsIntoPath();
+            copyLibraryIntoPath = dialog.getCopyIntoPath();
         }
 
         for (Module module : modulesToConfigure) {
             configureModuleWithLibrary(module, defaultPathToJar, copyLibraryIntoPath);
-        }
-
-        configureModuleWithJsFile(defaultPathToJsFile, jsFilesIntoPath);
-    }
-
-    public static boolean isJsFilePresent(@NotNull String dir) {
-        return new File(dir + "/" + PathUtil.JS_LIB_JAR_NAME).exists();
-    }
-
-    @NotNull
-    public File getJsFile() {
-        return assertFileExists(PathUtil.getKotlinPathsForIdeaPlugin().getJsLibJsPath());
-    }
-
-    private static boolean needToChooseJsFilePath(@NotNull Project project) {
-        String defaultPath = FileUIUtils.createRelativePath(project, project.getBaseDir(), "script");
-        return !isJsFilePresent(defaultPath);
-    }
-
-    @NotNull
-    protected String getDefaultPathToJsFile(@NotNull Project project) {
-        return FileUIUtils.createRelativePath(project, project.getBaseDir(), "script");
-    }
-
-    protected void configureModuleWithJsFile(
-            @NotNull String defaultPath,
-            @Nullable String pathToJsFromDialog
-    ) {
-        boolean isJsFilePresent = isJsFilePresent(defaultPath);
-        if (isJsFilePresent) return;
-
-        if (pathToJsFromDialog != null) {
-            copyFileToDir(getJsFile(), pathToJsFromDialog);
         }
     }
 

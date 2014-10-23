@@ -29,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.TestOnly;
 import org.jetbrains.jet.plugin.configuration.KotlinJsModuleConfigurator;
-import org.jetbrains.jet.plugin.framework.ui.CreateJavaScriptLibraryDialog;
+import org.jetbrains.jet.plugin.framework.ui.CreateLibraryDialog;
 
 import javax.swing.*;
 import java.io.File;
@@ -37,7 +37,6 @@ import java.util.Set;
 
 import static org.jetbrains.jet.plugin.configuration.ConfigureKotlinInProjectUtils.getConfiguratorByName;
 import static org.jetbrains.jet.plugin.configuration.KotlinJsModuleConfigurator.NAME;
-import static org.jetbrains.jet.plugin.configuration.KotlinJsModuleConfigurator.isJsFilePresent;
 import static org.jetbrains.jet.plugin.configuration.KotlinWithLibraryConfigurator.getFileInDir;
 import static org.jetbrains.jet.plugin.framework.ui.FileUIUtils.createRelativePath;
 
@@ -46,6 +45,8 @@ public class JSLibraryStdDescription extends CustomLibraryDescriptorWithDefferCo
     public static final String LIBRARY_NAME = "KotlinJavaScript";
 
     public static final String JAVA_SCRIPT_LIBRARY_CREATION = "JavaScript Library Creation";
+    public static final String DIALOG_TITLE = "Create Kotlin JavaScript Library";
+    public static final String DIALOG_CAPTION = "Kotlin JavaScript Library";
     public static final Set<LibraryKind> SUITABLE_LIBRARY_KINDS = Sets.newHashSet(KOTLIN_JAVASCRIPT_KIND);
 
     private static final String DEFAULT_LIB_DIR_NAME = "lib";
@@ -84,42 +85,28 @@ public class JSLibraryStdDescription extends CustomLibraryDescriptorWithDefferCo
 
         deferredCopyFileRequests = new DeferredCopyFileRequests(jsConfigurator);
 
-        String defaultPathToJsFileDir =
-                useRelativePaths ? DEFAULT_SCRIPT_DIR_NAME : createRelativePath(null, contextDirectory, DEFAULT_SCRIPT_DIR_NAME);
         String defaultPathToJarFileDir =
                 useRelativePaths ? DEFAULT_LIB_DIR_NAME : createRelativePath(null, contextDirectory, DEFAULT_LIB_DIR_NAME);
 
-        boolean jsFilePresent = !useRelativePaths && isJsFilePresent(defaultPathToJsFileDir);
         boolean jarFilePresent = !useRelativePaths && getFileInDir(jsConfigurator.getJarName(), defaultPathToJarFileDir).exists();
-
-        if (jarFilePresent && jsFilePresent) {
-            return createConfiguration(getFileInDir(jsConfigurator.getJarName(), defaultPathToJarFileDir));
-        }
-
-        CreateJavaScriptLibraryDialog dialog =
-                new CreateJavaScriptLibraryDialog(defaultPathToJarFileDir, defaultPathToJsFileDir, !jarFilePresent, !jsFilePresent);
-        dialog.show();
-
-        if (!dialog.isOK()) return null;
-
-        String copyJsFileIntoPath = dialog.getCopyJsIntoPath();
-        if (!jsFilePresent && copyJsFileIntoPath != null) {
-            deferredCopyFileRequests.addCopyRequest(jsConfigurator.getJsFile(), copyJsFileIntoPath);
-        }
 
         if (jarFilePresent) {
             return createConfiguration(getFileInDir(jsConfigurator.getJarName(), defaultPathToJarFileDir));
         }
-        else {
-            String copyIntoPath = dialog.getCopyLibraryIntoPath();
-            File existedJarFile = jsConfigurator.getExistedJarFile();
 
-            if (copyIntoPath != null) {
-                deferredCopyFileRequests.addCopyWithReplaceRequest(existedJarFile, copyIntoPath);
-            }
+        CreateLibraryDialog dialog =new CreateLibraryDialog(defaultPathToJarFileDir, DIALOG_TITLE, DIALOG_CAPTION);
+        dialog.show();
 
-            return createConfiguration(existedJarFile);
+        if (!dialog.isOK()) return null;
+
+        String copyIntoPath = dialog.getCopyIntoPath();
+        File existedJarFile = jsConfigurator.getExistedJarFile();
+
+        if (copyIntoPath != null) {
+            deferredCopyFileRequests.addCopyWithReplaceRequest(existedJarFile, copyIntoPath);
         }
+
+        return createConfiguration(existedJarFile);
     }
 
     @TestOnly
