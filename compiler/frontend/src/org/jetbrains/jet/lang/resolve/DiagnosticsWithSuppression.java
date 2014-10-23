@@ -51,6 +51,9 @@ public class DiagnosticsWithSuppression implements Diagnostics {
     private final ServiceLoader<SuppressStringProvider> ADDITIONAL_SUPPRESS_STRING_PROVIDERS =
             ServiceLoader.load(SuppressStringProvider.class, SuppressStringProvider.class.getClassLoader());
 
+    private final ServiceLoader<DiagnosticSuppressor> DIAGNOSTIC_SUPPRESSORS =
+            ServiceLoader.load(DiagnosticSuppressor.class, DiagnosticSuppressor.class.getClassLoader());
+
     private final BindingContext context;
     private final Collection<Diagnostic> diagnostics;
 
@@ -101,6 +104,10 @@ public class DiagnosticsWithSuppression implements Diagnostics {
 
     private boolean isSuppressed(@NotNull Diagnostic diagnostic) {
         PsiElement element = diagnostic.getPsiElement();
+
+        for (DiagnosticSuppressor suppressor : DIAGNOSTIC_SUPPRESSORS) {
+            if (suppressor.isSuppressed(diagnostic)) return true;
+        }
 
         if (isSuppressedForDebugger(diagnostic, element)) return true;
 
@@ -309,6 +316,10 @@ public class DiagnosticsWithSuppression implements Diagnostics {
 
     public interface SuppressStringProvider {
         String get(@NotNull AnnotationDescriptor annotationDescriptor);
+    }
+
+    public interface DiagnosticSuppressor {
+        boolean isSuppressed(@NotNull Diagnostic diagnostic);
     }
 
     @TestOnly
