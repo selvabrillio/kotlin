@@ -34,22 +34,22 @@ import org.jetbrains.jet.lang.diagnostics.Errors;
 import org.jetbrains.jet.lang.diagnostics.Severity;
 import org.jetbrains.jet.lang.psi.JetAnnotated;
 import org.jetbrains.jet.lang.psi.JetAnnotationEntry;
-import org.jetbrains.jet.lang.psi.JetStubbedPsiUtil;
 import org.jetbrains.jet.lang.psi.JetFile;
+import org.jetbrains.jet.lang.psi.JetStubbedPsiUtil;
 import org.jetbrains.jet.lang.psi.codeFragmentUtil.CodeFragmentUtilPackage;
 import org.jetbrains.jet.lang.resolve.constants.ArrayValue;
 import org.jetbrains.jet.lang.resolve.constants.CompileTimeConstant;
 import org.jetbrains.jet.lang.resolve.constants.StringValue;
 import org.jetbrains.jet.lang.types.lang.KotlinBuiltIns;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class DiagnosticsWithSuppression implements Diagnostics {
 
     private static final Logger LOG = Logger.getInstance(DiagnosticsWithSuppression.class);
+
+    private final ServiceLoader<SuppressStringProvider> ADDITIONAL_SUPPRESS_STRING_PROVIDERS =
+            ServiceLoader.load(SuppressStringProvider.class, SuppressStringProvider.class.getClassLoader());
 
     private final BindingContext context;
     private final Collection<Diagnostic> diagnostics;
@@ -197,6 +197,13 @@ public class DiagnosticsWithSuppression implements Diagnostics {
             AnnotationDescriptor annotationDescriptor = context.get(BindingContext.ANNOTATION, annotationEntry);
             if (annotationDescriptor == null) continue;
 
+            for (SuppressStringProvider suppressStringProvider : ADDITIONAL_SUPPRESS_STRING_PROVIDERS) {
+                String suppressString = suppressStringProvider.get(annotationDescriptor);
+                if (suppressString != null) {
+                    builder.add(suppressString);
+                }
+            }
+
             if (!KotlinBuiltIns.getInstance().isSuppressAnnotation(annotationDescriptor)) continue;
 
             // We only add strings and skip other values to facilitate recovery in presence of erroneous code
@@ -298,6 +305,10 @@ public class DiagnosticsWithSuppression implements Diagnostics {
             // it's too costly to check set inclusion
             return other instanceof EmptySuppressor;
         }
+    }
+
+    public interface SuppressStringProvider {
+        String get(@NotNull AnnotationDescriptor annotationDescriptor);
     }
 
     @TestOnly
