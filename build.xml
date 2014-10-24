@@ -524,6 +524,11 @@
                         *** SKIP_DEBUG;
                         *** SKIP_FRAMES;
                     }
+
+                    -keepclassmembers class com.intellij.codeInsight.NullableNotNullManager {
+                        boolean isNullable(com.intellij.psi.PsiModifierListOwner);
+                        boolean isNotNull(com.intellij.psi.PsiModifierListOwner);
+                    }
                 ]]></proguard>
             </else>
         </if>
