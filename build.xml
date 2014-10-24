@@ -285,6 +285,7 @@
                 <attribute name="Implementation-Vendor" value="${manifest.impl.vendor}"/>
                 <attribute name="Implementation-Title" value="${manifest.impl.title.kotlin.javascript.stdlib}"/>
                 <attribute name="Implementation-Version" value="${build.number}"/>
+                <attribute name="Specification-Title" value="${manifest.spec.title.kotlin.javascript.lib}"/>
             </manifest>
         </jar>
     </target>
