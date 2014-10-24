@@ -21,7 +21,9 @@ import com.intellij.openapi.vfs.StandardFileSystems;
 import com.intellij.openapi.vfs.VfsUtilCore;
 import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.jetbrains.jet.utils.LibraryUtils;
+import org.jetbrains.jet.utils.PathUtil;
 
 import java.io.File;
 import java.util.List;
@@ -34,6 +36,16 @@ public class JsLibraryStdDetectionUtil {
             return null;
         }
 
+        VirtualFile jar = getJsLibJar(classesRoots);
+        if (jar == null) return null;
+
+        assert JsHeaderLibraryDetectionUtil.isJsHeaderLibraryDetected(classesRoots) : "StdLib should also be detected as headers library";
+
+        return JarUtil.getJarAttribute(VfsUtilCore.virtualToIoFile(jar), Attributes.Name.IMPLEMENTATION_VERSION);
+    }
+
+    @Nullable
+    public static VirtualFile getJsLibJar(@NotNull List<VirtualFile> classesRoots) {
         for (VirtualFile root : classesRoots) {
             if (root.getFileSystem().getProtocol() != StandardFileSystems.JAR_PROTOCOL) continue;
 
@@ -41,13 +53,10 @@ public class JsLibraryStdDetectionUtil {
             assert jar != null;
 
             if (LibraryUtils.isKotlinJavascriptStdLibrary(new File(jar.getPath()))) {
-                assert JsHeaderLibraryDetectionUtil.isJsHeaderLibraryDetected(classesRoots) : "StdLib should also be detected as headers library";
-
-                return JarUtil.getJarAttribute(VfsUtilCore.virtualToIoFile(root), Attributes.Name.IMPLEMENTATION_VERSION);
+                return jar;
             }
         }
 
         return null;
-
     }
 }

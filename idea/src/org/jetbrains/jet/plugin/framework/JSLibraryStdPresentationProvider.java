@@ -27,6 +27,7 @@ import org.jetbrains.jet.plugin.JetIcons;
 import org.jetbrains.jet.utils.PathUtil;
 
 import javax.swing.*;
+import java.util.Arrays;
 import java.util.List;
 
 public class JSLibraryStdPresentationProvider extends LibraryPresentationProvider<LibraryVersionProperties> {
@@ -64,5 +65,10 @@ public class JSLibraryStdPresentationProvider extends LibraryPresentationProvide
         }
 
         return false;
+    }
+
+    @Nullable
+    public static VirtualFile getJsLibJar(@NotNull Library library) {
+        return JsLibraryStdDetectionUtil.getJsLibJar(Arrays.asList(library.getFiles(OrderRootType.CLASSES)));
     }
 }
