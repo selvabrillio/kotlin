@@ -50,7 +50,6 @@ public class JSLibraryStdDescription extends CustomLibraryDescriptorWithDefferCo
     public static final Set<LibraryKind> SUITABLE_LIBRARY_KINDS = Sets.newHashSet(KOTLIN_JAVASCRIPT_KIND);
 
     private static final String DEFAULT_LIB_DIR_NAME = "lib";
-    private static final String DEFAULT_SCRIPT_DIR_NAME = "script";
 
     private final boolean useRelativePaths;
     private DeferredCopyFileRequests deferredCopyFileRequests;
