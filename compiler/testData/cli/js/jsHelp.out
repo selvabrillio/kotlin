@@ -8,6 +8,8 @@ where possible options include:
   -main {call,noCall}        Whether a main function should be called; default 'call' (main function will be auto detected)
   -output-prefix <path>      Path to file which will be added to the beginning of output file
   -output-postfix <path>     Path to file which will be added to the end of output file
+  -copy-library-js           Copy js-files from kotlin javascript libraries to output dir, true by default
+  -output-library-js <path>  Path to output folder for runtime js-files from libraries
   -nowarn                    Generate no warnings
   -verbose                   Enable verbose logging output
   -version                   Display compiler version

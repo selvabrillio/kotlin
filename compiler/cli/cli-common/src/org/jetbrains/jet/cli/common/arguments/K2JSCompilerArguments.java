@@ -55,6 +55,13 @@ public class K2JSCompilerArguments extends CommonCompilerArguments {
     @ValueDescription("<path>")
     public String outputPostfix;
 
+    @Argument(value = "copy-library-js", description = "Copy js-files from kotlin javascript libraries to output dir, true by default")
+    public boolean copyLibraryJS = true;
+
+    @Argument(value = "output-library-js", description = "Path to output folder for runtime js-files from libraries")
+    @ValueDescription("<path>")
+    public String outputLibraryJSPath;
+
     @Override
     @NotNull
     public String executableScriptFileName() {

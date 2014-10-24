@@ -1,3 +1,5 @@
 $TESTDATA_DIR$/nativeDeclarations.kt
+-output-library-js
+$TEMP_DIR$/js/inner/files
 -output
 $TEMP_DIR$/out.js

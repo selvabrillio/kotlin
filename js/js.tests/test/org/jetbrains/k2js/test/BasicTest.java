@@ -235,7 +235,7 @@ public abstract class BasicTest extends KotlinTestWithEnvironment {
     @NotNull
     private Config createConfig(@NotNull Project project, @NotNull String moduleId, @NotNull EcmaVersion ecmaVersion) {
         return new LibrarySourcesConfigWithCaching(project, moduleId, ecmaVersion,
-                                                   shouldGenerateSourcemap(), IS_INLINE_ENABLED, shouldBeTranslateAsUnitTestClass());
+                                                   shouldGenerateSourcemap(), IS_INLINE_ENABLED, shouldBeTranslateAsUnitTestClass(), false);
     }
 
     @NotNull

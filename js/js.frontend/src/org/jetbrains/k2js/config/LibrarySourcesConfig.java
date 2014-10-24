@@ -20,6 +20,7 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Key;
 import com.intellij.openapi.util.io.JarUtil;
+import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.openapi.vfs.*;
 import com.intellij.psi.PsiFile;
@@ -30,6 +31,8 @@ import org.jetbrains.jet.lang.psi.JetFile;
 import org.jetbrains.jet.plugin.JetFileType;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -60,9 +63,10 @@ public class LibrarySourcesConfig extends Config {
             @NotNull List<String> files,
             @NotNull EcmaVersion ecmaVersion,
             boolean sourcemap,
-            boolean inlineEnabled
+            boolean inlineEnabled,
+            boolean copyLibraryJS
     ) {
-        super(project, moduleId, ecmaVersion, sourcemap, inlineEnabled);
+        super(project, moduleId, ecmaVersion, sourcemap, inlineEnabled, copyLibraryJS);
         this.files = files;
     }
 
@@ -88,15 +92,19 @@ public class LibrarySourcesConfig extends Config {
 
             VirtualFile file;
             String actualModuleName = moduleName;
+            boolean copyJsFiles = false;
 
             if (path.endsWith(".jar") || path.endsWith(".zip")) {
                 file = jarFileSystem.findFileByPath(path + URLUtil.JAR_SEPARATOR);
                 File filePath = new File(path);
 
+                boolean kotlinJavascriptLibrary = isKotlinJavascriptLibrary(filePath);
+                copyJsFiles = this.copyLibraryJS && kotlinJavascriptLibrary;
+
                 if (isKotlinJavascriptStdLibrary(filePath)) {
                     actualModuleName = STDLIB_JS_MODULE_NAME;
                 }
-                else if (isKotlinJavascriptLibrary(filePath)) {
+                else if (kotlinJavascriptLibrary) {
                     actualModuleName = JarUtil.getJarAttribute(filePath, Attributes.Name.IMPLEMENTATION_TITLE);
                 }
             }
@@ -110,6 +118,10 @@ public class LibrarySourcesConfig extends Config {
             else {
                 JetFileCollector jetFileCollector = new JetFileCollector(jetFiles, actualModuleName, psiManager);
                 VfsUtilCore.visitChildrenRecursively(file, jetFileCollector);
+                if (copyJsFiles) {
+                    JsFileCollector jsFileCollector = new JsFileCollector();
+                    VfsUtilCore.visitChildrenRecursively(file, jsFileCollector);
+                }
             }
         }
 
@@ -126,6 +138,27 @@ public class LibrarySourcesConfig extends Config {
 
     protected static void setupPsiFile(PsiFile psiFile, String moduleName) {
         psiFile.putUserData(EXTERNAL_MODULE_NAME, moduleName);
+    }
+
+    private class JsFileCollector extends VirtualFileVisitor {
+
+        private JsFileCollector() {
+        }
+
+        @Override
+        public boolean visitFile(@NotNull VirtualFile file) {
+            if (!file.isDirectory() && StringUtil.notNullize(file.getExtension()).equalsIgnoreCase("js")) {
+                try {
+                    InputStream stream = file.getInputStream();
+                    String text = StringUtil.convertLineSeparators(FileUtil.loadTextAndClose(stream));
+                    jsFiles.add(new JsFile(file.getName(), text));
+                }
+                catch (IOException ex) {
+                    LOG.warn(ex.toString());
+                }
+            }
+            return true;
+        }
     }
 
     private class JetFileCollector extends VirtualFileVisitor {

@@ -33,6 +33,8 @@ public class Kotlin2JsTask : KotlinCompilerBaseTask<K2JSCompilerArguments>() {
     public var outputPrefix: File? = null
     public var outputPostfix: File? = null
     public var sourceMap: Boolean = false
+    public var copyLibraryJS: Boolean = true
+    public var outputLibraryJSPath: File? = null
 
     /**
      * {@link K2JsArgumentConstants.CALL} (default) if need generate a main function call (main function will be auto detected)
@@ -66,5 +68,7 @@ public class Kotlin2JsTask : KotlinCompilerBaseTask<K2JSCompilerArguments>() {
 
         arguments.main = main
         arguments.sourceMap = sourceMap
+        arguments.copyLibraryJS = copyLibraryJS
+        arguments.outputLibraryJSPath = if (outputLibraryJSPath != null) getPath(outputLibraryJSPath!!) else null
     }
 }

@@ -33,6 +33,8 @@ import kotlin.Function0;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.jet.OutputFileCollection;
+import org.jetbrains.jet.SimpleOutputFile;
+import org.jetbrains.jet.SimpleOutputFileCollection;
 import org.jetbrains.jet.analyzer.AnalyzeExhaust;
 import org.jetbrains.jet.cli.common.CLICompiler;
 import org.jetbrains.jet.cli.common.CLIConfigurationKeys;
@@ -58,6 +60,7 @@ import org.jetbrains.k2js.config.*;
 import org.jetbrains.k2js.facade.MainCallParameters;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 
 import static org.jetbrains.jet.cli.common.ExitCode.COMPILATION_ERROR;
@@ -117,6 +120,7 @@ public class K2JSCompiler extends CLICompiler<K2JSCompilerArguments> {
         }
 
         File outputFile = new File(arguments.outputFile);
+        File outputLibraryJsPath = arguments.outputLibraryJSPath != null ? new File(arguments.outputLibraryJSPath) : outputFile.getParentFile();
 
         Config config = getConfig(arguments, project);
         if (analyzeAndReportErrors(messageCollector, sourcesFiles, config)) {
@@ -150,6 +154,17 @@ public class K2JSCompiler extends CLICompiler<K2JSCompilerArguments> {
         OutputFileCollection outputFiles = translate(mainCallParameters, config, sourcesFiles, outputFile, outputPrefixFile, outputPostfixFile);
 
         OutputUtilsPackage.writeAll(outputFiles, outputFile.getParentFile(), messageCollector);
+
+        if (!arguments.copyLibraryJS) return OK;
+
+        List<SimpleOutputFile> outputJsLibFiles = new SmartList<SimpleOutputFile>();
+        for(Config.JsFile file : config.getJsFiles()) {
+            SimpleOutputFile simpleOutputFile = new SimpleOutputFile(Collections.<File>emptyList(), file.name, file.text);
+            outputJsLibFiles.add(simpleOutputFile);
+        }
+
+        OutputFileCollection outputJsLibCollection =  new SimpleOutputFileCollection(outputJsLibFiles);
+        OutputUtilsPackage.writeAll(outputJsLibCollection, outputLibraryJsPath, messageCollector);
 
         return OK;
     }
@@ -217,7 +232,7 @@ public class K2JSCompiler extends CLICompiler<K2JSCompilerArguments> {
             ContainerUtil.addAllNotNull(libraryFiles, arguments.libraryFiles);
         }
 
-        return new LibrarySourcesConfig(project, moduleId, libraryFiles, ecmaVersion, arguments.sourceMap, inlineEnabled);
+        return new LibrarySourcesConfig(project, moduleId, libraryFiles, ecmaVersion, arguments.sourceMap, inlineEnabled, arguments.copyLibraryJS);
     }
 
     public static MainCallParameters createMainCallParameters(String main) {

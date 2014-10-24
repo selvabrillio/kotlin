@@ -57,9 +57,10 @@ public class LibrarySourcesConfigWithCaching extends LibrarySourcesConfig {
             @NotNull EcmaVersion ecmaVersion,
             boolean sourcemap,
             boolean inlineEnabled,
-            boolean isUnitTestConfig
+            boolean isUnitTestConfig,
+            boolean copyLibraryJS
     ) {
-        super(project, moduleId, JS_STDLIB, ecmaVersion, sourcemap, inlineEnabled);
+        super(project, moduleId, JS_STDLIB, ecmaVersion, sourcemap, inlineEnabled, copyLibraryJS);
         this.isUnitTestConfig = isUnitTestConfig;
     }
 
@@ -133,7 +134,7 @@ public class LibrarySourcesConfigWithCaching extends LibrarySourcesConfig {
 
     @NotNull
     private static Config createConfigWithoutLibFiles(@NotNull Project project, @NotNull String moduleId, @NotNull EcmaVersion ecmaVersion) {
-        return new Config(project, moduleId, ecmaVersion, /* generate sourcemaps = */ false, /* inlineEnabled = */ false) {
+        return new Config(project, moduleId, ecmaVersion, /* generate sourcemaps = */ false, /* inlineEnabled = */ false, /* copyLibraryJS = */ false) {
             @NotNull
             @Override
             protected List<JetFile> generateLibFiles() {

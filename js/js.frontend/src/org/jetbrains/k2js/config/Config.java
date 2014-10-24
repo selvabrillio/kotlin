@@ -24,6 +24,7 @@ import org.jetbrains.jet.lang.descriptors.ModuleDescriptor;
 import org.jetbrains.jet.lang.psi.JetFile;
 import org.jetbrains.jet.lang.resolve.BindingContext;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -38,6 +39,8 @@ public abstract class Config {
     @Nullable
     private List<JetFile> libFiles = null;
     @NotNull
+    protected List<JsFile> jsFiles = new ArrayList<JsFile>();
+    @NotNull
     private final EcmaVersion target;
 
     @NotNull
@@ -45,18 +48,22 @@ public abstract class Config {
 
     private final boolean sourcemap;
 
+    protected final boolean copyLibraryJS;
+
     public Config(
             @NotNull Project project,
             @NotNull String moduleId,
             @NotNull EcmaVersion ecmaVersion,
             boolean sourcemap,
-            boolean inlineEnabled
+            boolean inlineEnabled,
+            boolean copyLibraryJS
     ) {
         this.project = project;
         this.target = ecmaVersion;
         this.moduleId = moduleId;
         this.sourcemap = sourcemap;
         this.inlineEnabled = inlineEnabled;
+        this.copyLibraryJS = copyLibraryJS;
     }
 
     public boolean isSourcemap() {
@@ -93,6 +100,13 @@ public abstract class Config {
         return libFiles;
     }
 
+    public final List<JsFile> getJsFiles() {
+        if (libFiles == null) {
+            libFiles = generateLibFiles();
+        }
+        return jsFiles;
+    }
+
     @Nullable
     public BindingContext getLibraryContext() {
         return null;
@@ -113,5 +127,20 @@ public abstract class Config {
 
     public boolean isTestConfig() {
         return false;
+    }
+
+    public static class JsFile {
+        public final String name;
+        public final String text;
+
+        public JsFile(@NotNull String name, @NotNull String text) {
+            this.name = name;
+            this.text = text;
+        }
+
+        @Override
+        public String toString() {
+            return "JsFile(" + name + ")";
+        }
     }
 }

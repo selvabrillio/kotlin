@@ -54,5 +54,6 @@ public class K2JsCliTest extends CliBaseTest {
         executeCompilerCompareOutputJS();
 
         Assert.assertTrue(new File(tmpdir.getTmpDir(), "out.js").isFile());
+        Assert.assertTrue(new File(tmpdir.getTmpDir(), "js/inner/files/kotlin.js").isFile());
     }
 }
