@@ -45,6 +45,7 @@ import org.jetbrains.jet.lang.resolve.QualifiedExpressionResolver;
 import org.jetbrains.jet.lang.resolve.calls.CallResolverExtensionProvider;
 import org.jetbrains.jet.lang.resolve.calls.CallCompleter;
 import org.jetbrains.jet.lang.resolve.calls.CandidateResolver;
+import org.jetbrains.jet.lang.resolve.calls.tasks.TaskPrioritizer;
 import org.jetbrains.jet.lang.resolve.ControlFlowAnalyzer;
 import org.jetbrains.jet.lang.resolve.DeclarationsChecker;
 import org.jetbrains.jet.lang.resolve.ModifiersChecker;
@@ -93,6 +94,7 @@ public class InjectorForTopDownAnalyzerBasic {
     private final CallResolverExtensionProvider callResolverExtensionProvider;
     private final CallCompleter callCompleter;
     private final CandidateResolver candidateResolver;
+    private final TaskPrioritizer taskPrioritizer;
     private final ControlFlowAnalyzer controlFlowAnalyzer;
     private final DeclarationsChecker declarationsChecker;
     private final ModifiersChecker modifiersChecker;
@@ -142,6 +144,7 @@ public class InjectorForTopDownAnalyzerBasic {
         this.callResolverExtensionProvider = new CallResolverExtensionProvider();
         this.candidateResolver = new CandidateResolver();
         this.callCompleter = new CallCompleter(argumentTypeResolver, candidateResolver);
+        this.taskPrioritizer = new TaskPrioritizer(storageManager);
         this.controlFlowAnalyzer = new ControlFlowAnalyzer();
         this.declarationsChecker = new DeclarationsChecker();
         this.modifiersChecker = new ModifiersChecker(bindingTrace, additionalCheckerProvider);
@@ -192,6 +195,7 @@ public class InjectorForTopDownAnalyzerBasic {
         callResolver.setCallCompleter(callCompleter);
         callResolver.setCandidateResolver(candidateResolver);
         callResolver.setExpressionTypingServices(expressionTypingServices);
+        callResolver.setTaskPrioritizer(taskPrioritizer);
         callResolver.setTypeResolver(typeResolver);
 
         argumentTypeResolver.setExpressionTypingServices(expressionTypingServices);

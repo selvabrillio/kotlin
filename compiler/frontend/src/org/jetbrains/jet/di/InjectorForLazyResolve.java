@@ -43,6 +43,7 @@ import org.jetbrains.jet.lang.resolve.QualifiedExpressionResolver;
 import org.jetbrains.jet.lang.resolve.calls.CallResolverExtensionProvider;
 import org.jetbrains.jet.lang.resolve.calls.CallCompleter;
 import org.jetbrains.jet.lang.resolve.calls.CandidateResolver;
+import org.jetbrains.jet.lang.resolve.calls.tasks.TaskPrioritizer;
 import org.jetbrains.jet.lang.psi.JetImportsFactory;
 import org.jetbrains.jet.lang.resolve.lazy.ScopeProvider;
 import org.jetbrains.jet.lang.resolve.ScriptBodyResolver;
@@ -80,6 +81,7 @@ public class InjectorForLazyResolve {
     private final CallResolverExtensionProvider callResolverExtensionProvider;
     private final CallCompleter callCompleter;
     private final CandidateResolver candidateResolver;
+    private final TaskPrioritizer taskPrioritizer;
     private final JetImportsFactory jetImportsFactory;
     private final ScopeProvider scopeProvider;
     private final ScriptBodyResolver scriptBodyResolver;
@@ -119,6 +121,7 @@ public class InjectorForLazyResolve {
         this.callResolverExtensionProvider = new CallResolverExtensionProvider();
         this.candidateResolver = new CandidateResolver();
         this.callCompleter = new CallCompleter(argumentTypeResolver, candidateResolver);
+        this.taskPrioritizer = new TaskPrioritizer(storageManager);
         this.jetImportsFactory = new JetImportsFactory();
         this.scopeProvider = new ScopeProvider(getResolveSession());
         this.scriptBodyResolver = new ScriptBodyResolver();
@@ -139,6 +142,7 @@ public class InjectorForLazyResolve {
         callResolver.setCallCompleter(callCompleter);
         callResolver.setCandidateResolver(candidateResolver);
         callResolver.setExpressionTypingServices(expressionTypingServices);
+        callResolver.setTaskPrioritizer(taskPrioritizer);
         callResolver.setTypeResolver(typeResolver);
 
         argumentTypeResolver.setExpressionTypingServices(expressionTypingServices);
