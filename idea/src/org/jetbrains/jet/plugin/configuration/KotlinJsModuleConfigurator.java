@@ -20,7 +20,6 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleManager;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.OrderRootType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.jet.plugin.framework.JSLibraryStdDescription;
 import org.jetbrains.jet.plugin.framework.ui.CreateLibraryDialogWithModules;
@@ -48,11 +47,7 @@ public class KotlinJsModuleConfigurator extends KotlinWithLibraryConfigurator {
 
     @Override
     public boolean isConfigured(@NotNull Module module) {
-        if (ProjectStructureUtil.isJsKotlinModule(module)) {
-            String pathFromLibrary = getPathFromLibrary(module.getProject(), OrderRootType.CLASSES);
-            return pathFromLibrary != null && getFileInDir(getJarName(), pathFromLibrary).exists();
-        }
-        return false;
+        return ProjectStructureUtil.isJsKotlinModule(module);
     }
 
     @NotNull
