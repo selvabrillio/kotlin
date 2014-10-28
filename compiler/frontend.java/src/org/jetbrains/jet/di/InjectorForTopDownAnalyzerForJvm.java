@@ -38,6 +38,7 @@ import org.jetbrains.jet.lang.resolve.java.resolver.PsiBasedExternalAnnotationRe
 import org.jetbrains.jet.lang.resolve.java.structure.impl.JavaPropertyInitializerEvaluatorImpl;
 import org.jetbrains.jet.lang.resolve.java.resolver.JavaSourceElementFactoryImpl;
 import org.jetbrains.jet.lang.resolve.java.lazy.SingleModuleClassResolver;
+import org.jetbrains.jet.lang.resolve.java.JvmLazyAnalyzerPostConstruct;
 import org.jetbrains.jet.lang.resolve.AdditionalCheckerProvider;
 import org.jetbrains.jet.lang.resolve.BodyResolver;
 import org.jetbrains.jet.lang.resolve.AnnotationResolver;
@@ -76,7 +77,6 @@ import org.jetbrains.jet.lang.resolve.kotlin.JavaClassDataFinder;
 import org.jetbrains.jet.lang.resolve.kotlin.AnnotationDescriptorLoader;
 import org.jetbrains.jet.lang.resolve.kotlin.DescriptorLoadersStorage;
 import org.jetbrains.jet.lang.resolve.kotlin.ConstantDescriptorLoader;
-import org.jetbrains.jet.lang.resolve.AnalyzerPostConstruct;
 import org.jetbrains.annotations.NotNull;
 import javax.annotation.PreDestroy;
 
@@ -106,6 +106,7 @@ public class InjectorForTopDownAnalyzerForJvm {
     private final JavaPropertyInitializerEvaluatorImpl javaPropertyInitializerEvaluator;
     private final JavaSourceElementFactoryImpl javaSourceElementFactory;
     private final SingleModuleClassResolver singleModuleClassResolver;
+    private final JvmLazyAnalyzerPostConstruct jvmLazyAnalyzerPostConstruct;
     private final AdditionalCheckerProvider additionalCheckerProvider;
     private final BodyResolver bodyResolver;
     private final AnnotationResolver annotationResolver;
@@ -144,7 +145,6 @@ public class InjectorForTopDownAnalyzerForJvm {
     private final AnnotationDescriptorLoader annotationDescriptorLoader;
     private final DescriptorLoadersStorage descriptorLoadersStorage;
     private final ConstantDescriptorLoader constantDescriptorLoader;
-    private final AnalyzerPostConstruct analyzerPostConstruct;
 
     public InjectorForTopDownAnalyzerForJvm(
         @NotNull Project project,
@@ -182,6 +182,7 @@ public class InjectorForTopDownAnalyzerForJvm {
         this.annotationDescriptorLoader = new AnnotationDescriptorLoader();
         this.constantDescriptorLoader = new ConstantDescriptorLoader();
         this.deserializationGlobalContextForJava = new DeserializationGlobalContextForJava(storageManager, module, javaClassDataFinder, annotationDescriptorLoader, constantDescriptorLoader, lazyJavaPackageFragmentProvider);
+        this.jvmLazyAnalyzerPostConstruct = new JvmLazyAnalyzerPostConstruct();
         this.additionalCheckerProvider = org.jetbrains.jet.lang.resolve.kotlin.JavaDeclarationCheckerProvider.INSTANCE$;
         this.bodyResolver = new BodyResolver();
         this.annotationResolver = new AnnotationResolver();
@@ -214,7 +215,6 @@ public class InjectorForTopDownAnalyzerForJvm {
         this.overrideResolver = new OverrideResolver();
         this.scopeProvider = new ScopeProvider(getResolveSession());
         this.descriptorLoadersStorage = new DescriptorLoadersStorage(storageManager);
-        this.analyzerPostConstruct = new AnalyzerPostConstruct();
 
         this.lazyTopDownAnalyzer.setBodyResolver(bodyResolver);
         this.lazyTopDownAnalyzer.setDeclarationResolver(declarationResolver);
@@ -232,7 +232,7 @@ public class InjectorForTopDownAnalyzerForJvm {
         this.resolveSession.setScriptBodyResolver(scriptBodyResolver);
         this.resolveSession.setTypeResolver(typeResolver);
 
-        javaClassFinder.setComponentPostConstruct(analyzerPostConstruct);
+        javaClassFinder.setComponentPostConstruct(jvmLazyAnalyzerPostConstruct);
         javaClassFinder.setProject(project);
         javaClassFinder.setScope(moduleContentScope);
 
@@ -248,6 +248,10 @@ public class InjectorForTopDownAnalyzerForJvm {
         psiBasedMethodSignatureChecker.setExternalSignatureResolver(traceBasedExternalSignatureResolver);
 
         singleModuleClassResolver.setResolver(javaDescriptorResolver);
+
+        jvmLazyAnalyzerPostConstruct.setCodeAnalyzer(resolveSession);
+        jvmLazyAnalyzerPostConstruct.setProject(project);
+        jvmLazyAnalyzerPostConstruct.setTrace(bindingTrace);
 
         bodyResolver.setAnnotationResolver(annotationResolver);
         bodyResolver.setCallResolver(callResolver);
@@ -355,7 +359,7 @@ public class InjectorForTopDownAnalyzerForJvm {
 
         javaClassFinder.initialize();
 
-        analyzerPostConstruct.postCreate();
+        jvmLazyAnalyzerPostConstruct.postCreate();
 
     }
 

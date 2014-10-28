@@ -36,6 +36,7 @@ import org.jetbrains.jet.lang.resolve.java.resolver.PsiBasedMethodSignatureCheck
 import org.jetbrains.jet.lang.resolve.java.resolver.PsiBasedExternalAnnotationResolver;
 import org.jetbrains.jet.lang.resolve.java.structure.impl.JavaPropertyInitializerEvaluatorImpl;
 import org.jetbrains.jet.lang.resolve.java.resolver.JavaSourceElementFactoryImpl;
+import org.jetbrains.jet.lang.resolve.java.JvmLazyAnalyzerPostConstruct;
 import org.jetbrains.jet.lang.resolve.AdditionalCheckerProvider;
 import org.jetbrains.jet.lang.resolve.AnnotationResolver;
 import org.jetbrains.jet.lang.resolve.calls.CallResolver;
@@ -66,7 +67,6 @@ import org.jetbrains.jet.lang.resolve.kotlin.JavaClassDataFinder;
 import org.jetbrains.jet.lang.resolve.kotlin.AnnotationDescriptorLoader;
 import org.jetbrains.jet.lang.resolve.kotlin.DescriptorLoadersStorage;
 import org.jetbrains.jet.lang.resolve.kotlin.ConstantDescriptorLoader;
-import org.jetbrains.jet.lang.resolve.AnalyzerPostConstruct;
 import org.jetbrains.annotations.NotNull;
 import javax.annotation.PreDestroy;
 
@@ -94,6 +94,7 @@ public class InjectorForLazyResolveWithJava {
     private final PsiBasedExternalAnnotationResolver psiBasedExternalAnnotationResolver;
     private final JavaPropertyInitializerEvaluatorImpl javaPropertyInitializerEvaluator;
     private final JavaSourceElementFactoryImpl javaSourceElementFactory;
+    private final JvmLazyAnalyzerPostConstruct jvmLazyAnalyzerPostConstruct;
     private final AdditionalCheckerProvider additionalCheckerProvider;
     private final AnnotationResolver annotationResolver;
     private final CallResolver callResolver;
@@ -124,7 +125,6 @@ public class InjectorForLazyResolveWithJava {
     private final AnnotationDescriptorLoader annotationDescriptorLoader;
     private final DescriptorLoadersStorage descriptorLoadersStorage;
     private final ConstantDescriptorLoader constantDescriptorLoader;
-    private final AnalyzerPostConstruct analyzerPostConstruct;
 
     public InjectorForLazyResolveWithJava(
         @NotNull Project project,
@@ -158,6 +158,7 @@ public class InjectorForLazyResolveWithJava {
         this.globalJavaResolverContext = new GlobalJavaResolverContext(storageManager, javaClassFinder, virtualFileFinder, deserializedDescriptorResolver, psiBasedExternalAnnotationResolver, traceBasedExternalSignatureResolver, traceBasedErrorReporter, psiBasedMethodSignatureChecker, lazyResolveBasedCache, javaPropertyInitializerEvaluator, javaSourceElementFactory, moduleClassResolver);
         this.lazyJavaPackageFragmentProvider = new LazyJavaPackageFragmentProvider(globalJavaResolverContext, module);
         this.javaDescriptorResolver = new JavaDescriptorResolver(lazyJavaPackageFragmentProvider, module);
+        this.jvmLazyAnalyzerPostConstruct = new JvmLazyAnalyzerPostConstruct();
         this.additionalCheckerProvider = org.jetbrains.jet.lang.resolve.kotlin.JavaDeclarationCheckerProvider.INSTANCE$;
         this.annotationResolver = new AnnotationResolver();
         this.callResolver = new CallResolver();
@@ -185,7 +186,6 @@ public class InjectorForLazyResolveWithJava {
         this.constantDescriptorLoader = new ConstantDescriptorLoader();
         this.deserializationGlobalContextForJava = new DeserializationGlobalContextForJava(storageManager, module, javaClassDataFinder, annotationDescriptorLoader, constantDescriptorLoader, lazyJavaPackageFragmentProvider);
         this.descriptorLoadersStorage = new DescriptorLoadersStorage(storageManager);
-        this.analyzerPostConstruct = new AnalyzerPostConstruct();
 
         this.resolveSession.setAnnotationResolve(annotationResolver);
         this.resolveSession.setDescriptorResolver(descriptorResolver);
@@ -195,7 +195,7 @@ public class InjectorForLazyResolveWithJava {
         this.resolveSession.setScriptBodyResolver(scriptBodyResolver);
         this.resolveSession.setTypeResolver(typeResolver);
 
-        javaClassFinder.setComponentPostConstruct(analyzerPostConstruct);
+        javaClassFinder.setComponentPostConstruct(jvmLazyAnalyzerPostConstruct);
         javaClassFinder.setProject(project);
         javaClassFinder.setScope(moduleContentScope);
 
@@ -209,6 +209,10 @@ public class InjectorForLazyResolveWithJava {
 
         psiBasedMethodSignatureChecker.setExternalAnnotationResolver(psiBasedExternalAnnotationResolver);
         psiBasedMethodSignatureChecker.setExternalSignatureResolver(traceBasedExternalSignatureResolver);
+
+        jvmLazyAnalyzerPostConstruct.setCodeAnalyzer(resolveSession);
+        jvmLazyAnalyzerPostConstruct.setProject(project);
+        jvmLazyAnalyzerPostConstruct.setTrace(bindingTrace);
 
         annotationResolver.setCallResolver(callResolver);
         annotationResolver.setStorageManager(storageManager);
@@ -284,7 +288,7 @@ public class InjectorForLazyResolveWithJava {
 
         javaClassFinder.initialize();
 
-        analyzerPostConstruct.postCreate();
+        jvmLazyAnalyzerPostConstruct.postCreate();
 
     }
 
