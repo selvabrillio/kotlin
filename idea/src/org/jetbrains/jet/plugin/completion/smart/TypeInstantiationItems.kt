@@ -66,6 +66,7 @@ class TypeInstantiationItems(val resolveSession: ResolveSessionForBodies, val bi
         var lookupElement = createLookupElement(classifier, resolveSession, bindingContext)
 
         var lookupString = lookupElement.getLookupString()
+        var allLookupStrings = setOf(lookupString)
 
         val typeArgs = jetType.getArguments()
         var itemText = lookupString + DescriptorRenderer.SHORT_NAMES_IN_TYPES.renderTypeArguments(typeArgs)
@@ -76,7 +77,8 @@ class TypeInstantiationItems(val resolveSession: ResolveSessionForBodies, val bi
             val constructorParenthesis = if (classifier.getKind() != ClassKind.TRAIT) "()" else ""
             itemText += constructorParenthesis
             itemText = "object: " + itemText + "{...}"
-            lookupString = "object" //?
+            lookupString = "object"
+            allLookupStrings = setOf(lookupString, lookupElement.getLookupString())
             insertHandler = InsertHandler<LookupElement> {(context, item) ->
                 val editor = context.getEditor()
                 val startOffset = context.getStartOffset()
@@ -122,6 +124,8 @@ class TypeInstantiationItems(val resolveSession: ResolveSessionForBodies, val bi
 
         lookupElement = object: LookupElementDecorator<LookupElement>(lookupElement) {
             override fun getLookupString() = lookupString
+
+            override fun getAllLookupStrings() = allLookupStrings
 
             override fun renderElement(presentation: LookupElementPresentation) {
                 getDelegate().renderElement(presentation)
