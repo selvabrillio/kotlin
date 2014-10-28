@@ -42,6 +42,7 @@ import org.jetbrains.jet.lang.resolve.kotlin.VirtualFileFinderFactory
 import org.jetbrains.jet.lang.resolve.java.TopDownAnalyzerFacadeForJVM
 import org.jetbrains.jet.lang.resolve.kotlin.JavaDeclarationCheckerProvider
 import org.jetbrains.jet.lang.resolve.lazy.KotlinCodeAnalyzer
+import org.jetbrains.jet.lang.resolve.java.JvmLazyAnalyzerPostConstruct
 
 // NOTE: After making changes, you need to re-generate the injectors.
 //       To do that, you can run main in this file.
@@ -169,7 +170,8 @@ private fun generatorForTopDownAnalyzerForJvm() =
                     javaClass<JavaPropertyInitializerEvaluatorImpl>(),
                     javaClass<JavaSourceElementFactoryImpl>(),
                     javaClass<MutablePackageFragmentProvider>(),
-                    javaClass<SingleModuleClassResolver>()
+                    javaClass<SingleModuleClassResolver>(),
+                    javaClass<JvmLazyAnalyzerPostConstruct>()
             )
 
             field(javaClass<AdditionalCheckerProvider>(),
@@ -238,7 +240,8 @@ private fun generatorForLazyResolveWithJava() =
                     javaClass<PsiBasedMethodSignatureChecker>(),
                     javaClass<PsiBasedExternalAnnotationResolver>(),
                     javaClass<JavaPropertyInitializerEvaluatorImpl>(),
-                    javaClass<JavaSourceElementFactoryImpl>()
+                    javaClass<JavaSourceElementFactoryImpl>(),
+                    javaClass<JvmLazyAnalyzerPostConstruct>()
             )
             field(javaClass<AdditionalCheckerProvider>(),
                   init = GivenExpression(javaClass<JavaDeclarationCheckerProvider>().getName() + ".INSTANCE$"))
