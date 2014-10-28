@@ -1,11 +1,14 @@
 // "Create function 'foo' from usage" "true"
 
-import kotlin.properties.ReadOnlyProperty
-
-class A<T>(val t: T) {
-    val x: A<Int> by foo(t, "")
-
-    fun foo(t: T, s: String): ReadOnlyProperty<A<T>, A<Int>> {
+class B<T>(val t: T) {
+    fun <T1, T2> foo(arg: T1, arg1: T2): T1 {
         throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+}
+
+class A<T>(val b: B<T>) {
+    fun test(): Int {
+        return b.foo<Int, String>(2, "2")
     }
 }
