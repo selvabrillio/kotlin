@@ -27,6 +27,7 @@ import org.jetbrains.jet.config.CompilerConfiguration
 import org.jetbrains.jet.lang.resolve.BindingTrace
 import org.jetbrains.jet.lang.resolve.Diagnostics
 import org.jetbrains.jet.lang.resolve.MutableDiagnosticsWithSuppression
+import org.jetbrains.jet.lang.diagnostics.Severity
 
 class MutableDiagnosticsTest : KotlinTestWithEnvironment() {
     override fun createEnvironment(): JetCoreEnvironment? {
@@ -135,10 +136,10 @@ class MutableDiagnosticsTest : KotlinTestWithEnvironment() {
         val dummyElement = JetPsiFactory(getEnvironment().getProject()).createType("Int")
 
         override fun getFactory() = unimplemented()
-        override fun getSeverity() = unimplemented()
+        override fun getSeverity() = Severity.WARNING
         override fun getPsiElement() = dummyElement
         override fun getTextRanges() = unimplemented()
-        override fun getPsiFile() = unimplemented()
+        override fun getPsiFile() = dummyElement.getContainingFile()
         override fun isValid() = unimplemented()
 
         private fun unimplemented(): Nothing = throw UnsupportedOperationException()
