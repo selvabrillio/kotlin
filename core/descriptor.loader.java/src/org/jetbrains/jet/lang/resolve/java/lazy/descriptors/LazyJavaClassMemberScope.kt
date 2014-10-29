@@ -31,7 +31,6 @@ import org.jetbrains.jet.lang.resolve.DescriptorUtils
 import org.jetbrains.jet.lang.descriptors.impl.EnumEntrySyntheticClassDescriptor
 import org.jetbrains.jet.lang.types.TypeUtils
 import org.jetbrains.jet.lang.descriptors.annotations.Annotations
-import org.jetbrains.jet.lang.resolve.java.sam.SingleAbstractMethodUtils
 import org.jetbrains.jet.lang.resolve.java.JavaVisibilities
 import org.jetbrains.jet.lang.resolve.java.descriptor.JavaConstructorDescriptor
 import org.jetbrains.jet.lang.resolve.java.resolver.DescriptorResolverUtils
@@ -51,19 +50,19 @@ public class LazyJavaClassMemberScope(
         }
     }
 
-    internal val _constructors = c.storageManager.createLazyValue {
-        jClass.getConstructors().flatMap { ctor ->
-            val constructor = resolveConstructor(ctor, getContainingDeclaration())
-            val samAdapter = resolveSamAdapter(constructor)
+    internal val constructors = c.storageManager.createLazyValue {
+        val constructors = jClass.getConstructors()
+        val result = ArrayList<JavaConstructorDescriptor>(constructors.size)
+        for (constructor in constructors) {
+            val descriptor = resolveConstructor(constructor, getContainingDeclaration())
+            result.add(descriptor)
+            val samAdapter = c.samConversionResolver.resolveSamAdapter(descriptor)
             if (samAdapter != null) {
                 samAdapter.setReturnType(containingDeclaration.getDefaultType())
-                listOf(constructor, samAdapter)
+                result.add(samAdapter)
             }
-            else
-                listOf(constructor)
-        } ifEmpty {
-            emptyOrSingletonList(createDefaultConstructor())
         }
+        if (result.isNotEmpty()) result else emptyOrSingletonList(createDefaultConstructor())
     }
 
     override fun computeNonDeclaredFunctions(result: MutableCollection<SimpleFunctionDescriptor>, name: Name) {
@@ -103,12 +102,6 @@ public class LazyJavaClassMemberScope(
                 propagated.hasStableParameterNames())
 
         return MethodSignatureData(effectiveSignature, superFunctions, propagated.getErrors() + effectiveSignature.getErrors())
-    }
-
-    private fun resolveSamAdapter(original: JavaConstructorDescriptor): JavaConstructorDescriptor? {
-        return if (SingleAbstractMethodUtils.isSamAdapterNecessary(original))
-                   SingleAbstractMethodUtils.createSamAdapterConstructor(original) as JavaConstructorDescriptor
-               else null
     }
 
     private fun resolveConstructor(constructor: JavaConstructor, classDescriptor: ClassDescriptor): JavaConstructorDescriptor {
