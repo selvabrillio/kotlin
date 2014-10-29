@@ -51,7 +51,7 @@ public abstract class AbstractConfigureProjectByChangingFileTest extends LightCo
             ((KotlinWithGradleConfigurator) configurator).changeGradleFile((GroovyFile) getFile(), version);
         }
         else if (configurator instanceof KotlinMavenConfigurator) {
-            KotlinMavenConfigurator.changePomFile(getModule(), getFile(), version);
+            ((KotlinMavenConfigurator) configurator).changePomFile(getModule(), getFile(), version);
         }
 
         JetTestUtils.assertEqualsToFile(new File(afterFile), getFile().getText().replace(version, "$VERSION$"));
