@@ -120,6 +120,7 @@ private fun generatorForTopDownAnalyzerForJvm() =
                     javaClass<PsiBasedExternalAnnotationResolver>(),
                     javaClass<MutablePackageFragmentProvider>(),
                     javaClass<JavaPropertyInitializerEvaluatorImpl>(),
+                    javaClass<SamConversionResolverImpl>(),
                     javaClass<JavaSourceElementFactoryImpl>(),
                     javaClass<SingleModuleClassResolver>(),
                     javaClass<JavaFlexibleTypeCapabilitiesProvider>()
@@ -151,6 +152,7 @@ private fun generatorForJavaDescriptorResolver() =
                     javaClass<PsiBasedMethodSignatureChecker>(),
                     javaClass<PsiBasedExternalAnnotationResolver>(),
                     javaClass<JavaPropertyInitializerEvaluatorImpl>(),
+                    javaClass<SamConversionResolverImpl>(),
                     javaClass<JavaSourceElementFactoryImpl>(),
                     javaClass<SingleModuleClassResolver>()
             )
@@ -187,6 +189,7 @@ private fun generatorForLazyResolveWithJava() =
                     javaClass<PsiBasedMethodSignatureChecker>(),
                     javaClass<PsiBasedExternalAnnotationResolver>(),
                     javaClass<JavaPropertyInitializerEvaluatorImpl>(),
+                    javaClass<SamConversionResolverImpl>(),
                     javaClass<JavaSourceElementFactoryImpl>(),
                     javaClass<JavaFlexibleTypeCapabilitiesProvider>()
             )
