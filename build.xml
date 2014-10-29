@@ -364,6 +364,7 @@
                     <exclude name="kotlin/internal/**"/>
                 </fileset>
                 <fileset dir="${basedir}/compiler/frontend.java/src" includes="META-INF/services/**"/>
+                <fileset dir="${basedir}/js/js.frontend/src" includes="META-INF/services/**"/>
                 <fileset dir="${basedir}/compiler/backend/src" includes="META-INF/services/**"/>
                 <fileset dir="${basedir}/resources" includes="manifest.properties"/>
 
