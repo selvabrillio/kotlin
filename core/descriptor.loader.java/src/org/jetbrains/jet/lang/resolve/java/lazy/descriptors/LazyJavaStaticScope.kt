@@ -113,7 +113,7 @@ public class LazyPackageFragmentScopeForJavaPackage(
 
     override fun addExtraDescriptors(result: MutableSet<DeclarationDescriptor>,
                                      kindFilter: (JetScope.DescriptorKind) -> Boolean,
-                                     nameFilter: (String) -> kotlin.Boolean) {
+                                     nameFilter: (String) -> Boolean) {
         result.addAll(deserializedPackageScope().getDescriptors(kindFilter, nameFilter))
     }
 
