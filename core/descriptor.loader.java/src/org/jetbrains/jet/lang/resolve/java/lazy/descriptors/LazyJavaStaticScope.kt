@@ -119,13 +119,13 @@ public class LazyPackageFragmentScopeForJavaPackage(
 
     override fun computeMemberIndex(): MemberIndex = object : MemberIndex by EMPTY_MEMBER_INDEX {
         // For SAM-constructors
-        override fun getAllMethodNames(): Collection<Name> = getAllClassNames()
+        override fun getAllMethodNames(): Collection<Name> = getClassNames({ true })
     }
 
     override fun computeAdditionalFunctions(name: Name) = listOf<SimpleFunctionDescriptor>()
 
-    override fun getAllClassNames(): Collection<Name> {
-        return jPackage.getClasses().stream()
+    override fun getClassNames(nameFilter: (String) -> Boolean): Collection<Name> {
+        return jPackage.getClasses(nameFilter).stream()
                 .filter { c -> c.getOriginKind() != JavaClass.OriginKind.KOTLIN_LIGHT_CLASS }
                 .map { c -> c.getName() }.toList()
     }
@@ -187,7 +187,7 @@ public class LazyJavaStaticClassScope(
         return listOf()
     }
 
-    override fun getAllClassNames(): Collection<Name> = listOf()
+    override fun getClassNames(nameFilter: (String) -> Boolean): Collection<Name> = listOf()
     override fun getClassifier(name: Name): ClassifierDescriptor? = null
 
     override fun getSubPackages(): Collection<FqName> = listOf()
