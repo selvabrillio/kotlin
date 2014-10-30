@@ -30,10 +30,10 @@ import org.jetbrains.jet.lang.resolve.scopes.JetScope
 import org.jetbrains.jet.lang.resolve.java.sam.SingleAbstractMethodUtils
 import org.jetbrains.jet.lang.resolve.java.structure.JavaMethod
 import org.jetbrains.jet.lang.types.JetType
-import org.jetbrains.jet.lang.resolve.java.lazy.descriptors.LazyJavaMemberScope.MethodSignatureData
 import org.jetbrains.jet.lang.resolve.java.descriptor.SamConstructorDescriptor
 import org.jetbrains.jet.lang.resolve.kotlin.KotlinJvmBinaryClass
 import org.jetbrains.jet.lang.resolve.DescriptorFactory.*
+import org.jetbrains.jet.utils.addIfNotNull
 
 public abstract class LazyJavaStaticScope(
         c: LazyJavaResolverContext,
@@ -54,7 +54,7 @@ public abstract class LazyJavaStaticScope(
     ): LazyJavaMemberScope.MethodSignatureData {
         val effectiveSignature = c.externalSignatureResolver.resolveAlternativeMethodSignature(
                 method, false, returnType, null, valueParameters.descriptors, methodTypeParameters, false)
-        return MethodSignatureData(effectiveSignature, listOf(), effectiveSignature.getErrors())
+        return LazyJavaMemberScope.MethodSignatureData(effectiveSignature, listOf(), effectiveSignature.getErrors())
     }
 
     override fun computeNonDeclaredProperties(name: Name, result: MutableCollection<PropertyDescriptor>) {
@@ -90,8 +90,7 @@ public class LazyPackageFragmentScopeForJavaPackage(
             c.deserializedDescriptorResolver.createKotlinPackageScope(packageFragment, kotlinBinaryClass) ?: JetScope.Empty
     }
 
-    private val classes = c.storageManager.createMemoizedFunctionWithNullableValues<Name, ClassDescriptor> {
-        name ->
+    private val classes = c.storageManager.createMemoizedFunctionWithNullableValues<Name, ClassDescriptor> { name ->
         val classId = ClassId(packageFragment.fqName, SpecialNames.safeIdentifier(name))
         val (jClass, kClass) = c.findClassInJava(classId)
         if (kClass != null)
@@ -100,8 +99,9 @@ public class LazyPackageFragmentScopeForJavaPackage(
             null
         else {
             val classDescriptor = c.javaClassResolver.resolveClass(jClass)
-            assert(classDescriptor == null || classDescriptor.getContainingDeclaration() == packageFragment,
-                   "Wrong package fragment for $classDescriptor, expected $packageFragment")
+            assert(classDescriptor == null || classDescriptor.getContainingDeclaration() == packageFragment) {
+                "Wrong package fragment for $classDescriptor, expected $packageFragment"
+            }
             classDescriptor
         }
     }
@@ -137,10 +137,7 @@ public class LazyPackageFragmentScopeForJavaPackage(
     )
 
     override fun computeNonDeclaredFunctions(result: MutableCollection<SimpleFunctionDescriptor>, name: Name) {
-        val samConstructor = getClassifier(name)?.createSamConstructor()
-        if (samConstructor != null) {
-            result.add(samConstructor)
-        }
+        result.addIfNotNull(getClassifier(name)?.createSamConstructor())
     }
 
     override fun getSubPackages() = _subPackages()
@@ -155,13 +152,13 @@ public class LazyJavaStaticClassScope(
 ) : LazyJavaStaticScope(c, descriptor) {
 
     override fun computeMemberIndex(): MemberIndex {
-        val delegate = ClassMemberIndex(jClass) { m -> m.isStatic() }
+        val delegate = ClassMemberIndex(jClass) { it.isStatic() }
         return object : MemberIndex by delegate {
             override fun getAllMethodNames(): Collection<Name> {
                 // Should be a super call, but KT-2860
                 return delegate.getAllMethodNames() +
                        // For SAM-constructors
-                       jClass.getInnerClasses().map { c -> c.getName() }
+                       jClass.getInnerClasses().map { it.getName() }
             }
         }
     }
@@ -190,10 +187,7 @@ public class LazyJavaStaticClassScope(
 
     override fun computeNonDeclaredFunctions(result: MutableCollection<SimpleFunctionDescriptor>, name: Name) {
         //NOTE: assuming that all sam constructors are created for interfaces which are static and should be placed in this scope
-        val samConstructor = getContainingDeclaration().getUnsubstitutedInnerClassesScope().getClassifier(name)?.createSamConstructor()
-        if (samConstructor != null) {
-            result.add(samConstructor)
-        }
+        result.addIfNotNull(getContainingDeclaration().getUnsubstitutedInnerClassesScope().getClassifier(name)?.createSamConstructor())
     }
 
     override fun getContainingDeclaration() = super.getContainingDeclaration() as LazyJavaClassDescriptor

@@ -61,9 +61,7 @@ public abstract class LazyJavaMemberScope(
 
     override fun getContainingDeclaration() = _containingDeclaration
 
-    protected val memberIndex: NotNullLazyValue<MemberIndex> = c.storageManager.createLazyValue {
-        computeMemberIndex()
-    }
+    protected val memberIndex: NotNullLazyValue<MemberIndex> = c.storageManager.createLazyValue { computeMemberIndex() }
 
     protected abstract fun computeMemberIndex(): MemberIndex
 
@@ -73,8 +71,7 @@ public abstract class LazyJavaMemberScope(
 
     protected abstract fun computeAdditionalFunctions(name: Name): Collection<SimpleFunctionDescriptor>
 
-    private val _functions = c.storageManager.createMemoizedFunction {
-        (name: Name): Collection<FunctionDescriptor> ->
+    private val _functions = c.storageManager.createMemoizedFunction { (name: Name): Collection<FunctionDescriptor> ->
         val methods = memberIndex().findMethodsByName(name)
         val functions = LinkedHashSet<SimpleFunctionDescriptor>(
                 methods.stream()
@@ -103,14 +100,17 @@ public abstract class LazyJavaMemberScope(
         functions.toReadOnlyList()
     }
 
-    data class MethodSignatureData(
+    protected data class MethodSignatureData(
             val effectiveSignature: ExternalSignatureResolver.AlternativeMethodSignature,
             val superFunctions: List<FunctionDescriptor>,
             val errors: List<String>
     )
 
-    abstract fun resolveMethodSignature(method: JavaMethod, methodTypeParameters: List<TypeParameterDescriptor>,
-                                        returnType: JetType, valueParameters: ResolvedValueParameters): MethodSignatureData
+    protected abstract fun resolveMethodSignature(
+            method: JavaMethod,
+            methodTypeParameters: List<TypeParameterDescriptor>,
+            returnType: JetType,
+            valueParameters: ResolvedValueParameters): MethodSignatureData
 
     fun resolveMethodToFunctionDescriptor(method: JavaMethod, record: Boolean = true): JavaMethodDescriptor {
 
@@ -157,14 +157,13 @@ public abstract class LazyJavaMemberScope(
     }
 
     protected class ResolvedValueParameters(val descriptors: List<ValueParameterDescriptor>, val hasSynthesizedNames: Boolean)
+
     protected fun resolveValueParameters(
             c: LazyJavaResolverContextWithTypes,
             function: FunctionDescriptor,
-            jValueParameters: List<JavaValueParameter>
-    ): ResolvedValueParameters {
+            jValueParameters: List<JavaValueParameter>): ResolvedValueParameters {
         var synthesizedNames = false
-        val descriptors = jValueParameters.withIndices().map {
-            pair ->
+        val descriptors = jValueParameters.withIndices().map { pair ->
             val (index, javaParameter) = pair
 
             val annotations = c.resolveAnnotations(javaParameter)
@@ -172,16 +171,17 @@ public abstract class LazyJavaMemberScope(
             val (outType, varargElementType) =
                 if (javaParameter.isVararg()) {
                     val paramType = javaParameter.getType()
-                    assert (paramType is JavaArrayType, "Vararg parameter should be an array: $paramType")
+                    assert (paramType is JavaArrayType) { "Vararg parameter should be an array: $paramType" }
                     val arrayType = c.typeResolver.transformArrayType(paramType as JavaArrayType, typeUsage, true)
                     val outType = if (PLATFORM_TYPES) arrayType else TypeUtils.makeNotNullable(arrayType)
-                    Pair(outType, KotlinBuiltIns.getInstance().getArrayElementType(outType))
+                    outType to KotlinBuiltIns.getInstance().getArrayElementType(outType)
                 }
                 else {
                     val jetType = c.typeResolver.transformJavaType(javaParameter.getType(), typeUsage)
                     if (!PLATFORM_TYPES && jetType.isNullable() && c.hasNotNullAnnotation(javaParameter))
-                        Pair(TypeUtils.makeNotNullable(jetType), null)
-                    else Pair(jetType, null)
+                        TypeUtils.makeNotNullable(jetType) to null
+                    else
+                        jetType to null
                 }
 
             val name = if (function.getName().asString() == "equals" &&
@@ -217,8 +217,9 @@ public abstract class LazyJavaMemberScope(
 
     private fun resolveSamAdapter(original: JavaMethodDescriptor): JavaMethodDescriptor? {
         return if (SingleAbstractMethodUtils.isSamAdapterNecessary(original))
-                    SingleAbstractMethodUtils.createSamAdapterFunction(original) as JavaMethodDescriptor
-               else null
+            SingleAbstractMethodUtils.createSamAdapterFunction(original) as JavaMethodDescriptor
+        else
+            null
     }
 
     override fun getFunctions(name: Name) = _functions(name)
@@ -226,8 +227,7 @@ public abstract class LazyJavaMemberScope(
 
     protected abstract fun computeNonDeclaredProperties(name: Name, result: MutableCollection<PropertyDescriptor>)
 
-    val _properties = c.storageManager.createMemoizedFunction {
-        (name: Name) ->
+    private val _properties = c.storageManager.createMemoizedFunction { (name: Name) ->
         val properties = ArrayList<PropertyDescriptor>()
 
         val field = memberIndex().findFieldByName(name)
@@ -308,11 +308,8 @@ public abstract class LazyJavaMemberScope(
         val result = LinkedHashSet<DeclarationDescriptor>()
 
         for (name in getAllClassNames()) {
-            val descriptor = getClassifier(name)
-            if (descriptor != null) {
-                // Null signifies that a class found in Java is not present in Kotlin (e.g. package class)
-                result.add(descriptor)
-            }
+            // Null signifies that a class found in Java is not present in Kotlin (e.g. package class)
+            result.addIfNotNull(getClassifier(name))
         }
 
         for (name in getAllFunctionNames()) {
