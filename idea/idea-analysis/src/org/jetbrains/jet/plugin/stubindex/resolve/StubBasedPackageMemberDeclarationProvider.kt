@@ -41,14 +41,29 @@ public class StubBasedPackageMemberDeclarationProvider(
 
     override fun getDeclarations(kindFilter: (JetScope.DescriptorKind) -> Boolean, nameFilter: (Name) -> Boolean): List<JetDeclaration> {
         val result = ArrayList<JetDeclaration>()
-        for (index in TOP_LEVEL_DECLARATION_INDICES) {
-            index.getAllKeys(project)
-                    .stream()
-                    .map { FqName(it) }
-                    .filter { !it.isRoot() && it.parent() == fqName && nameFilter(it.shortName()) }
-                    .flatMapTo(result) { index[it.asString(), project, searchScope].stream() }
+
+        if (kindFilter(JetScope.DescriptorKind.CLASSIFIER)) {
+            result.addDeclarations(JetFullClassNameIndex.getInstance(), nameFilter)
         }
+
+        if (kindFilter(JetScope.DescriptorKind.NON_EXTENSION_FUNCTION) || kindFilter(JetScope.DescriptorKind.EXTENSION_FUNCTION)) {
+            result.addDeclarations(JetTopLevelFunctionsFqnNameIndex.getInstance(), nameFilter)
+        }
+
+        if (kindFilter(JetScope.DescriptorKind.NON_EXTENSION_PROPERTY) || kindFilter(JetScope.DescriptorKind.EXTENSION_PROPERTY)) {
+            result.addDeclarations(JetTopLevelPropertiesFqnNameIndex.getInstance(), nameFilter)
+        }
+
         return result
+    }
+
+    private fun MutableCollection<JetDeclaration>.addDeclarations(index: StringStubIndexExtension<out JetNamedDeclaration>,
+                                                                  nameFilter: (Name) -> Boolean) {
+        index.getAllKeys(project)
+                .stream()
+                .map { FqName(it) }
+                .filter { !it.isRoot() && it.parent() == fqName && nameFilter(it.shortName()) }
+                .flatMapTo(this) { index[it.asString(), project, searchScope].stream() }
     }
 
     override fun getClassOrObjectDeclarations(name: Name): Collection<JetClassLikeInfo> {
@@ -76,9 +91,3 @@ public class StubBasedPackageMemberDeclarationProvider(
         return fqName.child(ResolveSessionUtils.safeNameForLazyResolve(name)).asString()
     }
 }
-
-private val TOP_LEVEL_DECLARATION_INDICES: List<StringStubIndexExtension<out JetNamedDeclaration>> = listOf(
-        JetFullClassNameIndex.getInstance(),
-        JetTopLevelFunctionsFqnNameIndex.getInstance(),
-        JetTopLevelPropertiesFqnNameIndex.getInstance()
-)
