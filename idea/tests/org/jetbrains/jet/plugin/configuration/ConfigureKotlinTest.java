@@ -313,10 +313,6 @@ public class ConfigureKotlinTest extends PlatformTestCase {
     private void assertNoFilesInDefaultPaths(boolean checkJsFiles) {
         assertDoesntExist(new File(JAVA_CONFIGURATOR.getDefaultPathToJarFile(getProject())));
         assertDoesntExist(new File(JS_CONFIGURATOR.getDefaultPathToJarFile(getProject())));
-
-        if (checkJsFiles) {
-            assertDoesntExist(new File(JS_CONFIGURATOR.getDefaultPathToJsFile(getProject())));
-        }
     }
 
     private static void assertNotConfigured(Module module, KotlinWithLibraryConfigurator configurator) {
