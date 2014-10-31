@@ -73,7 +73,7 @@ public abstract class LazyJavaMemberScope(
 
     private val _functions = c.storageManager.createMemoizedFunction { (name: Name): Collection<FunctionDescriptor> ->
         val methods = memberIndex().findMethodsByName(name)
-        val functions = LinkedHashSet<SimpleFunctionDescriptor>(
+        val functions = LinkedHashSet(
                 methods.stream()
                         .flatMap {
                             m ->
