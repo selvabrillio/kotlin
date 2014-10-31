@@ -31,6 +31,7 @@ import org.jetbrains.jet.lang.resolve.lazy.data.JetClassLikeInfo
 import org.jetbrains.jet.lang.resolve.lazy.data.JetClassInfoUtil
 import org.jetbrains.jet.lang.resolve.lazy.ResolveSessionUtils
 import org.jetbrains.jet.lang.resolve.scopes.JetScope
+import java.util.ArrayList
 
 public class StubBasedPackageMemberDeclarationProvider(
         private val fqName: FqName,
@@ -39,13 +40,15 @@ public class StubBasedPackageMemberDeclarationProvider(
 ) : PackageMemberDeclarationProvider {
 
     override fun getDeclarations(kindFilter: (JetScope.DescriptorKind) -> Boolean, nameFilter: (Name) -> Boolean): List<JetDeclaration> {
-        return TOP_LEVEL_DECLARATION_INDICES.flatMap { index ->
+        val result = ArrayList<JetDeclaration>()
+        for (index in TOP_LEVEL_DECLARATION_INDICES) {
             index.getAllKeys(project)
-                    .toSet()
+                    .stream()
                     .map { FqName(it) }
                     .filter { !it.isRoot() && it.parent() == fqName && nameFilter(it.shortName()) }
-                    .flatMap { index[it.asString(), project, searchScope] }
+                    .flatMapTo(result) { index[it.asString(), project, searchScope].stream() }
         }
+        return result
     }
 
     override fun getClassOrObjectDeclarations(name: Name): Collection<JetClassLikeInfo> {
