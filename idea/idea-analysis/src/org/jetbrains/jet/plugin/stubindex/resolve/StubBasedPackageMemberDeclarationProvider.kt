@@ -40,8 +40,11 @@ public class StubBasedPackageMemberDeclarationProvider(
 
     override fun getDeclarations(kindFilter: (JetScope.DescriptorKind) -> Boolean, nameFilter: (Name) -> Boolean): List<JetDeclaration> {
         return TOP_LEVEL_DECLARATION_INDICES.flatMap { index ->
-            val fqNames = index.getAllKeys(project).toSet().map { FqName(it) }.filter { !it.isRoot() && it.parent() == fqName }
-            fqNames.flatMap { index.get(it.asString(), project, searchScope) }
+            index.getAllKeys(project)
+                    .toSet()
+                    .map { FqName(it) }
+                    .filter { !it.isRoot() && it.parent() == fqName && nameFilter(it.shortName()) }
+                    .flatMap { index[it.asString(), project, searchScope] }
         }
     }
 
