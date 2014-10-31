@@ -20,19 +20,48 @@ import java.util.HashSet
 import java.util.Collections
 
 public abstract class JetNameValidator {
+    protected open fun postProcess(name: String) {
+
+    }
+
     /**
      * Validates name, and slightly improves it by adding number to name in case of conflicts
      * @param name to check it in scope
      * @return name or nameI, where I is number
      */
-    public open fun validateName(name: String): String {
-        if (validateInner(name)) return name
-        var i = 1
-        while (!validateInner(name + i)) {
-            ++i
+    public fun validateName(name: String): String {
+        val validatedName = if (validateInner(name)) name
+        else {
+            var i = 1
+            while (!validateInner(name + i)) {
+                ++i
+            }
+
+            name + i
         }
 
-        return name + i
+        postProcess(validatedName)
+        return validatedName
+    }
+
+    /**
+     * Validates name using set of variants which are tried in succession (and extended with suffixes if necessary)
+     * For example, when given sequence of a, b, c possible names are tried out in the following order: a, b, c, a1, b1, c1, a2, b2, c2, ...
+     * @param names to check it in scope
+     * @return name or nameI, where name is one of variants and I is a number
+     */
+    public fun validateNameWithVariants(vararg names: String): String {
+        var i = 0
+        while (true) {
+            for (name in names) {
+                val candidate = if (i > 0) name + i else name
+                if (validateInner(candidate)) {
+                    postProcess(candidate)
+                    return candidate
+                }
+            }
+            i++
+        }
     }
 
     protected abstract fun validateInner(name: String): Boolean
@@ -50,10 +79,8 @@ public open class CollectingValidator(
 
     override fun validateInner(name: String): Boolean = name !in suggestedSet && filter(name)
 
-    override fun validateName(name: String): String {
-        val validatedName = super.validateName(name)
-        suggestedSet.add(validatedName)
-        return validatedName
+    override fun postProcess(name: String) {
+        suggestedSet.add(name)
     }
 }
 
