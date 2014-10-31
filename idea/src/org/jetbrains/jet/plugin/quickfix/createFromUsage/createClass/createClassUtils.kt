@@ -91,7 +91,7 @@ private fun JetExpression.getInheritableTypeInfo(
     if (!(canHaveSubtypes || isEnum)
         || descriptor is TypeParameterDescriptor) return TypeInfo.Empty to { classKind -> false }
 
-    return TypeInfo.ByType(type, Variance.OUT_VARIANCE) to { classKind ->
+    return TypeInfo.ByType(type, Variance.OUT_VARIANCE).substitutionFree() to { classKind ->
         when (classKind) {
             ClassKind.ENUM_ENTRY -> isEnum && containingDeclaration == DescriptorToSourceUtils.descriptorToDeclaration(descriptor)
             else -> canHaveSubtypes
