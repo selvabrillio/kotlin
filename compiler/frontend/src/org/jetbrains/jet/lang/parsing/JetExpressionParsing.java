@@ -22,6 +22,7 @@ import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.jet.JetNodeType;
+import org.jetbrains.jet.JetNodeTypes;
 import org.jetbrains.jet.lexer.JetToken;
 import org.jetbrains.jet.lexer.JetTokens;
 
@@ -958,7 +959,8 @@ public class JetExpressionParsing extends AbstractJetParsing {
         IElementType declType = parseLocalDeclarationRest(enumDetector.isDetected());
 
         if (declType != null) {
-            decl.done(declType);
+            // we do not attach preceding comments (non-doc) to local variables because they are likely commenting a few statements below
+            closeDeclarationWithCommentBinders(decl, declType, declType != JetNodeTypes.PROPERTY && declType != JetNodeTypes.MULTI_VARIABLE_DECLARATION);
             return true;
         }
         else {

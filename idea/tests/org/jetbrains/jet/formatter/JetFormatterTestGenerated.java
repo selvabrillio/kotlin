@@ -136,6 +136,12 @@ public class JetFormatterTestGenerated extends AbstractJetFormatterTest {
             doTest(fileName);
         }
 
+        @TestMetadata("DocComments.after.kt")
+        public void testDocComments() throws Exception {
+            String fileName = JetTestUtils.navigationMetadata("idea/testData/formatter/DocComments.after.kt");
+            doTest(fileName);
+        }
+
         @TestMetadata("ElseOnNewLine.after.kt")
         public void testElseOnNewLine() throws Exception {
             String fileName = JetTestUtils.navigationMetadata("idea/testData/formatter/ElseOnNewLine.after.kt");
@@ -331,6 +337,12 @@ public class JetFormatterTestGenerated extends AbstractJetFormatterTest {
         @TestMetadata("NewLineForRBrace.after.kt")
         public void testNewLineForRBrace() throws Exception {
             String fileName = JetTestUtils.navigationMetadata("idea/testData/formatter/NewLineForRBrace.after.kt");
+            doTest(fileName);
+        }
+
+        @TestMetadata("ParameterDocComments.after.kt")
+        public void testParameterDocComments() throws Exception {
+            String fileName = JetTestUtils.navigationMetadata("idea/testData/formatter/ParameterDocComments.after.kt");
             doTest(fileName);
         }
 
