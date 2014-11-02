@@ -107,10 +107,10 @@ public abstract class DeserializedMemberScope protected(
 
         for (name in membersProtos().keySet()) {
             if (nameFilter(name)) {
-                if ((kindFilterMask and JetScope.FUNCTIONS_MASK) != 0) {
+                if (kindFilterMask and JetScope.FUNCTIONS_MASK != 0) {
                     result.addAll(getFunctions(name))
                 }
-                if ((kindFilterMask and JetScope.PROPERTIES_MASK) != 0) {
+                if (kindFilterMask and JetScope.PROPERTIES_MASK != 0) {
                     result.addAll(getProperties(name))
                 }
             }
@@ -118,7 +118,7 @@ public abstract class DeserializedMemberScope protected(
 
         addNonDeclaredDescriptors(result)
 
-        if ((kindFilterMask and JetScope.CLASSIFIERS_MASK) != 0) {
+        if (kindFilterMask and JetScope.CLASSIFIERS_MASK != 0) {
             addClassDescriptors(result, nameFilter)
         }
 

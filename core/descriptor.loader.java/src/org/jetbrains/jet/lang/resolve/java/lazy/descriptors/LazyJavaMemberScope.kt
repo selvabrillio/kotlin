@@ -308,7 +308,7 @@ public abstract class LazyJavaMemberScope(
                                      nameFilter: (Name) -> Boolean): List<DeclarationDescriptor> {
         val result = LinkedHashSet<DeclarationDescriptor>()
 
-        if ((kindFilterMask and JetScope.TYPE) != 0) {
+        if (kindFilterMask and JetScope.TYPE != 0) {
             for (name in getClassNames(nameFilter)) {
                 if (nameFilter(name)) {
                     // Null signifies that a class found in Java is not present in Kotlin (e.g. package class)
@@ -317,7 +317,7 @@ public abstract class LazyJavaMemberScope(
             }
         }
 
-        if ((kindFilterMask and (JetScope.ORDINARY_FUNCTION or JetScope.SAM_CONSTRUCTOR)) != 0) {
+        if (kindFilterMask and (JetScope.ORDINARY_FUNCTION or JetScope.SAM_CONSTRUCTOR) != 0) {
             for (name in getFunctionNames(nameFilter)) {
                 if (nameFilter(name)) {
                     result.addAll(getFunctions(name))
@@ -325,7 +325,7 @@ public abstract class LazyJavaMemberScope(
             }
         }
 
-        if ((kindFilterMask and JetScope.NON_EXTENSION_PROPERTY) != 0) {
+        if (kindFilterMask and JetScope.NON_EXTENSION_PROPERTY != 0) {
             for (name in getAllPropertyNames()) {
                 if (nameFilter(name)) {
                     result.addAll(getProperties(name))

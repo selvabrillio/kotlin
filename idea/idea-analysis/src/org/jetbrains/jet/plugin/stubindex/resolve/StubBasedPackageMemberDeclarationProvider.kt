@@ -42,15 +42,15 @@ public class StubBasedPackageMemberDeclarationProvider(
     override fun getDeclarations(kindFilterMask: Int, nameFilter: (Name) -> Boolean): List<JetDeclaration> {
         val result = ArrayList<JetDeclaration>()
 
-        if ((kindFilterMask and (JetScope.TYPE or JetScope.OBJECT)) != 0) {
+        if (kindFilterMask and (JetScope.TYPE or JetScope.OBJECT) != 0) {
             result.addDeclarations(JetFullClassNameIndex.getInstance(), nameFilter)
         }
 
-        if ((kindFilterMask and JetScope.FUNCTIONS_MASK) != 0) {
+        if (kindFilterMask and JetScope.FUNCTIONS_MASK != 0) {
             result.addDeclarations(JetTopLevelFunctionsFqnNameIndex.getInstance(), nameFilter)
         }
 
-        if ((kindFilterMask and JetScope.PROPERTIES_MASK) != 0) {
+        if (kindFilterMask and JetScope.PROPERTIES_MASK != 0) {
             result.addDeclarations(JetTopLevelPropertiesFqnNameIndex.getInstance(), nameFilter)
         }
 
