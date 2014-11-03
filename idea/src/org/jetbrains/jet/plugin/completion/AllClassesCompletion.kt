@@ -31,18 +31,20 @@ import org.jetbrains.jet.plugin.project.ResolveSessionForBodies
 import org.jetbrains.jet.plugin.caches.KotlinIndicesHelper
 import org.jetbrains.jet.lang.descriptors.DeclarationDescriptor
 
-class TypesCompletion(val parameters: CompletionParameters,
-                      val resolveSession: ResolveSessionForBodies,
-                      val prefixMatcher: PrefixMatcher,
-                      val visibilityFilter: (DeclarationDescriptor) -> Boolean) {
-    fun addAllTypes(result: LookupElementsCollector) {
-        result.addDescriptorElements(KotlinBuiltIns.getInstance().getNonPhysicalClasses().filter { prefixMatcher.prefixMatches(it.getName().asString()) },
-                                     suppressAutoInsertion = true)
+class AllClassesCompletion(val parameters: CompletionParameters,
+                           val resolveSession: ResolveSessionForBodies,
+                           val prefixMatcher: PrefixMatcher,
+                           val kindFilter: (ClassKind) -> Boolean,
+                           val visibilityFilter: (DeclarationDescriptor) -> Boolean) {
+    fun collect(result: LookupElementsCollector) {
+        val builtIns = KotlinBuiltIns.getInstance().getNonPhysicalClasses().filter { kindFilter(it.getKind()) && prefixMatcher.prefixMatches(it.getName().asString()) }
+        result.addDescriptorElements(builtIns, suppressAutoInsertion = true)
 
         val file = parameters.getOriginalFile()
         val project = file.getProject()
         val searchScope = file.getResolveScope()
-        result.addDescriptorElements(KotlinIndicesHelper(project, resolveSession, searchScope, visibilityFilter).getClassDescriptors { prefixMatcher.prefixMatches(it) },
+        val helper = KotlinIndicesHelper(project, resolveSession, searchScope, visibilityFilter)
+        result.addDescriptorElements(helper.getClassDescriptors({ prefixMatcher.prefixMatches(it) }, kindFilter),
                                      suppressAutoInsertion = true)
 
         if (!ProjectStructureUtil.isJsKotlinModule(file as JetFile)) {
@@ -67,7 +69,7 @@ class TypesCompletion(val parameters: CompletionParameters,
     }
 
     private fun addLookupElementForCompiledKotlinClass(aClass: PsiClass, collector: LookupElementsCollector) {
-        if (JetFromJavaDescriptorHelper.getCompiledClassKind(aClass) != ClassKind.CLASS_OBJECT) {
+        if (kindFilter(JetFromJavaDescriptorHelper.getCompiledClassKind(aClass))) {
             val qualifiedName = aClass.getQualifiedName()
             if (qualifiedName != null) {
                 val descriptors = ResolveSessionUtils.getClassDescriptorsByFqName(resolveSession.getModuleDescriptor(), FqName(qualifiedName)).filter(visibilityFilter)
