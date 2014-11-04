@@ -32,7 +32,6 @@ import org.jetbrains.jet.lang.resolve.TypeResolver.FlexibleTypeCapabilitiesProvi
 import kotlin.platform.platformStatic
 import org.jetbrains.jet.storage.StorageManager
 import org.jetbrains.jet.context.LazinessToken
-import javax.inject.Inject
 
 public class TypeResolver(
         private val annotationResolver: AnnotationResolver,
@@ -123,7 +122,10 @@ public class TypeResolver(
                                             scopeForTypeParameter)
                                     )
 
-                        resolveTypeProjections(c, ErrorUtils.createErrorType("No type").getConstructor(), type.getTypeArguments())
+                        val arguments = resolveTypeProjections(c, ErrorUtils.createErrorType("No type").getConstructor(), type.getTypeArguments())
+                        if (!arguments.isEmpty()) {
+                            c.trace.report(WRONG_NUMBER_OF_TYPE_ARGUMENTS.on(type.getTypeArgumentList(), 0))
+                        }
 
                         val containing = classifierDescriptor.getContainingDeclaration()
                         if (containing is ClassDescriptor) {
