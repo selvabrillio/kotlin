@@ -50,7 +50,6 @@ import org.jetbrains.jet.lang.types.lang.KotlinBuiltIns;
 import org.jetbrains.jet.storage.StorageManager;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -211,6 +210,13 @@ public class AnnotationResolver {
             @NotNull JetAnnotationEntry annotationEntry,
             @NotNull BindingTrace trace
     ) {
+        for (ValueArgument argument : annotationEntry.getValueArguments()) {
+            JetExpression expression = argument.getArgumentExpression();
+            if (expression != null) {
+                trace.record(BindingContext.USED_AS_EXPRESSION, expression, true);
+            }
+        }
+
         AnnotationDescriptor annotationDescriptor = trace.getBindingContext().get(BindingContext.ANNOTATION, annotationEntry);
         assert annotationDescriptor != null : "Annotation descriptor should be created before resolving arguments for " + annotationEntry.getText();
         if (annotationDescriptor instanceof LazyAnnotationDescriptor) {
