@@ -81,7 +81,7 @@ public abstract class AbstractLazyMemberScope<D : DeclarationDescriptor, DP : De
         return classDescriptors.invoke(name).firstOrNull()
     }
 
-    override fun getFunctions(name: Name): Collection<FunctionDescriptor> {
+    override fun getFunctions(name: Name): Set<FunctionDescriptor> {
         return functionDescriptors.invoke(name)
     }
 
@@ -110,7 +110,7 @@ public abstract class AbstractLazyMemberScope<D : DeclarationDescriptor, DP : De
 
     protected abstract fun getNonDeclaredFunctions(name: Name, result: MutableSet<FunctionDescriptor>)
 
-    override fun getProperties(name: Name): Collection<VariableDescriptor> {
+    override fun getProperties(name: Name): Set<VariableDescriptor> {
         return propertyDescriptors.invoke(name)
     }
 
