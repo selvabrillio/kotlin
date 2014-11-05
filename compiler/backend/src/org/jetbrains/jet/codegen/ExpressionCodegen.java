@@ -383,11 +383,11 @@ public class ExpressionCodegen extends JetVisitor<StackValue, StackValue> implem
                 condition.put(asmType, v);
                 return StackValue.onStack(asmType);
             }
-            return generateSingleBranchIf(condition, expression, elseExpression, false, isStatement);
+            return generateSingleBranchIf(condition, expression, elseExpression, false, isStatement, asmType);
         }
         else {
             if (isEmptyExpression(elseExpression)) {
-                return generateSingleBranchIf(condition, expression, thenExpression, true, isStatement);
+                return generateSingleBranchIf(condition, expression, thenExpression, true, isStatement, asmType);
             }
         }
 
@@ -1198,20 +1198,18 @@ public class ExpressionCodegen extends JetVisitor<StackValue, StackValue> implem
             JetIfExpression ifExpression,
             JetExpression expression,
             boolean inverse,
-            boolean isStatement
+            boolean isStatement,
+            Type targetType
     ) {
         Label elseLabel = new Label();
         condition.condJump(elseLabel, inverse, v);
 
         if (isStatement) {
-            gen(expression, Type.VOID_TYPE);
+            gen(expression, targetType);
             v.mark(elseLabel);
             return StackValue.none();
         }
         else {
-            Type type = expressionType(expression);
-            Type targetType = type.equals(UNIT_TYPE) ? type : OBJECT_TYPE;
-
             gen(expression, targetType);
 
             Label end = new Label();
