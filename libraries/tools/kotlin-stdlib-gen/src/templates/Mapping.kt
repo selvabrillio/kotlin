@@ -7,11 +7,10 @@ fun mapping(): List<GenericFunction> {
 
     templates add f("withIndices()") {
         doc { "Returns a list containing pairs of each element of the original collection and their index" }
-        returns("List<Pair<Int, T>>")
+        returns("IndexedIterator<T>")
         body {
             """
-            var index = 0
-            return mapTo(ArrayList<Pair<Int, T>>(), { index++ to it })
+            return IndexedIterator(iterator())
             """
         }
 

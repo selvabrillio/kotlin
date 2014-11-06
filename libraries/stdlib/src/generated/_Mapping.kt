@@ -753,81 +753,71 @@ public inline fun <R, C : MutableCollection<in R>> String.mapTo(destination: C, 
 /**
  * Returns a list containing pairs of each element of the original collection and their index
  */
-public fun <T> Array<out T>.withIndices(): List<Pair<Int, T>> {
-    var index = 0
-    return mapTo(ArrayList<Pair<Int, T>>(), { index++ to it })
+public fun <T> Array<out T>.withIndices(): IndexedIterator<T> {
+    return IndexedIterator(iterator())
 }
 
 /**
  * Returns a list containing pairs of each element of the original collection and their index
  */
-public fun BooleanArray.withIndices(): List<Pair<Int, Boolean>> {
-    var index = 0
-    return mapTo(ArrayList<Pair<Int, Boolean>>(), { index++ to it })
+public fun BooleanArray.withIndices(): IndexedIterator<Boolean> {
+    return IndexedIterator(iterator())
 }
 
 /**
  * Returns a list containing pairs of each element of the original collection and their index
  */
-public fun ByteArray.withIndices(): List<Pair<Int, Byte>> {
-    var index = 0
-    return mapTo(ArrayList<Pair<Int, Byte>>(), { index++ to it })
+public fun ByteArray.withIndices(): IndexedIterator<Byte> {
+    return IndexedIterator(iterator())
 }
 
 /**
  * Returns a list containing pairs of each element of the original collection and their index
  */
-public fun CharArray.withIndices(): List<Pair<Int, Char>> {
-    var index = 0
-    return mapTo(ArrayList<Pair<Int, Char>>(), { index++ to it })
+public fun CharArray.withIndices(): IndexedIterator<Char> {
+    return IndexedIterator(iterator())
 }
 
 /**
  * Returns a list containing pairs of each element of the original collection and their index
  */
-public fun DoubleArray.withIndices(): List<Pair<Int, Double>> {
-    var index = 0
-    return mapTo(ArrayList<Pair<Int, Double>>(), { index++ to it })
+public fun DoubleArray.withIndices(): IndexedIterator<Double> {
+    return IndexedIterator(iterator())
 }
 
 /**
  * Returns a list containing pairs of each element of the original collection and their index
  */
-public fun FloatArray.withIndices(): List<Pair<Int, Float>> {
-    var index = 0
-    return mapTo(ArrayList<Pair<Int, Float>>(), { index++ to it })
+public fun FloatArray.withIndices(): IndexedIterator<Float> {
+    return IndexedIterator(iterator())
 }
 
 /**
  * Returns a list containing pairs of each element of the original collection and their index
  */
-public fun IntArray.withIndices(): List<Pair<Int, Int>> {
-    var index = 0
-    return mapTo(ArrayList<Pair<Int, Int>>(), { index++ to it })
+public fun IntArray.withIndices(): IndexedIterator<Int> {
+    return IndexedIterator(iterator())
 }
 
 /**
  * Returns a list containing pairs of each element of the original collection and their index
  */
-public fun LongArray.withIndices(): List<Pair<Int, Long>> {
-    var index = 0
-    return mapTo(ArrayList<Pair<Int, Long>>(), { index++ to it })
+public fun LongArray.withIndices(): IndexedIterator<Long> {
+    return IndexedIterator(iterator())
 }
 
 /**
  * Returns a list containing pairs of each element of the original collection and their index
  */
-public fun ShortArray.withIndices(): List<Pair<Int, Short>> {
-    var index = 0
-    return mapTo(ArrayList<Pair<Int, Short>>(), { index++ to it })
+public fun ShortArray.withIndices(): IndexedIterator<Short> {
+    return IndexedIterator(iterator())
 }
 
 /**
  * Returns a list containing pairs of each element of the original collection and their index
  */
-public fun <T> Iterable<T>.withIndices(): List<Pair<Int, T>> {
-    var index = 0
-    return mapTo(ArrayList<Pair<Int, T>>(), { index++ to it })
+public fun <T> Iterable<T>.withIndices(): IndexedIterator<T> {
+    return IndexedIterator(iterator())
 }
 
 /**
@@ -841,8 +831,7 @@ public fun <T> Stream<T>.withIndices(): Stream<Pair<Int, T>> {
 /**
  * Returns a list containing pairs of each element of the original collection and their index
  */
-public fun String.withIndices(): List<Pair<Int, Char>> {
-    var index = 0
-    return mapTo(ArrayList<Pair<Int, Char>>(), { index++ to it })
+public fun String.withIndices(): IndexedIterator<Char> {
+    return IndexedIterator(iterator())
 }
 
