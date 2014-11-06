@@ -40,9 +40,10 @@ public fun isKotlinWithCompatibleAbiVersion(file: VirtualFile): Boolean {
 }
 
 public fun isKotlinInternalCompiledFile(file: VirtualFile): Boolean {
-    if (!isKotlinCompiledFile(file)) {
+    if (!isKotlinWithCompatibleAbiVersion(file)) {
         return false
     }
+
     if (ClassFileViewProvider.isInnerClass(file)) {
         return true
     }
