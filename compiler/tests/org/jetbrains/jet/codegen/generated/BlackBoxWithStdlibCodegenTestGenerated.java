@@ -1460,6 +1460,12 @@ public class BlackBoxWithStdlibCodegenTestGenerated extends AbstractBlackBoxCode
             JetTestUtils.assertAllTestsPresentByMetadata(this.getClass(), new File("compiler/testData/codegen/boxWithStdlib/lazyCodegen"), Pattern.compile("^(.+)\\.kt$"), true);
         }
 
+        @TestMetadata("exceptionInFieldInitializer.kt")
+        public void testExceptionInFieldInitializer() throws Exception {
+            String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/boxWithStdlib/lazyCodegen/exceptionInFieldInitializer.kt");
+            doTestWithStdlib(fileName);
+        }
+
         @TestMetadata("ifElse.kt")
         public void testIfElse() throws Exception {
             String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/boxWithStdlib/lazyCodegen/ifElse.kt");
