@@ -23,36 +23,34 @@ import org.jetbrains.annotations.TestOnly
 import org.jetbrains.jet.lang.descriptors.DeclarationDescriptor
 import org.jetbrains.jet.lang.psi.JetDeclaration
 import com.intellij.psi.PsiElement
-import org.jetbrains.jet.lang.psi.JetFile
-import org.jetbrains.jet.utils.concurrent.block.BlockingNotNullVar
-import org.jetbrains.jet.plugin.decompiler.textBuilder.DecompiledText
 import org.jetbrains.jet.plugin.decompiler.textBuilder.buildDecompiledText
 import org.jetbrains.jet.plugin.decompiler.textBuilder.descriptorToKey
+import org.jetbrains.jet.utils.concurrent.block.LockedClearableLazyValue
 
 public class JetClsFile(val provider: JetClassFileViewProvider) : ClsFileImpl(provider) {
     private val mirrorLock = Any()
 
-    private var mirrorFile: JetFile? by BlockingNotNullVar(mirrorLock) {
+    private val mirrorFile = LockedClearableLazyValue(mirrorLock) {
         JetDummyClassFileViewProvider.createJetFile(
                 provider.getManager(),
                 getVirtualFile(),
-                decompiledText!!.text)!!
+                decompiledText.get().text)!!
     }
 
-    private var decompiledText: DecompiledText? by BlockingNotNullVar(mirrorLock) {
+    private val decompiledText = LockedClearableLazyValue(mirrorLock) {
         buildDecompiledText(getVirtualFile())
     }
 
-    override fun getMirror(): PsiElement? = mirrorFile
+    override fun getMirror(): PsiElement? = mirrorFile.get()
 
     public fun getDeclarationForDescriptor(descriptor: DeclarationDescriptor): JetDeclaration? {
         val key = descriptorToKey(descriptor.getOriginal())
 
         return synchronized(mirrorLock) {
-            val range = decompiledText!!.renderedDescriptorsToRange[key]
+            val range = decompiledText.get().renderedDescriptorsToRange[key]
             if (range != null) {
                 PsiTreeUtil.findElementOfClassAtRange(
-                        mirrorFile, range.getStartOffset(), range.getEndOffset(), javaClass<JetDeclaration>())
+                        mirrorFile.get(), range.getStartOffset(), range.getEndOffset(), javaClass<JetDeclaration>())
             }
             else {
                 null
@@ -64,13 +62,13 @@ public class JetClsFile(val provider: JetClassFileViewProvider) : ClsFileImpl(pr
         super<ClsFileImpl>.onContentReload()
 
         synchronized (mirrorLock) {
-            decompiledText = null
-            mirrorFile = null
+            decompiledText.drop()
+            mirrorFile.drop()
         }
     }
 
     TestOnly
     fun getRenderedDescriptorsToRange(): Map<String, TextRange> {
-        return decompiledText!!.renderedDescriptorsToRange
+        return decompiledText.get().renderedDescriptorsToRange
     }
 }

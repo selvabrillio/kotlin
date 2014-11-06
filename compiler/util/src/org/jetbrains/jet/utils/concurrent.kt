@@ -16,13 +16,10 @@
 
 package org.jetbrains.jet.utils.concurrent.block
 
-import kotlin.properties.ReadWriteProperty
-
-public class BlockingNotNullVar<T : Any>(lock: Any, val init: () -> T) : ReadWriteProperty<Any?, T?> {
-    private val lock = lock
+public class LockedClearableLazyValue<T: Any>(val lock: Any, val init: () -> T) {
     private volatile var value: T? = null
 
-    public override fun get(thisRef: Any?, desc: PropertyMetadata): T {
+    public fun get(): T {
         val _v1 = value
         if (_v1 != null) {
             return _v1
@@ -43,9 +40,9 @@ public class BlockingNotNullVar<T : Any>(lock: Any, val init: () -> T) : ReadWri
         }
     }
 
-    override fun set(thisRef: Any?, desc: kotlin.PropertyMetadata, value: T?) {
-        synchronized(lock) {
-            this.value = value
+    fun drop() {
+        synchronized (lock) {
+            value = null
         }
     }
 }
