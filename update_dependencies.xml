@@ -1,6 +1,6 @@
 <project name="Update Dependencies" default="update">
-    <property name="jb.buildserver.build.id" value="5058898"/>
-    <property name="public.buildserver.build.id" value="180637"/>
+    <property name="jb.buildserver.build.id" value="5110080"/>
+    <property name="public.buildserver.build.id" value="183846"/>
 
     <condition property="os.tag" value="win.zip">
         <os family="windows"/>
@@ -411,7 +411,7 @@
                         <tokenfilter>
                             <filetokenizer/>
                             <replaceregex
-                                pattern="^(.*)http://dl\.google\.com/dl/android/studio/ide-zips/([\d\.]+)/android-studio-ide(.*)$"
+                                pattern="^(.*)https?://dl\.google\.com/dl/android/studio/ide-zips/([\d\.]+)/android-studio-ide(.*)$"
                                 replace="\2" flags="s"/>
                         </tokenfilter>
                     </filterchain>
@@ -422,7 +422,7 @@
                         <tokenfilter>
                             <filetokenizer/>
                             <replaceregex
-                                pattern="^(.*)http://dl\.google\.com/dl/android/studio/ide-zips/[\d\.]+/android-studio-ide-([\d\.]+)-(.*)$"
+                                pattern="^(.*)https?://dl\.google\.com/dl/android/studio/ide-zips/[\d\.]+/android-studio-ide-([\d\.]+)-(.*)$"
                                 replace="\2" flags="s"/>
                         </tokenfilter>
                     </filterchain>
