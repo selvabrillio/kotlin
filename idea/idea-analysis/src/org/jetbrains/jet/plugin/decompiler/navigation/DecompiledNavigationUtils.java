@@ -66,14 +66,9 @@ public final class DecompiledNavigationUtils {
         if (!(psiFile instanceof JetClsFile)) {
             return null;
         }
-        JetDeclaration jetDeclaration = ((JetClsFile) psiFile).getDeclarationForDescriptor(effectiveReferencedDescriptor);
-        if (jetDeclaration != null) {
-            return jetDeclaration;
-        }
-        else {
-            LOG.warn("Could not find an element to navigate to for descriptor " + getFqName(effectiveReferencedDescriptor));
-        }
-        return null;
+
+        // Decompiled file can produce null in searching for original element for descriptor found in correspondent attached source file
+        return ((JetClsFile) psiFile).getDeclarationForDescriptor(effectiveReferencedDescriptor);
     }
 
     //TODO: should be done via some generic mechanism
