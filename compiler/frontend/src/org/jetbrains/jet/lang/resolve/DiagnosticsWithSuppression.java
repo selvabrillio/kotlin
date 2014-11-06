@@ -17,6 +17,8 @@
 package org.jetbrains.jet.lang.resolve;
 
 import com.google.common.collect.ImmutableSet;
+import com.intellij.openapi.application.Application;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.extensions.ExtensionPointName;
 import com.intellij.openapi.extensions.Extensions;
@@ -40,14 +42,42 @@ import org.jetbrains.jet.lang.resolve.constants.CompileTimeConstant;
 import org.jetbrains.jet.lang.resolve.constants.StringValue;
 import org.jetbrains.jet.lang.types.lang.KotlinBuiltIns;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 public class DiagnosticsWithSuppression implements Diagnostics {
 
     private static final Logger LOG = Logger.getInstance(DiagnosticsWithSuppression.class);
 
-    private static final SuppressStringProvider[] ADDITIONAL_SUPPRESS_STRING_PROVIDERS = Extensions.getExtensions(SuppressStringProvider.EP_NAME);
-    private static final DiagnosticSuppressor[] DIAGNOSTIC_SUPPRESSORS = Extensions.getExtensions(DiagnosticSuppressor.EP_NAME);
+    private static Application app = null;
+    @NotNull
+    private static SuppressStringProvider[] ADDITIONAL_SUPPRESS_STRING_PROVIDERS = new SuppressStringProvider[] {};
+    @NotNull
+    private static DiagnosticSuppressor[] DIAGNOSTIC_SUPPRESSORS = new DiagnosticSuppressor[] {};
+
+    private static SuppressStringProvider[] getAdditionalSuppressStringProviders() {
+        resetExtensionsIfNeed();
+        return ADDITIONAL_SUPPRESS_STRING_PROVIDERS;
+    }
+
+    private static DiagnosticSuppressor[] getDiagnosticSuppressors() {
+        resetExtensionsIfNeed();
+        return DIAGNOSTIC_SUPPRESSORS;
+    }
+
+    private static void resetExtensionsIfNeed() {
+        if (app != null && !app.isUnitTestMode()) return;
+
+        Application newApp = ApplicationManager.getApplication();
+        if (app == newApp) return;
+
+        app = newApp;
+
+        ADDITIONAL_SUPPRESS_STRING_PROVIDERS = Extensions.getExtensions(SuppressStringProvider.EP_NAME);
+        DIAGNOSTIC_SUPPRESSORS = Extensions.getExtensions(DiagnosticSuppressor.EP_NAME);
+    }
 
     private final BindingContext context;
     private final Collection<Diagnostic> diagnostics;
@@ -100,7 +130,7 @@ public class DiagnosticsWithSuppression implements Diagnostics {
     private boolean isSuppressed(@NotNull Diagnostic diagnostic) {
         PsiElement element = diagnostic.getPsiElement();
 
-        for (DiagnosticSuppressor suppressor : DIAGNOSTIC_SUPPRESSORS) {
+        for (DiagnosticSuppressor suppressor : getDiagnosticSuppressors()) {
             if (suppressor.isSuppressed(diagnostic)) return true;
         }
 
@@ -186,7 +216,7 @@ public class DiagnosticsWithSuppression implements Diagnostics {
             AnnotationDescriptor annotationDescriptor = context.get(BindingContext.ANNOTATION, annotationEntry);
             if (annotationDescriptor == null) continue;
 
-            for (SuppressStringProvider suppressStringProvider : ADDITIONAL_SUPPRESS_STRING_PROVIDERS) {
+            for (SuppressStringProvider suppressStringProvider : getAdditionalSuppressStringProviders()) {
                 String suppressString = suppressStringProvider.get(annotationDescriptor);
                 if (suppressString != null) {
                     builder.add(suppressString);
