@@ -3044,7 +3044,7 @@ public class ExpressionCodegen extends JetVisitor<StackValue, StackValue> implem
         if (Boolean.TRUE.equals(bindingContext.get(VARIABLE_REASSIGNMENT, expression))) {
             if (callable instanceof IntrinsicMethod) {
                 StackValue value = gen(lhs);              // receiver
-                value = StackValue.complexReceiver(value, StackValue.RECEIVER_WRITE, StackValue.RECEIVER_READ);
+                value = StackValue.complexWriteReadReceiver(value);
 
                 value.put(lhsType, v);                    // receiver lhs
                 Type returnType = typeMapper.mapType(descriptor);
@@ -3075,7 +3075,7 @@ public class ExpressionCodegen extends JetVisitor<StackValue, StackValue> implem
     ) {
         StackValue value = gen(expression.getLeft());
         if (keepReturnValue) {
-            value = StackValue.complexReceiver(value, StackValue.RECEIVER_WRITE, StackValue.RECEIVER_READ);
+            value = StackValue.complexWriteReadReceiver(value);
             //value.putWriteReadReceiver(v);
         }
         value.put(lhsType, v);
@@ -3084,7 +3084,7 @@ public class ExpressionCodegen extends JetVisitor<StackValue, StackValue> implem
         invokeMethodWithArguments(callable, resolvedCall, receiver);
 
         if (keepReturnValue) {
-            value.store(callable.getReturnType(), v);
+            value.store(StackValue.onStack(callable.getReturnType()), v, true);
         }
     }
 
@@ -3211,12 +3211,12 @@ public class ExpressionCodegen extends JetVisitor<StackValue, StackValue> implem
             @Override
             public Unit invoke(InstructionAdapter adapter) {
                 StackValue value = gen(expression.getBaseExpression());
-                value = StackValue.complexReceiver(value, StackValue.RECEIVER_WRITE, StackValue.RECEIVER_READ);
+                value = StackValue.complexWriteReadReceiver(value);
 
                 Type type = expressionType(expression.getBaseExpression());
                 value.put(type, v); // old value
 
-                pushReceiverAndValueViaDup(value, type); // receiver and new value
+                value.dup(v, true);
 
                 Type storeType;
                 if (isPrimitiveNumberClassDescriptor && AsmUtil.isPrimitive(asmBaseType)) {
@@ -3229,14 +3229,10 @@ public class ExpressionCodegen extends JetVisitor<StackValue, StackValue> implem
                     storeType = result.type;
                 }
 
-                value.store(storeType, v);
+                value.store(StackValue.onStack(storeType), v, true);
                 return Unit.INSTANCE$;
             }
         });
-    }
-
-    private void pushReceiverAndValueViaDup(StackValue value, Type type) {
-        value.dup(v, true);
     }
 
     @Override
