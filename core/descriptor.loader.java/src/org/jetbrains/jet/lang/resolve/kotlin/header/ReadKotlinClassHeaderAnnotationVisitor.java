@@ -59,7 +59,7 @@ public class ReadKotlinClassHeaderAnnotationVisitor implements AnnotationVisitor
         }
 
         if (!AbiVersionUtil.isAbiVersionCompatible(version)) {
-            return new KotlinClassHeader(INCOMPATIBLE_ABI_VERSION, version, null, null);
+            return new KotlinClassHeader(INCOMPATIBLE_ABI_VERSION, version, null, syntheticClassKind);
         }
 
         if ((headerKind == CLASS || headerKind == PACKAGE_FACADE) && annotationData == null) {
