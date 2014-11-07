@@ -32,7 +32,7 @@ public final class EnclosedValueDescriptor {
     public EnclosedValueDescriptor(
             @NotNull String fieldName,
             @Nullable DeclarationDescriptor descriptor,
-            @Nullable StackValue.StackValueWithSimpleReceiver innerValue,
+            @NotNull StackValue.StackValueWithSimpleReceiver innerValue,
             @NotNull Type type
     ) {
         this.fieldName = fieldName;
@@ -51,7 +51,7 @@ public final class EnclosedValueDescriptor {
         return descriptor;
     }
 
-    @Nullable
+    @NotNull
     public StackValue.StackValueWithSimpleReceiver getInnerValue() {
         return innerValue;
     }
