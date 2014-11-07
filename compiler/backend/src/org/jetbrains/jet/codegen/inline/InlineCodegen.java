@@ -331,23 +331,17 @@ public class InlineCodegen implements CallGenerator {
         //skip direct capturing fields
         StackValue receiver = null;
         if (stackValue instanceof StackValue.Field) {
-            if (((StackValue.Field) stackValue).name.equals("this$0")) return true;
             receiver = ((StackValue.Field) stackValue).receiver;
         } else if(stackValue instanceof StackValue.FieldForSharedVar) {
-            receiver = ((StackValue.Field)((StackValue.FieldForSharedVar) stackValue).receiver).receiver;
+            receiver = ((StackValue.Field) ((StackValue.FieldForSharedVar) stackValue).receiver).receiver;
         }
 
-
-        if (receiver instanceof StackValue.Local) {
-            //see: Method.isSpecialStackValue: go through aload 0
-            if (codegen.getContext().isInliningLambda() && codegen.getContext().getContextDescriptor() instanceof AnonymousFunctionDescriptor) {
-                if (descriptor != null && !InlineUtil.hasNoinlineAnnotation(descriptor)) {
-                    //TODO: check type of context
-                    return false;
-                }
-            }
+        if (!(receiver instanceof StackValue.Local)) {
+            return true;
         }
-        return true;
+
+        //TODO: check type of context
+        return !(codegen.getContext().isInliningLambda() && descriptor != null && !InlineUtil.hasNoinlineAnnotation(descriptor));
     }
 
     private void putParameterOnStack(ParameterInfo... infos) {
