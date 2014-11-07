@@ -38,7 +38,7 @@ abstract class TypeInfo(val variance: Variance) {
                 builder.currentFileContext[BindingContext.TYPE, typeReference].getPossibleSupertypes(variance)
     }
 
-    class ByType(val theType: JetType, variance: Variance, val keepUnsubstituted: Boolean = false): TypeInfo(variance) {
+    class ByType(val theType: JetType, variance: Variance): TypeInfo(variance) {
         override fun getPossibleTypes(builder: CallableBuilder): List<JetType> =
                 theType.getPossibleSupertypes(variance)
     }
@@ -48,6 +48,14 @@ abstract class TypeInfo(val variance: Variance) {
                 (builder.placement as CallablePlacement.WithReceiver).receiverTypeCandidate.theType.getPossibleSupertypes(variance)
     }
 
+    abstract class DelegatingTypeInfo(val delegate: TypeInfo): TypeInfo(delegate.variance) {
+        override val possibleNamesFromExpression: Array<String> get() = delegate.possibleNamesFromExpression
+        override fun getPossibleTypes(builder: CallableBuilder): List<JetType> = delegate.getPossibleTypes(builder)
+    }
+
+    class NoSubstitutions(delegate: TypeInfo): DelegatingTypeInfo(delegate)
+
+    open val subtitutionsAllowed: Boolean = true
     open val possibleNamesFromExpression: Array<String> get() = ArrayUtil.EMPTY_STRING_ARRAY
     abstract fun getPossibleTypes(builder: CallableBuilder): List<JetType>
 
@@ -64,6 +72,8 @@ abstract class TypeInfo(val variance: Variance) {
 fun TypeInfo(expressionOfType: JetExpression, variance: Variance): TypeInfo = TypeInfo.ByExpression(expressionOfType, variance)
 fun TypeInfo(typeReference: JetTypeReference, variance: Variance): TypeInfo = TypeInfo.ByTypeReference(typeReference, variance)
 fun TypeInfo(theType: JetType, variance: Variance): TypeInfo = TypeInfo.ByType(theType, variance)
+
+fun TypeInfo.substitutionFree(): TypeInfo = (this as? TypeInfo.NoSubstitutions) ?: TypeInfo.NoSubstitutions(this)
 
 /**
  * Encapsulates information about a function parameter that is going to be created.
