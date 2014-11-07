@@ -1478,6 +1478,12 @@ public class BlackBoxWithStdlibCodegenTestGenerated extends AbstractBlackBoxCode
             doTestWithStdlib(fileName);
         }
 
+        @TestMetadata("safeAssignComplex.kt")
+        public void testSafeAssignComplex() throws Exception {
+            String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/boxWithStdlib/lazyCodegen/safeAssignComplex.kt");
+            doTestWithStdlib(fileName);
+        }
+
         @TestMetadata("safeCallAndArray.kt")
         public void testSafeCallAndArray() throws Exception {
             String fileName = JetTestUtils.navigationMetadata("compiler/testData/codegen/boxWithStdlib/lazyCodegen/safeCallAndArray.kt");
