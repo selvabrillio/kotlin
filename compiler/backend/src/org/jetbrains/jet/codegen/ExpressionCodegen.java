@@ -2104,13 +2104,13 @@ public class ExpressionCodegen extends JetVisitor<StackValue, StackValue> implem
         result.put(result.type, v);
     }
 
-    public void invokeFunctionNotLazy(@NotNull final Call call, @NotNull final ResolvedCall<?> resolvedCall, @NotNull final StackValue receiver) {
+    public void invokeFunctionNotLazy(@NotNull Call call, @NotNull ResolvedCall<?> resolvedCall, @NotNull StackValue receiver) {
         StackValue result = invokeFunction(call, resolvedCall, receiver);
         result.put(result.type, v);
     }
 
     @NotNull
-    public StackValue invokeFunction(@NotNull final Call call, @NotNull final ResolvedCall<?> resolvedCall, @NotNull final StackValue receiver) {
+    public StackValue invokeFunction(@NotNull Call call, @NotNull final ResolvedCall<?> resolvedCall, @NotNull final StackValue receiver) {
         if (resolvedCall instanceof VariableAsFunctionResolvedCall) {
             return invokeFunction(call, ((VariableAsFunctionResolvedCall) resolvedCall).getFunctionCall(), receiver);
         }
