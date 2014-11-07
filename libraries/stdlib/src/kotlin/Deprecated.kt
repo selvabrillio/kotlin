@@ -49,3 +49,6 @@ public fun <T> Iterable<T>.containsItem(item : T) : Boolean = contains(item)
 
 deprecated("Use sortBy() instead")
 public fun <T> Iterable<T>.sort(comparator: java.util.Comparator<T>) : List<T> = sortBy(comparator)
+
+deprecated("Use compareValuesBy() instead")
+public fun <T : Any> compareBy(a: T?, b: T?, vararg functions: (T) -> Comparable<*>?): Int = compareValuesBy(a, b, *functions)
