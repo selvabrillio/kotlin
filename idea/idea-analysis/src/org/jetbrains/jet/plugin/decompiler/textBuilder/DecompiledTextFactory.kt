@@ -33,6 +33,8 @@ import org.jetbrains.jet.lang.resolve.dataClassUtils.isComponentLike
 import org.jetbrains.jet.plugin.util.IdeDescriptorRenderers
 import org.jetbrains.jet.lang.types.isFlexible
 import org.jetbrains.jet.lang.resolve.java.JvmAbi
+import org.jetbrains.jet.lang.resolve.kotlin.header.isCompatiblePackageFacadeKind
+import org.jetbrains.jet.lang.resolve.kotlin.header.isCompatibleClassKind
 
 private val FILE_ABI_VERSION_MARKER: String = "FILE_ABI"
 private val CURRENT_ABI_VERSION_MARKER: String = "CURRENT_ABI"
@@ -55,17 +57,17 @@ public fun buildDecompiledText(
     val kind = classHeader.kind
     val packageFqName = classId.getPackageFqName()
 
-    return when (kind) {
-        KotlinClassHeader.Kind.PACKAGE_FACADE ->
-            buildDecompiledText(packageFqName, ArrayList(resolver.resolveDeclarationsInPackage(packageFqName)))
-        KotlinClassHeader.Kind.CLASS ->
-            buildDecompiledText(packageFqName, listOf(resolver.resolveTopLevelClass(classId)).filterNotNull())
-        KotlinClassHeader.Kind.INCOMPATIBLE_ABI_VERSION ->
+    return when {
+        !classHeader.isCompatibleAbiVersion ->
             DecompiledText(
                     INCOMPATIBLE_ABI_VERSION_COMMENT
                             .replaceAll(CURRENT_ABI_VERSION_MARKER, JvmAbi.VERSION.toString())
                             .replaceAll(FILE_ABI_VERSION_MARKER, classHeader.version.toString()),
                     mapOf())
+        classHeader.isCompatiblePackageFacadeKind() ->
+            buildDecompiledText(packageFqName, ArrayList(resolver.resolveDeclarationsInPackage(packageFqName)))
+        classHeader.isCompatibleClassKind() ->
+            buildDecompiledText(packageFqName, listOf(resolver.resolveTopLevelClass(classId)).filterNotNull())
         else ->
             throw UnsupportedOperationException("Unknown header kind: " + kind)
     }

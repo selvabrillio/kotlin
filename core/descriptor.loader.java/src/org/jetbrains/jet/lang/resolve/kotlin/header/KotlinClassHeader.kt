@@ -22,10 +22,11 @@ public class KotlinClassHeader(
         public val kind: KotlinClassHeader.Kind,
         public val version: Int,
         public val annotationData: Array<String>?,
-        public val syntheticClassKind: KotlinSyntheticClass.Kind?
+        public val syntheticClassKind: KotlinSyntheticClass.Kind?,
+        public val isCompatibleAbiVersion: Boolean = true
 ) {
     {
-        assert((annotationData == null) == (kind != Kind.CLASS && kind != Kind.PACKAGE_FACADE)) {
+        assert((annotationData == null) == (!isCompatibleAbiVersion || (kind != Kind.CLASS && kind != Kind.PACKAGE_FACADE))) {
             "Annotation data should be not null only for CLASS and PACKAGE_FACADE (kind=" + kind + ")"
         }
         assert(kind != Kind.SYNTHETIC_CLASS || syntheticClassKind != null) {
@@ -34,9 +35,23 @@ public class KotlinClassHeader(
     }
 
     public enum class Kind {
-        INCOMPATIBLE_ABI_VERSION
         CLASS
         PACKAGE_FACADE
         SYNTHETIC_CLASS
     }
 }
+
+fun KotlinClassHeader.isCompatibleClassKind() = isCompatibleAbiVersion && kind == KotlinClassHeader.Kind.CLASS
+fun KotlinClassHeader.isCompatiblePackageFacadeKind() = isCompatibleAbiVersion && kind == KotlinClassHeader.Kind.PACKAGE_FACADE
+fun KotlinClassHeader.isCompatibleSyntheticClassKind() = isCompatibleAbiVersion && kind == KotlinClassHeader.Kind.SYNTHETIC_CLASS
+
+fun CompatibleClassHeader(
+        kind: KotlinClassHeader.Kind,
+        version: Int,
+        annotationData: Array<String>?,
+        syntheticClassKind: KotlinSyntheticClass.Kind?) = KotlinClassHeader(kind, version, annotationData, syntheticClassKind, true)
+
+fun IncompatibleClassHeader(
+        kind: KotlinClassHeader.Kind,
+        version: Int,
+        syntheticClassKind: KotlinSyntheticClass.Kind?) = KotlinClassHeader(kind, version, null, syntheticClassKind, false)

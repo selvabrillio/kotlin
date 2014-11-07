@@ -38,13 +38,6 @@ public class ReadKotlinClassHeaderAnnotationVisitor implements AnnotationVisitor
         HEADER_KINDS.put(JvmClassName.byFqNameWithoutInnerClasses(KOTLIN_CLASS), CLASS);
         HEADER_KINDS.put(JvmClassName.byFqNameWithoutInnerClasses(KOTLIN_PACKAGE), PACKAGE_FACADE);
         HEADER_KINDS.put(KotlinSyntheticClass.CLASS_NAME, SYNTHETIC_CLASS);
-
-        @SuppressWarnings("deprecation")
-        List<FqName> incompatible = Arrays.asList(OLD_JET_CLASS_ANNOTATION, OLD_JET_PACKAGE_CLASS_ANNOTATION, OLD_KOTLIN_CLASS,
-                                                  OLD_KOTLIN_PACKAGE, OLD_KOTLIN_PACKAGE_FRAGMENT, OLD_KOTLIN_TRAIT_IMPL);
-        for (FqName fqName : incompatible) {
-            HEADER_KINDS.put(JvmClassName.byFqNameWithoutInnerClasses(fqName), INCOMPATIBLE_ABI_VERSION);
-        }
     }
 
     private int version = AbiVersionUtil.INVALID_VERSION;
@@ -59,7 +52,7 @@ public class ReadKotlinClassHeaderAnnotationVisitor implements AnnotationVisitor
         }
 
         if (!AbiVersionUtil.isAbiVersionCompatible(version)) {
-            return new KotlinClassHeader(INCOMPATIBLE_ABI_VERSION, version, null, syntheticClassKind);
+            return HeaderPackage.IncompatibleClassHeader(headerKind, version, syntheticClassKind);
         }
 
         if ((headerKind == CLASS || headerKind == PACKAGE_FACADE) && annotationData == null) {
@@ -68,20 +61,20 @@ public class ReadKotlinClassHeaderAnnotationVisitor implements AnnotationVisitor
             return null;
         }
 
-        return new KotlinClassHeader(headerKind, version, annotationData, syntheticClassKind);
+        return HeaderPackage.CompatibleClassHeader(headerKind, version, annotationData, syntheticClassKind);
     }
 
     @Nullable
     @Override
     public AnnotationArgumentVisitor visitAnnotation(@NotNull ClassId classId) {
-        JvmClassName annotation = JvmClassName.byClassId(classId);
-        KotlinClassHeader.Kind newKind = HEADER_KINDS.get(annotation);
-        if (newKind == null) return null;
-
         if (headerKind != null) {
             // Ignore all Kotlin annotations except the first found
             return null;
         }
+
+        JvmClassName annotation = JvmClassName.byClassId(classId);
+        KotlinClassHeader.Kind newKind = HEADER_KINDS.get(annotation);
+        if (newKind == null) return null;
 
         headerKind = newKind;
 
@@ -145,6 +138,7 @@ public class ReadKotlinClassHeaderAnnotationVisitor implements AnnotationVisitor
 
                     @Override
                     public void visitEnd() {
+                        //noinspection SSBasedInspection
                         annotationData = strings.toArray(new String[strings.size()]);
                     }
                 };
