@@ -114,7 +114,7 @@ class KDocConfig() {
 
 private object LongestFirstStringComparator : Comparator<String> {
     override fun compare(o1: String, o2: String): Int {
-        return compareBy<String>(o1, o2, { it.length() }, { this })
+        return compareBy<String>(o1, o2, { it.length() }, { it })
     }
 
     override fun equals(other: Any?): Boolean {
