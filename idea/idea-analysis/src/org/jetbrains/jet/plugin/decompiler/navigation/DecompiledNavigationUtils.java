@@ -67,7 +67,6 @@ public final class DecompiledNavigationUtils {
             return null;
         }
 
-        // Decompiled file can produce null in searching for original element for descriptor found in correspondent attached source file
         return ((JetClsFile) psiFile).getDeclarationForDescriptor(effectiveReferencedDescriptor);
     }
 
