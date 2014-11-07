@@ -28,7 +28,7 @@ public class KotlinClassHeader(
         assert((annotationData == null) == (kind != Kind.CLASS && kind != Kind.PACKAGE_FACADE)) {
             "Annotation data should be not null only for CLASS and PACKAGE_FACADE (kind=" + kind + ")"
         }
-        assert((syntheticClassKind == null) == (kind != Kind.SYNTHETIC_CLASS)) {
+        assert(kind != Kind.SYNTHETIC_CLASS || syntheticClassKind != null) {
             "Synthetic class kind should be present for SYNTHETIC_CLASS (kind=" + kind + ")"
         }
     }
