@@ -19,6 +19,7 @@ package org.jetbrains.k2js.config;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Key;
+import com.intellij.openapi.util.io.JarUtil;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.openapi.vfs.*;
 import com.intellij.psi.PsiFile;
@@ -32,7 +33,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.jar.Attributes;
 
+import static org.jetbrains.jet.utils.LibraryUtils.isKotlinJavascriptLibrary;
 import static org.jetbrains.jet.utils.LibraryUtils.isKotlinJavascriptStdLibrary;
 
 public class LibrarySourcesConfig extends Config {
@@ -88,9 +91,13 @@ public class LibrarySourcesConfig extends Config {
 
             if (path.endsWith(".jar") || path.endsWith(".zip")) {
                 file = jarFileSystem.findFileByPath(path + URLUtil.JAR_SEPARATOR);
+                File filePath = new File(path);
 
-                if (isKotlinJavascriptStdLibrary(new File(path))) {
+                if (isKotlinJavascriptStdLibrary(filePath)) {
                     actualModuleName = STDLIB_JS_MODULE_NAME;
+                }
+                else if (isKotlinJavascriptLibrary(filePath)) {
+                    actualModuleName = JarUtil.getJarAttribute(filePath, Attributes.Name.IMPLEMENTATION_TITLE);
                 }
             }
             else {
